@@ -2,11 +2,11 @@ package application.model;
 
 public class Mark {
 
-    private String mark;
+    private String markNavn;
     private boolean økologisk;
 
-    public Mark(String mark, boolean økologisk) {
-        this.mark = mark;
+    public Mark(String markNavn, boolean økologisk) {
+        this.markNavn = markNavn;
         this.økologisk = økologisk;
     }
 }
