@@ -26,4 +26,9 @@ public class Korn {
     public Mark getMark() {
         return mark;
     }
+
+    @Override
+    public String toString() {
+        return sort + " høstet d. " + høstdag.getDayOfMonth() + "-" + høstdag.getMonthValue() + "-" + høstdag.getYear() + " fra " + mark;
+    }
 }

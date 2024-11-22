@@ -9,4 +9,9 @@ public class Mark {
         this.markNavn = markNavn;
         this.økologisk = økologisk;
     }
+
+    @Override
+    public String toString() {
+        return markNavn + (økologisk? " økologisk mark" : " ikke økologisk mark");
+    }
 }
