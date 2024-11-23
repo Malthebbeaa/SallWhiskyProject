@@ -1,4 +1,4 @@
 package gui;
 
-public class gui {
+public class gui{
 }
