@@ -1,12 +1,10 @@
 package application.controller;
 
-import application.model.Korn;
-import application.model.Maltbatch;
-import application.model.Mark;
-import application.model.Rygemateriale;
+import application.model.*;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Controller {
     private StorageInterface storage;
@@ -34,5 +32,22 @@ public class Controller {
     public Rygemateriale opretRygemateriale(String type){
         Rygemateriale rygemateriale = new Rygemateriale(type);
         return rygemateriale;
+    }
+
+    public Destillering opretDestillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
+                        double væskeMængde, double alkoholProcent, List<Maltbatch> maltbatches) {
+        Destillering destillering = new Destillering(antalDistilleringer, startDato, slutDato,
+                væskeMængde, alkoholProcent, maltbatches);
+        storage.addDestillering(destillering);
+
+        return destillering;
+    }
+
+    public void tilføjKommentarTilDestillering(String kommentarTekst, Destillering destillering){
+        Kommentar kommentar = new Kommentar(kommentarTekst);
+        if (kommentar != null){
+            destillering.setKommentar(kommentar);
+        }
+
     }
 }
