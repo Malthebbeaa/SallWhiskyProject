@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import storage.Storage;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 public class gui extends Application {
     private Scene scene;
     private GridPane startPane;
+    private StorageInterface storage;
 
     @Override
     public void start(Stage stage){
@@ -28,6 +30,8 @@ public class gui extends Application {
         startPane = new GridPane();
 
         initContent(startPane);
+
+        storage = new Storage();
 
         startPane.setPrefWidth(800);
         startPane.setPrefHeight(600);
@@ -49,10 +53,18 @@ public class gui extends Application {
         Button btnOpretMaltbatch = new Button("Opret Maltbatch");
         btnOpretMaltbatch.setOnAction(e -> opretMaltbatchAction());
         vboxButtons.getChildren().add(btnOpretMaltbatch);
+
+        Button btnOpretDestillering = new Button("Opret Destillering");
+        btnOpretDestillering.setOnAction(e -> opretDestilleringAction());
+        vboxButtons.getChildren().add(btnOpretDestillering);
     }
 
     public void opretMaltbatchAction(){
        MaltbatchWindow dia = new MaltbatchWindow(startPane, scene);
        scene.setRoot(dia.getMaltPane());
+    }
+    public void opretDestilleringAction(){
+        DestilleringWindow dia = new DestilleringWindow(startPane, scene, storage);
+        scene.setRoot(dia.getDestilleringPane());
     }
 }
