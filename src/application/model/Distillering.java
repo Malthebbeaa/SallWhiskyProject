@@ -29,4 +29,38 @@ public class Distillering {
         this.kommentar = kommentar;
     }
 
+    public int getAntalDistilleringer() {
+        return antalDistilleringer;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public double getVæskeMængde() {
+        return væskeMængde;
+    }
+    public void setVæskeMængde(double nyMængde){
+        this.væskeMængde = nyMængde;
+    }
+
+    public double getAlkoholProcent() {
+        return alkoholProcent;
+    }
+
+    public void setAlkoholProcent(double nyAlkoholProcent){
+        this.alkoholProcent = nyAlkoholProcent;
+    }
+
+    public List<Maltbatch> getMaltbatches() {
+        return maltbatches;
+    }
+
+    public Kommentar getKommentar() {
+        return kommentar;
+    }
 }
