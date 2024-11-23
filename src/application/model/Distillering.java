@@ -1,23 +1,24 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Distillering {
     private int antalDistilleringer;
     private LocalDate startDato, slutDato;
     private double væskeMængde;
     private double alkoholProcent;
-    private Maltbatch maltBatch;
+    private List<Maltbatch> maltbatches;
     private Kommentar kommentar;
 
     public Distillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
-                        double væskeMængde, double alkoholProcent, Maltbatch maltBatch) {
+                        double væskeMængde, double alkoholProcent, List<Maltbatch> maltbatches) {
         this.antalDistilleringer = antalDistilleringer;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.væskeMængde = væskeMængde;
         this.alkoholProcent = alkoholProcent;
-        this.maltBatch = maltBatch;
+        this.maltbatches = maltbatches;
     }
 
     /***
