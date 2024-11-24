@@ -5,7 +5,6 @@ import application.model.Destillering;
 import application.model.Korn;
 import application.model.Maltbatch;
 import application.model.Mark;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,7 +21,7 @@ public class DestilleringWindow {
     private Controller controller;
     private DatePicker datepickerstartDato, datepickerSlutDato;
     private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer;
-    private ComboBox dropdownMaltbatches;
+    private ListView listviewMaltbatches;
 
 
     public DestilleringWindow(GridPane startPane, Scene scene, StorageInterface storage) {
@@ -40,12 +39,15 @@ public class DestilleringWindow {
         destilleringPane.setPadding(new Insets(20));
 
         Label lblMaltbatch = new Label("Maltbatch(es): ");
-        dropdownMaltbatches = new ComboBox<>();
+        listviewMaltbatches = new ListView<>();
         Mark nybogård = new Mark("Nybogård", true);
         Korn evergreen = new Korn(LocalDate.now(), "Evergreen", nybogård);
-        dropdownMaltbatches.getItems().addAll(new Maltbatch("FM2232", 300,evergreen), new Maltbatch("FM2333", 1000,evergreen));
+        listviewMaltbatches.getItems().addAll(new Maltbatch("FM2232", 300,evergreen), new Maltbatch("FM2333", 1000,evergreen), new Maltbatch("FM2032", 2300,evergreen));
+        listviewMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listviewMaltbatches.setPrefHeight(50);
+        listviewMaltbatches.setPrefWidth(200);
         destilleringPane.add(lblMaltbatch, 0,0);
-        destilleringPane.add(dropdownMaltbatches, 1,0);
+        destilleringPane.add(listviewMaltbatches, 1,0);
 
         Label lblAntalDestilleringer = new Label("Antal destilleringer: ");
         txfAntalDestilleringer = new TextField();
@@ -88,11 +90,10 @@ public class DestilleringWindow {
         LocalDate slutDato = datepickerSlutDato.getValue();
         double alkoholProcent = Double.parseDouble(txfAlkoholProcent.getText());
         double væskeMængde = Double.parseDouble(txfVæskeMængde.getText());
-        List<Maltbatch> maltbatches = dropdownMaltbatches.getItems();
+        List<Maltbatch> maltbatches = listviewMaltbatches.getItems();
 
 
         Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatches);
-        System.out.println(destillering.getVæskeMængde());
     }
 
     public GridPane getDestilleringPane() {

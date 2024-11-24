@@ -31,4 +31,9 @@ public class Maltbatch {
             this.rygemateriale = rygemateriale;
         }
     }
+
+    @Override
+    public String toString() {
+        return batchNummer + ", " + mængde + "kg, " + ", " + korn.getSort();
+    }
 }
