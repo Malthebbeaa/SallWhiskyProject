@@ -42,7 +42,9 @@ public class DestilleringWindow {
         listviewMaltbatches = new ListView<>();
         Mark nybogård = new Mark("Nybogård", true);
         Korn evergreen = new Korn(LocalDate.now(), "Evergreen", nybogård);
-        listviewMaltbatches.getItems().addAll(new Maltbatch("FM2232", 300,evergreen), new Maltbatch("FM2333", 1000,evergreen), new Maltbatch("FM2032", 2300,evergreen));
+        listviewMaltbatches.getItems().addAll(new Maltbatch("FM2232", 300,evergreen),
+                new Maltbatch("FM2333", 1000,evergreen),
+                new Maltbatch("FM2032", 2300,evergreen));
         listviewMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         listviewMaltbatches.setPrefHeight(50);
         listviewMaltbatches.setPrefWidth(200);
