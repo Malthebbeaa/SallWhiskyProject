@@ -40,9 +40,7 @@ public class DestilleringWindow {
 
         Label lblMaltbatch = new Label("Maltbatch: ");
         comboBoxMaltbatch = new ComboBox();
-        Mark nybogård = new Mark("Nybogård", true);
-        Korn evergreen = new Korn(LocalDate.now(), "Evergreen", nybogård);
-        comboBoxMaltbatch.getItems().addAll(new Maltbatch("FM2232", 300,evergreen), new Maltbatch("FM2333", 1000,evergreen), new Maltbatch("FM2032", 2300,evergreen));
+        comboBoxMaltbatch.getItems().addAll(controller.getStorage().getMaltbatches());
         comboBoxMaltbatch.getSelectionModel().selectFirst();
         destilleringPane.add(lblMaltbatch, 0,0);
         destilleringPane.add(comboBoxMaltbatch, 1,0);
