@@ -60,12 +60,10 @@ public class gui extends Application {
         Mark kvolbæk = controller.opretMark("Kvolbæk", true);
         Mark stadsgaard = controller.opretMark("Stadsgaard", true);
 
-        Korn evergreen = controller.opretKorn(LocalDate.now(), "Vårbyg", kvolbæk);
+        Korn evergreen = controller.opretKorn(LocalDate.now(), "Evergreen", kvolbæk);
         Korn irina = controller.opretKorn(LocalDate.of(2024,11, 22),"Irina",stadsgaard);
 
         Maltbatch maltbatch1 = controller.opretMaltbatch("NM80P", 500, evergreen);
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
     }
-
-
 }
