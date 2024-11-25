@@ -50,7 +50,7 @@ public class MaltbatchWindow {
         GridPane markPane = new GridPane();
         Label lblVælgMark = new Label("Vælg Mark:");
         markPane.add(lblVælgMark,0,0);
-        cbMark = new ComboBox<Mark>();
+        cbMark = new ComboBox<>();
         cbMark.getItems().addAll(controller.getStorage().getMarker());
         markPane.add(cbMark,1,0);
         Label lblMarkNavn = new Label("Marknavn:");
@@ -70,7 +70,7 @@ public class MaltbatchWindow {
         GridPane kornPane = new GridPane();
         Label lblVælgKorn = new Label("Vælg Korn:");
         kornPane.add(lblVælgKorn,0,0);
-        cbKorn = new ComboBox<Korn>();
+        cbKorn = new ComboBox<>();
         cbKorn.getItems().addAll(controller.getStorage().getKorn());
         kornPane.add(cbKorn,1,0);
         Label lblSort = new Label("Sort:");
