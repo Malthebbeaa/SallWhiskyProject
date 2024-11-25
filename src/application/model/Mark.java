@@ -14,4 +14,12 @@ public class Mark {
     public String toString() {
         return markNavn + (økologisk? " økologisk mark" : " ikke økologisk mark");
     }
+
+    public String getMarkNavn() {
+        return markNavn;
+    }
+
+    public boolean isØkologisk() {
+        return økologisk;
+    }
 }
