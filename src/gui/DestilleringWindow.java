@@ -20,7 +20,7 @@ public class DestilleringWindow {
     private StorageInterface storage;
     private Controller controller;
     private DatePicker datepickerstartDato, datepickerSlutDato;
-    private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer;
+    private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer, txfKommentar;
     private ComboBox comboBoxMaltbatch;
 
 
@@ -70,14 +70,18 @@ public class DestilleringWindow {
         txfAlkoholProcent = new TextField();
         destilleringPane.add(txfAlkoholProcent, 3,2);
 
+        Label lblKommentar = new Label("Evt. kommentar: ");
+        destilleringPane.add(lblKommentar, 0,3);
+        txfKommentar = new TextField();
+        destilleringPane.add(txfKommentar, 1,3, 3,1);
 
         Button btnOpret = new Button("Opret Destillering");
         btnOpret.setOnAction(e -> opretAction());
-        destilleringPane.add(btnOpret, 0,3);
+        destilleringPane.add(btnOpret, 0,4);
 
         Button btnAfbryd = new Button("Afbryd");
         btnAfbryd.setOnAction(e -> afbrydAction());
-        destilleringPane.add(btnAfbryd,1,3);
+        destilleringPane.add(btnAfbryd,1,4);
     }
 
     private void opretAction() {
@@ -88,8 +92,13 @@ public class DestilleringWindow {
         double væskeMængde = Double.parseDouble(txfVæskeMængde.getText());
         Maltbatch maltbatch = (Maltbatch) comboBoxMaltbatch.getValue();
 
-
         Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatch);
+
+        if (txfKommentar.getText() != null){
+            controller.tilføjKommentarTilDestillering(txfKommentar.getText(), destillering);
+        }
+
+        afbrydAction();
     }
 
     public GridPane getDestilleringPane() {
@@ -105,5 +114,6 @@ public class DestilleringWindow {
         txfAlkoholProcent.clear();
         txfVæskeMængde.clear();
         txfAntalDestilleringer.clear();
+        txfKommentar.clear();
     }
 }
