@@ -18,12 +18,17 @@ import storage.Storage;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class gui extends Application {
     private Scene scene;
     private GridPane startPane;
     private StorageInterface storage;
     private Controller controller;
+    private TabPaneGenerator tabPaneGenerator = new TabPaneGenerator();
+    private DestilleringWindow destilleringWindow;
+    private MaltbatchWindow maltbatchWindow;
 
     @Override
     public void start(Stage stage){
@@ -59,14 +64,28 @@ public class gui extends Application {
         Button btnOpretDestillering = new Button("Opret Destillering");
         btnOpretDestillering.setOnAction(e -> opretDestilleringAction());
         vboxButtons.getChildren().add(btnOpretDestillering);
+
+
+        Button buttonGenerator = new Button("Opret tabpanes");
+        buttonGenerator.setOnAction(e -> opretAction());
+        vboxButtons.getChildren().add(buttonGenerator);
+    }
+
+    private void opretAction() {
+        maltbatchWindow = new MaltbatchWindow(startPane, scene);
+        destilleringWindow = new DestilleringWindow(startPane, scene, controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getDestilleringPane(), maltbatchWindow.getMaltPane()));
+        tabPaneGenerator.generateTabPane(tabs, gridPanes);
+        scene.setRoot(tabPaneGenerator.getTabPane());
     }
 
     public void opretMaltbatchAction(){
-       MaltbatchWindow dia = new MaltbatchWindow(startPane, scene);
-       scene.setRoot(dia.getMaltPane());
+        maltbatchWindow = new MaltbatchWindow(startPane, scene);
+       scene.setRoot(maltbatchWindow.getMaltPane());
     }
     public void opretDestilleringAction(){
-        DestilleringWindow dia = new DestilleringWindow(startPane, scene, controller);
-        scene.setRoot(dia.getDestilleringPane());
+        destilleringWindow = new DestilleringWindow(startPane, scene, controller);
+        scene.setRoot(destilleringWindow.getDestilleringPane());
     }
 }
