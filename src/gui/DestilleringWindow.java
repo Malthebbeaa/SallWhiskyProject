@@ -21,7 +21,7 @@ public class DestilleringWindow {
     private Controller controller;
     private DatePicker datepickerstartDato, datepickerSlutDato;
     private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer;
-    private ListView listviewMaltbatches;
+    private ComboBox comboBoxMaltbatch;
 
 
     public DestilleringWindow(GridPane startPane, Scene scene, Controller controller) {
@@ -38,16 +38,14 @@ public class DestilleringWindow {
         destilleringPane.setVgap(10);
         destilleringPane.setPadding(new Insets(20));
 
-        Label lblMaltbatch = new Label("Maltbatch(es): ");
-        listviewMaltbatches = new ListView<>();
+        Label lblMaltbatch = new Label("Maltbatch: ");
+        comboBoxMaltbatch = new ComboBox();
         Mark nybogård = new Mark("Nybogård", true);
         Korn evergreen = new Korn(LocalDate.now(), "Evergreen", nybogård);
-        listviewMaltbatches.getItems().addAll(new Maltbatch("FM2232", 300,evergreen), new Maltbatch("FM2333", 1000,evergreen), new Maltbatch("FM2032", 2300,evergreen));
-        listviewMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        listviewMaltbatches.setPrefHeight(50);
-        listviewMaltbatches.setPrefWidth(200);
+        comboBoxMaltbatch.getItems().addAll(new Maltbatch("FM2232", 300,evergreen), new Maltbatch("FM2333", 1000,evergreen), new Maltbatch("FM2032", 2300,evergreen));
+        comboBoxMaltbatch.getSelectionModel().selectFirst();
         destilleringPane.add(lblMaltbatch, 0,0);
-        destilleringPane.add(listviewMaltbatches, 1,0);
+        destilleringPane.add(comboBoxMaltbatch, 1,0);
 
         Label lblAntalDestilleringer = new Label("Antal destilleringer: ");
         txfAntalDestilleringer = new TextField();
@@ -90,10 +88,10 @@ public class DestilleringWindow {
         LocalDate slutDato = datepickerSlutDato.getValue();
         double alkoholProcent = Double.parseDouble(txfAlkoholProcent.getText());
         double væskeMængde = Double.parseDouble(txfVæskeMængde.getText());
-        List<Maltbatch> maltbatches = listviewMaltbatches.getItems();
+        Maltbatch maltbatch = (Maltbatch) comboBoxMaltbatch.getValue();
 
 
-        Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatches);
+        Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatch);
     }
 
     public GridPane getDestilleringPane() {

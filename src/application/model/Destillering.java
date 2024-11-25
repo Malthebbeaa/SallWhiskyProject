@@ -8,17 +8,17 @@ public class Destillering {
     private LocalDate startDato, slutDato;
     private double væskeMængde;
     private double alkoholProcent;
-    private List<Maltbatch> maltbatches;
+    private Maltbatch maltbatch;
     private Kommentar kommentar;
 
     public Destillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
-                        double væskeMængde, double alkoholProcent, List<Maltbatch> maltbatches) {
+                        double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
         this.antalDistilleringer = antalDistilleringer;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.væskeMængde = væskeMængde;
         this.alkoholProcent = alkoholProcent;
-        this.maltbatches = maltbatches;
+        this.maltbatch = maltbatch;
     }
 
     /***
@@ -56,8 +56,8 @@ public class Destillering {
         this.alkoholProcent = nyAlkoholProcent;
     }
 
-    public List<Maltbatch> getMaltbatches() {
-        return maltbatches;
+    public Maltbatch getMaltbatch() {
+        return maltbatch;
     }
 
     public Kommentar getKommentar() {

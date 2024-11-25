@@ -35,9 +35,9 @@ public class Controller {
     }
 
     public Destillering opretDestillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
-                        double væskeMængde, double alkoholProcent, List<Maltbatch> maltbatches) {
+                        double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
         Destillering destillering = new Destillering(antalDistilleringer, startDato, slutDato,
-                væskeMængde, alkoholProcent, maltbatches);
+                væskeMængde, alkoholProcent, maltbatch);
         storage.addDestillering(destillering);
 
         return destillering;
