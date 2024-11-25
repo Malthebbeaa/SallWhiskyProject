@@ -21,11 +21,13 @@ public class Controller {
 
     public Mark opretMark(String markNavn, boolean økologisk){
         Mark mark = new Mark(markNavn, økologisk);
+        storage.addMark(mark);
         return mark;
     }
 
     public Korn opretKorn(LocalDate høstdag, String sort, Mark mark){
         Korn korn = new Korn(høstdag, sort, mark);
+        storage.addKorn(korn);
         return korn;
     }
 

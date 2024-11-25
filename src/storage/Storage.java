@@ -1,7 +1,9 @@
 package storage;
 
 import application.model.Destillering;
+import application.model.Korn;
 import application.model.Maltbatch;
+import application.model.Mark;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,8 @@ public class Storage implements StorageInterface{
 
     private ArrayList<Maltbatch> maltbatches = new ArrayList<>();
     private ArrayList<Destillering> destilleringer = new ArrayList<>();
+    private ArrayList<Korn> korns = new ArrayList<>();
+    private ArrayList<Mark> marker = new ArrayList<>();
 
 
     public void addMaltbatch(Maltbatch maltbatch){
@@ -19,6 +23,14 @@ public class Storage implements StorageInterface{
     @Override
     public void addDestillering(Destillering destillering) {
         destilleringer.add(destillering);
+    }
+
+    public void addMark(Mark mark){
+        marker.add(mark);
+    }
+
+    public void addKorn(Korn korn){
+        korns.add(korn);
     }
 
 
@@ -31,4 +43,15 @@ public class Storage implements StorageInterface{
     public List<Destillering> getDestilleringer() {
         return destilleringer;
     }
+
+    @Override
+    public List<Mark> getMarker() {
+        return marker;
+    }
+
+    @Override
+    public List<Korn> getKorn() {
+        return korns;
+    }
+
 }
