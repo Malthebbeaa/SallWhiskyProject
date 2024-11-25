@@ -78,11 +78,7 @@ public class MaltbatchWindow {
 
         VBox vBoxKornVælger = new VBox(10);
         Label lblKornSortVælger = new Label("Vælg Korn:");
-
-        Mark nybogård = new Mark("Nybogård", true);
         cbKorn = new ComboBox<>();
-        cbKorn.getItems().add(new Korn(LocalDate.of(2024, 11, 22), "Evergreen", nybogård));
-
         vBoxKornVælger.getChildren().addAll(lblKornSortVælger,cbKorn);
 
         Label lblBatchNummer = new Label("Batchnummer: ");

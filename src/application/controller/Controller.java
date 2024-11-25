@@ -21,11 +21,13 @@ public class Controller {
 
     public Mark opretMark(String markNavn, boolean økologisk){
         Mark mark = new Mark(markNavn, økologisk);
+        storage.addMark(mark);
         return mark;
     }
 
     public Korn opretKorn(LocalDate høstdag, String sort, Mark mark){
         Korn korn = new Korn(høstdag, sort, mark);
+        storage.addKorn(korn);
         return korn;
     }
 
@@ -35,9 +37,9 @@ public class Controller {
     }
 
     public Destillering opretDestillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
-                        double væskeMængde, double alkoholProcent, List<Maltbatch> maltbatches) {
+                        double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
         Destillering destillering = new Destillering(antalDistilleringer, startDato, slutDato,
-                væskeMængde, alkoholProcent, maltbatches);
+                væskeMængde, alkoholProcent, maltbatch);
         storage.addDestillering(destillering);
 
         return destillering;

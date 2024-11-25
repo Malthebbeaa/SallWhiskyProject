@@ -59,10 +59,6 @@ public class gui extends Application {
         Button btnOpretDestillering = new Button("Opret Destillering");
         btnOpretDestillering.setOnAction(e -> opretDestilleringAction());
         vboxButtons.getChildren().add(btnOpretDestillering);
-
-        Button btnOpretFad = new Button("Opret Fad");
-        btnOpretFad.setOnAction(e -> opretFadAction());
-        vboxButtons.getChildren().add(btnOpretFad);
     }
 
     public void opretMaltbatchAction(){
@@ -72,9 +68,5 @@ public class gui extends Application {
     public void opretDestilleringAction(){
         DestilleringWindow dia = new DestilleringWindow(startPane, scene, controller);
         scene.setRoot(dia.getDestilleringPane());
-    }
-    public void opretFadAction(){
-        FadWindow dia = new FadWindow(startPane, scene, controller);
-        scene.setRoot(dia.getFadPane());
     }
 }
