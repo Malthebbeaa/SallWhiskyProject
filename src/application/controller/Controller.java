@@ -52,7 +52,17 @@ public class Controller {
         }
     }
 
+    public Fad opretFad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold,
+                        int alder, int antalGangeBrugt){
+        Fad fad = new Fad(størrelse, materiale, fadLeverandør, tidligereIndhold, alder, antalGangeBrugt);
+        storage.addFad(fad);
+        return fad;
+    }
+
     public StorageInterface getStorage() {
         return storage;
     }
+
+
+
 }
