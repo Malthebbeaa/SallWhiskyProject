@@ -25,8 +25,10 @@ public class MaltbatchWindow {
 
     public MaltbatchWindow(Scene scene, Controller controller){
           maltPane = new GridPane();
+          this.controller = controller;
           this.initContent(maltPane);
           this.scene = scene;
+
     }
 
     public void initContent(GridPane maltPane) {
@@ -43,7 +45,7 @@ public class MaltbatchWindow {
         Label lblVælgMark = new Label("Vælg Mark:");
         markPane.add(lblVælgMark,0,0);
         ComboBox cbMark = new ComboBox<Mark>();
-        cbMark.getItems().addAll();
+        cbMark.getItems().addAll(controller.getStorage().getMarker());
         markPane.add(cbMark,1,0);
         Label lblMarkNavn = new Label("Marknavn:");
         markPane.add(lblMarkNavn,0,1);
@@ -63,7 +65,7 @@ public class MaltbatchWindow {
         Label lblVælgKorn = new Label("Vælg Korn:");
         kornPane.add(lblVælgKorn,0,0);
         ComboBox cbKorn = new ComboBox<Mark>();
-        cbKorn.getItems().addAll();
+        cbKorn.getItems().addAll(controller.getStorage().getKorn());
         kornPane.add(cbKorn,1,0);
         Label lblSort = new Label("Sort:");
         kornPane.add(lblSort,0,1);
