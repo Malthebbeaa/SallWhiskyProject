@@ -1,8 +1,9 @@
-package gui;
+package gui.destillering;
 
 import application.controller.Controller;
 import application.model.Destillering;
 import application.model.Maltbatch;
+import gui.destillering.DestilleringForm;
 
 import java.time.LocalDate;
 

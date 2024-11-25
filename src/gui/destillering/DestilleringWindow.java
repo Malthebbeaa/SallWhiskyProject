@@ -1,21 +1,15 @@
-package gui;
+package gui.destillering;
 
 import application.controller.Controller;
-import application.model.Destillering;
-import application.model.Korn;
-import application.model.Maltbatch;
-import application.model.Mark;
+import gui.BaseWindow;
+import gui.destillering.DestilleringForm;
+import gui.destillering.DestilleringHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import storage.StorageInterface;
 
-import java.time.LocalDate;
-import java.util.List;
-
-public class DestilleringWindow extends BaseWindow{
+public class DestilleringWindow extends BaseWindow {
     private DestilleringForm form;
     private DestilleringHandler handler;
     private GridPane destilleringPane;

@@ -1,4 +1,4 @@
-package gui;
+package gui.destillering;
 
 import application.controller.Controller;
 import application.model.Maltbatch;
