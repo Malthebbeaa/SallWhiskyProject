@@ -38,11 +38,9 @@ public class gui extends Application {
         initContent();
         startTabPane = tabPaneGenerator.getTabPane();
 
-
-        startTabPane.setPrefWidth(1920);
-        startTabPane.setPrefHeight(1080);
         scene = new Scene(startTabPane);
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 
