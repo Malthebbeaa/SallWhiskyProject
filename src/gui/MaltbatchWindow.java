@@ -1,5 +1,6 @@
 package gui;
 
+import application.controller.Controller;
 import application.model.Korn;
 import application.model.Maltbatch;
 import application.model.Mark;
@@ -18,15 +19,13 @@ import javafx.stage.StageStyle;
 import java.time.LocalDate;
 
 public class MaltbatchWindow {
-    private GridPane startPane;
     private Scene scene;
-    private ComboBox cbKorn;
     private GridPane maltPane;
+    private Controller controller;
 
-    public MaltbatchWindow(GridPane startPane, Scene scene){
+    public MaltbatchWindow(Scene scene, Controller controller){
           maltPane = new GridPane();
           this.initContent(maltPane);
-          this.startPane = startPane;
           this.scene = scene;
     }
 
@@ -35,69 +34,73 @@ public class MaltbatchWindow {
         maltPane.setVgap(10);
         maltPane.setPadding(new Insets(20));
 
-        HBox HbMarkNavn = new HBox(10);
-        Label lblMarkNavn = new Label("Marknavn: ");
+        Label lblMark = new Label("Tilføj Mark:");
+        Label lblKorn = new Label("Tilføj Korn:");
+        maltPane.add(lblMark,0,0);
+        maltPane.add(lblKorn,2,0);
+
+        GridPane markPane = new GridPane();
+        Label lblVælgMark = new Label("Vælg Mark:");
+        markPane.add(lblVælgMark,0,0);
+        ComboBox cbMark = new ComboBox<Mark>();
+        cbMark.getItems().addAll();
+        markPane.add(cbMark,1,0);
+        Label lblMarkNavn = new Label("Marknavn:");
+        markPane.add(lblMarkNavn,0,1);
         TextField txfMarkNavn = new TextField();
-        HbMarkNavn.getChildren().addAll(lblMarkNavn,txfMarkNavn);
-
-        HBox HbØkologisk = new HBox(10);
-        Label lblØkologisk = new Label("Økologisk");
+        markPane.add(txfMarkNavn,1,1);
+        Label lblØkologisk = new Label("Økologisk:");
+        markPane.add(lblØkologisk,0,2);
         CheckBox cbØkologisk = new CheckBox();
-        HbØkologisk.getChildren().addAll(lblØkologisk,cbØkologisk);
+        markPane.add(cbØkologisk,1,2);
+        markPane.setBorder(Border.stroke(Paint.valueOf("Black")));
+        markPane.setPadding(new Insets(20,50,50,10));
+        markPane.setVgap(10);
+        markPane.setHgap(10);
+        maltPane.add(markPane,0,1,2,1);
 
-        VBox vBoxMark = new VBox(20);
-        vBoxMark.setPadding(new Insets(20,50,50,10));
-        vBoxMark.getChildren().addAll(HbMarkNavn,HbØkologisk);
-        vBoxMark.setBorder(Border.stroke(Paint.valueOf("Black")));
-
-        TitledPane tPaneMark = new TitledPane("Mark",vBoxMark);
-
-        maltPane.add(tPaneMark,0,0,2,1);
-
-        HBox HbSort = new HBox(10);
-        Label lblSort = new Label("Sort: ");
+        GridPane kornPane = new GridPane();
+        Label lblVælgKorn = new Label("Vælg Korn:");
+        kornPane.add(lblVælgKorn,0,0);
+        ComboBox cbKorn = new ComboBox<Mark>();
+        cbKorn.getItems().addAll();
+        kornPane.add(cbKorn,1,0);
+        Label lblSort = new Label("Sort:");
+        kornPane.add(lblSort,0,1);
         TextField txfSort = new TextField();
-        HbSort.getChildren().addAll(lblSort,txfSort);
-
-        HBox HbHøstdag = new HBox(10);
-        Label lblHøstdag = new Label("Høstdag");
+        kornPane.add(txfSort,1,1);
+        Label lblHøstdag = new Label("Høstdag:");
+        kornPane.add(lblHøstdag,0,2);
         DatePicker dpHøstdag = new DatePicker();
         dpHøstdag.setValue(LocalDate.now());
-        HbHøstdag.getChildren().addAll(lblHøstdag,dpHøstdag);
+        kornPane.add(dpHøstdag,1,2);
+        kornPane.setBorder(Border.stroke(Paint.valueOf("Black")));
+        kornPane.setPadding(new Insets(20,50,50,10));
+        kornPane.setVgap(10);
+        kornPane.setHgap(10);
+        maltPane.add(kornPane,2,1,2,1);
 
-        VBox vBoxKorn = new VBox(20);
-        vBoxKorn.setPadding(new Insets(20,50,50,10));
-        vBoxKorn.getChildren().addAll(HbSort,HbHøstdag);
-        vBoxKorn.setBorder(Border.stroke(Paint.valueOf("Black")));
+        Label opretMaltbatch = new Label("Opret maltbatch:");
+        maltPane.add(opretMaltbatch,0,2);
 
-        TitledPane tPaneKorn = new TitledPane("Korn",vBoxKorn);
-
-        maltPane.add(tPaneKorn,2,0,2,1);
-
-        //Disse ting er kun lavet for at kunne teste.
-
-        VBox vBoxKornVælger = new VBox(10);
+        GridPane maltbatchPane = new GridPane();
         Label lblKornSortVælger = new Label("Vælg Korn:");
-        cbKorn = new ComboBox<>();
-        vBoxKornVælger.getChildren().addAll(lblKornSortVælger,cbKorn);
-
+        maltbatchPane.add(lblKornSortVælger,0,0);
+        ComboBox cbMaltetKorn = new ComboBox<Korn>();
+        maltbatchPane.add(cbMaltetKorn,1,0);
         Label lblBatchNummer = new Label("Batchnummer: ");
+        maltbatchPane.add(lblBatchNummer,0,1);
         TextField txfBatchnummer = new TextField();
-        HBox hBoxBatchNummer = new HBox(10);
-        hBoxBatchNummer.getChildren().addAll(lblBatchNummer,txfBatchnummer);
-
+        maltbatchPane.add(txfBatchnummer,1,1);
         Label lblMængde = new Label("Mængde: ");
+        maltbatchPane.add(lblMængde,0,2);
         TextField txfMængde = new TextField();
-
-        HBox hBoxMængde = new HBox(10);
-        hBoxMængde.getChildren().addAll(lblMængde,txfMængde);
-
-        VBox vBoxMaltbatch = new VBox(20);
-        vBoxMaltbatch.setPadding(new Insets(20,50,50,10));
-        vBoxMaltbatch.setBorder(Border.stroke(Paint.valueOf("Black")));
-        vBoxMaltbatch.getChildren().addAll(vBoxKornVælger,hBoxBatchNummer,hBoxMængde);
-
-        maltPane.add(vBoxMaltbatch,0,1,2,1);
+        maltbatchPane.add(txfMængde,1,2);
+        maltbatchPane.setBorder(Border.stroke(Paint.valueOf("Black")));
+        maltbatchPane.setPadding(new Insets(20,50,50,10));
+        maltbatchPane.setVgap(10);
+        maltbatchPane.setHgap(10);
+        maltPane.add(maltbatchPane,0,3,2,1);
 
         Button btnOpretMaltbatch = new Button("Opret Maltbatch");
         btnOpretMaltbatch.setOnAction(e-> opretMaltbatchAktion());
@@ -117,7 +120,7 @@ public class MaltbatchWindow {
     }
 
     public void afbrydAktion(){
-        scene.setRoot(startPane);
+
     }
 
     public GridPane getMaltPane() {
