@@ -21,7 +21,7 @@ public class DestilleringWindow {
     private Controller controller;
     private DatePicker datepickerstartDato, datepickerSlutDato;
     private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer, txfKommentar;
-    private ComboBox comboBoxMaltbatch;
+    private ComboBox<Maltbatch> comboBoxMaltbatch;
 
 
     public DestilleringWindow(GridPane startPane, Scene scene, Controller controller) {
@@ -41,7 +41,6 @@ public class DestilleringWindow {
         Label lblMaltbatch = new Label("Maltbatch: ");
         comboBoxMaltbatch = new ComboBox();
         comboBoxMaltbatch.getItems().addAll(controller.getStorage().getMaltbatches());
-        comboBoxMaltbatch.getSelectionModel().selectFirst();
         destilleringPane.add(lblMaltbatch, 0,0);
         destilleringPane.add(comboBoxMaltbatch, 1,0);
 
@@ -90,7 +89,7 @@ public class DestilleringWindow {
         LocalDate slutDato = datepickerSlutDato.getValue();
         double alkoholProcent = Double.parseDouble(txfAlkoholProcent.getText());
         double væskeMængde = Double.parseDouble(txfVæskeMængde.getText());
-        Maltbatch maltbatch = (Maltbatch) comboBoxMaltbatch.getValue();
+        Maltbatch maltbatch = comboBoxMaltbatch.getValue();
 
         Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatch);
 
@@ -115,5 +114,6 @@ public class DestilleringWindow {
         txfVæskeMængde.clear();
         txfAntalDestilleringer.clear();
         txfKommentar.clear();
+        comboBoxMaltbatch.setValue(null);
     }
 }
