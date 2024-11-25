@@ -1,20 +1,23 @@
 package storage;
 
-import application.model.Destillering;
-import application.model.Korn;
-import application.model.Maltbatch;
-import application.model.Mark;
+import application.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage implements StorageInterface{
 
+    private ArrayList<Fad> fade = new ArrayList<>();
     private ArrayList<Maltbatch> maltbatches = new ArrayList<>();
     private ArrayList<Destillering> destilleringer = new ArrayList<>();
     private ArrayList<Korn> korns = new ArrayList<>();
     private ArrayList<Mark> marker = new ArrayList<>();
 
+
+    @Override
+    public void addFad(Fad fad) {
+        fade.add(fad);
+    }
 
     public void addMaltbatch(Maltbatch maltbatch){
         maltbatches.add(maltbatch);
@@ -31,6 +34,11 @@ public class Storage implements StorageInterface{
 
     public void addKorn(Korn korn){
         korns.add(korn);
+    }
+
+    @Override
+    public List<Fad> getFade() {
+        return fade;
     }
 
 
