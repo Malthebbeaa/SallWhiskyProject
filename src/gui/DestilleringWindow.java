@@ -98,7 +98,14 @@ public class DestilleringWindow {
         return destilleringPane;
     }
 
+    /***
+     * clearer textfields og sætter datepickers til dagens dato
+     */
     public void afbrydAction(){
-        scene.setRoot(startPane);
+        datepickerstartDato.setValue(LocalDate.now());
+        datepickerSlutDato.setValue(LocalDate.now());
+        txfAlkoholProcent.clear();
+        txfVæskeMængde.clear();
+        txfAntalDestilleringer.clear();
     }
 }
