@@ -59,6 +59,12 @@ public class Controller {
         return fad;
     }
 
+    public Lager opretLager(String navn, String vejnavn, String postnummer, String by){
+        Lager lager = new Lager(navn,vejnavn,postnummer,by);
+        storage.addLager(lager);
+        return lager;
+    }
+
     public StorageInterface getStorage() {
         return storage;
     }

@@ -17,7 +17,34 @@ public class Lager {
         reoler = new ArrayList<Reol>();
     }
 
+    public void tilføjReol(int antalReoler, int antalHylder, int antalPladser) {
+        for (int i = 1; i <= antalReoler; i++) {
+            Reol reol = new Reol(i);
+            reol.tilføjHylde(antalHylder, antalPladser);
+            reoler.add(reol);
+        }
+    }
+
     public ArrayList<Reol> getReoler() {
         return reoler;
+    }
+
+    public int ledigePladser(){
+        int count = 0;
+        for (Reol reol : reoler) {
+            for (Hylde hylde : reol.getHylder()) {
+                for (Plads plads : hylde.getPladser()) {
+                    if(plads.isLedig()){
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public String toString() {
+        return navn + " antal ledige pladser: " + ledigePladser();
     }
 }

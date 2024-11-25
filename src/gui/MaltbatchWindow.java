@@ -20,7 +20,6 @@ import javafx.stage.StageStyle;
 import java.time.LocalDate;
 
 public class MaltbatchWindow {
-    private Scene scene;
     private ComboBox<Mark> cbMark;
     private ComboBox<Korn> cbKorn;
     private TextField txfMarkNavn, txfSort, txfBatchnummer, txfMængde;
@@ -31,15 +30,13 @@ public class MaltbatchWindow {
     private Controller controller;
     private Korn korn;
 
-    public MaltbatchWindow(Scene scene, Controller controller){
+    public MaltbatchWindow(Controller controller){
           maltPane = new GridPane();
           this.controller = controller;
-          this.initContent(maltPane);
-          this.scene = scene;
-
+          this.initContent();
     }
 
-    public void initContent(GridPane maltPane) {
+    public void initContent() {
         maltPane.setHgap(10);
         maltPane.setVgap(10);
         maltPane.setPadding(new Insets(20));
