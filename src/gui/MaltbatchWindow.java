@@ -3,7 +3,6 @@ package gui;
 import application.model.Korn;
 import application.model.Maltbatch;
 import application.model.Mark;
-import com.sun.media.jfxmedia.events.NewFrameEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +12,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
