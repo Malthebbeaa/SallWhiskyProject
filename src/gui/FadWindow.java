@@ -30,10 +30,10 @@ public class FadWindow {
             this.initContent(fadPane);
         }
 
-        private void initContent(GridPane destilleringPane) {
-            destilleringPane.setHgap(10);
-            destilleringPane.setVgap(10);
-            destilleringPane.setPadding(new Insets(20));
+        private void initContent(GridPane fadPane) {
+            fadPane.setHgap(10);
+            fadPane.setVgap(10);
+            fadPane.setPadding(new Insets(20));
 
             Label lblLeverandør = new Label("Leverandør: ");
             comboboxLeverandører = new ComboBox();
@@ -43,65 +43,65 @@ public class FadWindow {
                     new FadLeverandør("Le Ivre et Belle", "Frankrig"));
             comboboxLeverandører.setPrefHeight(20);
             comboboxLeverandører.setPrefWidth(200);
-            destilleringPane.add(lblLeverandør, 0,0);
-            destilleringPane.add(comboboxLeverandører, 0,1);
+            fadPane.add(lblLeverandør, 0,0);
+            fadPane.add(comboboxLeverandører, 0,1);
 
             Label lblStørrelse = new Label("Størrelse: ");
             comboboxStørrelse = new ComboBox();
             comboboxStørrelse.getItems().addAll(32, 94, 130);
             comboboxStørrelse.setPrefHeight(20);
             comboboxStørrelse.setPrefWidth(200);
-            destilleringPane.add(lblStørrelse, 1,0);
-            destilleringPane.add(comboboxStørrelse, 1,1);
+            fadPane.add(lblStørrelse, 1,0);
+            fadPane.add(comboboxStørrelse, 1,1);
 
             Label lblMateriale = new Label("Materiale: ");
             comboboxMateriale = new ComboBox();
             comboboxMateriale.getItems().addAll("Eg", "Kirsebærtræ", "Bøgetræ");
             comboboxMateriale.setPrefHeight(20);
             comboboxMateriale.setPrefWidth(200);
-            destilleringPane.add(lblMateriale, 2,0);
-            destilleringPane.add(comboboxMateriale, 2,1);
+            fadPane.add(lblMateriale, 2,0);
+            fadPane.add(comboboxMateriale, 2,1);
 
             Label lblTidligereIndhold = new Label("Tidligere indhold: ");
             comboboxTidligereIndhold = new ComboBox();
             comboboxTidligereIndhold.getItems().addAll("Sherry", "Bourbon", "Rødvin");
             comboboxTidligereIndhold.setPrefHeight(20);
             comboboxTidligereIndhold.setPrefWidth(200);
-            destilleringPane.add(lblTidligereIndhold, 0,2);
-            destilleringPane.add(comboboxTidligereIndhold, 0,3);
+            fadPane.add(lblTidligereIndhold, 0,2);
+            fadPane.add(comboboxTidligereIndhold, 0,3);
 
             Label lblAlder = new Label("Tøndens alder: ");
             txfAlder = new TextField();
             txfAlder.setPrefWidth(30);
-            destilleringPane.add(lblAlder, 1,2);
-            destilleringPane.add(txfAlder, 1,3);
+            fadPane.add(lblAlder, 1,2);
+            fadPane.add(txfAlder, 1,3);
 
             Label lblAntalGangeBrugt = new Label("Antal gange den har været brugt: ");
             txfAntalGangeBrugt = new TextField();
             txfAntalGangeBrugt.setPrefWidth(30);
-            destilleringPane.add(lblAntalGangeBrugt, 2,2);
-            destilleringPane.add(txfAntalGangeBrugt, 2,3);
+            fadPane.add(lblAntalGangeBrugt, 2,2);
+            fadPane.add(txfAntalGangeBrugt, 2,3);
 
 
             Button btnOpret = new Button("Opret Fad");
             btnOpret.setOnAction(e -> opretAction());
-            destilleringPane.add(btnOpret, 0,5);
+            fadPane.add(btnOpret, 0,5);
 
             Button btnAfbryd = new Button("Afbryd");
             btnAfbryd.setOnAction(e -> afbrydAction());
-            destilleringPane.add(btnAfbryd,1,5);
+            fadPane.add(btnAfbryd,1,5);
         }
 
         private void opretAction() {
             int størrelse = Integer.parseInt(String.valueOf(comboboxStørrelse.getItems()));
             String materiale = String.valueOf(comboboxMateriale.getItems());
-            List<FadLeverandør> fadleverandør = comboboxLeverandører.getItems();
+            FadLeverandør fadleverandør = (FadLeverandør) comboboxLeverandører.getValue();
             String tidligereIndhold = String.valueOf(comboboxMateriale.getItems());
             int alder = Integer.parseInt(txfAlder.getText());
             int antalGangeBrugt = Integer.parseInt(txfAlder.getText());
 
 
-            Fad fad = controller.opretFad(størrelse, materiale, (FadLeverandør) fadleverandør, tidligereIndhold, alder, antalGangeBrugt);
+            Fad fad = controller.opretFad(størrelse, materiale, fadleverandør, tidligereIndhold, alder, antalGangeBrugt);
         }
 
         public GridPane getFadPane() {
@@ -109,6 +109,11 @@ public class FadWindow {
         }
 
         public void afbrydAction(){
-            scene.setRoot(startPane);
+            txfAlder.clear();
+            txfAntalGangeBrugt.clear();
+            comboboxLeverandører.setValue(null);
+            comboboxMateriale.setValue(null);
+            comboboxStørrelse.setValue(null);
+            comboboxTidligereIndhold.setValue(null);
         }
 }
