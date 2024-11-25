@@ -14,27 +14,21 @@ public class TabPaneGenerator {
     public TabPaneGenerator() {
     }
 
-    public TabPane generateTabPane(List<String> tabs, List<GridPane> gridPanes){
+    public TabPane generateTabPane(List<String> tabNames, List<GridPane> gridPanes){
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabMinWidth(60);
         tabPane.setTabMinHeight(30);
-        for (int i = 0; i < tabs.size(); i++) {
+        for (int i = 0; i < tabNames.size(); i++) {
             Tab tab = new Tab();
-            tab.setText(tabs.get(i));
+            tab.setText(tabNames.get(i));
             tab.setContent(gridPanes.get(i));
             tabPane.getTabs().add(tab);
         }
 
-
         return tabPane;
     }
 
-    public void setContent(){
-        selectedTab = tabPane.getSelectionModel().getSelectedItem();
-
-        //selectedTab.setContent();
-    }
     public TabPane getTabPane() {
         return tabPane;
     }
