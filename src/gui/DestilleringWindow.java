@@ -24,9 +24,9 @@ public class DestilleringWindow {
     private ListView listviewMaltbatches;
 
 
-    public DestilleringWindow(GridPane startPane, Scene scene, StorageInterface storage) {
-        controller = new Controller(storage);
-        this.storage = storage;
+    public DestilleringWindow(GridPane startPane, Scene scene, Controller controller) {
+        this.controller = controller;
+        this.storage = controller.getStorage();
         this.startPane = startPane;
         this.scene = scene;
         destilleringPane = new GridPane();

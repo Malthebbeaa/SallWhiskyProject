@@ -48,6 +48,9 @@ public class Controller {
         if (kommentar != null){
             destillering.setKommentar(kommentar);
         }
+    }
 
+    public StorageInterface getStorage() {
+        return storage;
     }
 }

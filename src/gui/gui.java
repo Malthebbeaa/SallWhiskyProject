@@ -23,6 +23,7 @@ public class gui extends Application {
     private Scene scene;
     private GridPane startPane;
     private StorageInterface storage;
+    private Controller controller;
 
     @Override
     public void start(Stage stage){
@@ -32,6 +33,7 @@ public class gui extends Application {
         initContent(startPane);
 
         storage = new Storage();
+        controller = new Controller(storage);
 
         startPane.setPrefWidth(800);
         startPane.setPrefHeight(600);
@@ -64,7 +66,7 @@ public class gui extends Application {
        scene.setRoot(dia.getMaltPane());
     }
     public void opretDestilleringAction(){
-        DestilleringWindow dia = new DestilleringWindow(startPane, scene, storage);
+        DestilleringWindow dia = new DestilleringWindow(startPane, scene, controller);
         scene.setRoot(dia.getDestilleringPane());
     }
 }
