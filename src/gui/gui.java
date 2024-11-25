@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Korn;
+import application.model.Maltbatch;
 import application.model.Mark;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -35,6 +36,8 @@ public class gui extends Application {
 
         storage = new Storage();
         controller = new Controller(storage);
+        initStorage();
+
         initContent();
         startTabPane = tabPaneGenerator.getTabPane();
 
@@ -52,4 +55,17 @@ public class gui extends Application {
         List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getDestilleringPane(), maltbatchWindow.getMaltPane()));
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
+
+    public void initStorage(){
+        Mark kvolbæk = controller.opretMark("Kvolbæk", true);
+        Mark stadsgaard = controller.opretMark("Stadsgaard", true);
+
+        Korn evergreen = controller.opretKorn(LocalDate.now(), "Vårbyg", kvolbæk);
+        Korn irina = controller.opretKorn(LocalDate.of(2024,11, 22),"Irina",stadsgaard);
+
+        Maltbatch maltbatch1 = controller.opretMaltbatch("NM80P", 500, evergreen);
+        Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
+    }
+
+
 }
