@@ -53,11 +53,11 @@ public class gui extends Application {
 
     public void initContent(){
         maltbatchWindow = new MaltbatchWindow(controller);
-        destilleringWindow = new DestilleringWindow(scene, controller);
-        fadWindow = new FadWindow(startPane, scene, controller);
+        destilleringWindow = new DestilleringWindow(controller);
+        fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getMaltPane(), fadWindow.getFadPane(), opretLagerWindow.getLagerPane()));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getMaltPane(), fadWindow.getPane(), opretLagerWindow.getLagerPane()));
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 

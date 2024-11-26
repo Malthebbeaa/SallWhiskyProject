@@ -16,7 +16,7 @@ public class DestilleringWindow extends BaseWindow {
 
 
 
-    public DestilleringWindow(Scene scene, Controller controller) {
+    public DestilleringWindow(Controller controller) {
         this.form = new DestilleringForm(controller);
         this.handler = new DestilleringHandler(controller);
 
