@@ -5,6 +5,8 @@ import application.model.Korn;
 import application.model.Maltbatch;
 import application.model.Mark;
 import gui.destillering.DestilleringWindow;
+import gui.fad.FadWindow;
+import gui.maltbatch.MaltbatchWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

@@ -16,7 +16,6 @@ public class DestilleringHandler {
 
     public void opretDestilleringAction(DestilleringForm form) {
         try {
-
             int antalDestilleringer = form.getAntalDestilleringer();
             LocalDate startDato = form.getStartDato();
             LocalDate slutDato = form.getSlutDato();
