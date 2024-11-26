@@ -57,7 +57,7 @@ public class gui extends Application {
         fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getMaltPane(), fadWindow.getPane(), opretLagerWindow.getLagerPane()));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getLagerPane()));
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 
