@@ -7,7 +7,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 
 import java.time.LocalDate;
 
@@ -15,7 +17,7 @@ public class DestilleringForm {
     private DatePicker datepickerstartDato, datepickerSlutDato;
     private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer, txfKommentar;
     private ComboBox<Maltbatch> comboBoxMaltbatch;
-    private GridPane destilleringPane;
+    private GridPane destilleringInfoPane, destilleringPane;
     private Controller controller;
 
     public DestilleringForm(Controller controller) {
@@ -25,45 +27,53 @@ public class DestilleringForm {
     }
 
     private void initForm() {
+        destilleringInfoPane = new GridPane();
+        destilleringInfoPane.setHgap(10);
+        destilleringInfoPane.setVgap(10);
+        destilleringInfoPane.setPadding(new Insets(20,50,50,10));
+        destilleringInfoPane.setBorder(Border.stroke(Paint.valueOf("Black")));
+
+        Label lblOpret = new Label("Opret Destillering:");
+        destilleringPane.add(lblOpret, 0,0);
+        destilleringPane.add(destilleringInfoPane, 0,1);
         destilleringPane.setHgap(10);
         destilleringPane.setVgap(10);
-        destilleringPane.setPadding(new Insets(20));
 
         Label lblMaltbatch = new Label("Maltbatch: ");
         comboBoxMaltbatch = new ComboBox();
         comboBoxMaltbatch.getItems().addAll(controller.getStorage().getMaltbatches());
-        destilleringPane.add(lblMaltbatch, 0,0);
-        destilleringPane.add(comboBoxMaltbatch, 1,0);
+        destilleringInfoPane.add(lblMaltbatch, 0,0);
+        destilleringInfoPane.add(comboBoxMaltbatch, 1,0);
 
         Label lblAntalDestilleringer = new Label("Antal destilleringer: ");
         txfAntalDestilleringer = new TextField();
         txfAntalDestilleringer.setPrefWidth(30);
-        destilleringPane.add(lblAntalDestilleringer, 2,0);
-        destilleringPane.add(txfAntalDestilleringer, 3,0);
+        destilleringInfoPane.add(lblAntalDestilleringer, 2,0);
+        destilleringInfoPane.add(txfAntalDestilleringer, 3,0);
 
         Label lblStartDato = new Label("Startdato: ");
         datepickerstartDato = new DatePicker(LocalDate.now());
-        destilleringPane.add(lblStartDato, 0,1);
-        destilleringPane.add(datepickerstartDato, 1,1);
+        destilleringInfoPane.add(lblStartDato, 0,1);
+        destilleringInfoPane.add(datepickerstartDato, 1,1);
         Label lblSlutDato = new Label("Slutdato: ");
         datepickerSlutDato = new DatePicker(LocalDate.now());
-        destilleringPane.add(lblSlutDato, 2,1);
-        destilleringPane.add(datepickerSlutDato, 3,1);
+        destilleringInfoPane.add(lblSlutDato, 2,1);
+        destilleringInfoPane.add(datepickerSlutDato, 3,1);
 
         Label lblVæskeMængde = new Label("Væskemængde (L): ");
-        destilleringPane.add(lblVæskeMængde, 0,2);
+        destilleringInfoPane.add(lblVæskeMængde, 0,2);
         txfVæskeMængde = new TextField();
-        destilleringPane.add(txfVæskeMængde, 1,2);
+        destilleringInfoPane.add(txfVæskeMængde, 1,2);
 
         Label lblAlkoholProcent = new Label("Alkoholprocent: ");
-        destilleringPane.add(lblAlkoholProcent, 2,2);
+        destilleringInfoPane.add(lblAlkoholProcent, 2,2);
         txfAlkoholProcent = new TextField();
-        destilleringPane.add(txfAlkoholProcent, 3,2);
+        destilleringInfoPane.add(txfAlkoholProcent, 3,2);
 
         Label lblKommentar = new Label("Evt. kommentar: ");
-        destilleringPane.add(lblKommentar, 0,3);
+        destilleringInfoPane.add(lblKommentar, 0,3);
         txfKommentar = new TextField();
-        destilleringPane.add(txfKommentar, 1,3, 3,1);
+        destilleringInfoPane.add(txfKommentar, 1,3, 3,1);
     }
     public LocalDate getStartDato(){return datepickerstartDato.getValue();}
     public LocalDate getSlutDato(){return datepickerSlutDato.getValue();}

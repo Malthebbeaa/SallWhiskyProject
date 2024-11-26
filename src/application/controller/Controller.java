@@ -13,7 +13,7 @@ public class Controller {
         this.storage = storage;
     }
 
-    public Maltbatch opretMaltbatch(String batchNummer, int mængde, Korn korn){
+    public Maltbatch opretMaltbatch(String batchNummer, double mængde, Korn korn){
         Maltbatch maltbatch = new Maltbatch(batchNummer,mængde,korn);
         storage.addMaltbatch(maltbatch);
         return maltbatch;

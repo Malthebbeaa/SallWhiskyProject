@@ -5,9 +5,11 @@ import gui.BaseWindow;
 import gui.destillering.DestilleringForm;
 import gui.destillering.DestilleringHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class DestilleringWindow extends BaseWindow {
     private DestilleringForm form;
@@ -16,7 +18,7 @@ public class DestilleringWindow extends BaseWindow {
 
 
 
-    public DestilleringWindow(Scene scene, Controller controller) {
+    public DestilleringWindow(Controller controller) {
         this.form = new DestilleringForm(controller);
         this.handler = new DestilleringHandler(controller);
 
@@ -26,16 +28,17 @@ public class DestilleringWindow extends BaseWindow {
     public void initContent() {
         getPane().add(form.getDestilleringPane(), 0,0);
 
-        GridPane gridPaneButtons = new GridPane();
-        gridPaneButtons.setHgap(10);
-        gridPaneButtons.setPadding(new Insets(20));
         Button btnOpretDestillering = new Button("Opret Destillering");
         btnOpretDestillering.setOnAction(e -> handler.opretDestilleringAction(form));
-        gridPaneButtons.add(btnOpretDestillering, 0,0);
         Button btnAfbryd = new Button("Afbryd");
         btnAfbryd.setOnAction(e -> form.clearAction());
-        gridPaneButtons.add(btnAfbryd, 1,0);
 
-        getPane().add(gridPaneButtons, 0,1);
+
+        HBox hBoxButtons = new HBox(10);
+        hBoxButtons.getChildren().addAll(btnOpretDestillering, btnAfbryd);
+        hBoxButtons.setAlignment(Pos.CENTER);
+
+        getPane().add(hBoxButtons, 0, 1);
+
     }
 }
