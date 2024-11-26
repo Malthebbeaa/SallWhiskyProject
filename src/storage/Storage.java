@@ -1,6 +1,8 @@
 package storage;
 
 import application.model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 public class Storage implements StorageInterface{
 
     private ArrayList<Fad> fade = new ArrayList<>();
-    private ArrayList<Maltbatch> maltbatches = new ArrayList<>();
+    private ObservableList<Maltbatch> maltbatches = FXCollections.observableArrayList();
     private ArrayList<Destillering> destilleringer = new ArrayList<>();
     private ArrayList<Korn> korns = new ArrayList<>();
     private ArrayList<Mark> marker = new ArrayList<>();
@@ -50,8 +52,8 @@ public class Storage implements StorageInterface{
 
     //----------------------------------------------------------------------------
     //overvej om vi vil returnere den samme liste eller en kopi?
-    public List<Maltbatch> getMaltbatches(){
-        return maltbatches;
+    public ObservableList<Maltbatch> getMaltbatches(){
+        return FXCollections.unmodifiableObservableList(maltbatches);
     }
     @Override
     public List<Destillering> getDestilleringer() {

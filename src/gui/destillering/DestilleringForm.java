@@ -41,7 +41,7 @@ public class DestilleringForm {
 
         Label lblMaltbatch = new Label("Maltbatch: ");
         comboBoxMaltbatch = new ComboBox();
-        comboBoxMaltbatch.getItems().addAll(controller.getStorage().getMaltbatches());
+        comboBoxMaltbatch.setItems(controller.getStorage().getMaltbatches());
         destilleringInfoPane.add(lblMaltbatch, 0,0);
         destilleringInfoPane.add(comboBoxMaltbatch, 1,0);
 
