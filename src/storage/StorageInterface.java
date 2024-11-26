@@ -1,6 +1,7 @@
 package storage;
 
 import application.model.*;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface StorageInterface {
 
     public List<Fad> getFade();
 
-    public List<Maltbatch> getMaltbatches();
+    public ObservableList<Maltbatch> getMaltbatches();
 
     public List<Destillering> getDestilleringer();
 
