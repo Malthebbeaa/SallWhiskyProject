@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WhiskyProdukt {
+    public String AarLagret;
     String navn;
     Double alkoholProcent;
     int antalFlasker;
@@ -44,14 +45,30 @@ public class WhiskyProdukt {
     }
 
 //    public Mark getMark() {
-//        return påfyldFad.getDestillering().getKorn().getMark();
+//        return Påfyldning.getDestillering().getKorn().getMark();
 //    }
 //
 //    public Korn getKorn() {
-//        return påfyldFad.getDestillering().getKorn();
+//        return Påfyldning.getDestillering().getKorn();
 //    }
 //
-//    public String getMaltbatch(){
-//        return påfyldFad.getDestillering().getBatchNummer();
+//    public String getMaltbatch() {
+//        return Påfyldning.getDestillering().getBatchNummer();
 //    }
+
+    public String getAarLagret() {
+        return AarLagret;
+    }
+
+    public int getAntalFlasker() {
+        return antalFlasker;
+    }
+
+//    public String getDatoTappet() {
+//        return Aftapning.getDato();
+//    }
+
+    public String getLand() {
+        return fade.getLand;
+    }
 }

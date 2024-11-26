@@ -13,4 +13,12 @@ public class FadLeverandør {
     public String toString() {
         return navn + ", " + land;
     }
+
+    public static String getLand() {
+        return land;
+    }
+
+    public void setLand(String land) {
+        this.land = land;
+    }
 }

@@ -15,7 +15,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
 import storage.StorageInterface;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

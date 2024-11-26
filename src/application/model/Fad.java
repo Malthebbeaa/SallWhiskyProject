@@ -26,4 +26,10 @@ public class Fad {
         return fadId;
     }
 
+    public String getTidligereIndhold() {
+        return tidligereIndhold;
+    }
+    public String getLand(){
+        return getFadLeverandør().land;
+    }
 }
