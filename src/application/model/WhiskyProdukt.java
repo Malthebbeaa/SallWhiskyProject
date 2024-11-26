@@ -43,15 +43,15 @@ public class WhiskyProdukt {
         return fade;
     }
 
-    public Mark getMark() {
-        return maltbatch.getKorn().getMark();
-    }
-
-    public Korn getKorn() {
-        return maltbatch.getKorn();
-    }
-
-    public String getMaltbatch(){
-        return maltbatch.getBatchNummer();
-    }
+//    public Mark getMark() {
+//        return påfyldFad.getDestillering().getKorn().getMark();
+//    }
+//
+//    public Korn getKorn() {
+//        return påfyldFad.getDestillering().getKorn();
+//    }
+//
+//    public String getMaltbatch(){
+//        return påfyldFad.getDestillering().getBatchNummer();
+//    }
 }
