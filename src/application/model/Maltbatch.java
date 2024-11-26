@@ -2,13 +2,13 @@ package application.model;
 
 public class Maltbatch {
     private String batchNummer;
-    private int mængde;
+    private double mængde;
 
     private Rygemateriale rygemateriale;
     //Tvunget association --> 1 Korn
     private Korn korn;
 
-    public Maltbatch(String batchNummer, int mængde, Korn korn) {
+    public Maltbatch(String batchNummer, double mængde, Korn korn) {
         this.batchNummer = batchNummer;
         this.mængde = mængde;
         this.korn = korn;
