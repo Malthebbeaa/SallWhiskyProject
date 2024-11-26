@@ -53,7 +53,7 @@ public class Storage implements StorageInterface{
     //----------------------------------------------------------------------------
     //overvej om vi vil returnere den samme liste eller en kopi?
     public ObservableList<Maltbatch> getMaltbatches(){
-        return maltbatches;
+        return FXCollections.unmodifiableObservableList(maltbatches);
     }
     @Override
     public List<Destillering> getDestilleringer() {
