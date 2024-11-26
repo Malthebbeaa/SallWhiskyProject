@@ -27,6 +27,8 @@ public class MaltbatchHandler {
         Mark mark = form.getMark();
 
         controller.opretKorn(høstDag,sort,mark);
+        form.clearAktion();
+        form.getCbKorn().getItems().addAll(controller.getStorage().getKorn());
     }
 
     public void opretMarkHandler(MaltbatchForm form){
@@ -34,5 +36,7 @@ public class MaltbatchHandler {
         boolean økologisk = form.getIsØkologisk();
 
         controller.opretMark(markNavn, økologisk);
+        form.clearAktion();
+        form.getCbKornMark().getItems().addAll(controller.getStorage().getMarker());
     }
 }
