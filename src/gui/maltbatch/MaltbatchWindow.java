@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Korn;
 import application.model.Maltbatch;
 import application.model.Mark;
+import application.model.Rygemateriale;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 public class MaltbatchWindow {
     private ComboBox<Mark> cbKornMark;
     private ComboBox<Korn> cbKorn;
-    private TextField txfMarkNavn, txfSort, txfBatchnummer, txfMængde;
+    private TextField txfMarkNavn, txfSort, txfBatchnummer, txfMængde, txfRygemateriale;
     private TextArea txaKorn;
     private CheckBox chbØkologisk;
     private DatePicker dpHøstdag;
@@ -105,6 +106,10 @@ public class MaltbatchWindow {
         maltbatchPane.add(lblMængde,0,2);
         txfMængde = new TextField();
         maltbatchPane.add(txfMængde,1,2);
+        Label lblEvtRygemateriale = new Label("Evt Rygemateriale:");
+        maltbatchPane.add(lblEvtRygemateriale,0,3);
+        txfRygemateriale = new TextField();
+        maltbatchPane.add(txfRygemateriale,1,3);
         maltbatchPane.setBorder(Border.stroke(Paint.valueOf("Black")));
         maltbatchPane.setPadding(new Insets(20,50,50,10));
         maltbatchPane.setVgap(10);
@@ -125,7 +130,12 @@ public class MaltbatchWindow {
     }
 
     public void opretMaltbatchAktion(){
-        controller.opretMaltbatch(txfBatchnummer.getText(), Integer.parseInt(txfMængde.getText()), korn);
+        Maltbatch maltbatch = controller.opretMaltbatch(txfBatchnummer.getText(), Integer.parseInt(txfMængde.getText()), korn);
+        if(txfRygemateriale.getText() != null){
+            String type = txfRygemateriale.getText();
+            Rygemateriale rygemateriale = controller.opretRygemateriale(type);
+            maltbatch.setRygemateriale(rygemateriale);
+        }
     }
 
     public void afbrydAktion(){
