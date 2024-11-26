@@ -1,9 +1,6 @@
 package application.controller;
 
-import application.model.Destillering;
-import application.model.Korn;
-import application.model.Maltbatch;
-import application.model.Mark;
+import application.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
@@ -44,14 +41,33 @@ class ControllerTest {
 
     @Test
     void opretMark() {
+        //Arrange
+        String markNavn = "Nybogaard";
+        boolean økologisk = true;
+
+        //Act
+        Mark mark1 = controller.opretMark(markNavn, økologisk);
+        boolean forvetnet = true;
+        boolean aktuelt = controller.getStorage().getMarker().contains(mark1);
+
+        //Assert
+        assertEquals(forvetnet, aktuelt);
     }
 
     @Test
     void opretKorn() {
-    }
+        //Arrange
+        LocalDate høstdag = LocalDate.now();
+        String sort = "Evergreen";
+        Mark mark1 = mark;
 
-    @Test
-    void opretRygemateriale() {
+        //Act
+        Korn korn = controller.opretKorn(høstdag, sort, mark1);
+        boolean forventet = true;
+        boolean aktuelt = controller.getStorage().getKorn().contains(korn);
+
+        //Assert
+        assertEquals(forventet, aktuelt);
     }
 
     @Test
@@ -92,8 +108,44 @@ class ControllerTest {
 
         //Assert
         boolean forventet = true;
-        boolean aktuelt = destillering.getKommentar().equals("Lavet af praktikant");
+        boolean aktuelt = destillering.getKommentar().toString().equals(kommentar);
 
         assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void opretFad() {
+        //Arrange
+        int størrelse = 100;
+        String materiale = "Eg";
+        FadLeverandør fadLeverandør = new FadLeverandør("Mikkel", "Spanien");
+        String tidligereIndhold = "Sherry";
+        int alder = 2;
+        int antalGangeBrugt = 0;
+
+        //Act
+        Fad fad = controller.opretFad(størrelse,materiale,fadLeverandør,tidligereIndhold,alder,antalGangeBrugt);
+        boolean forventet = true;
+        boolean aktuelt = controller.getStorage().getFade().contains(fad);
+
+        //Assert
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void opretLager() {
+        //Arrange
+        String navn = "Sønderhøj Lager";
+        String vejnavn = "Sønderhøj 20";
+        String postnummer = "8260";
+        String by = "Viby";
+
+        //Act
+        Lager lager = controller.opretLager(navn,vejnavn,postnummer,by);
+        boolean forventet = true;
+        boolean aktuelt = controller.getStorage().getLager().contains(lager);
+
+        //Assert
+        assertEquals(forventet,aktuelt);
     }
 }

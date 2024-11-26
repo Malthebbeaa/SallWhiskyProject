@@ -14,4 +14,9 @@ public class Kommentar {
     public String getKommentar() {
         return kommentar;
     }
+
+    @Override
+    public String toString() {
+        return kommentar;
+    }
 }
