@@ -12,6 +12,8 @@ import gui.maltbatch.MaltbatchWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
@@ -59,6 +61,18 @@ public class gui extends Application {
         opretLagerWindow = new opretLagerWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager"));
         List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane()));
+
+        Image logo = new Image(getClass().getResource("/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
+
+        for (GridPane gridPane : gridPanes) {
+            //gridPane.setStyle("-fx-background-color: lightblue");
+
+            ImageView logoViewer = new ImageView(logo);
+            logoViewer.setFitWidth(200);
+            logoViewer.setPreserveRatio(true);
+
+            gridPane.add(logoViewer, 0,0);
+        }
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 

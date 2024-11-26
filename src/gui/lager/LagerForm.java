@@ -25,7 +25,6 @@ public class LagerForm {
     private void initForm() {
         lagerPane.setHgap(10);
         lagerPane.setVgap(10);
-        lagerPane.setPadding(new Insets(20));
 
         Label lblLager = new Label("Tilføj Lager:");
         lagerPane.add(lblLager, 0, 0);

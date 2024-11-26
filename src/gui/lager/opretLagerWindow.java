@@ -32,7 +32,7 @@ public class opretLagerWindow extends BaseWindow {
     }
 
     public void initContent(){
-        getPane().add(form.getLagerPane(), 0,0);
+        getPane().add(form.getLagerPane(), 0,1);
 
         Button btnOpretLager = new Button("Opret Lager");
         btnOpretLager.setOnAction(e-> handler.opretLagerActionHandler(form));
@@ -43,7 +43,7 @@ public class opretLagerWindow extends BaseWindow {
         hBoxButtons.getChildren().addAll(btnOpretLager,btnAfbrydAktion);
         hBoxButtons.setAlignment(Pos.CENTER);
 
-        lagerPane.add(hBoxButtons,0,1);
+        lagerPane.add(hBoxButtons,0,2);
     }
 
     public GridPane getLagerPane() {
