@@ -20,8 +20,8 @@ public class DestilleringWindow {
     private StorageInterface storage;
     private Controller controller;
     private DatePicker datepickerstartDato, datepickerSlutDato;
-    private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer;
-    private ListView listviewMaltbatches;
+    private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer, txfKommentar;
+    private ComboBox<Maltbatch> comboBoxMaltbatch;
 
 
     public DestilleringWindow(GridPane startPane, Scene scene, Controller controller) {
@@ -38,16 +38,11 @@ public class DestilleringWindow {
         destilleringPane.setVgap(10);
         destilleringPane.setPadding(new Insets(20));
 
-        Label lblMaltbatch = new Label("Maltbatch(es): ");
-        listviewMaltbatches = new ListView<>();
-        Mark nybogård = new Mark("Nybogård", true);
-        Korn evergreen = new Korn(LocalDate.now(), "Evergreen", nybogård);
-        listviewMaltbatches.getItems().addAll(new Maltbatch("FM2232", 300,evergreen), new Maltbatch("FM2333", 1000,evergreen), new Maltbatch("FM2032", 2300,evergreen));
-        listviewMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        listviewMaltbatches.setPrefHeight(50);
-        listviewMaltbatches.setPrefWidth(200);
+        Label lblMaltbatch = new Label("Maltbatch: ");
+        comboBoxMaltbatch = new ComboBox();
+        comboBoxMaltbatch.getItems().addAll(controller.getStorage().getMaltbatches());
         destilleringPane.add(lblMaltbatch, 0,0);
-        destilleringPane.add(listviewMaltbatches, 1,0);
+        destilleringPane.add(comboBoxMaltbatch, 1,0);
 
         Label lblAntalDestilleringer = new Label("Antal destilleringer: ");
         txfAntalDestilleringer = new TextField();
@@ -74,14 +69,18 @@ public class DestilleringWindow {
         txfAlkoholProcent = new TextField();
         destilleringPane.add(txfAlkoholProcent, 3,2);
 
+        Label lblKommentar = new Label("Evt. kommentar: ");
+        destilleringPane.add(lblKommentar, 0,3);
+        txfKommentar = new TextField();
+        destilleringPane.add(txfKommentar, 1,3, 3,1);
 
         Button btnOpret = new Button("Opret Destillering");
         btnOpret.setOnAction(e -> opretAction());
-        destilleringPane.add(btnOpret, 0,3);
+        destilleringPane.add(btnOpret, 0,4);
 
         Button btnAfbryd = new Button("Afbryd");
         btnAfbryd.setOnAction(e -> afbrydAction());
-        destilleringPane.add(btnAfbryd,1,3);
+        destilleringPane.add(btnAfbryd,1,4);
     }
 
     private void opretAction() {
@@ -90,17 +89,31 @@ public class DestilleringWindow {
         LocalDate slutDato = datepickerSlutDato.getValue();
         double alkoholProcent = Double.parseDouble(txfAlkoholProcent.getText());
         double væskeMængde = Double.parseDouble(txfVæskeMængde.getText());
-        List<Maltbatch> maltbatches = listviewMaltbatches.getItems();
+        Maltbatch maltbatch = comboBoxMaltbatch.getValue();
 
+        Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatch);
 
-        Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent, (Maltbatch) maltbatches);
+        if (txfKommentar.getText() != null){
+            controller.tilføjKommentarTilDestillering(txfKommentar.getText(), destillering);
+        }
+
+        afbrydAction();
     }
 
     public GridPane getDestilleringPane() {
         return destilleringPane;
     }
 
+    /***
+     * clearer textfields og sætter datepickers til dagens dato
+     */
     public void afbrydAction(){
-        scene.setRoot(startPane);
+        datepickerstartDato.setValue(LocalDate.now());
+        datepickerSlutDato.setValue(LocalDate.now());
+        txfAlkoholProcent.clear();
+        txfVæskeMængde.clear();
+        txfAntalDestilleringer.clear();
+        txfKommentar.clear();
+        comboBoxMaltbatch.setValue(null);
     }
 }

@@ -12,6 +12,7 @@ public class Storage implements StorageInterface{
     private ArrayList<Destillering> destilleringer = new ArrayList<>();
     private ArrayList<Korn> korns = new ArrayList<>();
     private ArrayList<Mark> marker = new ArrayList<>();
+    private ArrayList<Lager> lagre = new ArrayList<>();
 
 
     @Override
@@ -34,6 +35,11 @@ public class Storage implements StorageInterface{
 
     public void addKorn(Korn korn){
         korns.add(korn);
+    }
+
+    @Override
+    public void addLager(Lager lager) {
+        lagre.add(lager);
     }
 
     @Override
@@ -60,6 +66,11 @@ public class Storage implements StorageInterface{
     @Override
     public List<Korn> getKorn() {
         return korns;
+    }
+
+    @Override
+    public List<Lager> getLager() {
+        return lagre;
     }
 
 }

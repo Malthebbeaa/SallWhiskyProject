@@ -2,8 +2,10 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Korn;
+import application.model.Lager;
 import application.model.Maltbatch;
 import application.model.Mark;
+import com.sun.media.jfxmedia.events.NewFrameEvent;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -29,6 +31,7 @@ public class gui extends Application {
     private DestilleringWindow destilleringWindow;
     private MaltbatchWindow maltbatchWindow;
     private FadWindow fadWindow;
+    private opretLagerWindow opretLagerWindow;
 
     @Override
     public void start(Stage stage){
@@ -50,11 +53,12 @@ public class gui extends Application {
 
 
     public void initContent(){
-        maltbatchWindow = new MaltbatchWindow(scene, controller);
-        fadWindow = new FadWindow(startPane, scene, controller);
+        maltbatchWindow = new MaltbatchWindow(controller);
         destilleringWindow = new DestilleringWindow(startPane, scene, controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret fad"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getDestilleringPane(), maltbatchWindow.getMaltPane(), fadWindow.getFadPane()));
+        fadWindow = new FadWindow(startPane, scene, controller);
+        opretLagerWindow = new opretLagerWindow(controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getDestilleringPane(), maltbatchWindow.getMaltPane(), fadWindow.getFadPane(), opretLagerWindow.getLagerPane()));
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 
@@ -62,12 +66,13 @@ public class gui extends Application {
         Mark kvolbæk = controller.opretMark("Kvolbæk", true);
         Mark stadsgaard = controller.opretMark("Stadsgaard", true);
 
-        Korn evergreen = controller.opretKorn(LocalDate.now(), "Vårbyg", kvolbæk);
+        Korn evergreen = controller.opretKorn(LocalDate.now(), "Evergreen", kvolbæk);
         Korn irina = controller.opretKorn(LocalDate.of(2024,11, 22),"Irina",stadsgaard);
 
         Maltbatch maltbatch1 = controller.opretMaltbatch("NM80P", 500, evergreen);
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
+
+        Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
+        lager.tilføjReol(5,4,5);
     }
-
-
 }
