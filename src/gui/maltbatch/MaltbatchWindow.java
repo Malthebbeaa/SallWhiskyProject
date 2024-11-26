@@ -1,4 +1,4 @@
-package gui;
+package gui.maltbatch;
 
 import application.controller.Controller;
 import application.model.Korn;

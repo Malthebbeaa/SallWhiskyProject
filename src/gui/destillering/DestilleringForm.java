@@ -1,39 +1,30 @@
-package gui;
+package gui.destillering;
 
 import application.controller.Controller;
-import application.model.Destillering;
-import application.model.Korn;
 import application.model.Maltbatch;
-import application.model.Mark;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import storage.StorageInterface;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class DestilleringWindow {
-    private GridPane startPane, destilleringPane;
-    private Scene scene;
-    private StorageInterface storage;
-    private Controller controller;
+public class DestilleringForm {
     private DatePicker datepickerstartDato, datepickerSlutDato;
     private TextField txfAlkoholProcent, txfVæskeMængde, txfAntalDestilleringer, txfKommentar;
     private ComboBox<Maltbatch> comboBoxMaltbatch;
+    private GridPane destilleringPane;
+    private Controller controller;
 
-
-    public DestilleringWindow(GridPane startPane, Scene scene, Controller controller) {
+    public DestilleringForm(Controller controller) {
+        this.destilleringPane = new GridPane();
         this.controller = controller;
-        this.storage = controller.getStorage();
-        this.startPane = startPane;
-        this.scene = scene;
-        destilleringPane = new GridPane();
-        this.initContent(destilleringPane);
+        initForm();
     }
 
-    private void initContent(GridPane destilleringPane) {
+    private void initForm() {
         destilleringPane.setHgap(10);
         destilleringPane.setVgap(10);
         destilleringPane.setPadding(new Insets(20));
@@ -73,41 +64,17 @@ public class DestilleringWindow {
         destilleringPane.add(lblKommentar, 0,3);
         txfKommentar = new TextField();
         destilleringPane.add(txfKommentar, 1,3, 3,1);
-
-        Button btnOpret = new Button("Opret Destillering");
-        btnOpret.setOnAction(e -> opretAction());
-        destilleringPane.add(btnOpret, 0,4);
-
-        Button btnAfbryd = new Button("Afbryd");
-        btnAfbryd.setOnAction(e -> afbrydAction());
-        destilleringPane.add(btnAfbryd,1,4);
     }
+    public LocalDate getStartDato(){return datepickerstartDato.getValue();}
+    public LocalDate getSlutDato(){return datepickerSlutDato.getValue();}
+    public double getAlkoholProcent(){return Double.parseDouble(txfAlkoholProcent.getText());}
+    public int getAntalDestilleringer(){return Integer.parseInt(txfAntalDestilleringer.getText());}
+    public double getVæskeMængde(){return Double.parseDouble(txfVæskeMængde.getText());}
+    public Maltbatch getMaltbatch(){return comboBoxMaltbatch.getValue();}
+    public String getKommentar(){return txfKommentar.getText();}
+    public GridPane getDestilleringPane(){return destilleringPane;}
 
-    private void opretAction() {
-        int antalDestilleringer = Integer.parseInt(txfAntalDestilleringer.getText());
-        LocalDate startDato = datepickerstartDato.getValue();
-        LocalDate slutDato = datepickerSlutDato.getValue();
-        double alkoholProcent = Double.parseDouble(txfAlkoholProcent.getText());
-        double væskeMængde = Double.parseDouble(txfVæskeMængde.getText());
-        Maltbatch maltbatch = comboBoxMaltbatch.getValue();
-
-        Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatch);
-
-        if (txfKommentar.getText() != null){
-            controller.tilføjKommentarTilDestillering(txfKommentar.getText(), destillering);
-        }
-
-        afbrydAction();
-    }
-
-    public GridPane getDestilleringPane() {
-        return destilleringPane;
-    }
-
-    /***
-     * clearer textfields og sætter datepickers til dagens dato
-     */
-    public void afbrydAction(){
+    public void clearAction(){
         datepickerstartDato.setValue(LocalDate.now());
         datepickerSlutDato.setValue(LocalDate.now());
         txfAlkoholProcent.clear();

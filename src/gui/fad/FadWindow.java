@@ -1,4 +1,4 @@
-package gui;
+package gui.fad;
 
 import application.controller.Controller;
 import application.model.Fad;

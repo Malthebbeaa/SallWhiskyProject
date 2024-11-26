@@ -5,14 +5,13 @@ import application.model.Korn;
 import application.model.Lager;
 import application.model.Maltbatch;
 import application.model.Mark;
-import com.sun.media.jfxmedia.events.NewFrameEvent;
+import gui.destillering.DestilleringWindow;
+import gui.fad.FadWindow;
+import gui.maltbatch.MaltbatchWindow;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import storage.Storage;
 import storage.StorageInterface;
@@ -54,11 +53,11 @@ public class gui extends Application {
 
     public void initContent(){
         maltbatchWindow = new MaltbatchWindow(controller);
-        destilleringWindow = new DestilleringWindow(startPane, scene, controller);
+        destilleringWindow = new DestilleringWindow(scene, controller);
         fadWindow = new FadWindow(startPane, scene, controller);
         opretLagerWindow = new opretLagerWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getDestilleringPane(), maltbatchWindow.getMaltPane(), fadWindow.getFadPane(), opretLagerWindow.getLagerPane()));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getMaltPane(), fadWindow.getFadPane(), opretLagerWindow.getLagerPane()));
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 
