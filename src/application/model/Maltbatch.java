@@ -36,4 +36,8 @@ public class Maltbatch {
     public String toString() {
         return batchNummer + ", " + mængde + "kg, " + ", " + korn.getSort();
     }
+
+    public String getBatchNummer() {
+        return batchNummer;
+    }
 }

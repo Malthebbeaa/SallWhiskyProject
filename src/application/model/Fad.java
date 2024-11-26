@@ -21,4 +21,9 @@ public class Fad {
     public FadLeverandør getFadLeverandør() {
         return fadLeverandør;
     }
+
+    public int getFadId() {
+        return fadId;
+    }
+
 }
