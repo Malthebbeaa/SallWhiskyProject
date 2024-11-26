@@ -19,6 +19,7 @@ public class MaltbatchHandler {
         Korn korn = form.getKorn();
 
         controller.opretMaltbatch(batchnummer, mængde, korn);
+        form.clearAktion();
     }
 
     public void opretKornHandler(MaltbatchForm form){

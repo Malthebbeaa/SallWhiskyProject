@@ -7,6 +7,7 @@ import application.model.Maltbatch;
 import application.model.Mark;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
+import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -57,7 +58,7 @@ public class gui extends Application {
         fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getLagerPane()));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane()));
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 
