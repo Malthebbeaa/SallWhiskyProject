@@ -67,29 +67,29 @@ public class FadWindow {
             comboboxTidligereIndhold.getItems().addAll("Sherry", "Bourbon", "Rødvin");
             comboboxTidligereIndhold.setPrefHeight(20);
             comboboxTidligereIndhold.setPrefWidth(200);
-            destilleringPane.add(lblTidligereIndhold, 0,2);
-            destilleringPane.add(comboboxTidligereIndhold, 0,3);
+            destilleringPane.add(lblTidligereIndhold, 0,3);
+            destilleringPane.add(comboboxTidligereIndhold, 0,4);
 
             Label lblAlder = new Label("Tøndens alder: ");
             txfAlder = new TextField();
             txfAlder.setPrefWidth(30);
-            destilleringPane.add(lblAlder, 1,2);
-            destilleringPane.add(txfAlder, 1,3);
+            destilleringPane.add(lblAlder, 1,3);
+            destilleringPane.add(txfAlder, 1,4);
 
             Label lblAntalGangeBrugt = new Label("Antal gange den har været brugt: ");
             txfAntalGangeBrugt = new TextField();
             txfAntalGangeBrugt.setPrefWidth(30);
-            destilleringPane.add(lblAntalGangeBrugt, 2,2);
-            destilleringPane.add(txfAntalGangeBrugt, 2,3);
+            destilleringPane.add(lblAntalGangeBrugt, 2,3);
+            destilleringPane.add(txfAntalGangeBrugt, 2,4);
 
 
             Button btnOpret = new Button("Opret Fad");
             btnOpret.setOnAction(e -> opretAction());
-            destilleringPane.add(btnOpret, 0,5);
+            destilleringPane.add(btnOpret, 0,6);
 
             Button btnAfbryd = new Button("Afbryd");
             btnAfbryd.setOnAction(e -> afbrydAction());
-            destilleringPane.add(btnAfbryd,1,5);
+            destilleringPane.add(btnAfbryd,1,6);
         }
 
         private void opretAction() {

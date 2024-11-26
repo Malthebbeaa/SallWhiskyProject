@@ -93,7 +93,7 @@ public class DestilleringWindow {
         List<Maltbatch> maltbatches = listviewMaltbatches.getItems();
 
 
-        Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent,maltbatches);
+        Destillering destillering = controller.opretDestillering(antalDestilleringer,startDato,slutDato,væskeMængde,alkoholProcent, (Maltbatch) maltbatches);
     }
 
     public GridPane getDestilleringPane() {
