@@ -20,24 +20,23 @@ import javafx.stage.StageStyle;
 import java.time.LocalDate;
 
 public class MaltbatchWindow {
-    private Scene scene;
     private ComboBox<Mark> cbMark;
     private ComboBox<Korn> cbKorn;
-    private TextField txfMarkNavn, txfSort;
+    private TextField txfMarkNavn, txfSort, txfBatchnummer, txfMængde;
+    private TextArea txaKorn;
     private CheckBox chbØkologisk;
     private DatePicker dpHøstdag;
     private GridPane maltPane;
     private Controller controller;
+    private Korn korn;
 
-    public MaltbatchWindow(Scene scene, Controller controller){
+    public MaltbatchWindow(Controller controller){
           maltPane = new GridPane();
           this.controller = controller;
-          this.initContent(maltPane);
-          this.scene = scene;
-
+          this.initContent();
     }
 
-    public void initContent(GridPane maltPane) {
+    public void initContent() {
         maltPane.setHgap(10);
         maltPane.setVgap(10);
         maltPane.setPadding(new Insets(20));
@@ -75,7 +74,7 @@ public class MaltbatchWindow {
         kornPane.add(cbKorn,1,0);
         Label lblSort = new Label("Sort:");
         kornPane.add(lblSort,0,1);
-        TextField txfSort = new TextField();
+        txfSort = new TextField();
         kornPane.add(txfSort,1,1);
         Label lblHøstdag = new Label("Høstdag:");
         kornPane.add(lblHøstdag,0,2);
@@ -92,17 +91,18 @@ public class MaltbatchWindow {
         maltPane.add(opretMaltbatch,0,2);
 
         GridPane maltbatchPane = new GridPane();
-        Label lblKornSortVælger = new Label("Vælg Korn:");
+        Label lblKornSortVælger = new Label("Valgt Korn:");
         maltbatchPane.add(lblKornSortVælger,0,0);
-        ComboBox cbMaltetKorn = new ComboBox<Korn>();
-        maltbatchPane.add(cbMaltetKorn,1,0);
+        txaKorn = new TextArea();
+        txaKorn.setPrefSize(400,50);
+        maltbatchPane.add(txaKorn,1,0);
         Label lblBatchNummer = new Label("Batchnummer: ");
         maltbatchPane.add(lblBatchNummer,0,1);
-        TextField txfBatchnummer = new TextField();
+        txfBatchnummer = new TextField();
         maltbatchPane.add(txfBatchnummer,1,1);
         Label lblMængde = new Label("Mængde: ");
         maltbatchPane.add(lblMængde,0,2);
-        TextField txfMængde = new TextField();
+        txfMængde = new TextField();
         maltbatchPane.add(txfMængde,1,2);
         maltbatchPane.setBorder(Border.stroke(Paint.valueOf("Black")));
         maltbatchPane.setPadding(new Insets(20,50,50,10));
@@ -130,11 +130,18 @@ public class MaltbatchWindow {
     }
 
     public void opretMaltbatchAktion(){
-
+        controller.opretMaltbatch(txfBatchnummer.getText(), Integer.parseInt(txfMængde.getText()), korn);
     }
 
     public void afbrydAktion(){
-
+        txaKorn.clear();
+        txfMarkNavn.clear();
+        txfSort.clear();
+        txfSort.setEditable(true);
+        dpHøstdag.setDisable(false);
+        chbØkologisk.setSelected(false);
+        txfBatchnummer.clear();
+        txfMængde.clear();
     }
 
     public void valgtMarkChanged(){
@@ -144,9 +151,13 @@ public class MaltbatchWindow {
     }
 
     public void valgtKornChanged(){
-        Korn korn = cbKorn.getSelectionModel().getSelectedItem();
+        korn = cbKorn.getSelectionModel().getSelectedItem();
         txfSort.setText(korn.getSort());
+        txfSort.setEditable(false);
         dpHøstdag.setValue(korn.getHøstdag());
+        dpHøstdag.setDisable(true);
+        txaKorn.setText(korn.toString());
+        txaKorn.setEditable(false);
     }
 
     public GridPane getMaltPane() {

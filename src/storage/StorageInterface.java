@@ -16,6 +16,8 @@ public interface StorageInterface {
 
     public void addKorn(Korn korn);
 
+    public void addLager(Lager lager);
+
     public List<Fad> getFade();
 
     public List<Maltbatch> getMaltbatches();
@@ -25,4 +27,6 @@ public interface StorageInterface {
     public List<Mark> getMarker();
 
     public List<Korn> getKorn();
+
+    public List<Lager> getLager();
 }
