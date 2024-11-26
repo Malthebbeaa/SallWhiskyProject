@@ -130,7 +130,7 @@ public class MaltbatchWindow {
     }
 
     public void opretMaltbatchAktion(){
-        Maltbatch maltbatch = controller.opretMaltbatch(txfBatchnummer.getText(), Integer.parseInt(txfMængde.getText()), korn);
+        Maltbatch maltbatch = controller.opretMaltbatch(txfBatchnummer.getText(), Double.parseDouble(txfMængde.getText()), korn);
         if(txfRygemateriale.getText() != null){
             String type = txfRygemateriale.getText();
             Rygemateriale rygemateriale = controller.opretRygemateriale(type);
