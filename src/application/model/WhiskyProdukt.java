@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WhiskyProdukt {
-    public String AarLagret;
-    public String navn;
-    public String whiskytype;
+    private String AarLagret;
+    private String navn;
+    private String whiskytype;
     private List<Fad> fade;
 
 

@@ -1,13 +1,13 @@
 package application.model;
 
 public class Fad {
-    int fadId;
-    int størrelse;
-    String materiale;
-    FadLeverandør fadLeverandør;
-    String tidligereIndhold;
-    int alder;
-    int antalGangeBrugt;
+    private int fadId;
+    private int størrelse;
+    private String materiale;
+    private FadLeverandør fadLeverandør;
+    private String tidligereIndhold;
+    private int alder;
+    private int antalGangeBrugt;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.størrelse = størrelse;
@@ -30,6 +30,6 @@ public class Fad {
         return tidligereIndhold;
     }
     public String getLand(){
-        return getFadLeverandør().land;
+        return getFadLeverandør().getLand();
     }
 }

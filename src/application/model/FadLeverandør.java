@@ -1,8 +1,8 @@
 package application.model;
 
 public class FadLeverandør {
-    String navn;
-    String land;
+    private String navn;
+    private String land;
 
     public FadLeverandør(String navn, String land) {
         this.navn = navn;
@@ -14,7 +14,7 @@ public class FadLeverandør {
         return navn + ", " + land;
     }
 
-    public static String getLand() {
+    public String getLand() {
         return land;
     }
 

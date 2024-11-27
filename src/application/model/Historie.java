@@ -1,7 +1,7 @@
 package application.model;
 
 public class Historie {
-    public String historie;
+    private String historie;
 
     public Historie(String historie) {
         this.historie = historie;
