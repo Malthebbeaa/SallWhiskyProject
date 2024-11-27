@@ -1,24 +1,49 @@
 package application.model;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class WhiskyProdukt {
-    private String AarLagret;
+    private int AarLagret;
     private String navn;
     private String whiskytype;
     private List<Fad> fade;
 
 
-    public WhiskyProdukt(String aarLagret, String navn, String whiskytype) {
-        AarLagret = aarLagret;
+    public WhiskyProdukt(int aarLagret, String navn, String whiskytype) {
+        this.AarLagret = aarLagret;
         this.navn = navn;
         this.whiskytype = whiskytype;
+    }
+    public int getAarLagret(Aftapning aftapning, Date first, Date last) {
+        LocalDate påfyldningsDato = null;
+        LocalDate a = påfyldningsDato;
+        LocalDate b = aftapning.aftapningsDato;
+        int diff = b.getYear() - a.getYear();
+        if (a.getDayOfYear() - b.getDayOfYear() >= 0) {
+            diff--;
+        }
+        return diff;
+    }
+    public String getWhiskytype(Aftapning aftapning, WhiskyProdukt whiskyProdukt) {
+        String whiskytype = null;
+        if (!aftapning.fortyndet && whiskyProdukt.getFade().size() < 2) {
+            whiskytype = "Single Cask";
+        } else if (aftapning.fortyndet && whiskyProdukt.getFade().size() < 2) {
+            whiskytype = "Cask Strenght";
+        } else if (!aftapning.fortyndet && whiskyProdukt.getFade().size() > 1) {
+            whiskytype = "Cask Strenght Single Malt";
+        } else if (aftapning.fortyndet && whiskyProdukt.getFade().size() > 1) {
+            whiskytype = "Single Malt";
+        }
+        return whiskytype;
     }
 
     public void tilføjFade(Fad fad) {
         fade.add(fad);
     }
+
     public List<Fad> getFade() {
         return fade;
     }
@@ -35,7 +60,5 @@ public class WhiskyProdukt {
 //        return Påfyldning.getDestillering().getBatchNummer();
 //    }
 
-    public String getAarLagret() {
-        return AarLagret;
-    }
+
 }

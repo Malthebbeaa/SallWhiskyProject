@@ -58,7 +58,7 @@ public class Fad {
         return tidligereIndhold;
     }
     public String getLand(){
-        return getFadLeverandør().land;
+        return getFadLeverandør().getLand();
     }
 
     public void AntalGangeBrugt() {

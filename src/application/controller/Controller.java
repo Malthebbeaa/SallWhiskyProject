@@ -65,7 +65,7 @@ public class Controller {
         return lager;
     }
 
-    public WhiskyProdukt opretWhiskyProdukt(String aarLagret, String navn, String whiskytype) {
+    public WhiskyProdukt opretWhiskyProdukt(int aarLagret, String navn, String whiskytype) {
         WhiskyProdukt whiskyProdukt = new WhiskyProdukt(aarLagret, navn, whiskytype);
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
