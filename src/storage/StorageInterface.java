@@ -19,6 +19,9 @@ public interface StorageInterface {
 
     public void addLager(Lager lager);
 
+    public void addWhiskyProdukt(WhiskyProdukt whiskyProdukt);
+
+
     public List<Fad> getFade();
 
     public ObservableList<Maltbatch> getMaltbatches();
@@ -30,4 +33,7 @@ public interface StorageInterface {
     public List<Korn> getKorn();
 
     public List<Lager> getLager();
+
+    public List<WhiskyProdukt> getWhiskyProdukt();
+
 }

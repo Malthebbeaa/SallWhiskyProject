@@ -14,10 +14,6 @@ public class FadLeverandør {
         return navn + ", " + land;
     }
 
-    public static String getLand() {
-        return land;
-    }
-
     public void setLand(String land) {
         this.land = land;
     }

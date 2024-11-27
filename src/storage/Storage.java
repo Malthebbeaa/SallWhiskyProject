@@ -15,6 +15,7 @@ public class Storage implements StorageInterface{
     private ArrayList<Korn> korns = new ArrayList<>();
     private ArrayList<Mark> marker = new ArrayList<>();
     private ArrayList<Lager> lagre = new ArrayList<>();
+    private ArrayList<WhiskyProdukt> whiskyProdukter = new ArrayList<>();
 
 
     @Override
@@ -45,13 +46,17 @@ public class Storage implements StorageInterface{
     }
 
     @Override
+    public void addWhiskyProdukt(WhiskyProdukt whiskyProdukt) {
+        whiskyProdukter.add(whiskyProdukt);
+    }
+
+    //----------------------------------------------------------------------------
+    //overvej om vi vil returnere den samme liste eller en kopi?
+    @Override
     public List<Fad> getFade() {
         return fade;
     }
 
-
-    //----------------------------------------------------------------------------
-    //overvej om vi vil returnere den samme liste eller en kopi?
     public ObservableList<Maltbatch> getMaltbatches(){
         return FXCollections.unmodifiableObservableList(maltbatches);
     }
@@ -73,6 +78,11 @@ public class Storage implements StorageInterface{
     @Override
     public List<Lager> getLager() {
         return lagre;
+    }
+
+    @Override
+    public List<WhiskyProdukt> getWhiskyProdukt() {
+        return whiskyProdukter;
     }
 
 }
