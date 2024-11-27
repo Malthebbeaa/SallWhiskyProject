@@ -27,6 +27,7 @@ public class Destillering {
     public void lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
         Påfyldning påfyldning = new Påfyldning(påFyldningsDato, påfyldningsMængde);
         påfyldning.fyldPåFad(fad);
+        fad.påfyldVæske(væskeMængde);
         påfyldninger.add(påfyldning);
     }
 

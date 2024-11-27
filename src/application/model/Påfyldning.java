@@ -20,7 +20,7 @@ public class Påfyldning {
     //implementer observer pattern?
     public void fyldPåFad(Fad fad){
         fade.add(fad);
-        //fad.setFyldtStatus(true);
+        fad.setFyldt(true);
     }
 
     public LocalDate getPåfyldningsDato() {
