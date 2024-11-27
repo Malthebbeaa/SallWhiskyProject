@@ -29,7 +29,7 @@ public class FadWindow extends BaseWindow {
     }
     @Override
     public void initContent() {
-        getPane().add(form.getFadPane(), 0,0);
+        getPane().add(form.getFadPane(), 0,1);
 
 
         Button btnOpret = new Button("Opret Fad");
@@ -42,6 +42,6 @@ public class FadWindow extends BaseWindow {
         hBoxButtons.getChildren().addAll(btnOpret, btnAfbryd);
         hBoxButtons.setAlignment(Pos.CENTER);
 
-        getPane().add(hBoxButtons, 0, 1);
+        getPane().add(hBoxButtons, 0, 2);
     }
 }

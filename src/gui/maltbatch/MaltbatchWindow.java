@@ -34,7 +34,7 @@ public class MaltbatchWindow extends BaseWindow {
     }
 
     public void initContent() {
-        getPane().add(form.getMaltPane(), 0,0);
+        getPane().add(form.getMaltPane(), 0,1);
 
         Button btnOpretMaltbatch = new Button("Opret Maltbatch");
         btnOpretMaltbatch.setOnAction(e -> handler.opretMaltbatchHandler(form));
@@ -46,7 +46,7 @@ public class MaltbatchWindow extends BaseWindow {
         hBoxButtons.getChildren().addAll(btnOpretMaltbatch, btnAfbrydAktion);
         hBoxButtons.setAlignment(Pos.CENTER);
 
-        maltPane.add(hBoxButtons, 0, 1);
+        maltPane.add(hBoxButtons, 0, 2);
     }
 
     public GridPane getMaltPane() {
