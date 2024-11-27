@@ -30,4 +30,8 @@ public class Påfyldning {
     public double getLiterPåfyldt() {
         return literPåfyldt;
     }
+
+    public List<Fad> getFade() {
+        return fade;
+    }
 }

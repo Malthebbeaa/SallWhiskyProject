@@ -26,6 +26,10 @@ public class Fad {
     }
 
     public void påfyldVæske(double påfyldningsVæskeMængde){
+        if (påfyldningsVæskeMængde < 0){
+            throw new RuntimeException("Mængden skal være positiv");
+        }
+
         if (mængdeVæskeIFad + påfyldningsVæskeMængde <= størrelse){
             mængdeVæskeIFad += påfyldningsVæskeMængde;
         } else {

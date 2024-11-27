@@ -24,11 +24,12 @@ public class Destillering {
         this.påfyldninger = new ArrayList<>();
     }
 
-    public void lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
+    public Påfyldning lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
         Påfyldning påfyldning = new Påfyldning(påFyldningsDato, påfyldningsMængde);
         påfyldning.fyldPåFad(fad);
-        fad.påfyldVæske(væskeMængde);
+        fad.påfyldVæske(påfyldningsMængde);
         påfyldninger.add(påfyldning);
+        return påfyldning;
     }
 
     /***
@@ -72,5 +73,9 @@ public class Destillering {
 
     public Kommentar getKommentar() {
         return kommentar;
+    }
+
+    public List<Påfyldning> getPåfyldninger() {
+        return påfyldninger;
     }
 }
