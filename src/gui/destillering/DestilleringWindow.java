@@ -26,7 +26,7 @@ public class DestilleringWindow extends BaseWindow {
     }
     @Override
     public void initContent() {
-        getPane().add(form.getDestilleringPane(), 0,0);
+        getPane().add(form.getDestilleringPane(), 0,1);
 
         Button btnOpretDestillering = new Button("Opret Destillering");
         btnOpretDestillering.setOnAction(e -> handler.opretDestilleringAction(form));
@@ -38,7 +38,7 @@ public class DestilleringWindow extends BaseWindow {
         hBoxButtons.getChildren().addAll(btnOpretDestillering, btnAfbryd);
         hBoxButtons.setAlignment(Pos.CENTER);
 
-        getPane().add(hBoxButtons, 0, 1);
+        getPane().add(hBoxButtons, 0, 2);
 
     }
 }
