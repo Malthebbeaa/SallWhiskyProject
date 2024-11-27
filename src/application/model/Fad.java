@@ -57,8 +57,7 @@ public class Fad {
     public String getTidligereIndhold() {
         return tidligereIndhold;
     }
-
-    public String getLand() {
+    public String getLand(){
         return getFadLeverandør().land;
     }
 
