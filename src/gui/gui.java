@@ -9,6 +9,7 @@ import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
+import gui.Whiskyprodukt.WhiskyProduktWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -33,6 +34,7 @@ public class gui extends Application {
     private MaltbatchWindow maltbatchWindow;
     private FadWindow fadWindow;
     private opretLagerWindow opretLagerWindow;
+    private WhiskyProduktWindow WhiskyProduktWindow;
 
     @Override
     public void start(Stage stage){
@@ -58,8 +60,9 @@ public class gui extends Application {
         destilleringWindow = new DestilleringWindow(controller);
         fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane()));
+        WhiskyProduktWindow = new WhiskyProduktWindow(controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 

@@ -1,7 +1,7 @@
 package application.model;
 
 public class Fad {
-    private static int nextFadId = 1;
+    private static int IdCount = 1;
     private int fadId;
     private int størrelse;
     private String materiale;
@@ -13,6 +13,7 @@ public class Fad {
     private boolean fyldt;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
+        this.fadId = IdCount++;
         this.størrelse = størrelse;
         this.materiale = materiale;
         this.fadLeverandør = fadLeverandør;
@@ -21,8 +22,6 @@ public class Fad {
         this.antalGangeBrugt = antalGangeBrugt;
         this.fyldt = false;
         this.mængdeVæskeIFad = 0;
-
-        this.fadId = nextFadId++;
     }
 
     public void påfyldVæske(double påfyldningsVæskeMængde){
@@ -49,6 +48,21 @@ public class Fad {
         return mængdeVæskeIFad;
     }
 
+    public void AftapWhisky(Double literAftappet) {
+        if (mængdeVæskeIFad == 0) {
+            throw new IllegalStateException("Fadet er tomt");
+        }
+
+        if (literAftappet <= mængdeVæskeIFad) {
+            mængdeVæskeIFad -= literAftappet;
+            if (mængdeVæskeIFad == 0) {
+                antalGangeBrugt++;
+            }
+        } else {
+            System.out.println();
+        }
+    }
+
     public FadLeverandør getFadLeverandør() {
         return fadLeverandør;
     }
@@ -63,4 +77,10 @@ public class Fad {
     public String getLand(){
         return getFadLeverandør().getLand();
     }
+
+    public void AntalGangeBrugt() {
+        antalGangeBrugt++;
+    }
+
+
 }
