@@ -1,6 +1,7 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Destillering {
@@ -10,6 +11,7 @@ public class Destillering {
     private double alkoholProcent;
     private Maltbatch maltbatch;
     private Kommentar kommentar;
+    private List<Påfyldning> påfyldninger;
 
     public Destillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
                         double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
@@ -19,6 +21,13 @@ public class Destillering {
         this.væskeMængde = væskeMængde;
         this.alkoholProcent = alkoholProcent;
         this.maltbatch = maltbatch;
+        this.påfyldninger = new ArrayList<>();
+    }
+
+    public void lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
+        Påfyldning påfyldning = new Påfyldning(påFyldningsDato, påfyldningsMængde);
+        påfyldning.fyldPåFad(fad);
+        påfyldninger.add(påfyldning);
     }
 
     /***
