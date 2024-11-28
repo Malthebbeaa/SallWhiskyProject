@@ -88,7 +88,6 @@ public class gui extends Application {
         Maltbatch maltbatch1 = controller.opretMaltbatch("NM80P", 500, evergreen);
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
 
-        Fad fad1 = controller.opretFad(94, "Eg", new FadLeverandør("La Barril", "Spanien"), "Sherry", 10, 1);
 
         Destillering destillering1 = controller.opretDestillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 900,68, maltbatch1);
 
