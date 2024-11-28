@@ -21,4 +21,6 @@ public class FadLeverandør {
     public void setLand(String land) {
         this.land = land;
     }
+
+
 }

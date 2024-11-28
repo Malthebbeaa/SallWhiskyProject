@@ -22,7 +22,7 @@ public class WhiskyProduktWindow extends BaseWindow {
     }
     @Override
     public void initContent() {
-        getPane().add(form.getFadPane(), 0,1);
+        getPane().add(form.getWhiskyproduktPane(), 0,1);
 
 
         Button btnOpret = new Button("Opret whisky produkt");

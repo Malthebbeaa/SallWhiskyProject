@@ -20,9 +20,12 @@ public interface StorageInterface {
     public void addLager(Lager lager);
 
     public void addWhiskyProdukt(WhiskyProdukt whiskyProdukt);
+    public void addFadleverandør(FadLeverandør fadLeverandør);
+
 
 
     public List<Fad> getFade();
+    public List<FadLeverandør> getFadleverandør();
 
     public ObservableList<Maltbatch> getMaltbatches();
 

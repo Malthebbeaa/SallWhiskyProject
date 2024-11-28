@@ -82,4 +82,9 @@ public class Controller {
     }
 
 
+    public FadLeverandør opretFadlevandør(String navn, String land) {
+        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
+        storage.addFadleverandør(fadLeverandør);
+        return fadLeverandør;
+    }
 }
