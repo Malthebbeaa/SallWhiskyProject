@@ -32,7 +32,7 @@ public interface StorageInterface {
 
     public List<Korn> getKorn();
 
-    public List<Lager> getLager();
+    public ObservableList<Lager> getLager();
 
     public List<WhiskyProdukt> getWhiskyProdukt();
 

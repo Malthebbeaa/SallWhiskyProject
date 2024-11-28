@@ -1,5 +1,9 @@
 package application.model;
 
+import application.controller.Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class Lager {
@@ -7,26 +11,26 @@ public class Lager {
     private String vejnavn;
     private String postnummer;
     private String by;
-    private ArrayList<Reol> reoler;
+    private int reolCounter = 1;
+    private ObservableList<Reol> reoler;
 
     public Lager(String navn, String vejnavn, String postnummer, String by) {
         this.navn = navn;
         this.vejnavn = vejnavn;
         this.postnummer = postnummer;
         this.by = by;
-        reoler = new ArrayList<Reol>();
+        reoler = FXCollections.observableArrayList();
     }
 
-    public void tilføjReol(int antalReoler, int antalHylder, int antalPladser) {
-        for (int i = 1; i <= antalReoler; i++) {
-            Reol reol = new Reol(i);
-            reol.tilføjHylde(antalHylder, antalPladser);
-            reoler.add(reol);
-        }
+    public Reol tilføjReol() {
+        Reol reol = new Reol(reolCounter);
+        reoler.add(reol);
+        reolCounter++;
+        return reol;
     }
 
-    public ArrayList<Reol> getReoler() {
-        return reoler;
+    public ObservableList<Reol> getReoler() {
+        return FXCollections.unmodifiableObservableList(reoler);
     }
 
     public int ledigePladser(){
@@ -45,6 +49,6 @@ public class Lager {
 
     @Override
     public String toString() {
-        return navn + " antal ledige pladser: " + ledigePladser();
+        return navn;
     }
 }

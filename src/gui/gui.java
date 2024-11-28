@@ -1,10 +1,7 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Korn;
-import application.model.Lager;
-import application.model.Maltbatch;
-import application.model.Mark;
+import application.model.*;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.lager.opretLagerWindow;
@@ -89,6 +86,7 @@ public class gui extends Application {
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
 
         Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
-        lager.tilføjReol(5,4,5);
+        Reol reol = lager.tilføjReol();
+        reol.tilføjHylde(5,5);
     }
 }

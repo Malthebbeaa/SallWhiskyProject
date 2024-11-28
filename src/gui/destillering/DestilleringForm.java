@@ -2,6 +2,7 @@ package gui.destillering;
 
 import application.controller.Controller;
 import application.model.Maltbatch;
+import gui.PaneCreator;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -27,11 +28,7 @@ public class DestilleringForm {
     }
 
     private void initForm() {
-        destilleringInfoPane = new GridPane();
-        destilleringInfoPane.setHgap(10);
-        destilleringInfoPane.setVgap(10);
-        destilleringInfoPane.setPadding(new Insets(20,50,50,10));
-        destilleringInfoPane.setBorder(Border.stroke(Paint.valueOf("Black")));
+        destilleringInfoPane = new PaneCreator();
 
         Label lblOpret = new Label("Opret Destillering:");
         destilleringPane.add(lblOpret, 0,0);
@@ -47,6 +44,7 @@ public class DestilleringForm {
 
         Label lblAntalDestilleringer = new Label("Antal destilleringer: ");
         txfAntalDestilleringer = new TextField();
+        txfAntalDestilleringer.setPromptText("F.eks. 2");
         txfAntalDestilleringer.setPrefWidth(30);
         destilleringInfoPane.add(lblAntalDestilleringer, 2,0);
         destilleringInfoPane.add(txfAntalDestilleringer, 3,0);

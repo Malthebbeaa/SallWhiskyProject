@@ -3,6 +3,7 @@ package gui.Whiskyprodukt;
 import application.controller.Controller;
 import application.model.Fad;
 import application.model.FadLeverandør;
+import gui.PaneCreator;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -26,11 +27,7 @@ public class WhiskyProduktForm {
     }
 
     private void initForm() {
-        fadInfoPane = new GridPane();
-        fadInfoPane.setHgap(10);
-        fadInfoPane.setVgap(10);
-        fadInfoPane.setPadding(new Insets(20,50,50,10));
-        fadInfoPane.setBorder(Border.stroke(Paint.valueOf("Black")));
+        fadInfoPane = new PaneCreator();
 
         Label lblOpret = new Label("Opret Fad:");
         fadPane.add(lblOpret,0,0);
