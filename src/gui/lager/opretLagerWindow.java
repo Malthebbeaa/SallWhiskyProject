@@ -25,9 +25,8 @@ public class opretLagerWindow extends BaseWindow {
     public opretLagerWindow(Controller controller){
         this.controller = controller;
         this.lagerPane = getPane();
-        form = new LagerForm(controller);
         handler = new LagerHandler(controller);
-
+        form = new LagerForm(controller, handler);
         initContent();
     }
 
@@ -41,7 +40,6 @@ public class opretLagerWindow extends BaseWindow {
 
         HBox hBoxButtons = new HBox(10);
         hBoxButtons.getChildren().addAll(btnOpretLager,btnAfbrydAktion);
-        hBoxButtons.setAlignment(Pos.CENTER);
 
         lagerPane.add(hBoxButtons,0,2);
     }

@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
 import storage.StorageInterface;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class gui extends Application {
     private WhiskyProduktWindow WhiskyProduktWindow;
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage){
         stage.setTitle("Destilleri Pro");
         startPane = new GridPane();
 
@@ -65,29 +64,30 @@ public class gui extends Application {
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
         for (GridPane gridPane : gridPanes) {
-            //gridPane.setStyle("-fx-background-color: lightblue");
+            gridPane.setStyle("-fx-background-color: lightblue");
 
             ImageView logoViewer = new ImageView(logo);
             logoViewer.setFitWidth(200);
             logoViewer.setPreserveRatio(true);
 
-            gridPane.add(logoViewer, 0, 0);
+            gridPane.add(logoViewer, 0,0);
         }
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 
-    public void initStorage() {
+    public void initStorage(){
         Mark kvolbæk = controller.opretMark("Kvolbæk", true);
         Mark stadsgaard = controller.opretMark("Stadsgaard", true);
 
         Korn evergreen = controller.opretKorn(LocalDate.now(), "Evergreen", kvolbæk);
-        Korn irina = controller.opretKorn(LocalDate.of(2024, 11, 22), "Irina", stadsgaard);
+        Korn irina = controller.opretKorn(LocalDate.of(2024,11, 22),"Irina",stadsgaard);
 
         Maltbatch maltbatch1 = controller.opretMaltbatch("NM80P", 500, evergreen);
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
 
-        Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade", "8450", "Hammel");
-        lager.tilføjReol(5, 4, 5);
+        Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
+        Reol reol = lager.tilføjReol();
+        reol.tilføjHylde(5,5);
 
         FadLeverandør fadLeverandør1 = controller.opretFadlevandør("La Barril", "Spanien");
         FadLeverandør fadLeverandør2 = controller.opretFadlevandør("El Gordo y Pobre", "Spanien");
