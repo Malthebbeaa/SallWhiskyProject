@@ -17,7 +17,6 @@ import java.util.logging.Handler;
 
 public class LagerForm {
     private TextField txfLagerNavn, txfVejnavn, txfBy, txfPostnummer, txfAntalHylder, txfAntalPladser;
-    private ListView<String> lvLagre;
     private ListView<Reol> lvReolView;
     private ListView<Hylde> lvHyldeView;
     private ListView<Plads> lvPladsView;
@@ -42,10 +41,8 @@ public class LagerForm {
         lagerPane.add(lblLager, 0, 0);
         Label lblTilføjReol = new Label("Tilføj Reol:");
         lagerPane.add(lblTilføjReol,1,0);
-        Label lblTilføjHylde = new Label("Tilføj Hylde:");
+        Label lblTilføjHylde = new Label("Overvåg reoler:");
         lagerPane.add(lblTilføjHylde,2,0);
-        Label lblOprettedeLagre = new Label("Oprettede Lagre:");
-        lagerPane.add(lblOprettedeLagre, 3, 0);
 
         PaneCreator opretLagerPane = new PaneCreator();
 
@@ -70,18 +67,24 @@ public class LagerForm {
 
         PaneCreator reolPane = new PaneCreator();
         Label lblVælgLager = new Label("Vælg lager:");
+        reolPane.add(lblVælgLager,0,0);
         cbLager = new ComboBox<>();
         cbLager.setItems(controller.getStorage().getLager());
         cbLager.setValue(controller.getStorage().getLager().getFirst());
-
+        reolPane.add(cbLager,1,0);
+        Label lblAntalHylder = new Label("Antal hylder:");
+        txfAntalHylder = new TextField();
+        reolPane.add(lblAntalHylder, 0, 1);
+        reolPane.add(txfAntalHylder, 1, 1);
+        Label lblAntalPladser = new Label("Antal pladser:");
+        txfAntalPladser = new TextField();
+        reolPane.add(lblAntalPladser, 0, 2);
+        reolPane.add(txfAntalPladser, 1, 2);
         Button btnOpretReol = new Button("Opret Reol");
         btnOpretReol.setOnAction(e -> handler.opretReolHandler(this));
         lvReolView = new ListView<>();
-        lvReolView.getItems().addAll(cbLager.getValue().getReoler());
-        reolPane.add(lblVælgLager,0,0);
-        reolPane.add(cbLager,1,0);
-
-        reolPane.add(btnOpretReol,1,2);
+        lvReolView.setItems(cbLager.getValue().getReoler());
+        reolPane.add(btnOpretReol,1,3);
         lagerPane.add(reolPane,1,1);
 
         PaneCreator hyldeOgPladsPane = new PaneCreator();
@@ -101,29 +104,11 @@ public class LagerForm {
         lvPladsView = new ListView<>();
         hyldeOgPladsPane.add(lblvælgReol, 0, 1);
         hyldeOgPladsPane.add(cbReol, 1, 1);
-        Label lblAntalHylder = new Label("Antal hylder:");
-        txfAntalHylder = new TextField();
-        hyldeOgPladsPane.add(lblAntalHylder, 0, 2);
-        hyldeOgPladsPane.add(txfAntalHylder, 1, 2);
-        Label lblAntalPladser = new Label("Antal pladser:");
-        txfAntalPladser = new TextField();
-        hyldeOgPladsPane.add(lblAntalPladser, 0, 3);
-        hyldeOgPladsPane.add(txfAntalPladser, 1, 3);
-        Button btnOpretHylde = new Button("Opret Hylde");
-        btnOpretHylde.setOnAction(e -> handler.opretHyldeHandler(this));
-        hyldeOgPladsPane.add(btnOpretHylde,0,4);
         hyldeOgPladsPane.add(lvHyldeView,2,0,1,6);
         hyldeOgPladsPane.add(lvPladsView,3,0,1,6);
         lagerPane.add(hyldeOgPladsPane,2,1);
 
         lagerPane.add(opretLagerPane, 0, 1);
-
-        lvLagre = new ListView<>();
-        for (Lager l : controller.getStorage().getLager()) {
-            lvLagre.getItems().add(l.toString() + " ledige pladser: " + l.ledigePladser());
-        }
-        lvLagre.setBorder(Border.stroke(Paint.valueOf("Black")));
-        lagerPane.add(lvLagre, 3, 1);
 
         ChangeListener<Lager> lagerListener = (old, oldLager, newLager) -> selectedLagerChanged();
         cbLagerReol.getSelectionModel().selectedItemProperty().addListener(lagerListener);
@@ -143,7 +128,6 @@ public class LagerForm {
     public int getAntalHylder(){return Integer.parseInt(txfAntalHylder.getText());}
     public int getAntalPladser(){return Integer.parseInt(txfAntalPladser.getText());}
     public GridPane getLagerPane(){return lagerPane;}
-    public ListView<String> getLvLagre(){return lvLagre;}
     public Lager getCbLager(){return cbLager.getValue();}
     public Lager getCbLagerReol(){return cbLagerReol.getValue();}
     public Reol getCbReol(){return cbReol.getValue();}
@@ -164,13 +148,20 @@ public class LagerForm {
 
     public void selectedReolChanged(){
         Reol reol = cbReol.getValue();
-        lvHyldeView.setItems(reol.getHylder());
-
+        if(reol == null){
+        }
+        else {
+            lvHyldeView.setItems(reol.getHylder());
+        }
     }
 
     public void selectedHyldeChanged(){
         Hylde hylde = lvHyldeView.getSelectionModel().getSelectedItem();
         lvPladsView.getItems().clear();
-        lvPladsView.getItems().addAll(hylde.getPladser());
+        if(hylde == null){
+        }
+        else {
+            lvPladsView.getItems().addAll(hylde.getPladser());
+        }
     }
 }
