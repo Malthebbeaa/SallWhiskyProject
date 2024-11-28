@@ -18,9 +18,6 @@ public class LagerHandler {
         String postnummer = form.getPostNummer();
         Lager lager = controller.opretLager(lagerNavn,vejnavn,postnummer,by);
 
-        int antalHylder = form.getAntalHylder();
-        int antalPladser = form.getAntalPladser();
-
         form.clearAction();
         for (Lager l : controller.getStorage().getLager()) {
             form.getLvLagre().getItems().add(l.toString() + " ledige pladser: " + l.ledigePladser());
@@ -28,14 +25,16 @@ public class LagerHandler {
     }
     public void opretReolHandler(LagerForm form){
         Lager lager = form.getCbLager();
-        int antalReoler = form.getAntalReoler();
         lager.tilføjReol();
         form.clearAction();
     }
 
-    public void opretHyldeHandler(LagerForm form){
+    public void opretHyldeHandler(LagerForm form) {
         Reol reol = form.getCbReol();
         reol.tilføjHylde(form.getAntalHylder(), form.getAntalPladser());
-        form.clearAction();
+        form.getLvLagre().getItems().clear();
+        for (Lager l : controller.getStorage().getLager()) {
+            form.getLvLagre().getItems().add(l.toString() + " ledige pladser: " + l.ledigePladser());
+        }
     }
 }

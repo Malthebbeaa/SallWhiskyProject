@@ -33,12 +33,12 @@ public class Lager {
         return FXCollections.unmodifiableObservableList(reoler);
     }
 
-    public int ledigePladser(){
+    public int ledigePladser() {
         int count = 0;
         for (Reol reol : reoler) {
             for (Hylde hylde : reol.getHylder()) {
                 for (Plads plads : hylde.getPladser()) {
-                    if(plads.isLedig()){
+                    if (plads.isLedig()) {
                         count++;
                     }
                 }
