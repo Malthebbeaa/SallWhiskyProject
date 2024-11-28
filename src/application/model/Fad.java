@@ -83,5 +83,8 @@ public class Fad {
         antalGangeBrugt++;
     }
 
-
+    @Override
+    public String toString() {
+        return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
+    }
 }

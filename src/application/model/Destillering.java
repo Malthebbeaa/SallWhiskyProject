@@ -78,4 +78,9 @@ public class Destillering {
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
+
+    @Override
+    public String toString() {
+        return væskeMængde + "L, " + alkoholProcent + "%, MaltbatchNr: " + maltbatch.getBatchNummer();
+    }
 }

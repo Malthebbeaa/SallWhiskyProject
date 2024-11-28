@@ -9,9 +9,9 @@ import java.util.List;
 
 public class Storage implements StorageInterface{
 
-    private ArrayList<Fad> fade = new ArrayList<>();
+    private ObservableList<Fad> fade = FXCollections.observableArrayList();
     private ObservableList<Maltbatch> maltbatches = FXCollections.observableArrayList();
-    private ArrayList<Destillering> destilleringer = new ArrayList<>();
+    private ObservableList<Destillering> destilleringer = FXCollections.observableArrayList();
     private ArrayList<Korn> korns = new ArrayList<>();
     private ArrayList<Mark> marker = new ArrayList<>();
     private ObservableList<Lager> lagre = FXCollections.observableArrayList();
@@ -53,16 +53,16 @@ public class Storage implements StorageInterface{
     //----------------------------------------------------------------------------
     //overvej om vi vil returnere den samme liste eller en kopi?
     @Override
-    public List<Fad> getFade() {
-        return fade;
+    public ObservableList<Fad> getFade() {
+        return FXCollections.unmodifiableObservableList(fade);
     }
 
     public ObservableList<Maltbatch> getMaltbatches(){
         return FXCollections.unmodifiableObservableList(maltbatches);
     }
     @Override
-    public List<Destillering> getDestilleringer() {
-        return destilleringer;
+    public ObservableList<Destillering> getDestilleringer() {
+        return FXCollections.unmodifiableObservableList(destilleringer);
     }
 
     @Override

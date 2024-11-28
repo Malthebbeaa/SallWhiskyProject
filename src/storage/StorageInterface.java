@@ -22,11 +22,11 @@ public interface StorageInterface {
     public void addWhiskyProdukt(WhiskyProdukt whiskyProdukt);
 
 
-    public List<Fad> getFade();
+    public ObservableList<Fad> getFade();
 
     public ObservableList<Maltbatch> getMaltbatches();
 
-    public List<Destillering> getDestilleringer();
+    public ObservableList<Destillering> getDestilleringer();
 
     public List<Mark> getMarker();
 
