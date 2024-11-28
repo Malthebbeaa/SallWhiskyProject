@@ -67,7 +67,7 @@ public class gui extends Application {
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
         for (GridPane gridPane : gridPanes) {
-            //gridPane.setStyle("-fx-background-color: lightblue");
+            gridPane.setStyle("-fx-background-color: lightblue");
 
             ImageView logoViewer = new ImageView(logo);
             logoViewer.setFitWidth(200);

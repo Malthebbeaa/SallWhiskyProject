@@ -24,7 +24,7 @@ public class MaltbatchForm {
 
     public MaltbatchForm(Controller controller, MaltbatchHandler handler) {
         this.controller = controller;
-        handler = new MaltbatchHandler(controller);
+        this.handler = handler;
         maltPane = new GridPane();
 
         initForm();
