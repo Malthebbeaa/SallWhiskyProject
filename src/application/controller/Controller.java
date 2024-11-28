@@ -71,6 +71,12 @@ public class Controller {
         return whiskyProdukt;
     }
 
+    public Påfyldning påfyldningFad(Fad fad, Destillering destillering, LocalDate påfyldningsDato, double mængde){
+        Påfyldning påfyldning = destillering.lavPåfyldning(fad, påfyldningsDato,mængde);
+
+        return påfyldning;
+    }
+
     public StorageInterface getStorage() {
         return storage;
     }
