@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Destillering {
-    private int antalDistilleringer;
+    private int antalDestilleringer;
     private LocalDate startDato, slutDato;
     private double væskeMængde;
     private double alkoholProcent;
@@ -13,9 +13,9 @@ public class Destillering {
     private Kommentar kommentar;
     private List<Påfyldning> påfyldninger;
 
-    public Destillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
+    public Destillering(int antalDestilleringer, LocalDate startDato, LocalDate slutDato,
                         double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
-        this.antalDistilleringer = antalDistilleringer;
+        this.antalDestilleringer = antalDestilleringer;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.væskeMængde = væskeMængde;
@@ -24,7 +24,7 @@ public class Destillering {
         this.påfyldninger = new ArrayList<>();
     }
 
-    //todo træk vækse fra destilleringen
+    //todo træk væske fra på Destillering
     public Påfyldning lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
         Påfyldning påfyldning = new Påfyldning(påFyldningsDato, påfyldningsMængde);
         påfyldning.fyldPåFad(fad);
@@ -34,15 +34,15 @@ public class Destillering {
     }
 
     /***
-     * tilføjer en evt kommentar til distilleringen
-     * @param kommentar evt kommentar til distillering
+     * tilføjer en evt kommentar til destilleringen
+     * @param kommentar evt kommentar til destillering
      */
     public void setKommentar(Kommentar kommentar){
         this.kommentar = kommentar;
     }
 
-    public int getAntalDistilleringer() {
-        return antalDistilleringer;
+    public int getAntalDestilleringer() {
+        return antalDestilleringer;
     }
 
     public LocalDate getStartDato() {
