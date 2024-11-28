@@ -1,10 +1,7 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Korn;
-import application.model.Lager;
-import application.model.Maltbatch;
-import application.model.Mark;
+import application.model.*;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.lager.opretLagerWindow;
@@ -19,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import storage.Storage;
 import storage.StorageInterface;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,7 @@ public class gui extends Application {
     private WhiskyProduktWindow WhiskyProduktWindow;
 
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
         stage.setTitle("Destilleri Pro");
         startPane = new GridPane();
 
@@ -55,7 +53,7 @@ public class gui extends Application {
     }
 
 
-    public void initContent(){
+    public void initContent() {
         maltbatchWindow = new MaltbatchWindow(controller);
         destilleringWindow = new DestilleringWindow(controller);
         fadWindow = new FadWindow(controller);
@@ -73,22 +71,34 @@ public class gui extends Application {
             logoViewer.setFitWidth(200);
             logoViewer.setPreserveRatio(true);
 
-            gridPane.add(logoViewer, 0,0);
+            gridPane.add(logoViewer, 0, 0);
         }
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
     }
 
-    public void initStorage(){
+    public void initStorage() {
         Mark kvolbæk = controller.opretMark("Kvolbæk", true);
         Mark stadsgaard = controller.opretMark("Stadsgaard", true);
 
         Korn evergreen = controller.opretKorn(LocalDate.now(), "Evergreen", kvolbæk);
-        Korn irina = controller.opretKorn(LocalDate.of(2024,11, 22),"Irina",stadsgaard);
+        Korn irina = controller.opretKorn(LocalDate.of(2024, 11, 22), "Irina", stadsgaard);
 
         Maltbatch maltbatch1 = controller.opretMaltbatch("NM80P", 500, evergreen);
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
 
-        Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
-        lager.tilføjReol(5,4,5);
+        Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade", "8450", "Hammel");
+        lager.tilføjReol(5, 4, 5);
+
+        FadLeverandør fadLeverandør1 = controller.opretFadlevandør("La Barril", "Spanien");
+        FadLeverandør fadLeverandør2 = controller.opretFadlevandør("El Gordo y Pobre", "Spanien");
+        FadLeverandør fadLeverandør3 = controller.opretFadlevandør("Barrel Land", "USA");
+        FadLeverandør fadLeverandør4 = controller.opretFadlevandør("Le Ivre et Belle", "Frankrig");
+
+        Fad fad1 = controller.opretFad(94, "Kirsebær træ", fadLeverandør2,
+                "Sherry", 56, 1);
+        Fad fad2 = controller.opretFad(32, "Eg", fadLeverandør4,
+                "Rødvin", 23, 0);
+        Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
+                "Bourbon", 29, 0);
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 public class Storage implements StorageInterface{
 
     private ArrayList<Fad> fade = new ArrayList<>();
+    private ArrayList<FadLeverandør> fadLeverandører = new ArrayList<>();
     private ObservableList<Maltbatch> maltbatches = FXCollections.observableArrayList();
     private ArrayList<Destillering> destilleringer = new ArrayList<>();
     private ArrayList<Korn> korns = new ArrayList<>();
@@ -50,11 +51,21 @@ public class Storage implements StorageInterface{
         whiskyProdukter.add(whiskyProdukt);
     }
 
+    @Override
+    public void addFadleverandør(FadLeverandør fadLeverandør) {
+        fadLeverandører.add(fadLeverandør);
+    }
+
     //----------------------------------------------------------------------------
     //overvej om vi vil returnere den samme liste eller en kopi?
     @Override
     public List<Fad> getFade() {
         return fade;
+    }
+
+    @Override
+    public List<FadLeverandør> getFadleverandør() {
+        return fadLeverandører;
     }
 
     public ObservableList<Maltbatch> getMaltbatches(){

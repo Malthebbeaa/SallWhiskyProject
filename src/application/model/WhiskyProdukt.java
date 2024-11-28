@@ -16,10 +16,10 @@ public class WhiskyProdukt {
         this.navn = navn;
         this.whiskytype = whiskytype;
     }
-    public int getAarLagret(Aftapning aftapning, Date first, Date last) {
-        LocalDate påfyldningsDato = null;
-        LocalDate a = påfyldningsDato;
-        LocalDate b = aftapning.aftapningsDato;
+
+    public int getAarLagret(Aftapning aftapning, Påfyldning påfyldning) {
+        LocalDate a = påfyldning.getPåfyldningsDato();
+        LocalDate b = aftapning.getAftapningsDato();
         int diff = b.getYear() - a.getYear();
         if (a.getDayOfYear() - b.getDayOfYear() >= 0) {
             diff--;
