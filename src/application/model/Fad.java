@@ -99,4 +99,20 @@ public class Fad {
     public String toString2() {
         return  "FadID: " + fadId;
     }
+
+    public int getAlder() {
+        return alder;
+    }
+
+    public String getMateriale() {
+        return materiale;
+    }
+
+    public int getStørrelse() {
+        return størrelse;
+    }
+
+    public int getAntalGangeBrugt() {
+        return antalGangeBrugt;
+    }
 }

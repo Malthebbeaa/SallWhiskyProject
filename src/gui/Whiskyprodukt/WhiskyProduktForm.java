@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import storage.Storage;
 
+import java.awt.event.ActionListener;
+
 public class WhiskyProduktForm {
     private GridPane fadInfoPane, whiskyproduktPane;
     private Controller controller;
@@ -48,6 +50,15 @@ public class WhiskyProduktForm {
         availableListView.getItems().addAll(controller.getStorage().getFade());
         availableListView.setPrefSize(200, 150);
         chosenListView.setPrefSize(200, 150);
+
+        availableListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            displayFadInfo(newValue);
+        });
+
+        chosenListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            displayFadInfo(newValue);
+        });
+
 
 // Define buttons for moving items between lists
         Button btnAddSelected = new Button(">");
@@ -92,10 +103,10 @@ public class WhiskyProduktForm {
 
         txaFadInfo = new TextArea();
         txaFadInfo.isDisabled();
-        txaFadInfo.setText("Tidligere indhold: Fandme noget klamt. \nÅr lagret: Din mors alder");
         txaFadInfo.setPrefWidth(300);
         txaFadInfo.setPrefHeight(200);
         fadInfoPane.add(txaFadInfo, 4, 2);
+
 
 
 
@@ -159,5 +170,22 @@ public class WhiskyProduktForm {
         comboboxMateriale.setValue(null);
         comboboxStørrelse.setValue(null);
         comboboxTidligereIndhold.setValue(null);
+    }
+    private void displayFadInfo(Fad selectedFad) {
+        if (selectedFad != null) {
+            txaFadInfo.setText(
+                    "FadID: " + selectedFad.getFadId() +
+                            "\nStørrelse: " + selectedFad.getStørrelse() +
+                            "\nMateriale: " + selectedFad.getMateriale() +
+                            "\nLeverandør: " + selectedFad.getFadLeverandør() +
+                            "\nTidligere indhold: " + selectedFad.getTidligereIndhold() + '\'' +
+                            "\nAlder: " + selectedFad.getAlder() +
+                            "\nBrugt " + selectedFad.getAntalGangeBrugt() + " gang(e)" +
+                            "\nLiter i fad: " + selectedFad.getMængdeVæskeIFad() +
+                            "\nFyldt: " + selectedFad.isFyldt()
+            );
+        } else {
+            txaFadInfo.clear(); // Clear when no fad is selected
+        }
     }
 }
