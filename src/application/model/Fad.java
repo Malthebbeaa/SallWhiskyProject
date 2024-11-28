@@ -24,12 +24,12 @@ public class Fad {
         this.mængdeVæskeIFad = 0;
     }
 
-    public void påfyldVæske(double påfyldningsVæskeMængde){
-        if (påfyldningsVæskeMængde < 0){
+    public void påfyldVæske(double påfyldningsVæskeMængde) {
+        if (påfyldningsVæskeMængde < 0) {
             throw new RuntimeException("Mængden skal være positiv");
         }
 
-        if (mængdeVæskeIFad + påfyldningsVæskeMængde <= størrelse){
+        if (mængdeVæskeIFad + påfyldningsVæskeMængde <= størrelse) {
             mængdeVæskeIFad += påfyldningsVæskeMængde;
         } else {
             throw new RuntimeException("Ikke tilstrækkeligt plads i fadet");
@@ -74,7 +74,8 @@ public class Fad {
     public String getTidligereIndhold() {
         return tidligereIndhold;
     }
-    public String getLand(){
+
+    public String getLand() {
         return getFadLeverandør().getLand();
     }
 
