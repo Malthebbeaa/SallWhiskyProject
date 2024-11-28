@@ -24,12 +24,12 @@ public interface StorageInterface {
 
 
 
-    public List<Fad> getFade();
+    public ObservableList<Fad> getFade();
     public List<FadLeverandør> getFadleverandør();
 
     public ObservableList<Maltbatch> getMaltbatches();
 
-    public List<Destillering> getDestilleringer();
+    public ObservableList<Destillering> getDestilleringer();
 
     public List<Mark> getMarker();
 

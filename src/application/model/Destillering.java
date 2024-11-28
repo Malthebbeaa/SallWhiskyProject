@@ -24,6 +24,7 @@ public class Destillering {
         this.påfyldninger = new ArrayList<>();
     }
 
+    //todo træk vækse fra destilleringen
     public Påfyldning lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
         Påfyldning påfyldning = new Påfyldning(påFyldningsDato, påfyldningsMængde);
         påfyldning.fyldPåFad(fad);
@@ -77,5 +78,10 @@ public class Destillering {
 
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
+    }
+
+    @Override
+    public String toString() {
+        return væskeMængde + "L, " + alkoholProcent + "%, MaltbatchNr: " + maltbatch.getBatchNummer();
     }
 }

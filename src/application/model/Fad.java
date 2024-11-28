@@ -115,4 +115,7 @@ public class Fad {
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
     }
+    public String toString3() {
+        return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
+    }
 }
