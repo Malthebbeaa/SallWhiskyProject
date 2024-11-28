@@ -37,9 +37,9 @@ public class MaltbatchForm {
         Label lblMark = new Label("Tilføj Mark:");
         Label lblKorn = new Label("Tilføj Korn:");
         maltPane.add(lblMark,0,0);
-        maltPane.add(lblKorn,2,0);
+        maltPane.add(lblKorn,1,0);
 
-        GridPane markPane = new PaneCreator();
+        PaneCreator markPane = new PaneCreator();
         Label lblMarkNavn = new Label("Marknavn:");
         markPane.add(lblMarkNavn,0,1);
         txfMarkNavn = new TextField();
@@ -50,10 +50,11 @@ public class MaltbatchForm {
         markPane.add(chbØkologisk,1,2);
         Button btnTilføjMark = new Button("Tilføj Mark");
         btnTilføjMark.setOnAction(e-> handler.opretMarkHandler(this));
-        markPane.add(btnTilføjMark,1,3);
-        maltPane.add(markPane,0,1,2,1);
+        markPane.setGraphics(btnTilføjMark, "grass-field.png");
+        markPane.add(btnTilføjMark,1,7);
+        maltPane.add(markPane,0,1);
 
-        GridPane kornPane = new PaneCreator();
+        PaneCreator kornPane = new PaneCreator();
         Label lblSort = new Label("Sort:");
         kornPane.add(lblSort,0,1);
         txfSort = new TextField();
@@ -70,8 +71,9 @@ public class MaltbatchForm {
         kornPane.add(cbKornMark,1,3);
         Button btnTilføjKorn = new Button("Tilføj Korn");
         btnTilføjKorn.setOnAction(e-> handler.opretKornHandler(this));
+        kornPane.setGraphics(btnTilføjKorn, "corn.png");
         kornPane.add(btnTilføjKorn,1,4);
-        maltPane.add(kornPane,2,1,2,1);
+        maltPane.add(kornPane,1,1);
 
         Label opretMaltbatch = new Label("Opret maltbatch:");
         maltPane.add(opretMaltbatch,0,2);
@@ -120,6 +122,10 @@ public class MaltbatchForm {
         txfBatchnummer.clear();
         txfMængde.clear();
         txfRygemateriale.clear();
+        cbKorn.getItems().clear();
+        cbKornMark.getItems().clear();
+        cbKorn.getItems().addAll(controller.getStorage().getKorn());
+        cbKornMark.getItems().addAll(controller.getStorage().getMarker());
     }
 
 }

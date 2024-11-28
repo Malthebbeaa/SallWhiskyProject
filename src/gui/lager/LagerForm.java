@@ -84,6 +84,7 @@ public class LagerForm {
         btnOpretReol.setOnAction(e -> handler.opretReolHandler(this));
         lvReolView = new ListView<>();
         lvReolView.setItems(cbLager.getValue().getReoler());
+        reolPane.setGraphics(btnOpretReol,"bookcase.gif");
         reolPane.add(btnOpretReol,1,3);
         lagerPane.add(reolPane,1,1);
 
