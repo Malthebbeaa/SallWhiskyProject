@@ -7,20 +7,37 @@ import java.util.List;
 public class Påfyldning {
     private LocalDate påfyldningsDato;
     private double literPåfyldt;
-    private List<Fad> fade;
+    private Fad fad;
+    private List<Mængde> mængderPåfyldt;
 
-    public Påfyldning(LocalDate påfyldningsDato, double literPåfyldt) {
+    public Påfyldning(LocalDate påfyldningsDato, Fad fad) {
         this.påfyldningsDato = påfyldningsDato;
-        this.literPåfyldt = literPåfyldt;
-        this.fade = new ArrayList<>();
+        this.fad = fad;
+        this.literPåfyldt = 0;
+        mængderPåfyldt = new ArrayList<>();
     }
 
-    //implementer observer pattern?
-    public void fyldPåFad(Fad fad){
-        fade.add(fad);
-        fad.setFyldt(true);
+    public void tilføjMængde(Mængde mængde){
+        double totalMedTilføjelse = literPåfyldt + mængde.getMængde();
+        double fremtidigeTotal = totalMedTilføjelse + fad.getMængdeFyldtPåFad();
+
+        if (fremtidigeTotal <= fad.getStørrelse()){
+            mængde.setPåfyldning(this);
+            mængderPåfyldt.add(mængde);
+            literPåfyldt = totalMedTilføjelse;
+        } else {
+            throw new RuntimeException("Du overskrider fadets kapacitet");
+        }
     }
 
+    public void setFad(Fad fad){
+        if (fad != null){
+            this.fad = fad;
+        }
+    }
+    public List<Mængde> getMængderPåfyldt() {
+        return mængderPåfyldt;
+    }
     public LocalDate getPåfyldningsDato() {
         return påfyldningsDato;
     }
@@ -29,7 +46,11 @@ public class Påfyldning {
         return literPåfyldt;
     }
 
-    public List<Fad> getFade() {
-        return fade;
+    public void setLiterPåfyldt(double literPåfyldt) {
+        this.literPåfyldt = literPåfyldt;
+    }
+
+    public Fad getFad() {
+        return fad;
     }
 }

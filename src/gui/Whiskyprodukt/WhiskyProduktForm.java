@@ -108,8 +108,6 @@ public class WhiskyProduktForm {
         fadInfoPane.add(txaFadInfo, 4, 2);
 
 
-
-
 //        Label lblLeverandør = new Label("Vælg fad: ");
 //        comboboxFad = new ComboBox();
 //        comboboxFad.getItems().addAll(new Fad(94, "Eg", new FadLeverandør("La Barril", "Spanien")
@@ -157,7 +155,6 @@ public class WhiskyProduktForm {
     }
 
 
-
     public GridPane getWhiskyproduktPane() {
         return whiskyproduktPane;
     }
@@ -171,6 +168,7 @@ public class WhiskyProduktForm {
         comboboxStørrelse.setValue(null);
         comboboxTidligereIndhold.setValue(null);
     }
+
     private void displayFadInfo(Fad selectedFad) {
         if (selectedFad != null) {
             txaFadInfo.setText(
@@ -181,8 +179,7 @@ public class WhiskyProduktForm {
                             "\nTidligere indhold: " + selectedFad.getTidligereIndhold() + '\'' +
                             "\nAlder: " + selectedFad.getAlder() +
                             "\nBrugt " + selectedFad.getAntalGangeBrugt() + " gang(e)" +
-                            "\nLiter i fad: " + selectedFad.getMængdeVæskeIFad() +
-                            "\nFyldt: " + selectedFad.isFyldt()
+                            "\nLiter i fad: " + selectedFad.getMængdeFyldtPåFad()
             );
         } else {
             txaFadInfo.clear(); // Clear when no fad is selected

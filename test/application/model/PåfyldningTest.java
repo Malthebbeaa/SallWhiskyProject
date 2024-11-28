@@ -20,31 +20,5 @@ class PåfyldningTest {
         destillering = new Destillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 950,68,maltbatch);
     }
 
-    @Test
-    void fyldPåFad() {
-        //Arrange
-        påfyldning = new Påfyldning(LocalDate.now(), 600);
 
-        //Act
-        påfyldning.fyldPåFad(fad);
-        boolean forventet = true;
-        boolean aktuelt = fad.isFyldt();
-
-        //Assert
-        assertEquals(forventet, aktuelt);
-    }
-
-    @Test
-    void test_forbindelse(){
-        //Arrange
-        påfyldning = new Påfyldning(LocalDate.now(), 600);
-
-        //Act
-        påfyldning.fyldPåFad(fad);
-        boolean forventet = true;
-        boolean aktuelt = påfyldning.getFade().contains(fad);
-
-        //Assert
-        assertEquals(forventet, aktuelt);
-    }
 }

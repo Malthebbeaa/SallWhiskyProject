@@ -1,5 +1,8 @@
 package application.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Fad {
     private static int IdCount = 1;
     private int fadId;
@@ -9,8 +12,8 @@ public class Fad {
     private String tidligereIndhold;
     private int alder;
     private int antalGangeBrugt;
-    private double mængdeVæskeIFad;
-    private boolean fyldt;
+    private double mængdeFyldtPåFad;
+    private List<Påfyldning> påfyldninger;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.fadId = IdCount++;
@@ -20,42 +23,34 @@ public class Fad {
         this.tidligereIndhold = tidligereIndhold;
         this.alder = alder;
         this.antalGangeBrugt = antalGangeBrugt;
-        this.fyldt = false;
-        this.mængdeVæskeIFad = 0;
+        this.mængdeFyldtPåFad = 0;
+        this.påfyldninger = new ArrayList<>();
     }
 
-    public void påfyldVæske(double påfyldningsVæskeMængde) {
-        if (påfyldningsVæskeMængde < 0) {
-            throw new RuntimeException("Mængden skal være positiv");
-        }
 
-        if (mængdeVæskeIFad + påfyldningsVæskeMængde <= størrelse) {
-            mængdeVæskeIFad += påfyldningsVæskeMængde;
+
+    public void tilføjPåfyldning(Påfyldning påfyldning){
+        double mængdeEfterTilføjelse = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
+
+        if (mængdeEfterTilføjelse <= størrelse){
+            påfyldninger.add(påfyldning);
+            mængdeFyldtPåFad = mængdeEfterTilføjelse;
+            påfyldning.setFad(this);
         } else {
-            throw new RuntimeException("Ikke tilstrækkeligt plads i fadet");
+            throw new RuntimeException("Du overskrider fadets kapacitet");
         }
     }
 
-    public void setFyldt(boolean fyldt) {
-        this.fyldt = fyldt;
-    }
-
-    public boolean isFyldt() {
-        return fyldt;
-    }
-
-    public double getMængdeVæskeIFad() {
-        return mængdeVæskeIFad;
-    }
+    public double getMængdeFyldtPåFad() {return mængdeFyldtPåFad;}
 
     public void AftapWhisky(Double literAftappet) {
-        if (mængdeVæskeIFad == 0) {
+        if (mængdeFyldtPåFad == 0) {
             throw new IllegalStateException("Fadet er tomt");
         }
 
-        if (literAftappet <= mængdeVæskeIFad) {
-            mængdeVæskeIFad -= literAftappet;
-            if (mængdeVæskeIFad == 0) {
+        if (literAftappet <= mængdeFyldtPåFad) {
+            mængdeFyldtPåFad -= literAftappet;
+            if (mængdeFyldtPåFad == 0) {
                 antalGangeBrugt++;
             }
         } else {
@@ -82,6 +77,9 @@ public class Fad {
     public void AntalGangeBrugt() {
         antalGangeBrugt++;
     }
+    public List<Påfyldning> getPåfyldninger() {
+        return påfyldninger;
+    }
 
     @Override
     public String toString() {
@@ -92,8 +90,7 @@ public class Fad {
                 "\nTidligere indhold: " + tidligereIndhold + '\'' +
                 "\nAlder: " + alder +
                 "\nBrugt " + antalGangeBrugt + " gang(e)" +
-                "\nLiter i fad: " + mængdeVæskeIFad +
-                "\nFyldt: " + fyldt;
+                "\nLiter i fad: " + mængdeFyldtPåFad;
     }
 
     public String toString2() {

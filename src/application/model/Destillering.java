@@ -11,7 +11,7 @@ public class Destillering {
     private double alkoholProcent;
     private Maltbatch maltbatch;
     private Kommentar kommentar;
-    private List<Påfyldning> påfyldninger;
+    private List<Mængde> mængderGivet;
 
     public Destillering(int antalDestilleringer, LocalDate startDato, LocalDate slutDato,
                         double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
@@ -21,16 +21,18 @@ public class Destillering {
         this.væskeMængde = væskeMængde;
         this.alkoholProcent = alkoholProcent;
         this.maltbatch = maltbatch;
-        this.påfyldninger = new ArrayList<>();
+        this.mængderGivet = new ArrayList<>();
     }
 
-    //todo træk væske fra på Destillering
-    public Påfyldning lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
-        Påfyldning påfyldning = new Påfyldning(påFyldningsDato, påfyldningsMængde);
-        påfyldning.fyldPåFad(fad);
-        fad.påfyldVæske(påfyldningsMængde);
-        påfyldninger.add(påfyldning);
-        return påfyldning;
+    public Mængde afgivVæske(double påfyldningsMængde){
+        if (væskeMængde - påfyldningsMængde >= 0){
+            Mængde mængde = new Mængde(påfyldningsMængde, this);
+            væskeMængde -= påfyldningsMængde;
+            mængderGivet.add(mængde);
+            return mængde;
+        } else {
+            throw new RuntimeException("Ikke tilstrækkeligt væske i destilleringen");
+        }
     }
 
     /***
@@ -71,14 +73,13 @@ public class Destillering {
     public Maltbatch getMaltbatch() {
         return maltbatch;
     }
+    public String getBatchNummer(){return maltbatch.getBatchNummer();}
 
     public Kommentar getKommentar() {
         return kommentar;
     }
 
-    public List<Påfyldning> getPåfyldninger() {
-        return påfyldninger;
-    }
+    public List<Mængde> getMængderGivet() {return mængderGivet;}
 
     @Override
     public String toString() {

@@ -21,8 +21,7 @@ public class PåfyldningHandler {
         LocalDate påfyldningsDato = form.getPåfyldningsDato();
         double mængde = form.getTxfMængdeTilPåfyldning();
 
-        Påfyldning påfyldning = controller.påfyldningFad(fad, destillering, påfyldningsDato,mængde);
+        //Påfyldning påfyldning = controller.påfyldningFad(fad, destillering, påfyldningsDato,mængde);
         form.clearAction();
-        System.out.println(påfyldning.getLiterPåfyldt());
     }
 }
