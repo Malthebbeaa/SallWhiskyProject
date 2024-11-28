@@ -54,7 +54,7 @@ public class gui extends Application {
     }
 
 
-    public void initContent(){
+    public void initContent() {
         maltbatchWindow = new MaltbatchWindow(controller);
         destilleringWindow = new DestilleringWindow(controller);
         fadWindow = new FadWindow(controller);
@@ -95,5 +95,17 @@ public class gui extends Application {
         Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
         Reol reol = lager.tilføjReol();
         reol.tilføjHylde(5,5);
+
+        FadLeverandør fadLeverandør1 = controller.opretFadlevandør("La Barril", "Spanien");
+        FadLeverandør fadLeverandør2 = controller.opretFadlevandør("El Gordo y Pobre", "Spanien");
+        FadLeverandør fadLeverandør3 = controller.opretFadlevandør("Barrel Land", "USA");
+        FadLeverandør fadLeverandør4 = controller.opretFadlevandør("Le Ivre et Belle", "Frankrig");
+
+        Fad fad1 = controller.opretFad(94, "Kirsebær træ", fadLeverandør2,
+                "Sherry", 56, 1);
+        Fad fad2 = controller.opretFad(32, "Eg", fadLeverandør4,
+                "Rødvin", 23, 0);
+        Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
+                "Bourbon", 29, 0);
     }
 }

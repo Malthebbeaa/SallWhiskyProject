@@ -12,15 +12,15 @@ public class WhiskyProduktHandler {
     }
 
     public void opretWhiskyProduktAction(WhiskyProduktForm form){
-        int størrelse = form.getTøndensStørrelse();
-        String materiale = form.getMateriale();
-        FadLeverandør fadleverandør = form.getFadLeverandør();
-        String tidligereIndhold = form.getTidligerIndhold();
-        int alder = form.getTøndensAlder();
-        int antalGangeBrugt = form.getAntalGangeBrugt();
+//        int størrelse = form .getTøndensStørrelse();
+//        String materiale = form.getMateriale();
+//        FadLeverandør fadleverandør = form.getFadLeverandør();
+//        String tidligereIndhold = form.getTidligereIndhold();
+//        int alder = form.getTøndensAlder();
+//        int antalGangeBrugt = form.getAntalGangeBrugt();
 
 
-        Fad fad = controller.opretFad(størrelse, materiale, fadleverandør, tidligereIndhold, alder, antalGangeBrugt);
+//        Fad fad = controller.opretFad(størrelse, materiale, fadleverandør, tidligereIndhold, alder, antalGangeBrugt);
 
         form.clearAction();
     }

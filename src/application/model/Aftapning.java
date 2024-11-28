@@ -20,4 +20,20 @@ public class Aftapning {
     public void AftapningAfFad() {
         fad.AftapWhisky(literAftappet);
     }
+
+    public LocalDate getAftapningsDato() {
+        return aftapningsDato;
+    }
+
+    public Double getLiterAftappet() {
+        return literAftappet;
+    }
+
+    public boolean isFortyndet() {
+        return fortyndet;
+    }
+
+    public Double getAlkoholProcent() {
+        return alkoholProcent;
+    }
 }
