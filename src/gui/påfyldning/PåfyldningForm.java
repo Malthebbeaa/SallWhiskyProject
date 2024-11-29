@@ -42,13 +42,22 @@ public class PåfyldningForm {
         påfyldningsPane.setHgap(10);
         påfyldningsPane.setVgap(10);
 
+        //Vælg fad og påfyldningsdato pane
+        GridPane pane = new GridPane();
+        pane.setVgap(10);
+        pane.setHgap(10);
         Label lblFad = new Label("Vælg Fad:");
-        påfyldningsInfoPane.add(lblFad, 0,0);
         cboxFad = new ComboBox<>();
         cboxFad.setItems(controller.getStorage().getFade());
-        påfyldningsInfoPane.add(cboxFad,0,1);
+        pane.add(lblFad,0,0);
+        pane.add(cboxFad, 0,1);
+        Label lblPåfyldningsDato = new Label("Påfyldningsdato: ");
+        datePickerPåfyldningsDato = new DatePicker(LocalDate.now());
+        pane.add(lblPåfyldningsDato, 0,2);
+        pane.add(datePickerPåfyldningsDato, 0,3);
+        påfyldningsInfoPane.add(pane,0,0,1,3);
 
-
+        //valg af destilleringer og mængde
         Label lblDestillering = new Label("Vælg destillering(er):");
         påfyldningsInfoPane.add(lblDestillering, 1,0);
         lvwMuligeDestilleringer = new ListView<>();
@@ -70,18 +79,12 @@ public class PåfyldningForm {
         btnRemoveAll.setOnAction(e -> {
             removeAllAction();
         });
-        VBox buttonBox = new VBox(1, btnAddSelected, btnRemoveSelected, btnRemoveAll);
+        VBox buttonBox = new VBox(5, btnAddSelected, btnRemoveSelected, btnRemoveAll);
+
 
         påfyldningsInfoPane.add(lvwMuligeDestilleringer, 1,1);
         påfyldningsInfoPane.add(lveValgtDestilleringer, 3,1);
         påfyldningsInfoPane.add(buttonBox, 2, 1);
-
-
-
-        Label lblPåfyldningsDato = new Label("Påfyldningsdato: ");
-        påfyldningsInfoPane.add(lblPåfyldningsDato, 4,0);
-        datePickerPåfyldningsDato = new DatePicker(LocalDate.now());
-        påfyldningsInfoPane.add(datePickerPåfyldningsDato, 4,1);
     }
 
 
