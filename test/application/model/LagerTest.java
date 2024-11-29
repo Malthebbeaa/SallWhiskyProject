@@ -15,8 +15,9 @@ class LagerTest {
     @Test
     void tilføjReol() {
         //ACT
-        Reol actualReol = lager.tilføjReol();
-        Reol expectedReol = lager.getReoler().getFirst();
+        Reol reol = lager.tilføjReol();
+        boolean expectedReol = true;
+        boolean actualReol = lager.getReoler().contains(reol);
         //Assert
         assertEquals(expectedReol,actualReol);
     }
