@@ -95,21 +95,21 @@ public class gui extends Application {
         Reol reol = lager.tilføjReol();
         reol.tilføjHylde(5,5);
 
-        FadLeverandør fadLeverandør1 = controller.opretFadlevandør("La Barril", "Spanien");
-        FadLeverandør fadLeverandør2 = controller.opretFadlevandør("El Gordo y Pobre", "Spanien");
-        FadLeverandør fadLeverandør3 = controller.opretFadlevandør("Barrel Land", "USA");
-        FadLeverandør fadLeverandør4 = controller.opretFadlevandør("Le Ivre et Belle", "Frankrig");
+//        FadLeverandør fadLeverandør1 = controller.opretFadlevandør("La Barril", "Spanien");
+//        FadLeverandør fadLeverandør2 = controller.opretFadlevandør("El Gordo y Pobre", "Spanien");
+//        FadLeverandør fadLeverandør3 = controller.opretFadlevandør("Barrel Land", "USA");
+//        FadLeverandør fadLeverandør4 = controller.opretFadlevandør("Le Ivre et Belle", "Frankrig");
 
-        Fad fad1 = controller.opretFad(94, "Kirsebær træ", fadLeverandør2,
-                "Sherry", 56, 1);
-        Fad fad2 = controller.opretFad(32, "Eg", fadLeverandør4,
-                "Rødvin", 23, 0);
-        Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
-                "Bourbon", 29, 0);
-
-        Aftapning aftapning1 = controller.opretAftapning(LocalDate.now(), 20.0, 48.0, fad2);
-
-        Påfyldning påfyldning1 = controller.opretPåfyldning(LocalDate.EPOCH, 30.0);
+//        Fad fad1 = controller.opretFad(94, "Kirsebær træ", fadLeverandør2,
+//                "Sherry", 56, 1);
+//        Fad fad2 = controller.opretFad(32, "Eg", fadLeverandør4,
+//                "Rødvin", 23, 0);
+//        Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
+//                "Bourbon", 29, 0);
+//
+//        Aftapning aftapning1 = controller.opretAftapning(LocalDate.now(), 20.0, 48.0, fad2);
+//
+//        Påfyldning påfyldning1 = controller.opretPåfyldning(LocalDate.EPOCH, 30.0);
 
 
 //        WhiskyProdukt whiskyProdukt1 = new WhiskyProdukt(whiskyProdukt1.getAarLagret(aftapning1,påfyldning1), "NAVN",

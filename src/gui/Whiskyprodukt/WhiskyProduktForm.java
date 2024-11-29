@@ -2,6 +2,7 @@ package gui.Whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.Fad;
+import gui.PaneCreator;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.Border;
@@ -15,8 +16,8 @@ import java.awt.event.ActionListener;
 public class WhiskyProduktForm {
     private GridPane fadInfoPane, whiskyproduktPane;
     private Controller controller;
-    private TextArea txaFadInfo;
-    private TextField txfAlder, txfAntalGangeBrugt;
+    private TextArea txaFadInfo, txaHistorie;
+    private TextField txfNavn;
     private ComboBox comboboxFad, comboboxStørrelse, comboboxMateriale, comboboxTidligereIndhold;
 
 
@@ -122,7 +123,7 @@ public class WhiskyProduktForm {
         txaHistorie = new TextArea();
         historiePane.add(txaHistorie, 1, 2);
         txaHistorie.setEditable(false);
-        txaHistorie.setText(whiskyProdukt.skrivHistorie());
+        txaHistorie.setText("Historie");
     }
 
 
@@ -135,21 +136,21 @@ public class WhiskyProduktForm {
         txaFadInfo.clear();
     }
 
-    public int getStørrelse() {
-        return selectedFad.getStørrelse();
-    }
-
-    public String getMateriale() {
-        return selectedFad.getMateriale();
-    }
-
-    public FadLeverandør getFadleverandør() {
-        return selectedFad.getFadLeverandør();
-    }
-
-    public String getTidligereIndhold() {
-        return selectedFad.getTidligereIndhold();
-    }
+//    public int getStørrelse() {
+//        return selectedFad.getStørrelse();
+//    }
+//
+//    public String getMateriale() {
+//        return selectedFad.getMateriale();
+//    }
+//
+//    public FadLeverandør getFadleverandør() {
+//        return selectedFad.getFadLeverandør();
+//    }
+//
+//    public String getTidligereIndhold() {
+//        return selectedFad.getTidligereIndhold();
+//    }
 
     private void displayFadInfo(Fad selectedFad) {
         if (selectedFad != null) {
