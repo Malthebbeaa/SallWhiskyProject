@@ -11,30 +11,18 @@ public class LagerHandler {
         this.controller = controller;
     }
 
-    public void opretLagerActionHandler(LagerForm form){
+    public void opretLagerActionHandler(LagerForm form) {
         String lagerNavn = form.getLagerNavn();
         String vejnavn = form.getVejnavn();
         String by = form.getBy();
         String postnummer = form.getPostNummer();
-        Lager lager = controller.opretLager(lagerNavn,vejnavn,postnummer,by);
-
-        int antalHylder = form.getAntalHylder();
-        int antalPladser = form.getAntalPladser();
-
+        Lager lager = controller.opretLager(lagerNavn, vejnavn, postnummer, by);
         form.clearAction();
-        for (Lager l : controller.getStorage().getLager()) {
-            form.getLvLagre().getItems().add(l.toString() + " ledige pladser: " + l.ledigePladser());
-        }
     }
-    public void opretReolHandler(LagerForm form){
+
+    public void opretReolHandler(LagerForm form) {
         Lager lager = form.getCbLager();
-        int antalReoler = form.getAntalReoler();
-        lager.tilføjReol();
-        form.clearAction();
-    }
-
-    public void opretHyldeHandler(LagerForm form){
-        Reol reol = form.getCbReol();
+        Reol reol = lager.tilføjReol();
         reol.tilføjHylde(form.getAntalHylder(), form.getAntalPladser());
         form.clearAction();
     }

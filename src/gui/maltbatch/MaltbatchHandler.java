@@ -29,7 +29,7 @@ public class MaltbatchHandler {
 
         controller.opretKorn(høstDag,sort,mark);
         form.clearAktion();
-        form.getCbKorn().getItems().addAll(controller.getStorage().getKorn());
+
     }
 
     public void opretMarkHandler(MaltbatchForm form){
@@ -38,6 +38,5 @@ public class MaltbatchHandler {
 
         controller.opretMark(markNavn, økologisk);
         form.clearAktion();
-        form.getCbKornMark().getItems().addAll(controller.getStorage().getMarker());
     }
 }

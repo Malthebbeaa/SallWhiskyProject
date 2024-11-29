@@ -44,13 +44,6 @@ public class Controller {
         return destillering;
     }
 
-    public Aftapning opretAftapning(LocalDate aftapningsDato, Double literAftappet, Double alkoholProcent, Fad fad){
-        Aftapning aftapning = new Aftapning(aftapningsDato, literAftappet, alkoholProcent, fad);
-        storage.addAftapning(aftapning);
-        return aftapning;
-    }
-
-
     public void tilføjKommentarTilDestillering(String kommentarTekst, Destillering destillering) {
         Kommentar kommentar = new Kommentar(kommentarTekst);
         if (kommentar != null) {
@@ -77,22 +70,8 @@ public class Controller {
         return whiskyProdukt;
     }
 
-    public FadLeverandør opretFadlevandør(String navn, String land) {
-        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
-        storage.addFadleverandør(fadLeverandør);
-        return fadLeverandør;
-    }
-
-    public Påfyldning opretPåfyldning(LocalDate påfyldningsDato, double literPåfyldt) {
-        Påfyldning påfyldning = new Påfyldning(påfyldningsDato, literPåfyldt);
-        storage.addPåfyldning(påfyldning);
-        return påfyldning;
-    }
-
-    public Påfyldning påfyldningFad(Fad fad, Destillering destillering, LocalDate påfyldningsDato, double mængde){
-        Påfyldning påfyldning = destillering.lavPåfyldning(fad, påfyldningsDato,mængde);
-
-        return påfyldning;
+    public void påfyldFad(Påfyldning påfyldning, Fad fad){
+        fad.tilføjPåfyldning(påfyldning);
     }
 
     public StorageInterface getStorage() {

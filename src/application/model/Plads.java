@@ -23,6 +23,6 @@ public class Plads {
 
     @Override
     public String toString() {
-        return "Plads nummer: " + pladsNummer + (ledig? "tom" : "optaget");
+        return "Plads nummer: " + pladsNummer + (ledig? " ledig" : " optaget");
     }
 }

@@ -7,6 +7,7 @@ import gui.fad.FadWindow;
 import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
 import gui.Whiskyprodukt.WhiskyProduktWindow;
+import gui.påfyldning.PåfyldningWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -32,6 +33,7 @@ public class gui extends Application {
     private FadWindow fadWindow;
     private opretLagerWindow opretLagerWindow;
     private WhiskyProduktWindow WhiskyProduktWindow;
+    private PåfyldningWindow påfyldningWindow;
 
     @Override
     public void start(Stage stage){
@@ -58,8 +60,9 @@ public class gui extends Application {
         fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
         WhiskyProduktWindow = new WhiskyProduktWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane()));
+        påfyldningWindow = new PåfyldningWindow(controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane(), påfyldningWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -84,6 +87,9 @@ public class gui extends Application {
 
         Maltbatch maltbatch1 = controller.opretMaltbatch("NM80P", 500, evergreen);
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
+
+
+        Destillering destillering1 = controller.opretDestillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 900,68, maltbatch1);
 
         Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
         Reol reol = lager.tilføjReol();

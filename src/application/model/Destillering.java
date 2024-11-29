@@ -5,43 +5,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Destillering {
-    private int antalDistilleringer;
+    private int antalDestilleringer;
     private LocalDate startDato, slutDato;
     private double væskeMængde;
     private double alkoholProcent;
     private Maltbatch maltbatch;
     private Kommentar kommentar;
-    private List<Påfyldning> påfyldninger;
+    private List<Mængde> mængderGivet;
 
-    public Destillering(int antalDistilleringer, LocalDate startDato, LocalDate slutDato,
+    public Destillering(int antalDestilleringer, LocalDate startDato, LocalDate slutDato,
                         double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
-        this.antalDistilleringer = antalDistilleringer;
+        this.antalDestilleringer = antalDestilleringer;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.væskeMængde = væskeMængde;
         this.alkoholProcent = alkoholProcent;
         this.maltbatch = maltbatch;
-        this.påfyldninger = new ArrayList<>();
+        this.mængderGivet = new ArrayList<>();
     }
 
-    public Påfyldning lavPåfyldning(Fad fad, LocalDate påFyldningsDato, double påfyldningsMængde){
-        Påfyldning påfyldning = new Påfyldning(påFyldningsDato, påfyldningsMængde);
-        påfyldning.fyldPåFad(fad);
-        fad.påfyldVæske(påfyldningsMængde);
-        påfyldninger.add(påfyldning);
-        return påfyldning;
+    public Mængde afgivVæske(double påfyldningsMængde){
+        if (væskeMængde - påfyldningsMængde >= 0){
+            Mængde mængde = new Mængde(påfyldningsMængde, this);
+            væskeMængde -= påfyldningsMængde;
+            mængderGivet.add(mængde);
+            return mængde;
+        } else {
+            throw new RuntimeException("Ikke tilstrækkeligt væske i destilleringen");
+        }
     }
 
     /***
-     * tilføjer en evt kommentar til distilleringen
-     * @param kommentar evt kommentar til distillering
+     * tilføjer en evt kommentar til destilleringen
+     * @param kommentar evt kommentar til destillering
      */
     public void setKommentar(Kommentar kommentar){
         this.kommentar = kommentar;
     }
 
-    public int getAntalDistilleringer() {
-        return antalDistilleringer;
+    public int getAntalDestilleringer() {
+        return antalDestilleringer;
     }
 
     public LocalDate getStartDato() {
@@ -70,12 +73,16 @@ public class Destillering {
     public Maltbatch getMaltbatch() {
         return maltbatch;
     }
+    public String getBatchNummer(){return maltbatch.getBatchNummer();}
 
     public Kommentar getKommentar() {
         return kommentar;
     }
 
-    public List<Påfyldning> getPåfyldninger() {
-        return påfyldninger;
+    public List<Mængde> getMængderGivet() {return mængderGivet;}
+
+    @Override
+    public String toString() {
+        return væskeMængde + "L, " + alkoholProcent + "%, MaltbatchNr: " + maltbatch.getBatchNummer();
     }
 }

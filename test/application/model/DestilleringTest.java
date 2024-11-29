@@ -19,75 +19,16 @@ class DestilleringTest {
         destillering = new Destillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 950,68,maltbatch);
     }
 
-    @Test
-    void lavPåfyldning() {
-        //Arrange
-        LocalDate påfyldningsdato = LocalDate.now();
-
-        //Act
-        destillering.lavPåfyldning(fad, påfyldningsdato, 600);
-        double forventet = 600;
-        double aktuelt = fad.getMængdeVæskeIFad();
-
-        //Assert
-        assertEquals(forventet, aktuelt);
-    }
 
     @Test
-    void test_isFyldEfterPåfyldning(){
-        //Arrange
-        LocalDate påfyldningsdato = LocalDate.now();
+    void påfyldVæske() {
+        //Arrange & Act
+        double mængde = 600;
 
-        //Act
-        destillering.lavPåfyldning(fad,påfyldningsdato,700);
+        destillering.afgivVæske(mængde);
         boolean forventet = true;
-        boolean aktuelt = fad.isFyldt();
+        boolean aktuelt = destillering.getVæskeMængde() == 350;
 
-        //Assert
-        assertEquals(forventet, aktuelt);
-    }
-
-    @Test
-    void testExceptionsOverMuligMængde(){
-        //Arrange
-        LocalDate påfyldningsdato = LocalDate.now();
-
-        //Act
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> {
-            destillering.lavPåfyldning(fad,påfyldningsdato,701);
-        });
-
-        String message = "Ikke tilstrækkeligt plads i fadet";
-        //Assert
-        assertEquals(message, runtimeException.getMessage());
-    }
-
-    @Test
-    void testExceptionsOverNegativMængde(){
-        //Arrange
-        LocalDate påfyldningsdato = LocalDate.now();
-
-        //Act
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> {
-            destillering.lavPåfyldning(fad,påfyldningsdato,-1);
-        });
-
-        String message = "Mængden skal være positiv";
-        //Assert
-        assertEquals(message, runtimeException.getMessage());
-    }
-
-    @Test
-    void test_Forbindelse(){
-        //Arrange
-        LocalDate påfyldningsdato = LocalDate.now();
-
-        //Act
-        Påfyldning påfyldning = destillering.lavPåfyldning(fad, påfyldningsdato, 600);
-        boolean forventet = true;
-        boolean aktuelt = destillering.getPåfyldninger().contains(påfyldning);
-
-        //Assert
         assertEquals(forventet, aktuelt);
     }
 }
