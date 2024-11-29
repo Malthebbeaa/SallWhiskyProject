@@ -79,8 +79,8 @@ public class Controller {
         fad.tilføjPåfyldning(påfyldning);
     }
 
-    public Aftapning aftapFad(LocalDate aftapningsDato, Double literAftappet, Double alkoholProcent, Fad fad) {
-        Aftapning aftapning = new Aftapning(aftapningsDato, literAftappet, alkoholProcent, fad);
+    public Aftapning aftapFad(LocalDate aftapningsDato, Double alkoholProcent, Fad fad) {
+        Aftapning aftapning = new Aftapning(aftapningsDato, alkoholProcent, fad);
         storage.addAftapning(aftapning);
         return aftapning;
     }

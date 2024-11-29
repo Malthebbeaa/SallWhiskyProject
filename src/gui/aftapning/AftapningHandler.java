@@ -3,6 +3,7 @@ package gui.aftapning;
 import application.controller.Controller;
 import application.model.Aftapning;
 import application.model.Fad;
+import application.model.Mængde;
 
 import java.time.LocalDate;
 
@@ -16,9 +17,12 @@ public class AftapningHandler {
     public void aftapFadAction(AftapningForm form){
         Fad fad = form.getFad();
         LocalDate aftapningsDato = form.getAftapningsDato();
-        double mængde = form.getTxfMængdeTilAftapning();
+        Mængde mængde = new Mængde(form.getTxfMængdeTilAftapning(), fad);
+        double alkoholProcent = form.getTxfAlkoholProcent();
 
-        Aftapning aftapning = new Aftapning(aftapningsDato, mængde,44.2, fad);
+        Aftapning aftapning = new Aftapning(aftapningsDato,44.2, fad);
+        aftapning.aftapMængde(mængde);
+        fad.tilføjAftapning(aftapning);
 
         form.clearAction();
     }

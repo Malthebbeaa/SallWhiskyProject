@@ -112,8 +112,15 @@ public class gui extends Application {
                 "Bourbon", 29, 0);
 
         Mængde mængde = new Mængde(60.0, destillering1);
+        Mængde mængde1 = new Mængde(48.0, fad1);
 
-//        Aftapning aftapning1 = controller.aftapFad(LocalDate.of(2024,10, 24), 20.0, 48.0, fad2);
+        Påfyldning påfyldning = new Påfyldning(LocalDate.of(200, 10,24), fad1);
+        påfyldning.tilføjMængde(mængde);
+        fad1.tilføjPåfyldning(påfyldning);
+
+//        Aftapning aftapning1 = controller.aftapFad(LocalDate.of(2024,10, 24), 50.0, fad1);
+//        aftapning1.aftapMængde(mængde1);
+//        fad1.tilføjAftapning(aftapning1);
 
 
 //        WhiskyProdukt whiskyProdukt1 = new WhiskyProdukt(whiskyProdukt1.getAarLagret(aftapning1,påfyldning1), "NAVN",
