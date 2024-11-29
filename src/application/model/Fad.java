@@ -27,14 +27,13 @@ public class Fad {
         this.påfyldninger = new ArrayList<>();
     }
 
-
-
+    public boolean påFyldningOvergårGrænse(double mængde){
+        return mængde + mængdeFyldtPåFad > størrelse;
+    }
     public void tilføjPåfyldning(Påfyldning påfyldning){
-        double mængdeEfterTilføjelse = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
-
-        if (mængdeEfterTilføjelse <= størrelse){
+        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())){
             påfyldninger.add(påfyldning);
-            mængdeFyldtPåFad = mængdeEfterTilføjelse;
+            mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }

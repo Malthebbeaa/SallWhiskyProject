@@ -5,6 +5,8 @@ import application.model.Destillering;
 import application.model.Fad;
 import application.model.Mængde;
 import application.model.Påfyldning;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.GridPane;
 
 import javax.swing.text.html.ListView;
 import java.time.LocalDate;
@@ -14,63 +16,69 @@ import java.util.List;
 
 public class PåfyldningHandler {
     private Controller controller;
+    private Påfyldning påfyldning;
 
     public PåfyldningHandler(Controller controller) {
         this.controller = controller;
     }
 
-    public void påfyldFadAction(PåfyldningForm form) {
-        try {
-            Fad fad = form.getFad();
-            LocalDate påfyldningsDato = form.getPåfyldningsDato();
-
-            List<Mængde> mængder = form.getMængder();
-
-
-            Påfyldning påfyldning = new Påfyldning(påfyldningsDato, fad);
-            for (Mængde mængde : mængder) {
-                påfyldning.tilføjMængde(mængde);
-            }
-
-            controller.påfyldFad(påfyldning, fad);
-            clearAction(form);
-        } catch (RuntimeException e){
-
+    public void påfyldFadAction(PåfyldningForm form, Fad fad) {
+        påfyldning = form.getPåfyldning();
+        if (påfyldning.getMængderPåfyldt().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Du skal tilføje mængde af destillering(er) inden du fortsætter");
+            alert.showAndWait();
         }
+
+        controller.påfyldFad(påfyldning, fad);
     }
 
     public void vælgAction(PåfyldningForm form) {
         Destillering selected = form.getLvwMuligeDestilleringer().getSelectionModel().getSelectedItem();
-        MængdePopUpWindow popUpWindow = new MængdePopUpWindow("Afgiv mængde", selected);
+        if (selected == null) return;
+
+        påfyldning = form.getPåfyldning();
+        MængdePopUpWindow popUpWindow = new MængdePopUpWindow("Afgiv mængde", selected, påfyldning);
         popUpWindow.showAndWait();
         //hvis mængde er udfyldt
-        if (popUpWindow.getMængde() != 0){
-            if (selected != null){
+        if (popUpWindow.getMængde() != 0) {
+            if (selected != null) {
                 form.getLveValgtDestilleringer().getItems().add(selected);
                 form.getLvwMuligeDestilleringer().getItems().remove(selected);
                 Mængde mængde = new Mængde(popUpWindow.getMængde(), selected);
-                form.getMængder().add(mængde);
+                påfyldning.tilføjMængde(mængde);
             }
         }
     }
 
-    public void removeAllAction(PåfyldningForm form){
+    public void removeAllAction(PåfyldningForm form) {
+        påfyldning = form.getPåfyldning();
         form.getLvwMuligeDestilleringer().getItems().addAll(form.getLveValgtDestilleringer().getItems());
         form.getLveValgtDestilleringer().getItems().clear();
+        påfyldning.getMængderPåfyldt().clear();
     }
 
-    public void clearAction(PåfyldningForm form){
+    public void clearAction(PåfyldningForm form) {
+        påfyldning = form.getPåfyldning();
         form.getCboxFad().setValue(null);
         form.getDatePickerPåfyldningsDato().setValue(LocalDate.now());
         removeAllAction(form);
     }
 
-    public void fravælgAction(PåfyldningForm form){
+    public void fravælgAction(PåfyldningForm form) {
         Destillering selected = form.getLveValgtDestilleringer().getSelectionModel().getSelectedItem();
-        if (selected != null){
+        påfyldning = form.getPåfyldning();
+        if (selected != null) {
             form.getLvwMuligeDestilleringer().getItems().add(selected);
             form.getLveValgtDestilleringer().getItems().remove(selected);
+
+            påfyldning.getMængderPåfyldt().removeIf(mængde -> mængde.getDestillering().equals(selected));
         }
+    }
+
+
+    public void getStartVindue(GridPane pane, PåfyldningForm form) {
+        pane.getChildren().setAll(form.getPåfyldningsPane());
+
     }
 
 }

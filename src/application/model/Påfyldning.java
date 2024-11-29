@@ -17,16 +17,34 @@ public class Påfyldning {
         mængderPåfyldt = new ArrayList<>();
     }
 
-    public void tilføjMængde(Mængde mængde){
+    public boolean mængdenOverskriderFadKapacitet(Mængde mængde){
         double totalMedTilføjelse = literPåfyldt + mængde.getMængde();
         double fremtidigeTotal = totalMedTilføjelse + fad.getMængdeFyldtPåFad();
 
-        if (fremtidigeTotal <= fad.getStørrelse()){
+        return fremtidigeTotal > fad.getStørrelse();
+
+    }
+
+    public boolean mængdenOverskriderFadKapacitet(double mængde){
+        double totalMedTilføjelse = literPåfyldt + mængde;
+        double fremtidigeTotal = totalMedTilføjelse + fad.getMængdeFyldtPåFad();
+
+        return fremtidigeTotal > fad.getStørrelse();
+
+    }
+    public void tilføjMængde(Mængde mængde){
+        if (!mængdenOverskriderFadKapacitet(mængde)){
             mængde.setPåfyldning(this);
             mængderPåfyldt.add(mængde);
-            literPåfyldt = totalMedTilføjelse;
+            literPåfyldt = literPåfyldt + mængde.getMængde();
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
+        }
+    }
+
+    public void fjernMængde(Mængde mængde){
+        if (mængde != null){
+            mængderPåfyldt.remove(mængde);
         }
     }
 
