@@ -103,9 +103,16 @@ public class PåfyldningForm {
 
     private void vælgAction() {
         Destillering selected = lvwMuligeDestilleringer.getSelectionModel().getSelectedItem();
-        if (selected != null){
-            lveValgtDestilleringer.getItems().add(selected);
-            lvwMuligeDestilleringer.getItems().remove(selected);
+        MængdePopUpWindow popUpWindow = new MængdePopUpWindow("Afgiv mængde", selected);
+        popUpWindow.showAndWait();
+        //hvis det ikke er udfyldt
+        if (popUpWindow.getMængde() != 0){
+            if (selected != null){
+                lveValgtDestilleringer.getItems().add(selected);
+                lvwMuligeDestilleringer.getItems().remove(selected);
+                Mængde mængde = new Mængde(popUpWindow.getMængde(), selected);
+                mængder.add(mængde);
+            }
         }
     }
     public void fravælgAction(){
