@@ -42,7 +42,7 @@ public class WhiskyProdukt {
         return whiskytype;
     }
 
-    public String skrivHistorie() {
+    public String lavHistorie() {
         return
         "Vores whisky " + navn + " er lavet af ";
 //                + .getKorn()
@@ -74,6 +74,10 @@ public class WhiskyProdukt {
 
     public List<Fad> getFade() {
         return fade;
+    }
+
+    public void setNavn(String navn) {
+        this.navn = navn;
     }
 
     public String getNavn() {

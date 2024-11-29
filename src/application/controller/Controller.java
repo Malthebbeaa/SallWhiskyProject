@@ -4,7 +4,6 @@ import application.model.*;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Controller {
     private StorageInterface storage;
@@ -70,14 +69,25 @@ public class Controller {
         return whiskyProdukt;
     }
 
-    public void påfyldFad(Påfyldning påfyldning, Fad fad){
+    public FadLeverandør opretFadlevandør(String navn, String land) {
+        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
+        storage.addFadleverandør(fadLeverandør);
+        return fadLeverandør;
+    }
+
+    public void påfyldFad(Påfyldning påfyldning, Fad fad) {
         fad.tilføjPåfyldning(påfyldning);
+    }
+
+    public Aftapning aftapFad(LocalDate aftapningsDato, Double literAftappet, Double alkoholProcent, Fad fad) {
+        Aftapning aftapning = new Aftapning(aftapningsDato, literAftappet, alkoholProcent, fad);
+        storage.addAftapning(aftapning);
+        return aftapning;
     }
 
     public StorageInterface getStorage() {
         return storage;
     }
-
 
 
 }

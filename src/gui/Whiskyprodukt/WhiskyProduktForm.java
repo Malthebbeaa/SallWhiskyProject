@@ -2,6 +2,7 @@ package gui.Whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.Fad;
+import application.model.WhiskyProdukt;
 import gui.PaneCreator;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -19,11 +20,13 @@ public class WhiskyProduktForm {
     private TextArea txaFadInfo, txaHistorie;
     private TextField txfNavn;
     private ComboBox comboboxFad, comboboxStørrelse, comboboxMateriale, comboboxTidligereIndhold;
+    private WhiskyProdukt whiskyProdukt;
 
 
     public WhiskyProduktForm(Controller controller) {
         this.controller = controller;
         this.whiskyproduktPane = new GridPane();
+        this.whiskyProdukt = new WhiskyProdukt(0, "", "", false);
 
         initForm();
     }
@@ -113,8 +116,7 @@ public class WhiskyProduktForm {
         Label lblNavn = new Label("Whiskyens navn");
         txfNavn = new TextField();
         txfNavn.setPrefWidth(150);
-
-
+        txfNavn.setPromptText("Navn");
 
 
         historiePane.add(lblNavn, 0, 1);
@@ -123,9 +125,12 @@ public class WhiskyProduktForm {
         txaHistorie = new TextArea();
         historiePane.add(txaHistorie, 1, 2);
         txaHistorie.setEditable(false);
-        txaHistorie.setText("Historie");
+        txfNavn.textProperty().addListener((obs, oldName, newName) -> {
+            whiskyProdukt.setNavn(newName.toUpperCase());
+            updateHistorie();
+        });
+        updateHistorie();
     }
-
 
 
     public GridPane getWhiskyproduktPane() {
@@ -167,5 +172,10 @@ public class WhiskyProduktForm {
         } else {
             txaFadInfo.clear();
         }
+    }
+
+    private void updateHistorie() {
+        String historie = whiskyProdukt.lavHistorie();
+        txaHistorie.setText(historie);
     }
 }
