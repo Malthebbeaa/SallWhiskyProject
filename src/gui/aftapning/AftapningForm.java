@@ -15,7 +15,7 @@ public class AftapningForm {
     private Controller controller;
     private ComboBox<Fad> cboxFad;
     private DatePicker datePickerAftapningsDato;
-    private TextField txfMængdeTilAftapning;
+    private TextField txfMængdeTilAftapning, txfAlkoholProcent;
     private GridPane aftapningsPane, aftapningsInfoPane;
 
     public AftapningForm(Controller controller) {
@@ -51,6 +51,12 @@ public class AftapningForm {
         txfMængdeTilAftapning.setMaxWidth(175);
         aftapningsInfoPane.add(txfMængdeTilAftapning, 1,2);
 
+        Label lblAlkoholProcent = new Label("Alkoholprocent: ");
+        aftapningsInfoPane.add(lblAlkoholProcent, 0,3);
+        txfAlkoholProcent = new TextField();
+        txfAlkoholProcent.setMaxWidth(175);
+        aftapningsInfoPane.add(txfAlkoholProcent, 1,3);
+
 
     }
 
@@ -59,6 +65,8 @@ public class AftapningForm {
     public LocalDate getAftapningsDato() {return datePickerAftapningsDato.getValue();}
 
     public double getTxfMængdeTilAftapning() {return Double.parseDouble(txfMængdeTilAftapning.getText());}
+    public double getTxfAlkoholProcent() { return Double.parseDouble(txfAlkoholProcent.getText());
+    }
 
     public GridPane getAftapningsPane() {return aftapningsPane;}
 
@@ -67,5 +75,7 @@ public class AftapningForm {
         datePickerAftapningsDato.setValue(LocalDate.now());
         txfMængdeTilAftapning.clear();
     }
+
+
 }
 

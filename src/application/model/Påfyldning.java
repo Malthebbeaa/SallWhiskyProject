@@ -17,6 +17,7 @@ public class Påfyldning {
         mængderPåfyldt = new ArrayList<>();
     }
 
+
     public void tilføjMængde(Mængde mængde){
         double totalMedTilføjelse = literPåfyldt + mængde.getMængde();
         double fremtidigeTotal = totalMedTilføjelse + fad.getMængdeFyldtPåFad();

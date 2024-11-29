@@ -14,6 +14,8 @@ public class Fad {
     private int antalGangeBrugt;
     private double mængdeFyldtPåFad;
     private List<Påfyldning> påfyldninger;
+    private List<Aftapning> aftapninger;
+
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.fadId = IdCount++;
@@ -25,6 +27,7 @@ public class Fad {
         this.antalGangeBrugt = antalGangeBrugt;
         this.mængdeFyldtPåFad = 0;
         this.påfyldninger = new ArrayList<>();
+        this.aftapninger = new ArrayList<>();
     }
 
 
@@ -40,24 +43,23 @@ public class Fad {
         }
     }
 
+    public void tilføjAftapning(Aftapning aftapning) {
+        double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
+
+
+        if (mængdeEfterAftapning >= 0) {
+            aftapninger.add(aftapning);
+            mængdeFyldtPåFad = mængdeEfterAftapning;
+            aftapning.setFad(this);
+        } else {
+            throw new RuntimeException("Du overskrider fadets kapacitet");
+        }
+    }
+
     public double getMængdeFyldtPåFad() {
         return mængdeFyldtPåFad;
     }
 
-    public void AftapWhisky(Double literAftappet) {
-        if (mængdeFyldtPåFad == 0) {
-            throw new IllegalStateException("Fadet er tomt");
-        }
-
-        if (literAftappet <= mængdeFyldtPåFad) {
-            mængdeFyldtPåFad -= literAftappet;
-            if (mængdeFyldtPåFad == 0) {
-                antalGangeBrugt++;
-            }
-        } else {
-            System.out.println();
-        }
-    }
 
     public FadLeverandør getFadLeverandør() {
         return fadLeverandør;
