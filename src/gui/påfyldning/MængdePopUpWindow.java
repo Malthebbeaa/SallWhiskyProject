@@ -1,6 +1,7 @@
 package gui.påfyldning;
 
 import application.model.Destillering;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +25,8 @@ public class MængdePopUpWindow extends Stage {
 
         setTitle(title);
         GridPane pane = new GridPane();
-        pane.setPrefSize(200,200);
+        pane.setPrefSize(200,150);
+        pane.setAlignment(Pos.CENTER);
         initContent(pane);
 
         Scene scene = new Scene(pane);
