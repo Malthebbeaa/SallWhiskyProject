@@ -106,7 +106,7 @@ public class gui extends Application {
         Påfyldning påfyldning1 = controller.opretPåfyldning(LocalDate.EPOCH, 30.0);
 
 
-        WhiskyProdukt whiskyProdukt1 = new WhiskyProdukt(whiskyProdukt1.getAarLagret(aftapning1,påfyldning1), "NAVN",
-                whiskyProdukt1.getWhiskytype(aftapning1,whiskyProdukt1), true);
+//        WhiskyProdukt whiskyProdukt1 = new WhiskyProdukt(whiskyProdukt1.getAarLagret(aftapning1,påfyldning1), "NAVN",
+//                whiskyProdukt1.getWhiskytype(aftapning1,whiskyProdukt1), true);
     }
 }
