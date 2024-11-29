@@ -5,14 +5,12 @@ import java.time.LocalDate;
 public class Aftapning {
     public LocalDate aftapningsDato;
     public Double literAftappet;
-    public boolean fortyndet;
     public Double alkoholProcent;
     private Fad fad;
 
-    public Aftapning(LocalDate aftapningsDato, Double literAftappet, boolean fortyndet, Double alkoholProcent, Fad fad) {
+    public Aftapning(LocalDate aftapningsDato, Double literAftappet, Double alkoholProcent, Fad fad) {
         this.aftapningsDato = aftapningsDato;
         this.literAftappet = literAftappet;
-        this.fortyndet = fortyndet;
         this.alkoholProcent = alkoholProcent;
         this.fad = fad;
     }
@@ -27,10 +25,6 @@ public class Aftapning {
 
     public Double getLiterAftappet() {
         return literAftappet;
-    }
-
-    public boolean isFortyndet() {
-        return fortyndet;
     }
 
     public Double getAlkoholProcent() {

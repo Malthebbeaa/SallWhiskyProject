@@ -100,5 +100,13 @@ public class gui extends Application {
                 "Rødvin", 23, 0);
         Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
                 "Bourbon", 29, 0);
+
+        Aftapning aftapning1 = controller.opretAftapning(LocalDate.now(), 20.0, 48.0, fad2);
+
+        Påfyldning påfyldning1 = controller.opretPåfyldning(LocalDate.EPOCH, 30.0);
+
+
+        WhiskyProdukt whiskyProdukt1 = new WhiskyProdukt(whiskyProdukt1.getAarLagret(aftapning1,påfyldning1), "NAVN",
+                whiskyProdukt1.getWhiskytype(aftapning1,whiskyProdukt1), true);
     }
 }

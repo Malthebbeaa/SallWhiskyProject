@@ -41,9 +41,15 @@ public class Controller {
         Destillering destillering = new Destillering(antalDistilleringer, startDato, slutDato,
                 væskeMængde, alkoholProcent, maltbatch);
         storage.addDestillering(destillering);
-
         return destillering;
     }
+
+    public Aftapning opretAftapning(LocalDate aftapningsDato, Double literAftappet, Double alkoholProcent, Fad fad){
+        Aftapning aftapning = new Aftapning(aftapningsDato, literAftappet, alkoholProcent, fad);
+        storage.addAftapning(aftapning);
+        return aftapning;
+    }
+
 
     public void tilføjKommentarTilDestillering(String kommentarTekst, Destillering destillering) {
         Kommentar kommentar = new Kommentar(kommentarTekst);
@@ -65,10 +71,22 @@ public class Controller {
         return lager;
     }
 
-    public WhiskyProdukt opretWhiskyProdukt(int aarLagret, String navn, String whiskytype) {
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(aarLagret, navn, whiskytype);
+    public WhiskyProdukt opretWhiskyProdukt(int aarLagret, String navn, String whiskytype, boolean fortyndet) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(aarLagret, navn, whiskytype, fortyndet);
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
+    }
+
+    public FadLeverandør opretFadlevandør(String navn, String land) {
+        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
+        storage.addFadleverandør(fadLeverandør);
+        return fadLeverandør;
+    }
+
+    public Påfyldning opretPåfyldning(LocalDate påfyldningsDato, double literPåfyldt) {
+        Påfyldning påfyldning = new Påfyldning(påfyldningsDato, literPåfyldt);
+        storage.addPåfyldning(påfyldning);
+        return påfyldning;
     }
 
     public Påfyldning påfyldningFad(Fad fad, Destillering destillering, LocalDate påfyldningsDato, double mængde){
@@ -82,9 +100,5 @@ public class Controller {
     }
 
 
-    public FadLeverandør opretFadlevandør(String navn, String land) {
-        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
-        storage.addFadleverandør(fadLeverandør);
-        return fadLeverandør;
-    }
+
 }

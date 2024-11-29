@@ -84,19 +84,19 @@ public class Fad {
     }
 
     @Override
-    public String toString() {
-        return  "FadID: " + fadId +
-                "\nStørrelse: " + størrelse +
-                "\nMateriale: " + materiale +
-                "\nLeverandør: " + fadLeverandør +
-                "\nTidligere indhold: " + tidligereIndhold + '\'' +
-                "\nAlder: " + alder +
-                "\nBrugt " + antalGangeBrugt + " gang(e)" +
-                "\nLiter i fad: " + mængdeVæskeIFad +
-                "\nFyldt: " + fyldt;
-    }
+//    public String toString() {
+//        return  "FadID: " + fadId +
+//                "\nStørrelse: " + størrelse +
+//                "\nMateriale: " + materiale +
+//                "\nLeverandør: " + fadLeverandør +
+//                "\nTidligere indhold: " + tidligereIndhold + '\'' +
+//                "\nAlder: " + alder +
+//                "\nBrugt " + antalGangeBrugt + " gang(e)" +
+//                "\nLiter i fad: " + mængdeVæskeIFad +
+//                "\nFyldt: " + fyldt;
+//    }
 
-    public String toString2() {
+    public String toString() {
         return  "FadID: " + fadId;
     }
 

@@ -2,22 +2,25 @@ package gui.Whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.Fad;
+import application.model.FadLeverandør;
+import application.model.Historie;
+import application.model.WhiskyProdukt;
+import gui.PaneCreator;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import storage.Storage;
-
-import java.awt.event.ActionListener;
 
 public class WhiskyProduktForm {
     private GridPane fadInfoPane, whiskyproduktPane;
     private Controller controller;
-    private TextArea txaFadInfo;
-    private TextField txfAlder, txfAntalGangeBrugt;
-    private ComboBox comboboxFad, comboboxStørrelse, comboboxMateriale, comboboxTidligereIndhold;
+    private TextArea txaFadInfo, txaHistorie;
+    private Fad selectedFad;
+    private TextField txfNavn;
+    private WhiskyProdukt whiskyProdukt;
+    private Historie historie;
 
 
     public WhiskyProduktForm(Controller controller) {
@@ -28,13 +31,13 @@ public class WhiskyProduktForm {
     }
 
     private void initForm() {
-        fadInfoPane = new GridPane();
+        fadInfoPane = new PaneCreator();
         fadInfoPane.setHgap(10);
         fadInfoPane.setVgap(10);
         fadInfoPane.setPadding(new Insets(10, 50, 50, 10));
         fadInfoPane.setBorder(Border.stroke(Paint.valueOf("Black")));
 
-        Label lblOpret = new Label("Opret Fad:");
+        Label lblOpret = new Label("Vælg Fad:");
         whiskyproduktPane.add(lblOpret, 0, 0);
         whiskyproduktPane.add(fadInfoPane, 0, 1);
         whiskyproduktPane.setHgap(10);
@@ -48,8 +51,8 @@ public class WhiskyProduktForm {
         ListView<Fad> chosenListView = new ListView<>();
 
         availableListView.getItems().addAll(controller.getStorage().getFade());
-        availableListView.setPrefSize(200, 150);
-        chosenListView.setPrefSize(200, 150);
+        availableListView.setMaxSize(100, 200);
+        chosenListView.setMaxSize(100, 200);
 
         availableListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             displayFadInfo(newValue);
@@ -108,54 +111,22 @@ public class WhiskyProduktForm {
         fadInfoPane.add(txaFadInfo, 4, 2);
 
 
+        PaneCreator historiePane = new PaneCreator();
+        Label lblNavn = new Label("Whiskyens navn");
+        txfNavn = new TextField();
+        txfNavn.setPrefWidth(150);
 
 
-//        Label lblLeverandør = new Label("Vælg fad: ");
-//        comboboxFad = new ComboBox();
-//        comboboxFad.getItems().addAll(new Fad(94, "Eg", new FadLeverandør("La Barril", "Spanien")
-//                , "Rødvin", 36, 0));
-//        comboboxFad.setPrefHeight(20);
-//        comboboxFad.setPrefWidth(200);
-//        fadInfoPane.add(lblLeverandør, 0, 0);
-//        fadInfoPane.add(comboboxFad, 0, 1);
-//
-//        Label lblStørrelse = new Label("Størrelse: ");
-//        comboboxStørrelse = new ComboBox<Double>();
-//        comboboxStørrelse.getItems().addAll(32, 94, 130);
-//        comboboxStørrelse.setPrefHeight(20);
-//        comboboxStørrelse.setPrefWidth(200);
-//        fadInfoPane.add(lblStørrelse, 1, 0);
-//        fadInfoPane.add(comboboxStørrelse, 1, 1);
-//
-//        Label lblMateriale = new Label("Materiale: ");
-//        comboboxMateriale = new ComboBox();
-//        comboboxMateriale.getItems().addAll("Eg", "Kirsebærtræ", "Bøgetræ");
-//        comboboxMateriale.setPrefHeight(20);
-//        comboboxMateriale.setPrefWidth(200);
-//        fadInfoPane.add(lblMateriale, 2, 0);
-//        fadInfoPane.add(comboboxMateriale, 2, 1);
-//
-//        Label lblTidligereIndhold = new Label("Tidligere indhold: ");
-//        comboboxTidligereIndhold = new ComboBox();
-//        comboboxTidligereIndhold.getItems().addAll("Sherry", "Bourbon", "Rødvin");
-//        comboboxTidligereIndhold.setPrefHeight(20);
-//        comboboxTidligereIndhold.setPrefWidth(200);
-//        fadInfoPane.add(lblTidligereIndhold, 0, 2);
-//        fadInfoPane.add(comboboxTidligereIndhold, 0, 3);
-//
-//        Label lblAlder = new Label("Tøndens alder: ");
-//        txfAlder = new TextField();
-//        txfAlder.setPrefWidth(30);
-//        fadInfoPane.add(lblAlder, 1, 2);
-//        fadInfoPane.add(txfAlder, 1, 3);
-//
-//        Label lblAntalGangeBrugt = new Label("Antal gange den har været brugt: ");
-//        txfAntalGangeBrugt = new TextField();
-//        txfAntalGangeBrugt.setPrefWidth(30);
-//        fadInfoPane.add(lblAntalGangeBrugt, 2, 2);
-//        fadInfoPane.add(txfAntalGangeBrugt, 2, 3);
+
+
+        historiePane.add(lblNavn, 0, 1);
+        historiePane.add(txfNavn, 1, 1);
+        whiskyproduktPane.add(historiePane, 0, 3);
+        txaHistorie = new TextArea();
+        historiePane.add(txaHistorie, 1, 2);
+        txaHistorie.setEditable(false);
+        txaHistorie.setText(whiskyProdukt.skrivHistorie());
     }
-
 
 
     public GridPane getWhiskyproduktPane() {
@@ -163,14 +134,44 @@ public class WhiskyProduktForm {
     }
 
     public void clearAction() {
-        txfAlder.clear();
-        txfAntalGangeBrugt.clear();
-
-        comboboxFad.setValue(null);
-        comboboxMateriale.setValue(null);
-        comboboxStørrelse.setValue(null);
-        comboboxTidligereIndhold.setValue(null);
+        txaFadInfo.clear();
     }
+
+    public int getStørrelse() {
+        return selectedFad.getStørrelse();
+    }
+
+    public String getMateriale() {
+        return selectedFad.getMateriale();
+    }
+
+    public FadLeverandør getFadleverandør() {
+        return selectedFad.getFadLeverandør();
+    }
+
+    public String getTidligereIndhold() {
+        return selectedFad.getTidligereIndhold();
+    }
+
+    public int getAlder() {
+        return selectedFad.getAlder();
+    }
+
+    public int getAntalGangeBrugt() {
+        return selectedFad.getAntalGangeBrugt();
+    }
+
+    public double getMængdeVæskeIFad() {
+        return selectedFad.getMængdeVæskeIFad();
+    }
+
+    public boolean isFyldt() {
+        return selectedFad.isFyldt();
+    }
+
+
+
+
     private void displayFadInfo(Fad selectedFad) {
         if (selectedFad != null) {
             txaFadInfo.setText(
@@ -185,7 +186,7 @@ public class WhiskyProduktForm {
                             "\nFyldt: " + selectedFad.isFyldt()
             );
         } else {
-            txaFadInfo.clear(); // Clear when no fad is selected
+            txaFadInfo.clear();
         }
     }
 }

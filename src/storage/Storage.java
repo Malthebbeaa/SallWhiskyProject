@@ -17,6 +17,10 @@ public class Storage implements StorageInterface{
     private ArrayList<Mark> marker = new ArrayList<>();
     private ObservableList<Lager> lagre = FXCollections.observableArrayList();
     private ArrayList<WhiskyProdukt> whiskyProdukter = new ArrayList<>();
+    private ArrayList<Aftapning> aftapninger = new ArrayList<>();
+    private ArrayList<Påfyldning> påfyldninger = new ArrayList<>();
+
+
 
 
     @Override
@@ -54,6 +58,16 @@ public class Storage implements StorageInterface{
     @Override
     public void addFadleverandør(FadLeverandør fadLeverandør) {
         fadLeverandører.add(fadLeverandør);
+    }
+
+    @Override
+    public void addAftapning(Aftapning aftapning) {
+        aftapninger.add(aftapning);
+    }
+
+    @Override
+    public void addPåfyldning(Påfyldning påfyldning) {
+        påfyldninger.add(påfyldning);
     }
 
     //----------------------------------------------------------------------------
@@ -94,6 +108,16 @@ public class Storage implements StorageInterface{
     @Override
     public List<WhiskyProdukt> getWhiskyProdukt() {
         return whiskyProdukter;
+    }
+
+    @Override
+    public List<Aftapning> getAftapning() {
+        return aftapninger;
+    }
+
+    @Override
+    public List<Påfyldning> getPåfyldning() {
+        return påfyldninger;
     }
 
 }
