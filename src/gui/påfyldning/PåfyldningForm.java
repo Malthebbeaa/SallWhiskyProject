@@ -27,14 +27,14 @@ public class PåfyldningForm {
     private List<Mængde> mængder;
 
 
-    public PåfyldningForm(Controller controller) {
+    public PåfyldningForm(Controller controller, PåfyldningHandler handler) {
         this.controller = controller;
         påfyldningsPane = new GridPane();
         mængder = new ArrayList<>();
-        initForm();
+        initForm(handler);
     }
 
-    private void initForm() {
+    private void initForm(PåfyldningHandler handler) {
         påfyldningsInfoPane = new PaneCreator();
         Label lblPåfyldning = new Label("Påfyld fad:");
         påfyldningsPane.add(lblPåfyldning, 0,0);
@@ -69,15 +69,15 @@ public class PåfyldningForm {
 
         Button btnAddSelected = new Button("Vælg");
         btnAddSelected.setOnAction(e -> {
-            vælgAction();
+            handler.vælgAction(this);
         });
         Button btnRemoveSelected = new Button("Fravælg");
         btnRemoveSelected.setOnAction(e -> {
-            fravælgAction();
+            handler.fravælgAction(this);
         });
         Button btnRemoveAll = new Button("Fravælg alle");
         btnRemoveAll.setOnAction(e -> {
-            removeAllAction();
+            handler.removeAllAction(this);
         });
         VBox buttonBox = new VBox(5, btnAddSelected, btnRemoveSelected, btnRemoveAll);
 
@@ -87,48 +87,17 @@ public class PåfyldningForm {
         påfyldningsInfoPane.add(buttonBox, 2, 1);
     }
 
-
-
     public Fad getFad() {return cboxFad.getValue();}
 
     public LocalDate getPåfyldningsDato() {return datePickerPåfyldningsDato.getValue();}
 
     public double getTxfMængdeTilPåfyldning() {return Double.parseDouble(txfMængdeTilPåfyldning.getText());}
 
+    public ComboBox<Fad> getCboxFad(){return cboxFad;}
+    public DatePicker getDatePickerPåfyldningsDato(){return datePickerPåfyldningsDato;}
     public GridPane getPåfyldningsPane() {return påfyldningsPane;}
     public ListView<Destillering> getLvwMuligeDestilleringer(){return lvwMuligeDestilleringer;}
     public ListView<Destillering> getLveValgtDestilleringer(){return lveValgtDestilleringer;}
     public List<Mængde> getMængder(){return mængder;}
-    public void removeAllAction(){
-        lvwMuligeDestilleringer.getItems().addAll(lveValgtDestilleringer.getItems());
-        lveValgtDestilleringer.getItems().clear();
-    }
-
-    private void vælgAction() {
-        Destillering selected = lvwMuligeDestilleringer.getSelectionModel().getSelectedItem();
-        MængdePopUpWindow popUpWindow = new MængdePopUpWindow("Afgiv mængde", selected);
-        popUpWindow.showAndWait();
-        //hvis det ikke er udfyldt
-        if (popUpWindow.getMængde() != 0){
-            if (selected != null){
-                lveValgtDestilleringer.getItems().add(selected);
-                lvwMuligeDestilleringer.getItems().remove(selected);
-                Mængde mængde = new Mængde(popUpWindow.getMængde(), selected);
-                mængder.add(mængde);
-            }
-        }
-    }
-    public void fravælgAction(){
-        Destillering selected = lveValgtDestilleringer.getSelectionModel().getSelectedItem();
-        if (selected != null){
-            lvwMuligeDestilleringer.getItems().add(selected);
-            lveValgtDestilleringer.getItems().remove(selected);
-        }
-    }
-    public void clearAction(){
-        cboxFad.setValue(null);
-        datePickerPåfyldningsDato.setValue(LocalDate.now());
-        removeAllAction();
-    }
 }
 

@@ -1,6 +1,8 @@
 package gui.påfyldning;
 
 import application.model.Destillering;
+import gui.PaneCreator;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,6 +29,7 @@ public class MængdePopUpWindow extends Stage {
         GridPane pane = new GridPane();
         pane.setPrefSize(200,150);
         pane.setAlignment(Pos.CENTER);
+        pane.setVgap(10);
         initContent(pane);
 
         Scene scene = new Scene(pane);
@@ -50,7 +53,7 @@ public class MængdePopUpWindow extends Stage {
             hide();
         });
 
-        HBox hBoxButtons = new HBox(btnTilføj, btnAfbryd);
+        HBox hBoxButtons = new HBox(5,btnTilføj, btnAfbryd);
         pane.add(hBoxButtons, 0,2);
 
     }

@@ -13,8 +13,8 @@ public class PåfyldningWindow extends BaseWindow {
     private GridPane påfyldningsPane;
 
     public PåfyldningWindow(Controller controller) {
-        form = new PåfyldningForm(controller);
         handler = new PåfyldningHandler(controller);
+        form = new PåfyldningForm(controller, handler);
 
         initContent();
     }
@@ -26,7 +26,7 @@ public class PåfyldningWindow extends BaseWindow {
         Button btnPåfyld = new Button("Påfyld");
         btnPåfyld.setOnAction(e -> handler.påfyldFadAction(form));
         Button btnAfbryd = new Button("Afbryd");
-        btnAfbryd.setOnAction(e -> form.clearAction());
+        btnAfbryd.setOnAction(e -> handler.clearAction(form));
 
         HBox hBoxButtons = new HBox(10);
         hBoxButtons.getChildren().addAll(btnPåfyld, btnAfbryd);
