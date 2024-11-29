@@ -26,13 +26,12 @@ public class PåfyldningHandler {
         List<Mængde> mængder = form.getMængder();
 
 
-        Påfyldning påfyldning = new Påfyldning(påfyldningsDato);
+        Påfyldning påfyldning = new Påfyldning(påfyldningsDato, fad);
         for (Mængde mængde : mængder) {
             påfyldning.tilføjMængde(mængde);
         }
 
-        fad.tilføjPåfyldning(påfyldning);
-        System.out.println(fad.getMængdeFyldtPåFad());
+        controller.påfyldFad(påfyldning, fad);
         form.clearAction();
     }
 

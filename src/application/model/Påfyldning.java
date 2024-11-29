@@ -10,8 +10,9 @@ public class Påfyldning {
     private Fad fad;
     private List<Mængde> mængderPåfyldt;
 
-    public Påfyldning(LocalDate påfyldningsDato) {
+    public Påfyldning(LocalDate påfyldningsDato, Fad fad) {
         this.påfyldningsDato = påfyldningsDato;
+        this.fad = fad;
         this.literPåfyldt = 0;
         mængderPåfyldt = new ArrayList<>();
     }

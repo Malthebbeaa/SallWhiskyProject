@@ -53,7 +53,7 @@ public class PåfyldningTest {
         Mængde mængde = destillering.afgivVæske(200);
         Mængde mængde1 = destillering2.afgivVæske(150);
 
-        Påfyldning påfyldning = new Påfyldning(LocalDate.now());
+        Påfyldning påfyldning = new Påfyldning(LocalDate.now(),fad);
         påfyldning.tilføjMængde(mængde);
         påfyldning.tilføjMængde(mængde1);
 
@@ -71,7 +71,7 @@ public class PåfyldningTest {
         assertEquals(true, fad.getPåfyldninger().contains(påfyldning));
         assertEquals(false, påfyldning.getMængderPåfyldt().contains(mængde2));
 
-        Påfyldning påfyldning1 = new Påfyldning(LocalDate.now());
+        Påfyldning påfyldning1 = new Påfyldning(LocalDate.now(), fad);
         påfyldning1.tilføjMængde(mængde2);
         fad.tilføjPåfyldning(påfyldning1);
 

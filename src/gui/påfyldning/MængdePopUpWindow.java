@@ -41,11 +41,11 @@ public class MængdePopUpWindow extends Stage {
         Button btnTilføj = new Button("Tilføj mængde");
         btnTilføj.setOnAction(e -> {
             mængde = Double.parseDouble(txfMængde.getText());
-            close();
+            hide();
         });
         Button btnAfbryd = new Button("Afbryd");
         btnAfbryd.setOnAction(e -> {
-            close();
+            hide();
         });
 
         HBox hBoxButtons = new HBox(btnTilføj, btnAfbryd);

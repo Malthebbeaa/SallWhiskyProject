@@ -125,8 +125,7 @@ public class PåfyldningForm {
     public void clearAction(){
         cboxFad.setValue(null);
         datePickerPåfyldningsDato.setValue(LocalDate.now());
-
-
+        removeAllAction();
     }
 }
 

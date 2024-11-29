@@ -35,7 +35,6 @@ public class Fad {
         if (mængdeEfterTilføjelse <= størrelse){
             påfyldninger.add(påfyldning);
             mængdeFyldtPåFad = mængdeEfterTilføjelse;
-            påfyldning.setFad(this);
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }
