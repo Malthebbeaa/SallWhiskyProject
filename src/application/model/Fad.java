@@ -28,11 +28,10 @@ public class Fad {
     }
 
 
-
-    public void tilføjPåfyldning(Påfyldning påfyldning){
+    public void tilføjPåfyldning(Påfyldning påfyldning) {
         double mængdeEfterTilføjelse = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
 
-        if (mængdeEfterTilføjelse <= størrelse){
+        if (mængdeEfterTilføjelse <= størrelse) {
             påfyldninger.add(påfyldning);
             mængdeFyldtPåFad = mængdeEfterTilføjelse;
             påfyldning.setFad(this);
@@ -41,7 +40,9 @@ public class Fad {
         }
     }
 
-    public double getMængdeFyldtPåFad() {return mængdeFyldtPåFad;}
+    public double getMængdeFyldtPåFad() {
+        return mængdeFyldtPåFad;
+    }
 
     public void AftapWhisky(Double literAftappet) {
         if (mængdeFyldtPåFad == 0) {
@@ -77,13 +78,14 @@ public class Fad {
     public void AntalGangeBrugt() {
         antalGangeBrugt++;
     }
+
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
 
     @Override
     public String toString() {
-        return  "FadID: " + fadId +
+        return "FadID: " + fadId +
                 "\nStørrelse: " + størrelse +
                 "\nMateriale: " + materiale +
                 "\nLeverandør: " + fadLeverandør +
@@ -94,7 +96,7 @@ public class Fad {
     }
 
     public String toString2() {
-        return  "FadID: " + fadId;
+        return "FadID: " + fadId;
     }
 
     public int getAlder() {
@@ -112,6 +114,7 @@ public class Fad {
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
     }
+
     public String toString3() {
         return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }

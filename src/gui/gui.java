@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
+import gui.aftapning.AftapningWindow;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.lager.opretLagerWindow;
@@ -34,6 +35,7 @@ public class gui extends Application {
     private opretLagerWindow opretLagerWindow;
     private WhiskyProduktWindow WhiskyProduktWindow;
     private PåfyldningWindow påfyldningWindow;
+    private AftapningWindow aftapningWindow;
 
     @Override
     public void start(Stage stage){
@@ -61,8 +63,10 @@ public class gui extends Application {
         opretLagerWindow = new opretLagerWindow(controller);
         WhiskyProduktWindow = new WhiskyProduktWindow(controller);
         påfyldningWindow = new PåfyldningWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane(), påfyldningWindow.getPane()));
+        aftapningWindow = new AftapningWindow(controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Aftap Fad"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(),
+                fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane(), påfyldningWindow.getPane(), aftapningWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -95,21 +99,21 @@ public class gui extends Application {
         Reol reol = lager.tilføjReol();
         reol.tilføjHylde(5,5);
 
-//        FadLeverandør fadLeverandør1 = controller.opretFadlevandør("La Barril", "Spanien");
-//        FadLeverandør fadLeverandør2 = controller.opretFadlevandør("El Gordo y Pobre", "Spanien");
-//        FadLeverandør fadLeverandør3 = controller.opretFadlevandør("Barrel Land", "USA");
-//        FadLeverandør fadLeverandør4 = controller.opretFadlevandør("Le Ivre et Belle", "Frankrig");
+        FadLeverandør fadLeverandør1 = controller.opretFadlevandør("La Barril", "Spanien");
+        FadLeverandør fadLeverandør2 = controller.opretFadlevandør("El Gordo y Pobre", "Spanien");
+        FadLeverandør fadLeverandør3 = controller.opretFadlevandør("Barrel Land", "USA");
+        FadLeverandør fadLeverandør4 = controller.opretFadlevandør("Le Ivre et Belle", "Frankrig");
 
-//        Fad fad1 = controller.opretFad(94, "Kirsebær træ", fadLeverandør2,
-//                "Sherry", 56, 1);
-//        Fad fad2 = controller.opretFad(32, "Eg", fadLeverandør4,
-//                "Rødvin", 23, 0);
-//        Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
-//                "Bourbon", 29, 0);
-//
-//        Aftapning aftapning1 = controller.opretAftapning(LocalDate.now(), 20.0, 48.0, fad2);
-//
-//        Påfyldning påfyldning1 = controller.opretPåfyldning(LocalDate.EPOCH, 30.0);
+        Fad fad1 = controller.opretFad(94, "Kirsebær træ", fadLeverandør2,
+                "Sherry", 56, 1);
+        Fad fad2 = controller.opretFad(32, "Eg", fadLeverandør4,
+                "Rødvin", 23, 0);
+        Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
+                "Bourbon", 29, 0);
+
+        Mængde mængde = new Mængde(60.0, destillering1);
+
+//        Aftapning aftapning1 = controller.aftapFad(LocalDate.of(2024,10, 24), 20.0, 48.0, fad2);
 
 
 //        WhiskyProdukt whiskyProdukt1 = new WhiskyProdukt(whiskyProdukt1.getAarLagret(aftapning1,påfyldning1), "NAVN",
