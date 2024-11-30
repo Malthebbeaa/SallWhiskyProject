@@ -32,11 +32,11 @@ public class PåfyldningHandler {
         controller.påfyldFad(påfyldning, fad);
     }
 
-    public void vælgAction(PåfyldningForm form) {
+    public void vælgAction(PåfyldningForm form, Påfyldning påfyldning) {
         Destillering selected = form.getLvwMuligeDestilleringer().getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
-        påfyldning = form.getPåfyldning();
+        this.påfyldning = påfyldning;
         MængdePopUpWindow popUpWindow = new MængdePopUpWindow("Afgiv mængde", selected, påfyldning);
         popUpWindow.showAndWait();
         //hvis mængde er udfyldt
@@ -45,7 +45,7 @@ public class PåfyldningHandler {
                 form.getLveValgtDestilleringer().getItems().add(selected);
                 form.getLvwMuligeDestilleringer().getItems().remove(selected);
                 Mængde mængde = new Mængde(popUpWindow.getMængde(), selected);
-                påfyldning.tilføjMængde(mængde);
+                this.påfyldning.tilføjMængde(mængde);
             }
         }
     }

@@ -79,7 +79,7 @@ public class PåfyldningForm {
 
         Button btnAddSelected = new Button("Vælg");
         btnAddSelected.setOnAction(e -> {
-            handler.vælgAction(this);
+            handler.vælgAction(this, påfyldning);
         });
         Button btnRemoveSelected = new Button("Fravælg");
         btnRemoveSelected.setOnAction(e -> {

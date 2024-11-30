@@ -71,6 +71,11 @@ public class Controller {
         return whiskyProdukt;
     }
 
+    public Påfyldning opretPåfyldning(Fad fad, LocalDate påfyldningsDato){
+        Påfyldning påfyldning = new Påfyldning(påfyldningsDato, fad);
+        storage.addPåfyldning(påfyldning);
+        return påfyldning;
+    }
     public void påfyldFad(Påfyldning påfyldning, Fad fad){
         fad.tilføjPåfyldning(påfyldning);
     }
