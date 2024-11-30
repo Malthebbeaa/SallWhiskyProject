@@ -126,8 +126,8 @@ public class LagerForm {
     public String getVejnavn(){return txfVejnavn.getText();}
     public String getBy(){return txfBy.getText();}
     public String getPostNummer(){return txfPostnummer.getText();}
-    public int getAntalHylder(){return Integer.parseInt(txfAntalHylder.getText());}
-    public int getAntalPladser(){return Integer.parseInt(txfAntalPladser.getText());}
+    public String getAntalHylder(){return txfAntalHylder.getText();}
+    public String getAntalPladser(){return txfAntalPladser.getText();}
     public GridPane getLagerPane(){return lagerPane;}
     public Lager getCbLager(){return cbLager.getValue();}
     public Lager getCbLagerReol(){return cbLagerReol.getValue();}
