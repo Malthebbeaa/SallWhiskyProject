@@ -34,6 +34,11 @@ public class Fad {
         if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())){
             påfyldninger.add(påfyldning);
             mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
+
+            for (Mængde mængde : påfyldning.getMængderPåfyldt()){
+                mængde.getDestillering().afgivVæske(mængde.getMængde());
+            }
+
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }
