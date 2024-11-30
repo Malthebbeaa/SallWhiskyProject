@@ -35,6 +35,7 @@ public class Fad {
             påfyldninger.add(påfyldning);
             mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
 
+            //først her bliver mængden trukket fra destilleringen
             for (Mængde mængde : påfyldning.getMængderPåfyldt()){
                 mængde.getDestillering().afgivVæske(mængde.getMængde());
             }

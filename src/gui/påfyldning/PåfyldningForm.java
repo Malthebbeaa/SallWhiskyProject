@@ -19,7 +19,6 @@ public class PåfyldningForm {
     private Controller controller;
     private ComboBox<Destillering> cboxDestillering;
     private ComboBox<Fad> cboxFad;
-    //private ListView<Destillering> lvwMuligeDestilleringer, lveValgtDestilleringer;
     private DatePicker datePickerPåfyldningsDato;
     private TextField txfMængdeTilPåfyldning;
     private GridPane påfyldningsPane, påfyldningsInfoPane, nextPane;
@@ -65,7 +64,9 @@ public class PåfyldningForm {
         //Valg af destilleringer og mængde popup
         this.påfyldning = påfyldning;
         nextPane = new PaneCreator();
-        lblOverskrift.setText("Vælg destilleringer og Mængder");
+        lblOverskrift.setText("Påfyldning af fadnr " + påfyldning.getFad().getFadId() + " som har plads til " +
+                påfyldning.getLiterPåfyldt() + " L");
+        påfyldningsPane.layout();
         påfyldningsPane.add(nextPane, 0,1);
 
         Label lblDestillering = new Label("Vælg destillering(er):");

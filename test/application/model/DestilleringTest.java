@@ -21,7 +21,7 @@ class DestilleringTest {
 
 
     @Test
-    void påfyldVæske() {
+    void test_afgivVæske() {
         //Arrange & Act
         double mængde = 600;
 
