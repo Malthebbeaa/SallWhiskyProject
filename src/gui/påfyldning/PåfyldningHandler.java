@@ -30,6 +30,10 @@ public class PåfyldningHandler {
         }
 
         controller.påfyldFad(påfyldning, fad);
+        System.out.println("Påfyldning gennemført på fadnr: "+ påfyldning.getFad().getFadId() + " - der er nu " + fad.getMængdeFyldtPåFad() + " på fadet");
+        if (fad.getMængdeFyldtPåFad() == fad.getStørrelse()){
+            System.out.println("Fadnr " + fad.getFadId() + " er nu fyldt og klar til flytning");
+        }
     }
 
     public void vælgAction(PåfyldningForm form, Påfyldning påfyldning) {
@@ -48,6 +52,7 @@ public class PåfyldningHandler {
                 this.påfyldning.tilføjMængde(mængde);
             }
         }
+        System.out.println("Mængde tilføjet til " + påfyldning.getFad().getFadId() + " fra batchnr " + selected.getBatchNummer()+ ": "+ påfyldning.getMængderPåfyldt().getLast().getMængde());
     }
 
     public void removeAllAction(PåfyldningForm form) {
