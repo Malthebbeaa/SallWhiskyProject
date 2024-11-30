@@ -18,10 +18,12 @@ public class PåfyldningWindow extends BaseWindow {
     private PåfyldningForm form;
     private PåfyldningHandler handler;
     private GridPane påfyldningsPane;
+    private Controller controller;
 
     public PåfyldningWindow(Controller controller) {
         handler = new PåfyldningHandler(controller);
         form = new PåfyldningForm(controller, handler);
+        this.controller = controller;
 
         initContent();
     }
@@ -55,7 +57,7 @@ public class PåfyldningWindow extends BaseWindow {
             alert.showAndWait();
             return;
         }
-        Påfyldning påfyldning = new Påfyldning(form.getPåfyldningsDato(), form.getFad());
+        Påfyldning påfyldning = controller.opretPåfyldning(form.getFad(),form.getPåfyldningsDato());
 
         form.initNextForm(handler, påfyldning);
         getPane().getChildren().setAll(form.getNextPane());

@@ -17,6 +17,7 @@ public class Storage implements StorageInterface{
     private ArrayList<Mark> marker = new ArrayList<>();
     private ObservableList<Lager> lagre = FXCollections.observableArrayList();
     private ArrayList<WhiskyProdukt> whiskyProdukter = new ArrayList<>();
+    private ArrayList<Påfyldning> påfyldninger = new ArrayList<>();
 
 
     @Override
@@ -55,6 +56,7 @@ public class Storage implements StorageInterface{
     public void addFadleverandør(FadLeverandør fadLeverandør) {
         fadLeverandører.add(fadLeverandør);
     }
+    public void addPåfyldning(Påfyldning påfyldning){påfyldninger.add(påfyldning);}
 
     //----------------------------------------------------------------------------
     //overvej om vi vil returnere den samme liste eller en kopi?
@@ -95,5 +97,6 @@ public class Storage implements StorageInterface{
     public List<WhiskyProdukt> getWhiskyProdukt() {
         return whiskyProdukter;
     }
+    public List<Påfyldning> getPåfyldninger(){return påfyldninger;}
 
 }
