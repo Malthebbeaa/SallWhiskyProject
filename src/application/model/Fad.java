@@ -48,14 +48,14 @@ public class Fad {
         }
     }
 
-    public void aftapWhisky(Aftapning aftapning) {
+    public void tilføjAftapning(Aftapning aftapning) {
         double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
 
 
         if (mængdeEfterAftapning >= 0) {
             aftapninger.add(aftapning);
             mængdeFyldtPåFad = mængdeEfterAftapning;
-            aftapning.setFad(this);
+//            aftapning.setFad(this);
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }

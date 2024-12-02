@@ -26,7 +26,7 @@ public class WhiskyProduktForm {
     public WhiskyProduktForm(Controller controller) {
         this.controller = controller;
         this.whiskyproduktPane = new GridPane();
-        this.whiskyProdukt = new WhiskyProdukt(0, "", "", false);
+        this.whiskyProdukt = new WhiskyProdukt(0, 0);
 
         initForm();
     }

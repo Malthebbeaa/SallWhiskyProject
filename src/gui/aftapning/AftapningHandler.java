@@ -2,8 +2,7 @@ package gui.aftapning;
 
 import application.controller.Controller;
 import application.model.Aftapning;
-import application.model.Fad;
-import application.model.Mængde;
+import application.model.Påfyldning;
 
 import java.time.LocalDate;
 
@@ -14,15 +13,16 @@ public class AftapningHandler {
         this.controller = controller;
     }
 
-    public void aftapFadAction(AftapningForm form){
-        Fad fad = form.getFad();
+    public void aftapFadAction(AftapningForm form) {
+        Påfyldning påfyldning = form.getPåfyldning();
         LocalDate aftapningsDato = form.getAftapningsDato();
-        Mængde mængde = new Mængde(form.getTxfMængdeTilAftapning(), fad);
+        double literAftappet = form.getTxfMængdeTilAftapning();
         double alkoholProcent = form.getTxfAlkoholProcent();
 
-        Aftapning aftapning = new Aftapning(aftapningsDato,44.2, fad);
-        aftapning.aftapMængde(mængde);
-        fad.aftapWhisky(mængde.getAftapning());
+
+        Aftapning aftapning = new Aftapning(literAftappet, alkoholProcent);
+        aftapning.setLiterAftappet(literAftappet);
+        aftapning.setAlkoholProcent(literAftappet);
 
         form.clearAction();
     }

@@ -65,8 +65,8 @@ public class Controller {
         return lager;
     }
 
-    public WhiskyProdukt opretWhiskyProdukt(int aarLagret, String navn, String whiskytype, boolean fortyndet) {
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(aarLagret, navn, whiskytype, fortyndet);
+    public WhiskyProdukt opretWhiskyProdukt(double vand, int antalFlasker) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(vand, antalFlasker);
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
     }
@@ -87,8 +87,8 @@ public class Controller {
         fad.tilføjPåfyldning(påfyldning);
     }
 
-    public Aftapning aftapFad(LocalDate aftapningsDato, Double alkoholProcent, Fad fad) {
-        Aftapning aftapning = new Aftapning(aftapningsDato, alkoholProcent, fad);
+    public Aftapning aftapFad(Double literAftappet, double alkoholProcent) {
+        Aftapning aftapning = new Aftapning(literAftappet, alkoholProcent);
         storage.addAftapning(aftapning);
         return aftapning;
     }

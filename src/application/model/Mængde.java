@@ -5,7 +5,6 @@ public class Mængde {
     private Destillering destillering;
     private Fad fad;
     private Påfyldning påfyldning;
-    private Aftapning aftapning;
 
     public Mængde(double mængde, Destillering destillering) {
         this.mængde = mængde;
@@ -19,16 +18,6 @@ public class Mængde {
     public void setPåfyldning(Påfyldning påfyldning){
         if (påfyldning != null){
             this.påfyldning = påfyldning;
-        }
-    }
-
-    public Aftapning getAftapning() {
-        return aftapning;
-    }
-
-    public void setAftapning(Aftapning aftapning){
-        if (aftapning != null){
-            this.aftapning = aftapning;
         }
     }
 
