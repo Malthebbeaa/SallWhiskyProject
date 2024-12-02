@@ -131,11 +131,6 @@ public class FlytfadForm implements GuiObserver {
         lager = cbLagre.getValue();
         lvReol.setItems(lager.getReoler());
         lvPlads.setItems(null);
-        cbFade.getItems().clear();
-        for (Fad f : controller.getStorage().getFade()) {
-            if (f.getMængdeFyldtPåFad() > 0)
-                cbFade.getItems().add(f);
-        }
     }
 
     public void selectedReolChanged() {
