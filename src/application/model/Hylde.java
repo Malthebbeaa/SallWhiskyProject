@@ -37,7 +37,7 @@ public class Hylde {
 
     @Override
     public String toString() {
-        return "Hylde nummer: " + hyldeNummer;
+        return "Hylde: " + hyldeNummer;
     }
 
     public Reol getReol() {

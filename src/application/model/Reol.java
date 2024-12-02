@@ -37,7 +37,7 @@ public class Reol {
 
     @Override
     public String toString() {
-        return "Reol nummer: " + reolNummer;
+        return "Reol: " + reolNummer;
     }
 
     public Lager getLager() {

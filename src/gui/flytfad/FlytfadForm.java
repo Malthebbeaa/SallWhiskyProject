@@ -167,7 +167,7 @@ public class FlytfadForm implements GuiObserver {
                         "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning()? "Ja\n" : "Nej\n");
                 mængder = påfyldninger.get(i).getMængderPåfyldt();
                 for (Mængde mængde : mængder) {
-                    påfyldning += "Destillering: " + mængde.getDestillering() +"\n";
+                    påfyldning += "batchnummer: " + mængde.getDestillering().getBatchNummer() +"\nAlkohol: " + mængde.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + mængde.getMængde()+" L\n";
                 }
             }
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +

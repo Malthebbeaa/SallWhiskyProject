@@ -39,7 +39,7 @@ public class Plads {
 
     @Override
     public String toString() {
-        return "Plads nummer: " + pladsNummer + (ledig ? " ledig" : " optaget");
+        return "Plads: " + pladsNummer + (ledig ? " ledig" : " optaget");
     }
 
     public Hylde getHylde() {
