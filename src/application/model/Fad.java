@@ -96,11 +96,11 @@ public class Fad {
                 "\nStørrelse: " + størrelse +
                 "\nMateriale: " + materiale +
                 "\nLeverandør: " + fadLeverandør +
-                "\nTidligere indhold: " + tidligereIndhold + '\'' +
+                "\nTidligere indhold: " + tidligereIndhold +
                 "\nAlder: " + alder +
-                "\nBrugt " + antalGangeBrugt + " gang(e)" +
+                "\nBrugt " + antalGangeBrugt + (antalGangeBrugt==1? " gang" : " gange") +
                 "\nLiter i fad: " + mængdeFyldtPåFad;
-    }
+        }
 
     public Plads getPlads() {
         return plads;
