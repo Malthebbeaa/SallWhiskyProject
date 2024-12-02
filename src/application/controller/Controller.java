@@ -71,6 +71,11 @@ public class Controller {
         return whiskyProdukt;
     }
 
+    public Påfyldning opretPåfyldning(Fad fad, LocalDate påfyldningsDato) {
+        Påfyldning påfyldning = new Påfyldning(påfyldningsDato, fad);
+        storage.addPåfyldning(påfyldning);
+        return påfyldning;
+    }
 
     public FadLeverandør opretFadlevandør(String navn, String land) {
         FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
@@ -91,6 +96,7 @@ public class Controller {
     public StorageInterface getStorage() {
         return storage;
     }
+
 
 
 }
