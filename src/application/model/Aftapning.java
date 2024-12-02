@@ -7,18 +7,21 @@ public class Aftapning {
     public Double literAftappet;
     public boolean fortyndet;
     public Double alkoholProcent;
-    private Fad fad;
 
-    public Aftapning(LocalDate aftapningsDato, Double literAftappet, boolean fortyndet, Double alkoholProcent, Fad fad) {
-        this.aftapningsDato = aftapningsDato;
+    private Påfyldning påfyldning;
+    public Aftapning(Double literAftappet, Double alkoholProcent) {
         this.literAftappet = literAftappet;
-        this.fortyndet = fortyndet;
         this.alkoholProcent = alkoholProcent;
-        this.fad = fad;
     }
 
-    public void AftapningAfFad() {
-        fad.AftapWhisky(literAftappet);
+    public void setPåfyldning(Påfyldning påfyldning) {
+        if (this.påfyldning != påfyldning){
+            this.påfyldning = påfyldning;
+        }
+    }
+
+    public Påfyldning getPåfyldning() {
+        return påfyldning;
     }
 
     public LocalDate getAftapningsDato() {
