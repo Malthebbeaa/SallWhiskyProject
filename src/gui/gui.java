@@ -79,6 +79,7 @@ public class gui extends Application {
             gridPane.add(logoViewer, 0,0);
         }
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
+        påfyldningWindow.getHandler().addObserver(flytFadWindow.getForm());
     }
 
     public void initStorage(){

@@ -38,4 +38,8 @@ public class FlytFadWindow extends BaseWindow {
     public GridPane getFlytFadPane() {
         return flytFadPane;
     }
+
+    public FlytfadForm getForm() {
+        return form;
+    }
 }

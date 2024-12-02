@@ -2,6 +2,8 @@ package gui.flytfad;
 
 import application.controller.Controller;
 import application.model.*;
+import gui.GuiObserver;
+import gui.GuiSubject;
 import gui.PaneCreator;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
@@ -12,7 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlytfadForm {
+public class FlytfadForm implements GuiObserver {
     private GridPane flytFadPane;
     private Controller controller;
     private FlytFadHandler handler;
@@ -119,11 +121,6 @@ public class FlytfadForm {
     }
 
     public void clearAktion() {
-        cbFade.getItems().clear();
-        for (Fad f : controller.getStorage().getFade()) {
-            if (f.getMængdeFyldtPåFad() > 0)
-                cbFade.getItems().add(f);
-        }
     }
 
     public GridPane getFlytFadPane() {
@@ -222,5 +219,14 @@ public class FlytfadForm {
 
     public Fad getFad() {
         return fad;
+    }
+
+    @Override
+    public void update(GuiSubject s) {
+        cbFade.getItems().clear();
+        for (Fad f : controller.getStorage().getFade()) {
+            if (f.getMængdeFyldtPåFad() > 0)
+                cbFade.getItems().add(f);
+        }
     }
 }

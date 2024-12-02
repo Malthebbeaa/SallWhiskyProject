@@ -99,4 +99,8 @@ public class PåfyldningWindow extends BaseWindow {
 
         getPane().add(logoViewer, 0, 0);
     }
+
+    public PåfyldningHandler getHandler() {
+        return handler;
+    }
 }
