@@ -30,36 +30,40 @@ public class Fad {
         this.aftapninger = new ArrayList<>();
     }
 
-
-    public void tilføjPåfyldning(Påfyldning påfyldning) {
-        double mængdeEfterTilføjelse = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
-
-        if (mængdeEfterTilføjelse <= størrelse) {
+    public boolean påFyldningOvergårGrænse(double mængde){
+        return mængde + mængdeFyldtPåFad > størrelse;
+    }
+    public void tilføjPåfyldning(Påfyldning påfyldning){
+        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())){
             påfyldninger.add(påfyldning);
-            mængdeFyldtPåFad = mængdeEfterTilføjelse;
-            påfyldning.setFad(this);
+            mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
+
+            //først her bliver mængden trukket fra destilleringen
+            for (Mængde mængde : påfyldning.getMængderPåfyldt()){
+                mængde.getDestillering().afgivVæske(mængde.getMængde());
+            }
+
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }
     }
 
-    public void tilføjAftapning(Aftapning aftapning) {
-        double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
+    public double getMængdeFyldtPåFad() {return mængdeFyldtPåFad;}
 
+    public void AftapWhisky(Double literAftappet) {
+        if (mængdeFyldtPåFad == 0) {
+            throw new IllegalStateException("Fadet er tomt");
+        }
 
-        if (mængdeEfterAftapning >= 0) {
-            aftapninger.add(aftapning);
-            mængdeFyldtPåFad = mængdeEfterAftapning;
-            aftapning.setFad(this);
+        if (literAftappet <= mængdeFyldtPåFad) {
+            mængdeFyldtPåFad -= literAftappet;
+            if (mængdeFyldtPåFad == 0) {
+                antalGangeBrugt++;
+            }
         } else {
-            throw new RuntimeException("Du overskrider fadets kapacitet");
+            System.out.println();
         }
     }
-
-    public double getMængdeFyldtPåFad() {
-        return mængdeFyldtPåFad;
-    }
-
 
     public FadLeverandør getFadLeverandør() {
         return fadLeverandør;
@@ -80,14 +84,13 @@ public class Fad {
     public void AntalGangeBrugt() {
         antalGangeBrugt++;
     }
-
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
 
     @Override
     public String toString() {
-        return "FadID: " + fadId +
+        return  "FadID: " + fadId +
                 "\nStørrelse: " + størrelse +
                 "\nMateriale: " + materiale +
                 "\nLeverandør: " + fadLeverandør +
@@ -98,7 +101,7 @@ public class Fad {
     }
 
     public String toString2() {
-        return "FadID: " + fadId;
+        return  "FadID: " + fadId;
     }
 
     public int getAlder() {
@@ -116,7 +119,6 @@ public class Fad {
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
     }
-
     public String toString3() {
         return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }

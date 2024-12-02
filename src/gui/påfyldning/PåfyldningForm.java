@@ -3,14 +3,17 @@ package gui.påfyldning;
 import application.controller.Controller;
 import application.model.Destillering;
 import application.model.Fad;
+import application.model.Mængde;
+import application.model.Påfyldning;
 import gui.PaneCreator;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PåfyldningForm {
     private Controller controller;
@@ -18,64 +21,102 @@ public class PåfyldningForm {
     private ComboBox<Fad> cboxFad;
     private DatePicker datePickerPåfyldningsDato;
     private TextField txfMængdeTilPåfyldning;
-    private GridPane påfyldningsPane, påfyldningsInfoPane;
+    private GridPane påfyldningsPane, påfyldningsInfoPane, nextPane;
+    private ListView<Destillering> lvwMuligeDestilleringer;
+    private ListView<Destillering> lveValgtDestilleringer;
+    private List<Mængde> mængder;
+    private Label lblOverskrift;
+    private Påfyldning påfyldning;
 
-    public PåfyldningForm(Controller controller) {
+
+    public PåfyldningForm(Controller controller, PåfyldningHandler handler) {
         this.controller = controller;
         påfyldningsPane = new GridPane();
-        initForm();
+        mængder = new ArrayList<>();
+        initForm(handler);
     }
 
-    private void initForm() {
+    public void initForm(PåfyldningHandler handler) {
         påfyldningsInfoPane = new PaneCreator();
-        Label lblPåfyldning = new Label("Påfyld fad:");
-        påfyldningsPane.add(lblPåfyldning, 0,0);
+        lblOverskrift = new Label("Påfyld fad:");
+        påfyldningsPane.add(lblOverskrift, 0,0);
         påfyldningsPane.add(påfyldningsInfoPane, 0,1);
         påfyldningsPane.setHgap(10);
         påfyldningsPane.setVgap(10);
 
-        Label lblDestillering = new Label("Vælg destillering:");
-        påfyldningsInfoPane.add(lblDestillering, 0,0);
-        cboxDestillering = new ComboBox<>();
-        cboxDestillering.setItems(controller.getStorage().getDestilleringer());
-        påfyldningsInfoPane.add(cboxDestillering, 1,0);
-
+        //Vælg fad og påfyldningsdato pane
+        GridPane pane = new GridPane();
+        pane.setVgap(10);
+        pane.setHgap(10);
         Label lblFad = new Label("Vælg Fad:");
-        påfyldningsInfoPane.add(lblFad, 2,0);
         cboxFad = new ComboBox<>();
         cboxFad.setItems(controller.getStorage().getFade());
-        påfyldningsInfoPane.add(cboxFad,3,0);
-
-
+        pane.add(lblFad,0,0);
+        pane.add(cboxFad, 0,1);
         Label lblPåfyldningsDato = new Label("Påfyldningsdato: ");
-        påfyldningsInfoPane.add(lblPåfyldningsDato, 0,1);
         datePickerPåfyldningsDato = new DatePicker(LocalDate.now());
-        påfyldningsInfoPane.add(datePickerPåfyldningsDato, 1,1);
-
-        Label lblPåfyldningsMængde = new Label("Mængde til påfyldning (L): ");
-        påfyldningsInfoPane.add(lblPåfyldningsMængde, 2,1);
-        txfMængdeTilPåfyldning = new TextField();
-        txfMængdeTilPåfyldning.setPromptText("Eks. 90");
-        txfMængdeTilPåfyldning.setMaxWidth(75);
-        påfyldningsInfoPane.add(txfMængdeTilPåfyldning, 3,1);
-
-
+        pane.add(lblPåfyldningsDato, 0,2);
+        pane.add(datePickerPåfyldningsDato, 0,3);
+        påfyldningsInfoPane.add(pane,0,0,1,3);
     }
 
-    public Destillering getDestillering() {return cboxDestillering.getValue();}
+    public void initNextForm(PåfyldningHandler handler, Påfyldning påfyldning){
+        //Valg af destilleringer og mængde popup
+        this.påfyldning = påfyldning;
+        nextPane = new PaneCreator();
+        lblOverskrift.setText("Påfyldning af fadnr " + påfyldning.getFad().getFadId() + " som har plads til " +
+                påfyldning.getLiterPåfyldt() + " L");
+        påfyldningsPane.layout();
+        påfyldningsPane.add(nextPane, 0,1);
+
+        Label lblDestillering = new Label("Vælg destillering(er):");
+        nextPane.add(lblDestillering, 1,0);
+        lvwMuligeDestilleringer = new ListView<>();
+        lveValgtDestilleringer = new ListView<>();
+        lvwMuligeDestilleringer.getItems().addAll(controller.getStorage().getDestilleringer());
+        lveValgtDestilleringer.setPrefSize(250,100);
+        lvwMuligeDestilleringer.setPrefSize(250,100);
+
+
+        Button btnAddSelected = new Button("Vælg");
+        btnAddSelected.setOnAction(e -> {
+            handler.vælgAction(this, påfyldning);
+        });
+        Button btnRemoveSelected = new Button("Fravælg");
+        btnRemoveSelected.setOnAction(e -> {
+            handler.fravælgAction(this);
+        });
+        Button btnRemoveAll = new Button("Fravælg alle");
+        btnRemoveAll.setOnAction(e -> {
+            handler.removeAllAction(this);
+        });
+        VBox buttonBox = new VBox(5, btnAddSelected, btnRemoveSelected, btnRemoveAll);
+
+
+        nextPane.add(lvwMuligeDestilleringer, 1,1);
+        nextPane.add(lveValgtDestilleringer, 3,1);
+        nextPane.add(buttonBox, 2, 1);
+    }
+
     public Fad getFad() {return cboxFad.getValue();}
 
     public LocalDate getPåfyldningsDato() {return datePickerPåfyldningsDato.getValue();}
 
     public double getTxfMængdeTilPåfyldning() {return Double.parseDouble(txfMængdeTilPåfyldning.getText());}
 
+    public ComboBox<Fad> getCboxFad(){return cboxFad;}
+    public DatePicker getDatePickerPåfyldningsDato(){return datePickerPåfyldningsDato;}
     public GridPane getPåfyldningsPane() {return påfyldningsPane;}
+    public ListView<Destillering> getLvwMuligeDestilleringer(){return lvwMuligeDestilleringer;}
+    public ListView<Destillering> getLveValgtDestilleringer(){return lveValgtDestilleringer;}
+    public List<Mængde> getMængder(){return mængder;}
 
-    public void clearAction(){
-        cboxDestillering.setValue(null);
-        cboxFad.setValue(null);
-        datePickerPåfyldningsDato.setValue(LocalDate.now());
-        txfMængdeTilPåfyldning.clear();
+    public GridPane getNextPane() {return nextPane;}
+
+    public Påfyldning getPåfyldning() {return påfyldning;}
+
+    public Label getLblOverskrift() {
+        return lblOverskrift;
     }
 }
 

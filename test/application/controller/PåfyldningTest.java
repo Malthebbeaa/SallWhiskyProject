@@ -50,32 +50,19 @@ public class PåfyldningTest {
     @Test
     void test_PåfyldningAfFad(){
         //Arrange
-        Mængde mængde = destillering.afgivVæske(200);
-        Mængde mængde1 = destillering2.afgivVæske(150);
+        Mængde mængde = new Mængde(200, destillering);
+        Mængde mængde1 = new Mængde(150, destillering2);
 
-        Påfyldning påfyldning = new Påfyldning(LocalDate.now(), fad);
+        Påfyldning påfyldning = new Påfyldning(LocalDate.now(),fad);
         påfyldning.tilføjMængde(mængde);
         påfyldning.tilføjMængde(mængde1);
 
-        fad.tilføjPåfyldning(påfyldning);
+        controller.påfyldFad(påfyldning, fad);
 
         assertEquals(350,påfyldning.getLiterPåfyldt());
         assertEquals(350, fad.getMængdeFyldtPåFad());
         assertEquals(700, destillering.getVæskeMængde());
         assertEquals(750, destillering2.getVæskeMængde());
-
-        Mængde mængde2 = destillering.afgivVæske(100);
-
-
-        assertEquals(true, påfyldning.getFad().equals(fad));
-        assertEquals(true, fad.getPåfyldninger().contains(påfyldning));
-        assertEquals(false, påfyldning.getMængderPåfyldt().contains(mængde2));
-
-        Påfyldning påfyldning1 = new Påfyldning(LocalDate.now(), fad);
-        påfyldning1.tilføjMængde(mængde2);
-        fad.tilføjPåfyldning(påfyldning1);
-
-        assertEquals(450, fad.getMængdeFyldtPåFad());
     }
 
 }

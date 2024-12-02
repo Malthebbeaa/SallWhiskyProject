@@ -36,7 +36,7 @@ public class FadWindow extends BaseWindow {
         btnOpret.setOnAction(e -> handler.opretFadAction(form));
 
         Button btnAfbryd = new Button("Afbryd");
-        btnAfbryd.setOnAction(e -> form.clearAction());
+        btnAfbryd.setOnAction(e -> handler.clearAction(form));
 
         HBox hBoxButtons = new HBox(10);
         hBoxButtons.getChildren().addAll(btnOpret, btnAfbryd);

@@ -94,6 +94,7 @@ public class gui extends Application {
 
 
         Destillering destillering1 = controller.opretDestillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 900,68, maltbatch1);
+        Destillering destillering2 = controller.opretDestillering(2, LocalDate.of(2024,11,26), LocalDate.of(2024, 11,29), 600,65, maltbatch2);
 
         Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
         Reol reol = lager.tilføjReol();

@@ -81,14 +81,16 @@ public class DestilleringForm {
     public Maltbatch getMaltbatch(){return comboBoxMaltbatch.getValue();}
     public String getKommentar(){return txfKommentar.getText();}
     public GridPane getDestilleringPane(){return destilleringPane;}
+    public DatePicker getDatepickerstartDato(){return datepickerstartDato;}
+    public DatePicker getDatepickerSlutDato(){return datepickerSlutDato;}
 
-    public void clearAction(){
-        datepickerstartDato.setValue(LocalDate.now());
-        datepickerSlutDato.setValue(LocalDate.now());
-        txfAlkoholProcent.clear();
-        txfVæskeMængde.clear();
-        txfAntalDestilleringer.clear();
-        txfKommentar.clear();
-        comboBoxMaltbatch.setValue(null);
-    }
+    public TextField getTxfAlkoholProcent() {return txfAlkoholProcent;}
+
+    public TextField getTxfVæskeMængde() {return txfVæskeMængde;}
+
+    public TextField getTxfAntalDestilleringer() {return txfAntalDestilleringer;}
+
+    public TextField getTxfKommentar() {return txfKommentar;}
+
+    public ComboBox<Maltbatch> getComboBoxMaltbatch() {return comboBoxMaltbatch;}
 }

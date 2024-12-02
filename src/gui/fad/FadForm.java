@@ -91,13 +91,27 @@ public class FadForm {
     public String getMateriale(){return (String) comboboxMateriale.getValue();}
     public GridPane getFadPane(){return fadPane;}
 
-    public void clearAction(){
-        txfAlder.clear();
-        txfAntalGangeBrugt.clear();
+    public TextField getTxfAlder() {
+        return txfAlder;
+    }
 
-        comboboxLeverandører.setValue(null);
-        comboboxMateriale.setValue(null);
-        comboboxStørrelse.setValue(null);
-        comboboxTidligereIndhold.setValue(null);
+    public TextField getTxfAntalGangeBrugt() {
+        return txfAntalGangeBrugt;
+    }
+
+    public ComboBox getComboboxLeverandører() {
+        return comboboxLeverandører;
+    }
+
+    public ComboBox getComboboxStørrelse() {
+        return comboboxStørrelse;
+    }
+
+    public ComboBox getComboboxMateriale() {
+        return comboboxMateriale;
+    }
+
+    public ComboBox getComboboxTidligereIndhold() {
+        return comboboxTidligereIndhold;
     }
 }
