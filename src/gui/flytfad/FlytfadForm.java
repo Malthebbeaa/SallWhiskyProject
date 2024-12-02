@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.*;
 import gui.PaneCreator;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
@@ -95,6 +96,26 @@ public class FlytfadForm {
 
         ChangeListener<Fad> fadListener = (plads, OldPlads, NewPlads) -> selectedFadChanged();
         cbFade.getSelectionModel().selectedItemProperty().addListener(fadListener);
+
+        lvPlads.setCellFactory(lv -> new ListCell<Plads>() {
+            @Override
+            public void updateItem(Plads plads, boolean empty) {
+                super.updateItem(plads, empty);
+                if (empty || plads == null) {
+                    setText(null);
+                    setStyle(""); // Nulstil stil
+                } else {
+                  setText(plads.toString());
+
+                    // Skift farve baseret på "ledig"-værdien
+                    if (plads.isLedig()) {
+                        setStyle("-fx-text-fill: green;"); // Grøn tekst for ledig
+                    } else {
+                        setStyle("-fx-text-fill: red;");   // Rød tekst for optaget
+                    }
+                }
+            }
+        });
     }
 
     public void clearAktion() {
@@ -139,7 +160,12 @@ public class FlytfadForm {
             List<Påfyldning> påfyldninger = plads.getFad().getPåfyldninger();
             List<Mængde> mængder = new ArrayList<>();
             for (int i = 0; i < påfyldninger.size(); i++) {
-                påfyldning += "Destilleringsdato: " + påfyldninger.get(i).getPåfyldningsDato() + " \n";
+                påfyldning += "Destilleringsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
+                        "\nTid på fad: " +
+                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad().getYears()+
+                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad().getMonths()+
+                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad().getDays()+
+                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning()? "Ja\n" : "Nej\n");
                 mængder = påfyldninger.get(i).getMængderPåfyldt();
                 for (Mængde mængde : mængder) {
                     påfyldning += "Destillering: " + mængde.getDestillering() +"\n";
