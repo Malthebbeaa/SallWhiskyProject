@@ -1,14 +1,17 @@
 package application.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class Hylde {
     private int hyldeNummer;
-    private ArrayList<Plads> pladser;
+    private ObservableList<Plads> pladser;
 
     public Hylde(int hyldeNummer) {
         this.hyldeNummer = hyldeNummer;
-        pladser = new ArrayList<>();
+        pladser = FXCollections.observableArrayList();
     }
 
     public void tilføjPlads(int antal){
@@ -22,8 +25,8 @@ public class Hylde {
         return hyldeNummer;
     }
 
-    public ArrayList<Plads> getPladser() {
-        return pladser;
+    public ObservableList<Plads> getPladser() {
+        return FXCollections.unmodifiableObservableList(pladser);
     }
 
     @Override
