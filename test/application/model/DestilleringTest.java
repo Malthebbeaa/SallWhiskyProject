@@ -21,13 +21,25 @@ class DestilleringTest {
 
 
     @Test
-    void påfyldVæske() {
+    void test_afgivVæske() {
         //Arrange & Act
         double mængde = 600;
 
         destillering.afgivVæske(mængde);
         boolean forventet = true;
         boolean aktuelt = destillering.getVæskeMængde() == 350;
+
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void test_forbindelse() {
+        //Arrange & Act
+        double mængdeAfgiv = 600;
+
+        Mængde mængde = destillering.afgivVæske(mængdeAfgiv);
+        boolean forventet = true;
+        boolean aktuelt = destillering.getMængderGivet().contains(mængde);
 
         assertEquals(forventet, aktuelt);
     }

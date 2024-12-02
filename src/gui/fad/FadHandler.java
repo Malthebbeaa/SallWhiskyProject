@@ -22,6 +22,16 @@ public class FadHandler {
 
         Fad fad = controller.opretFad(størrelse, materiale, fadleverandør, tidligereIndhold, alder, antalGangeBrugt);
 
-        form.clearAction();
+        clearAction(form);
+    }
+
+    public void clearAction(FadForm form){
+        form.getTxfAlder().clear();
+        form.getTxfAntalGangeBrugt().clear();
+
+        form.getComboboxLeverandører().setValue(null);
+        form.getComboboxMateriale().setValue(null);
+        form.getComboboxStørrelse().setValue(null);
+        form.getComboboxTidligereIndhold().setValue(null);
     }
 }

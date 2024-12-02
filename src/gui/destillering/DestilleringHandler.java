@@ -29,9 +29,19 @@ public class DestilleringHandler {
                 controller.tilføjKommentarTilDestillering(form.getKommentar(), destillering);
             }
 
-            form.clearAction();
+            clearAction(form);
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void clearAction(DestilleringForm form){
+        form.getDatepickerstartDato().setValue(LocalDate.now());
+        form.getDatepickerSlutDato().setValue(LocalDate.now());
+        form.getTxfAlkoholProcent().clear();
+        form.getTxfAlkoholProcent().clear();
+        form.getTxfAntalDestilleringer().clear();
+        form.getTxfKommentar().clear();
+        form.getComboBoxMaltbatch().setValue(null);
     }
 }

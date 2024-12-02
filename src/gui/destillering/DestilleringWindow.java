@@ -31,7 +31,7 @@ public class DestilleringWindow extends BaseWindow {
         Button btnOpretDestillering = new Button("Opret Destillering");
         btnOpretDestillering.setOnAction(e -> handler.opretDestilleringAction(form));
         Button btnAfbryd = new Button("Afbryd");
-        btnAfbryd.setOnAction(e -> form.clearAction());
+        btnAfbryd.setOnAction(e -> handler.clearAction(form));
 
 
         HBox hBoxButtons = new HBox(10);
@@ -39,6 +39,5 @@ public class DestilleringWindow extends BaseWindow {
         hBoxButtons.setAlignment(Pos.CENTER);
 
         getPane().add(hBoxButtons, 0, 2);
-
     }
 }

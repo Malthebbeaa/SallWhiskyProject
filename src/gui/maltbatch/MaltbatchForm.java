@@ -105,7 +105,7 @@ public class MaltbatchForm {
     public String getMarkNavn(){return txfMarkNavn.getText();}
     public String getSort(){return txfSort.getText();}
     public String getBatchnummer(){return txfBatchnummer.getText();}
-    public double getMængde(){return Double.parseDouble(txfMængde.getText());}
+    public String getMængde(){return txfMængde.getText();}
     public boolean getIsØkologisk(){return chbØkologisk.isSelected();}
     public LocalDate getHøstDag(){return dpHøstdag.getValue();}
     public String getRygeMateriale(){return txfRygemateriale.getText();}

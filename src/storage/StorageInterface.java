@@ -42,5 +42,6 @@ public interface StorageInterface {
     public List<WhiskyProdukt> getWhiskyProdukt();
     public List<Aftapning> getAftapning();
     public List<Påfyldning> getPåfyldning();
+    public List<Påfyldning> getPåfyldninger();
 
 }

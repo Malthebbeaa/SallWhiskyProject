@@ -4,6 +4,7 @@ import application.model.*;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Controller {
     private StorageInterface storage;
@@ -40,6 +41,7 @@ public class Controller {
         Destillering destillering = new Destillering(antalDistilleringer, startDato, slutDato,
                 væskeMængde, alkoholProcent, maltbatch);
         storage.addDestillering(destillering);
+
         return destillering;
     }
 
@@ -68,6 +70,7 @@ public class Controller {
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
     }
+
 
     public FadLeverandør opretFadlevandør(String navn, String land) {
         FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
