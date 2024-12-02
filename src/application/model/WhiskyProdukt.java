@@ -1,10 +1,13 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class WhiskyProdukt {
     private int AarLagret;
+    private LocalDate opretDato;
     private String navn;
     private String whiskytype;
     private double vand;

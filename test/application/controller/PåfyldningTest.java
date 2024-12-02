@@ -65,4 +65,8 @@ public class PåfyldningTest {
         assertEquals(750, destillering2.getVæskeMængde());
     }
 
+    @Test
+    void lavAftapninger() {
+
+    }
 }

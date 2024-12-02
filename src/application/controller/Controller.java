@@ -76,23 +76,15 @@ public class Controller {
         storage.addPåfyldning(påfyldning);
         return påfyldning;
     }
-
-
-
-    public FadLeverandør opretFadlevandør(String navn, String land) {
-        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
-        storage.addFadleverandør(fadLeverandør);
-        return fadLeverandør;
-    }
-
-    public void påfyldFad(Påfyldning påfyldning, Fad fad) {
+    public void påfyldFad(Påfyldning påfyldning, Fad fad){
         fad.tilføjPåfyldning(påfyldning);
+        //påfyldning.getFad().tilføjPåfyldning(påfyldning);
     }
-
-    public Aftapning aftapFad(Double literAftappet, double alkoholProcent) {
-        Aftapning aftapning = new Aftapning(literAftappet, alkoholProcent);
-        storage.addAftapning(aftapning);
-        return aftapning;
+    public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
+        for (Aftapning aftapning : aftapninger){
+            whiskyProdukt.tilføjAftapning(aftapning);
+            aftapning.getPåfyldning().aftapVæske(aftapning);
+        }
     }
 
     public StorageInterface getStorage() {
@@ -100,7 +92,11 @@ public class Controller {
     }
 
 
-
+    public FadLeverandør opretFadlevandør(String navn, String land) {
+        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
+        storage.addFadleverandør(fadLeverandør);
+        return fadLeverandør;
+    }
 
     public void flytFad(Plads plads, Fad fad){
         if(plads.isLedig() && fad != null){
