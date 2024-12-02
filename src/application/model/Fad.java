@@ -16,6 +16,7 @@ public class Fad {
     private List<Påfyldning> påfyldninger;
     private List<Aftapning> aftapninger;
 
+    private Plads plads;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.fadId = IdCount++;
@@ -27,19 +28,19 @@ public class Fad {
         this.antalGangeBrugt = antalGangeBrugt;
         this.mængdeFyldtPåFad = 0;
         this.påfyldninger = new ArrayList<>();
-        this.aftapninger = new ArrayList<>();
     }
 
-    public boolean påFyldningOvergårGrænse(double mængde){
+    public boolean påFyldningOvergårGrænse(double mængde) {
         return mængde + mængdeFyldtPåFad > størrelse;
     }
-    public void tilføjPåfyldning(Påfyldning påfyldning){
-        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())){
+
+    public void tilføjPåfyldning(Påfyldning påfyldning) {
+        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())) {
             påfyldninger.add(påfyldning);
             mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
 
             //først her bliver mængden trukket fra destilleringen
-            for (Mængde mængde : påfyldning.getMængderPåfyldt()){
+            for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
                 mængde.getDestillering().afgivVæske(mængde.getMængde());
             }
 
@@ -48,22 +49,25 @@ public class Fad {
         }
     }
 
-    public void tilføjAftapning(Aftapning aftapning) {
-        double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
-
-
-        if (mængdeEfterAftapning >= 0) {
-            aftapninger.add(aftapning);
-            mængdeFyldtPåFad = mængdeEfterAftapning;
-//            aftapning.setFad(this);
-        } else {
-            throw new RuntimeException("Du overskrider fadets kapacitet");
-        }
-    }
-
     public double getMængdeFyldtPåFad() {
         return mængdeFyldtPåFad;
     }
+
+    public void AftapWhisky(Double literAftappet) {
+        if (mængdeFyldtPåFad == 0) {
+            throw new IllegalStateException("Fadet er tomt");
+        }
+
+        if (literAftappet <= mængdeFyldtPåFad) {
+            mængdeFyldtPåFad -= literAftappet;
+            if (mængdeFyldtPåFad == 0) {
+                antalGangeBrugt++;
+            }
+        } else {
+            System.out.println();
+        }
+    }
+
 
 
     public FadLeverandør getFadLeverandør() {
@@ -85,24 +89,42 @@ public class Fad {
     public void AntalGangeBrugt() {
         antalGangeBrugt++;
     }
+
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
 
     @Override
     public String toString() {
-        return  "FadID: " + fadId +
+        return "FadID: " + fadId +
                 "\nStørrelse: " + størrelse +
                 "\nMateriale: " + materiale +
                 "\nLeverandør: " + fadLeverandør +
-                "\nTidligere indhold: " + tidligereIndhold + '\'' +
+                "\nTidligere indhold: " + tidligereIndhold +
                 "\nAlder: " + alder +
-                "\nBrugt " + antalGangeBrugt + " gang(e)" +
+                "\nBrugt " + antalGangeBrugt + (antalGangeBrugt==1? " gang" : " gange") +
                 "\nLiter i fad: " + mængdeFyldtPåFad;
+        }
+
+    public Plads getPlads() {
+        return plads;
+    }
+
+    public void setPlads(Plads plads) {
+        if (this.plads != plads) {
+            if(this.plads != null) {
+                Plads oldPlads = this.plads;
+                oldPlads.setLedig(true);
+                oldPlads.setFad(null);
+            }
+            this.plads = plads;
+            plads.setLedig(false);
+            plads.setFad(this);
+        }
     }
 
     public String toString2() {
-        return  "FadID: " + fadId;
+        return "FadID: " + fadId;
     }
 
     public int getAlder() {
@@ -120,6 +142,7 @@ public class Fad {
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
     }
+
     public String toString3() {
         return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }

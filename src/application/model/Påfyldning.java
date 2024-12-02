@@ -1,6 +1,7 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,16 @@ public class Påfyldning {
             this.fad = fad;
         }
     }
+
+    public Period antalÅrPåFad(){
+        Period periode = Period.between(påfyldningsDato,LocalDate.now());
+        return periode;
+    }
+
+    public boolean klarTilAftapning(){
+        return (antalÅrPåFad().getYears() > 2)? true : false;
+    }
+
     public List<Mængde> getMængderPåfyldt() {
         return mængderPåfyldt;
     }

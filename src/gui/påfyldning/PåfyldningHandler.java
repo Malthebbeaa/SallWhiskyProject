@@ -5,6 +5,8 @@ import application.model.Destillering;
 import application.model.Fad;
 import application.model.Mængde;
 import application.model.Påfyldning;
+import gui.GuiObserver;
+import gui.GuiSubject;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 
@@ -14,12 +16,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PåfyldningHandler {
+public class PåfyldningHandler implements GuiSubject {
     private Controller controller;
     private Påfyldning påfyldning;
+    private ArrayList<GuiObserver> observers;
 
     public PåfyldningHandler(Controller controller) {
         this.controller = controller;
+        observers = new ArrayList<>();
     }
 
     public void påfyldFadAction(PåfyldningForm form, Fad fad) {
@@ -37,6 +41,7 @@ public class PåfyldningHandler {
         if (fad.getMængdeFyldtPåFad() == fad.getStørrelse()){
             System.out.println("Fadnr " + fad.getFadId() + " er nu fyldt og klar til flytning");
         }
+        notifyObservers();
     }
 
     public void vælgAction(PåfyldningForm form, Påfyldning påfyldning) {
@@ -89,4 +94,19 @@ public class PåfyldningHandler {
 
     }
 
+    @Override
+    public void addObserver(GuiObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(GuiObserver o) {
+        observers.remove(o);
+    }
+
+    public void notifyObservers(){
+        for (GuiObserver o : observers) {
+            o.update(this);
+        }
+    }
 }

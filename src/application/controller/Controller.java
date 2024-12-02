@@ -77,6 +77,8 @@ public class Controller {
         return påfyldning;
     }
 
+
+
     public FadLeverandør opretFadlevandør(String navn, String land) {
         FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
         storage.addFadleverandør(fadLeverandør);
@@ -99,4 +101,12 @@ public class Controller {
 
 
 
+
+    public void flytFad(Plads plads, Fad fad){
+        if(plads.isLedig() && fad != null){
+            fad.setPlads(plads);
+        }
+        else{
+        }
+    }
 }
