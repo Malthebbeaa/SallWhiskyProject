@@ -1,20 +1,67 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class WhiskyProdukt {
     private int AarLagret;
+    private LocalDate opretDato;
     private String navn;
     private String whiskytype;
-    private List<Fad> fade;
+    private List<Aftapning> aftapninger;
+    private double totalWhiskyMængde;
+    private double endeligAlkoholProcent;
+    private double vandMængde;
 
-
-    public WhiskyProdukt(int aarLagret, String navn, String whiskytype) {
-        this.AarLagret = aarLagret;
+    public WhiskyProdukt(String navn, LocalDate opretDato) {
         this.navn = navn;
-        this.whiskytype = whiskytype;
+        this.opretDato = opretDato;
+        aftapninger = new ArrayList<>();
+    }
+
+    public void tilføjAftapning(Aftapning aftapning) {
+        if (!aftapninger.contains(aftapning)){
+            aftapninger.add(aftapning);
+            totalWhiskyMængde += aftapning.getLiterAftappet();
+        }
+    }
+
+    public void tilføjVand(double vandMængde){
+        if (vandMængde > 0){
+            totalWhiskyMængde += vandMængde;
+            this.vandMængde = vandMængde;
+        } else {
+            throw new RuntimeException("Mængden skal være positiv");
+        }
+    }
+
+    public double beregnAlkoholProcentUdenVand(){
+        double volumeGangeAlkoholprocent = 0;
+        double samledeVolume = 0;
+
+
+        for (Aftapning aftapning : aftapninger) {
+            volumeGangeAlkoholprocent += aftapning.getAlkoholProcent() * aftapning.getLiterAftappet();
+            samledeVolume += aftapning.getLiterAftappet();
+        }
+
+
+        return volumeGangeAlkoholprocent / samledeVolume;
+    }
+
+    public double beregnSamledeAlkoholProcent(){
+        if (vandMængde > 0){
+            double alkoholMængde = totalWhiskyMængde * (beregnAlkoholProcentUdenVand() / 100);
+            double samletVolumen = totalWhiskyMængde + vandMængde;
+            return (alkoholMængde / samletVolumen) * 100;
+        }
+
+        return beregnSamledeAlkoholProcent();
+    }
+    public List<Aftapning> getAftapninger() {
+        return aftapninger;
     }
 
     public int getAarLagret(Aftapning aftapning, Påfyldning påfyldning) {
@@ -26,6 +73,24 @@ public class WhiskyProdukt {
         }
         return diff;
     }
+
+    public LocalDate getOpretDato() {
+        return opretDato;
+    }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public String getWhiskytype() {
+        return whiskytype;
+    }
+
+    public double getTotalWhiskyMængde() {
+        return totalWhiskyMængde;
+    }
+
+    /*
     public String getWhiskytype(Aftapning aftapning, WhiskyProdukt whiskyProdukt) {
         String whiskytype = null;
         if (!aftapning.fortyndet && whiskyProdukt.getFade().size() < 2) {
@@ -40,13 +105,11 @@ public class WhiskyProdukt {
         return whiskytype;
     }
 
-    public void tilføjFade(Fad fad) {
-        fade.add(fad);
-    }
+     */
 
-    public List<Fad> getFade() {
-        return fade;
-    }
+
+
+
 
 //    public Mark getMark() {
 //        return Påfyldning.getDestillering().getKorn().getMark();

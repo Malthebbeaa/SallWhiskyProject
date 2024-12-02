@@ -65,8 +65,8 @@ public class Controller {
         return lager;
     }
 
-    public WhiskyProdukt opretWhiskyProdukt(int aarLagret, String navn, String whiskytype) {
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(aarLagret, navn, whiskytype);
+    public WhiskyProdukt opretWhiskyProdukt(String navn, LocalDate opretdato) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(navn, opretdato);
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
     }
@@ -78,6 +78,13 @@ public class Controller {
     }
     public void påfyldFad(Påfyldning påfyldning, Fad fad){
         fad.tilføjPåfyldning(påfyldning);
+        //påfyldning.getFad().tilføjPåfyldning(påfyldning);
+    }
+    public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
+        for (Aftapning aftapning : aftapninger){
+            whiskyProdukt.tilføjAftapning(aftapning);
+            aftapning.getPåfyldning().aftapVæske(aftapning);
+        }
     }
 
     public StorageInterface getStorage() {
