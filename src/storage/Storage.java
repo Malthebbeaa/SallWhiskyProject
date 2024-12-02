@@ -18,9 +18,7 @@ public class Storage implements StorageInterface{
     private ObservableList<Lager> lagre = FXCollections.observableArrayList();
     private ArrayList<WhiskyProdukt> whiskyProdukter = new ArrayList<>();
     private ArrayList<Aftapning> aftapninger = new ArrayList<>();
-    private ArrayList<Påfyldning> påfyldninger = new ArrayList<>();
-
-
+    private ObservableList<Påfyldning> påfyldninger = FXCollections.observableArrayList();
 
 
     @Override
@@ -115,11 +113,12 @@ public class Storage implements StorageInterface{
         return aftapninger;
     }
 
-
-
     @Override
-    public List<Påfyldning> getPåfyldninger() {
-        return påfyldninger;
+    public List<Påfyldning> getPåfyldning() {
+        return null;
     }
+
+
+    public ObservableList<Påfyldning> getPåfyldninger(){return FXCollections.unmodifiableObservableList(påfyldninger);}
 
 }

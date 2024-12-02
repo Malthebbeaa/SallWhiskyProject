@@ -25,7 +25,15 @@ public class Aftapning {
 
         } else {
             throw new RuntimeException("Det er ikke muligt at tappe så meget");
+        }}
+    public void setPåfyldning(Påfyldning påfyldning) {
+        if (this.påfyldning != påfyldning){
+            this.påfyldning = påfyldning;
         }
+    }
+
+    public Påfyldning getPåfyldning() {
+        return påfyldning;
     }
 
     public LocalDate getAftapningsDato() {
@@ -54,7 +62,5 @@ public class Aftapning {
         this.alkoholProcent = alkoholProcent;
     }
 
-    public void setPåfyldning(Påfyldning påfyldning) {
-        this.påfyldning = påfyldning;
-    }
+
 }
