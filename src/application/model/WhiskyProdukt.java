@@ -127,4 +127,7 @@ public class WhiskyProdukt {
     public void setAftapninger(List<Aftapning> aftapninger) {
         this.aftapninger = aftapninger;
     }
+
+    public void tilføjAftapning(Aftapning aftapning) {
+    }
 }

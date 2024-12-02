@@ -57,4 +57,8 @@ public class Aftapning {
     public void setPåfyldning(Påfyldning påfyldning) {
         this.påfyldning = påfyldning;
     }
+
+    public Påfyldning getPåfyldning() {
+        return påfyldning;
+    }
 }
