@@ -169,7 +169,7 @@ public class FlytfadForm implements GuiObserver {
                 }
             }
             lblValgtPlads.setText("FadID: " + plads.getFad().getFadId() + "\n" +
-                    "Mængde på Fadet: " + plads.getFad().getMængdeFyldtPåFad() + "\n" + påfyldning);
+                    "Mængde på Fadet: " + plads.getFad().getMængdeFyldtPåFad() + "\n" + påfyldning + "\nMateriale: " + plads.getFad().getTidligereIndhold());
         }
     }
 
