@@ -50,11 +50,10 @@ public class Fad {
         }
     }
 
-    public void tilføjAftapning(Aftapning aftapning) {
+    public double tilføjAftapning(Aftapning aftapning) {
         double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
-    public double getMængdeFyldtPåFad() {
+    }public double getMængdeFyldtPåFad() {
         return mængdeFyldtPåFad;
-    }
 
 
         if (literAftappet <= mængdeFyldtPåFad) {
