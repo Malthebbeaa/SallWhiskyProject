@@ -22,7 +22,7 @@ public class AftapningHandler {
 
         Aftapning aftapning = new Aftapning(aftapningsDato,44.2, fad);
         aftapning.aftapMængde(mængde);
-        fad.tilføjAftapning(aftapning);
+        fad.aftapWhisky(mængde.getAftapning());
 
         form.clearAction();
     }

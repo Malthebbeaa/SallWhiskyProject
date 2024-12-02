@@ -115,9 +115,11 @@ public class Storage implements StorageInterface{
         return aftapninger;
     }
 
+
+
     @Override
     public List<Påfyldning> getPåfyldninger() {
-        return null;
+        return påfyldninger;
     }
 
 }

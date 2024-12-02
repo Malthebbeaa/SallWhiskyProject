@@ -21,6 +21,11 @@ public class Mængde {
             this.påfyldning = påfyldning;
         }
     }
+
+    public Aftapning getAftapning() {
+        return aftapning;
+    }
+
     public void setAftapning(Aftapning aftapning){
         if (aftapning != null){
             this.aftapning = aftapning;

@@ -48,7 +48,7 @@ public class Fad {
         }
     }
 
-    public void tilføjAftapning(Aftapning aftapning) {
+    public void aftapWhisky(Aftapning aftapning) {
         double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
 
 
