@@ -36,8 +36,8 @@ public class gui extends Application {
     private opretLagerWindow opretLagerWindow;
     private WhiskyProduktWindow WhiskyProduktWindow;
     private PåfyldningWindow påfyldningWindow;
-    private FlytFadWindow flytFadWindow;
     private AftapningWindow aftapningWindow;
+    private FlytFadWindow flytFadWindow;
 
     @Override
     public void start(Stage stage){
@@ -66,9 +66,6 @@ public class gui extends Application {
         WhiskyProduktWindow = new WhiskyProduktWindow(controller);
         påfyldningWindow = new PåfyldningWindow(controller);
         aftapningWindow = new AftapningWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Aftap Fad"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(),
-                fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane(), påfyldningWindow.getPane(), aftapningWindow.getPane()));
         flytFadWindow = new FlytFadWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad"));
         List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane()));

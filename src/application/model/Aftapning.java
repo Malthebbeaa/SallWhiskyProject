@@ -8,27 +8,21 @@ public class Aftapning {
     public LocalDate aftapningsDato;
     public Double literAftappet;
     public Double alkoholProcent;
-    private Fad fad;
-    private List<Mængde> mængderAftappet;
+    private Påfyldning påfyldning;
 
 
-    public Aftapning(LocalDate aftapningsDato, Double alkoholProcent, Fad fad) {
-        this.aftapningsDato = aftapningsDato;
-        this.literAftappet = 0.0;
+    public Aftapning(Double literAftappet, Double alkoholProcent) {
+        this.literAftappet = literAftappet;
         this.alkoholProcent = alkoholProcent;
-        this.fad = fad;
-        mængderAftappet = new ArrayList<>();
     }
 
+    public void aftapMængde(double mængde) {
+        double totalEfterTap = getLiterAftappet() + mængde;
+        double fremtidigeTotal = totalEfterTap - påfyldning.getLiterPåfyldt();
 
-    public void aftapMængde(Mængde mængde){
-        double totalEfterTap = literAftappet + mængde.getMængde();
-        double fremtidigeTotal = totalEfterTap - fad.getMængdeFyldtPåFad();
+        if (fremtidigeTotal <= 0) {
+            // LAVES
 
-        if (fremtidigeTotal <= 0){
-            mængde.setAftapning(this);
-            mængderAftappet.add(mængde);
-            literAftappet = totalEfterTap;
         } else {
             throw new RuntimeException("Det er ikke muligt at tappe så meget");
         }
@@ -36,6 +30,10 @@ public class Aftapning {
 
     public LocalDate getAftapningsDato() {
         return aftapningsDato;
+    }
+
+    public void setLiterAftappet(Double literAftappet) {
+        this.literAftappet = literAftappet;
     }
 
     public Double getLiterAftappet() {
@@ -46,9 +44,17 @@ public class Aftapning {
         return alkoholProcent;
     }
 
-    public void setFad(Fad fad) {
-        if (fad != null){
-            this.fad = fad;
-        }
+    public void setAftapningsDato(LocalDate aftapningsDato) {
+        this.aftapningsDato = aftapningsDato;
+    }
+
+
+
+    public void setAlkoholProcent(Double alkoholProcent) {
+        this.alkoholProcent = alkoholProcent;
+    }
+
+    public void setPåfyldning(Påfyldning påfyldning) {
+        this.påfyldning = påfyldning;
     }
 }

@@ -43,11 +43,6 @@ public class Påfyldning {
         }
     }
 
-    public void fjernMængde(Mængde mængde){
-        if (mængde != null){
-            mængderPåfyldt.remove(mængde);
-        }
-    }
 
     public void setFad(Fad fad){
         if (fad != null){

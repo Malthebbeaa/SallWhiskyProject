@@ -50,14 +50,12 @@ public class Fad {
         }
     }
 
+    public void tilføjAftapning(Aftapning aftapning) {
+        double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
     public double getMængdeFyldtPåFad() {
         return mængdeFyldtPåFad;
     }
 
-    public void AftapWhisky(Double literAftappet) {
-        if (mængdeFyldtPåFad == 0) {
-            throw new IllegalStateException("Fadet er tomt");
-        }
 
         if (literAftappet <= mængdeFyldtPåFad) {
             mængdeFyldtPåFad -= literAftappet;
@@ -68,6 +66,8 @@ public class Fad {
             System.out.println();
         }
     }
+
+
 
     public FadLeverandør getFadLeverandør() {
         return fadLeverandør;

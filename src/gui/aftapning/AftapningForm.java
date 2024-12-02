@@ -1,8 +1,9 @@
 package gui.aftapning;
 
 import application.controller.Controller;
-import application.model.Fad;
+import application.model.Påfyldning;
 import gui.PaneCreator;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 
 public class AftapningForm {
     private Controller controller;
-    private ComboBox<Fad> cboxFad;
+    private ComboBox<Påfyldning> cboxPåfyldning;
     private DatePicker datePickerAftapningsDato;
     private TextField txfMængdeTilAftapning, txfAlkoholProcent;
     private GridPane aftapningsPane, aftapningsInfoPane;
@@ -35,9 +36,9 @@ public class AftapningForm {
 
         Label lblFad = new Label("Vælg Fad:");
         aftapningsInfoPane.add(lblFad, 0,0);
-        cboxFad = new ComboBox<>();
-        cboxFad.setItems(controller.getStorage().getFade());
-        aftapningsInfoPane.add(cboxFad,1,0);
+        cboxPåfyldning = new ComboBox<>();
+//        cboxPåfyldning.setItems((ObservableList<Påfyldning>) controller.getStorage().getPåfyldninger());
+        aftapningsInfoPane.add(cboxPåfyldning,1,0);
 
 
         Label lblPåfyldningsDato = new Label("Aftapningsningsdato: ");
@@ -60,7 +61,7 @@ public class AftapningForm {
 
     }
 
-    public Fad getFad() {return cboxFad.getValue();}
+    public Påfyldning getPåfyldning() {return cboxPåfyldning.getValue();}
 
     public LocalDate getAftapningsDato() {return datePickerAftapningsDato.getValue();}
 
@@ -71,7 +72,7 @@ public class AftapningForm {
     public GridPane getAftapningsPane() {return aftapningsPane;}
 
     public void clearAction(){
-        cboxFad.setValue(null);
+        cboxPåfyldning.setValue(null);
         datePickerAftapningsDato.setValue(LocalDate.now());
         txfMængdeTilAftapning.clear();
     }
