@@ -17,6 +17,15 @@ public class WhiskyProdukt {
         this.antalFlasker = antalFlasker;
     }
 
+    public int antalFlasker(double flaskeStørrelse) {
+        double antalLiter = 0;
+        for (Aftapning aftapning : aftapninger) {
+            antalLiter += aftapning.getLiterAftappet();
+        }
+        return (int) (antalLiter / flaskeStørrelse);
+    }
+
+
     public int getAarLagret(Aftapning aftapning, Påfyldning påfyldning) {
         LocalDate a = påfyldning.getPåfyldningsDato();
         LocalDate b = aftapning.getAftapningsDato();
@@ -27,7 +36,7 @@ public class WhiskyProdukt {
         return diff;
     }
 
-    public String getWhiskytype(Aftapning aftapning) {
+    public String Whiskytype() {
         String whiskytype = null;
         if (vand != 0 && aftapninger.size() < 2) {
             whiskytype = "Single Cask";
@@ -44,11 +53,11 @@ public class WhiskyProdukt {
 
     public String lavHistorie() {
         return
-                "Vores whisky " + navn + " er lavet af "
+                "Vores whisky " + navn + " er lavet af ";
 //                + .getKorn()
 //                + " fra vores medejer Lars mark " + produkt.getMark() + ". ");
 //        if (produkt.getFade().size() > 1) {
-                        + "Den er lagret på " + aftapninger.size() + " fade ";
+//                        + "Den er lagret på " + aftapninger.size() + " fade ";
 //        } else {
 //            System.out.println("Den er lagret på fad fra " + produkt.getLand());
 //        }

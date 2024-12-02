@@ -37,7 +37,7 @@ public class AftapningForm {
         Label lblFad = new Label("Vælg Fad:");
         aftapningsInfoPane.add(lblFad, 0,0);
         cboxPåfyldning = new ComboBox<>();
-        cboxPåfyldning.setItems((ObservableList<Påfyldning>) controller.getStorage().getPåfyldninger());
+//        cboxPåfyldning.setItems((ObservableList<Påfyldning>) controller.getStorage().getPåfyldninger());
         aftapningsInfoPane.add(cboxPåfyldning,1,0);
 
 
