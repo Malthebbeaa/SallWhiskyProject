@@ -25,7 +25,6 @@ public interface StorageInterface {
     public void addPåfyldning(Påfyldning påfyldning);
 
 
-
     public ObservableList<Fad> getFade();
     public List<FadLeverandør> getFadleverandør();
 
@@ -42,5 +41,6 @@ public interface StorageInterface {
     public List<WhiskyProdukt> getWhiskyProdukt();
     public List<Aftapning> getAftapning();
     public List<Påfyldning> getPåfyldning();
+    public List<Påfyldning> getPåfyldninger();
 
 }

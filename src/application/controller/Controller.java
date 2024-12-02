@@ -41,7 +41,6 @@ public class Controller {
         Destillering destillering = new Destillering(antalDistilleringer, startDato, slutDato,
                 væskeMængde, alkoholProcent, maltbatch);
         storage.addDestillering(destillering);
-
         return destillering;
     }
 
@@ -65,19 +64,27 @@ public class Controller {
         return lager;
     }
 
-    public WhiskyProdukt opretWhiskyProdukt(int aarLagret, String navn, String whiskytype) {
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(aarLagret, navn, whiskytype);
+    public WhiskyProdukt opretWhiskyProdukt(int aarLagret, String navn, String whiskytype, boolean fortyndet) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(aarLagret, navn, whiskytype, fortyndet);
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
     }
 
-    public Påfyldning opretPåfyldning(Fad fad, LocalDate påfyldningsDato){
+    public Påfyldning opretPåfyldning(Fad fad, LocalDate påfyldningsDato) {
         Påfyldning påfyldning = new Påfyldning(påfyldningsDato, fad);
         storage.addPåfyldning(påfyldning);
         return påfyldning;
     }
-    public void påfyldFad(Påfyldning påfyldning, Fad fad){
+
+
+    public void påfyldFad(Påfyldning påfyldning, Fad fad) {
         fad.tilføjPåfyldning(påfyldning);
+    }
+
+    public Aftapning aftapFad(LocalDate aftapningsDato, Double alkoholProcent, Fad fad) {
+        Aftapning aftapning = new Aftapning(aftapningsDato, alkoholProcent, fad);
+        storage.addAftapning(aftapning);
+        return aftapning;
     }
 
     public StorageInterface getStorage() {
