@@ -16,6 +16,7 @@ public class Fad {
     private List<Påfyldning> påfyldninger;
     private List<Aftapning> aftapninger;
 
+    private Plads plads;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.fadId = IdCount++;
@@ -30,16 +31,17 @@ public class Fad {
         this.aftapninger = new ArrayList<>();
     }
 
-    public boolean påFyldningOvergårGrænse(double mængde){
+    public boolean påFyldningOvergårGrænse(double mængde) {
         return mængde + mængdeFyldtPåFad > størrelse;
     }
-    public void tilføjPåfyldning(Påfyldning påfyldning){
-        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())){
+
+    public void tilføjPåfyldning(Påfyldning påfyldning) {
+        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())) {
             påfyldninger.add(påfyldning);
             mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
 
             //først her bliver mængden trukket fra destilleringen
-            for (Mængde mængde : påfyldning.getMængderPåfyldt()){
+            for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
                 mængde.getDestillering().afgivVæske(mængde.getMængde());
             }
 
@@ -48,7 +50,9 @@ public class Fad {
         }
     }
 
-    public double getMængdeFyldtPåFad() {return mængdeFyldtPåFad;}
+    public double getMængdeFyldtPåFad() {
+        return mængdeFyldtPåFad;
+    }
 
     public void AftapWhisky(Double literAftappet) {
         if (mængdeFyldtPåFad == 0) {
@@ -94,10 +98,27 @@ public class Fad {
                 "\nStørrelse: " + størrelse +
                 "\nMateriale: " + materiale +
                 "\nLeverandør: " + fadLeverandør +
-                "\nTidligere indhold: " + tidligereIndhold + '\'' +
+                "\nTidligere indhold: " + tidligereIndhold +
                 "\nAlder: " + alder +
-                "\nBrugt " + antalGangeBrugt + " gang(e)" +
+                "\nBrugt " + antalGangeBrugt + (antalGangeBrugt==1? " gang" : " gange") +
                 "\nLiter i fad: " + mængdeFyldtPåFad;
+    }
+
+    public Plads getPlads() {
+        return plads;
+    }
+
+    public void setPlads(Plads plads) {
+        if (this.plads != plads) {
+            if(this.plads != null) {
+                Plads oldPlads = this.plads;
+                oldPlads.setLedig(true);
+                oldPlads.setFad(null);
+            }
+            this.plads = plads;
+            plads.setLedig(false);
+            plads.setFad(this);
+        }
     }
 
     public String toString2() {

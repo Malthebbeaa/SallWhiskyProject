@@ -97,4 +97,12 @@ public class Controller {
         storage.addFadleverandør(fadLeverandør);
         return fadLeverandør;
     }
+
+    public void flytFad(Plads plads, Fad fad){
+        if(plads.isLedig() && fad != null){
+            fad.setPlads(plads);
+        }
+        else{
+        }
+    }
 }

@@ -5,6 +5,7 @@ import application.model.*;
 import gui.aftapning.AftapningWindow;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
+import gui.flytfad.FlytFadWindow;
 import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
 import gui.Whiskyprodukt.WhiskyProduktWindow;
@@ -35,6 +36,7 @@ public class gui extends Application {
     private opretLagerWindow opretLagerWindow;
     private WhiskyProduktWindow WhiskyProduktWindow;
     private PåfyldningWindow påfyldningWindow;
+    private FlytFadWindow flytFadWindow;
     private AftapningWindow aftapningWindow;
 
     @Override
@@ -67,6 +69,9 @@ public class gui extends Application {
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Aftap Fad"));
         List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(),
                 fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane(), påfyldningWindow.getPane(), aftapningWindow.getPane()));
+        flytFadWindow = new FlytFadWindow(controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), WhiskyProduktWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -80,6 +85,7 @@ public class gui extends Application {
             gridPane.add(logoViewer, 0,0);
         }
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
+        påfyldningWindow.getHandler().addObserver(flytFadWindow.getForm());
     }
 
     public void initStorage(){
@@ -111,20 +117,5 @@ public class gui extends Application {
                 "Rødvin", 23, 0);
         Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
                 "Bourbon", 29, 0);
-
-        Mængde mængde = new Mængde(60.0, destillering1);
-        Mængde mængde1 = new Mængde(48.0, fad1);
-
-        Påfyldning påfyldning = new Påfyldning(LocalDate.of(200, 10,24), fad1);
-        påfyldning.tilføjMængde(mængde);
-        fad1.tilføjPåfyldning(påfyldning);
-
-//        Aftapning aftapning1 = controller.aftapFad(LocalDate.of(2024,10, 24), 50.0, fad1);
-//        aftapning1.aftapMængde(mængde1);
-//        fad1.tilføjAftapning(aftapning1);
-
-
-//        WhiskyProdukt whiskyProdukt1 = new WhiskyProdukt(whiskyProdukt1.getAarLagret(aftapning1,påfyldning1), "NAVN",
-//                whiskyProdukt1.getWhiskytype(aftapning1,whiskyProdukt1), true);
     }
 }

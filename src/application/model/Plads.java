@@ -3,10 +3,24 @@ package application.model;
 public class Plads {
     private int pladsNummer;
     private boolean ledig;
+    private Fad fad;
 
     public Plads(int pladsNummer, boolean ledig) {
         this.pladsNummer = pladsNummer;
         this.ledig = ledig;
+    }
+
+    public Fad getFad() {
+        return fad;
+    }
+
+    public void setFad(Fad fad) {
+        if (this.fad != fad) {
+            this.fad = fad;
+            if(fad != null) {
+                fad.setPlads(this);
+            }
+        }
     }
 
     public int getPladsNummer() {
@@ -23,6 +37,6 @@ public class Plads {
 
     @Override
     public String toString() {
-        return "Plads nummer: " + pladsNummer + (ledig? " ledig" : " optaget");
+        return "Plads nummer: " + pladsNummer + (ledig ? " ledig" : " optaget");
     }
 }
