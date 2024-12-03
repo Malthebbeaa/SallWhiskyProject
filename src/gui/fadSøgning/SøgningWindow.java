@@ -12,7 +12,7 @@ public class SøgningWindow extends BaseWindow {
 
     public SøgningWindow(Controller controller) {
         this.controller = controller;
-        handler = new SøgningHandler();
+        handler = new SøgningHandler(controller);
         form = new SøgningForm(controller,handler);
 
         initContent();

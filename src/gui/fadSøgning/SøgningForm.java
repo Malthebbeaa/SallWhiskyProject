@@ -44,11 +44,19 @@ public class SøgningForm {
         Button btnSøg = new Button("Søg");
         btnSøg.setOnAction(e -> {
             if (searchBar.getText() != null) {
-                handler.søgningAction(this, Integer.valueOf(searchBar.getText()));
+                handler.søgningFadIdAction(this, Integer.valueOf(searchBar.getText()));
             }
         });
+        Button btnKlarTilAftapning = new Button("Vis fade klar til aftapning");
+        btnKlarTilAftapning.setOnAction(e -> {
+            handler.findKlareFade(this);
+        });
+        Button btnAlleFade = new Button("Vis alle fade");
+        btnAlleFade.setOnAction(e -> {
+            handler.alleFade(this);
+        });
         HBox hBox = new HBox(5);
-        hBox.getChildren().addAll(comboBoxSøg, searchBar, btnSøg);
+        hBox.getChildren().addAll(comboBoxSøg, searchBar, btnSøg, btnAlleFade, btnKlarTilAftapning);
         søgningsInfoPane.add(hBox, 0, 0);
 
 
