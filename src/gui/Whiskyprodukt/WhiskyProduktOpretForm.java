@@ -38,7 +38,7 @@ public class WhiskyProduktOpretForm {
 
     public void initForm(WhiskyProduktOpretHandler handler) {
         opretWhiskyProduktInfoPane = new PaneCreator();
-        lblOverskrift = new Label("Påfyld fad:");
+        lblOverskrift = new Label("Opret whiskyprodukt:");
         opretWhiskyProduktPane.add(lblOverskrift, 0,0);
         opretWhiskyProduktPane.add(opretWhiskyProduktInfoPane, 0,1);
         opretWhiskyProduktPane.setHgap(10);
@@ -48,7 +48,7 @@ public class WhiskyProduktOpretForm {
         GridPane pane = new GridPane();
         pane.setVgap(10);
         pane.setHgap(10);
-        Label lblNavn = new Label("Indtast Whiskyprodukt navn:");
+        Label lblNavn = new Label("Indtast produktets navn:");
         txfNavn = new TextField();
         pane.add(lblNavn,0,0);
         pane.add(txfNavn, 0,1);
