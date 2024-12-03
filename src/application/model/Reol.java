@@ -10,15 +10,17 @@ public class Reol {
     private int reolNummer;
     private int hyldeCounter = 1;
     private ObservableList<Hylde> hylder;
+    private Lager lager;
 
-    public Reol(int reolNummer) {
+    public Reol(int reolNummer, Lager lager) {
         this.reolNummer = reolNummer;
         hylder = FXCollections.observableArrayList();
+        this.lager = lager;
     }
 
     public void tilføjHylde(int antalHylder, int antalPladser){
         for (int i = 1; i <= antalHylder; i++) {
-            Hylde hylde = new Hylde(hyldeCounter);
+            Hylde hylde = new Hylde(hyldeCounter, this);
             hyldeCounter++;
             hylder.add(hylde);
             hylde.tilføjPlads(antalPladser);
@@ -35,6 +37,10 @@ public class Reol {
 
     @Override
     public String toString() {
-        return "Reol nummer: " + reolNummer;
+        return "Reol: " + reolNummer;
+    }
+
+    public Lager getLager() {
+        return lager;
     }
 }

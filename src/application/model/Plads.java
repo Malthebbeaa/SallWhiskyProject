@@ -4,10 +4,12 @@ public class Plads {
     private int pladsNummer;
     private boolean ledig;
     private Fad fad;
+    private Hylde hylde;
 
-    public Plads(int pladsNummer, boolean ledig) {
+    public Plads(int pladsNummer, boolean ledig, Hylde hylde) {
         this.pladsNummer = pladsNummer;
         this.ledig = ledig;
+        this.hylde = hylde;
     }
 
     public Fad getFad() {
@@ -37,6 +39,10 @@ public class Plads {
 
     @Override
     public String toString() {
-        return "Plads nummer: " + pladsNummer + (ledig ? " ledig" : " optaget");
+        return "Plads: " + pladsNummer + (ledig ? " ledig" : " optaget");
+    }
+
+    public Hylde getHylde() {
+        return hylde;
     }
 }

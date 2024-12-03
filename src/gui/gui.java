@@ -113,7 +113,7 @@ public class gui extends Application {
         Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
                 "Bourbon", 29, 0);
 
-        Påfyldning påfyldning1 = controller.opretPåfyldning(fad1, LocalDate.now());
+        Påfyldning påfyldning1 = controller.opretPåfyldning(fad1, LocalDate.of(2022,02,28));
         påfyldning1.tilføjMængde(new Mængde(50, destillering1));
         påfyldning1.tilføjMængde(new Mængde(44, destillering2));
         Påfyldning påfyldning2 = controller.opretPåfyldning(fad2, LocalDate.now());
