@@ -6,6 +6,7 @@ import application.model.Påfyldning;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import javax.swing.text.TableView;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,6 +39,16 @@ public class SøgningHandler {
             }
         }
     }
+
+    public void søgningMaterialeAction(SøgningForm form, String søgId){
+        for (int i = 0; i < form.getTableViewFade().getItems().size() - 1; i++) {
+            if(form.getTableViewFade().getItems().get(i).getMateriale().contains(søgId)){
+                form.getTableViewFade().getSelectionModel().select(i);
+                form.getTableViewFade().scrollTo(i);
+            }
+        }
+    }
+
     public void søgningAction(SøgningForm form, int søgId){
         form.getTableViewFade().getItems().stream()
                 .filter(item -> item.getFadId() == søgId)

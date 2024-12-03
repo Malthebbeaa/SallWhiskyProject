@@ -45,15 +45,19 @@ public class SøgningForm implements GuiObserver {
         søgningsPane.setVgap(10);
 
         ComboBox comboBoxSøg = new ComboBox<>();
-        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId"));
-        comboBoxSøg.getItems().add(søgningFiltre);
+        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId", "Materiale"));
+        comboBoxSøg.getItems().addAll(søgningFiltre);
         comboBoxSøg.setValue(søgningFiltre.getFirst());
         searchBar = new TextField();
         searchBar.setPromptText("søg...");
         Button btnSøg = new Button("Søg");
         btnSøg.setOnAction(e -> {
             if (searchBar.getText() != null) {
-                handler.søgningFadIdAction(this, Integer.valueOf(searchBar.getText()));
+                if (comboBoxSøg.getValue().equals(søgningFiltre.get(0))) {
+                    handler.søgningFadIdAction(this, Integer.valueOf(searchBar.getText()));
+                } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(1))) {
+                    handler.søgningMaterialeAction(this, searchBar.getText());
+                }
             }
         });
         Button btnKlarTilAftapning = new Button("Vis fade klar til aftapning");
@@ -104,23 +108,21 @@ public class SøgningForm implements GuiObserver {
         tableViewFade.setMinWidth(900);
         tcPlads.setPrefWidth(200);
         FilteredList<Fad> filteredData = new FilteredList<>(controller.getStorage().getFade(), p -> true);
-        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(fad -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if(fad.getMateriale().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                else if(fad.getTidligereIndhold().toLowerCase().contains(lowerCaseFilter)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-        });
+//        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+//            filteredData.setPredicate(fad -> {
+//                if (newValue == null || newValue.isEmpty()) {
+//                    return true;
+//                }
+//                String lowerCaseFilter = newValue.toLowerCase();
+//                if (fad.getMateriale().toLowerCase().contains(lowerCaseFilter)) {
+//                    return true;
+//                } else if (fad.getTidligereIndhold().toLowerCase().contains(lowerCaseFilter)) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            });
+//        });
         SortedList<Fad> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewFade.comparatorProperty());
         tableViewFade.setItems(sortedData);
