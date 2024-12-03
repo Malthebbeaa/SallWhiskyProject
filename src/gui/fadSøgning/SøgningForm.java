@@ -10,6 +10,8 @@ import gui.PaneCreator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
@@ -26,6 +28,7 @@ public class SøgningForm implements GuiObserver {
     private TextField searchBar;
 
     private TableColumn<Fad, String> tcPlads;
+
     public SøgningForm(Controller controller, SøgningHandler handler) {
         this.controller = controller;
         søgningsPane = new GridPane();
@@ -44,7 +47,7 @@ public class SøgningForm implements GuiObserver {
         ComboBox comboBoxSøg = new ComboBox<>();
         ArrayList søgningFiltre = new ArrayList<>(List.of("FadId"));
         comboBoxSøg.getItems().add(søgningFiltre);
-        comboBoxSøg.setValue(søgningFiltre.get(0));
+        comboBoxSøg.setValue(søgningFiltre.getFirst());
         searchBar = new TextField();
         searchBar.setPromptText("søg...");
         Button btnSøg = new Button("Søg");
@@ -88,14 +91,39 @@ public class SøgningForm implements GuiObserver {
         tcPlads = new TableColumn<>("Lagerplads");
         tcPlads.setCellValueFactory(cellData -> {
             Plads plads = cellData.getValue().getPlads();
-            return new SimpleStringProperty(plads != null ? plads.toString() : "Ikke tildelt");
+            return new SimpleStringProperty(plads != null ? plads.getHylde().getReol().getLager() +
+                    ", Reol: " + plads.getHylde().getReol().getReolNummer() +
+                    " Hylde: " + plads.getHylde().getHyldeNummer() +
+                    " plads: " + plads.getPladsNummer() : "Ikke tildelt");
         });
 
         TableColumn<Fad, Double> tcVæskeMængde = new TableColumn<>("Mængde på Fad (L)");
         tcVæskeMængde.setCellValueFactory(new PropertyValueFactory<>("mængdeFyldtPåFad"));
-        tableViewFade.setItems(controller.getStorage().getFade());
+//        tableViewFade.setItems(controller.getStorage().getFade());
         tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde);
-        tableViewFade.setMinWidth(600);
+        tableViewFade.setMinWidth(900);
+        tcPlads.setPrefWidth(200);
+        FilteredList<Fad> filteredData = new FilteredList<>(controller.getStorage().getFade(), p -> true);
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(fad -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if(fad.getMateriale().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                else if(fad.getTidligereIndhold().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+        SortedList<Fad> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableViewFade.comparatorProperty());
+        tableViewFade.setItems(sortedData);
         søgningsInfoPane.add(tableViewFade, 0, 1);
     }
 
