@@ -52,10 +52,12 @@ public class Fad {
 
     public double tilføjAftapning(Aftapning aftapning) {
         double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
-    }public double getMængdeFyldtPåFad() {
-        return mængdeFyldtPåFad;
+        return mængdeEfterAftapning;
+    }
 
+    public double getMængdeFyldtPåFad() {
 
+        double literAftappet = 0;
         if (literAftappet <= mængdeFyldtPåFad) {
             mængdeFyldtPåFad -= literAftappet;
             if (mængdeFyldtPåFad == 0) {
@@ -64,6 +66,7 @@ public class Fad {
         } else {
             System.out.println();
         }
+        return mængdeFyldtPåFad;
     }
 
 

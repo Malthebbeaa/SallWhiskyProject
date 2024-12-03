@@ -151,17 +151,13 @@ public class WhiskyProdukt {
         AarLagret = aarLagret;
     }
 
-    public String getNavn() {
-        return navn;
-    }
+
 
     public void setNavn(String navn) {
         this.navn = navn;
     }
 
-    public String getWhiskytype() {
-        return whiskytype;
-    }
+
 
     public void setWhiskytype(String whiskytype) {
         this.whiskytype = whiskytype;
@@ -181,10 +177,6 @@ public class WhiskyProdukt {
 
     public void setAntalFlasker(int antalFlasker) {
         this.antalFlasker = antalFlasker;
-    }
-
-    public List<Aftapning> getAftapninger() {
-        return aftapninger;
     }
 
     public void setAftapninger(List<Aftapning> aftapninger) {
