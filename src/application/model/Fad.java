@@ -28,6 +28,7 @@ public class Fad {
         this.antalGangeBrugt = antalGangeBrugt;
         this.mængdeFyldtPåFad = 0;
         this.påfyldninger = new ArrayList<>();
+        this.aftapninger = new ArrayList<>();
     }
 
     public boolean påFyldningOvergårGrænse(double mængde) {
@@ -49,14 +50,11 @@ public class Fad {
         }
     }
 
-    public double getMængdeFyldtPåFad() {
+    public double tilføjAftapning(Aftapning aftapning) {
+        double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
+    }public double getMængdeFyldtPåFad() {
         return mængdeFyldtPåFad;
-    }
 
-    public void AftapWhisky(Double literAftappet) {
-        if (mængdeFyldtPåFad == 0) {
-            throw new IllegalStateException("Fadet er tomt");
-        }
 
         if (literAftappet <= mængdeFyldtPåFad) {
             mængdeFyldtPåFad -= literAftappet;
@@ -89,14 +87,13 @@ public class Fad {
     public void AntalGangeBrugt() {
         antalGangeBrugt++;
     }
-
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
 
     @Override
     public String toString() {
-        return "FadID: " + fadId +
+        return  "FadID: " + fadId +
                 "\nStørrelse: " + størrelse +
                 "\nMateriale: " + materiale +
                 "\nLeverandør: " + fadLeverandør +
@@ -104,7 +101,7 @@ public class Fad {
                 "\nAlder: " + alder +
                 "\nBrugt " + antalGangeBrugt + (antalGangeBrugt==1? " gang" : " gange") +
                 "\nLiter i fad: " + mængdeFyldtPåFad;
-        }
+    }
 
     public Plads getPlads() {
         return plads;
@@ -124,7 +121,7 @@ public class Fad {
     }
 
     public String toString2() {
-        return "FadID: " + fadId;
+        return  "FadID: " + fadId;
     }
 
     public int getAlder() {
@@ -142,7 +139,6 @@ public class Fad {
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
     }
-
     public String toString3() {
         return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }

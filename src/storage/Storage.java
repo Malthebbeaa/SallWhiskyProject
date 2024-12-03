@@ -113,6 +113,12 @@ public class Storage implements StorageInterface{
         return aftapninger;
     }
 
+    @Override
+    public List<Påfyldning> getPåfyldning() {
+        return null;
+    }
+
+
     public ObservableList<Påfyldning> getPåfyldninger(){return FXCollections.unmodifiableObservableList(påfyldninger);}
 
 }
