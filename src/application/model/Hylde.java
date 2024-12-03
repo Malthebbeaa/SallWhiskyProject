@@ -16,15 +16,12 @@ public class Hylde {
         this.reol = reol;
     }
 
+    //Create Metode
     public void tilføjPlads(int antal){
         for (int i = 1; i <= antal ; i++) {
             Plads plads = new Plads(i,true,this);
             pladser.add(plads);
         }
-    }
-
-    public void addPlads(){
-
     }
 
     public int getHyldeNummer() {

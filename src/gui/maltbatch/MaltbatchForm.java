@@ -36,66 +36,85 @@ public class MaltbatchForm {
 
         Label lblMark = new Label("Tilføj Mark:");
         Label lblKorn = new Label("Tilføj Korn:");
+        Label lblOpretMaltbatch = new Label("Opret maltbatch:");
         maltPane.add(lblMark,0,0);
         maltPane.add(lblKorn,1,0);
+        maltPane.add(lblOpretMaltbatch,0,2);
 
         PaneCreator markPane = new PaneCreator();
+
         Label lblMarkNavn = new Label("Marknavn:");
-        markPane.add(lblMarkNavn,0,1);
         txfMarkNavn = new TextField();
+        txfMarkNavn.setPromptText("Stadsgaard");
+        markPane.add(lblMarkNavn,0,1);
         markPane.add(txfMarkNavn,1,1);
+
         Label lblØkologisk = new Label("Økologisk:");
-        markPane.add(lblØkologisk,0,2);
         chbØkologisk = new CheckBox();
+        markPane.add(lblØkologisk,0,2);
         markPane.add(chbØkologisk,1,2);
+
         Button btnTilføjMark = new Button("Tilføj Mark");
         btnTilføjMark.setOnAction(e-> handler.opretMarkHandler(this));
         markPane.setGraphics(btnTilføjMark, "grass-field.png");
         markPane.add(btnTilføjMark,1,7);
+
         maltPane.add(markPane,0,1);
 
         PaneCreator kornPane = new PaneCreator();
+
         Label lblSort = new Label("Sort:");
-        kornPane.add(lblSort,0,1);
         txfSort = new TextField();
+        txfSort.setPromptText("Evergreen");
+        kornPane.add(lblSort,0,1);
         kornPane.add(txfSort,1,1);
+
         Label lblHøstdag = new Label("Høstdag:");
-        kornPane.add(lblHøstdag,0,2);
         dpHøstdag = new DatePicker();
         dpHøstdag.setValue(LocalDate.now());
+        kornPane.add(lblHøstdag,0,2);
         kornPane.add(dpHøstdag,1,2);
+
         Label lblMarkTilKorn = new Label("Vælg mark:");
-        kornPane.add(lblMarkTilKorn,0,3);
         cbKornMark = new ComboBox<>();
         cbKornMark.getItems().addAll(controller.getStorage().getMarker());
+        kornPane.add(lblMarkTilKorn,0,3);
         kornPane.add(cbKornMark,1,3);
+
         Button btnTilføjKorn = new Button("Tilføj Korn");
         btnTilføjKorn.setOnAction(e-> handler.opretKornHandler(this));
         kornPane.setGraphics(btnTilføjKorn, "corn.png");
         kornPane.add(btnTilføjKorn,1,4);
+
         maltPane.add(kornPane,1,1);
 
-        Label opretMaltbatch = new Label("Opret maltbatch:");
-        maltPane.add(opretMaltbatch,0,2);
+
 
         GridPane maltbatchPane = new PaneCreator();
         Label lblVælgKorn = new Label("Vælg Korn:");
-        maltbatchPane.add(lblVælgKorn,0,0);
         cbKorn = new ComboBox<>();
         cbKorn.getItems().addAll(controller.getStorage().getKorn());
+        maltbatchPane.add(lblVælgKorn,0,0);
         maltbatchPane.add(cbKorn,1,0);
+
         Label lblBatchNummer = new Label("Batchnummer: ");
-        maltbatchPane.add(lblBatchNummer,0,1);
         txfBatchnummer = new TextField();
+        txfBatchnummer.setPromptText("NM90P");
+        maltbatchPane.add(lblBatchNummer,0,1);
         maltbatchPane.add(txfBatchnummer,1,1);
+
         Label lblMængde = new Label("Mængde: ");
-        maltbatchPane.add(lblMængde,0,2);
         txfMængde = new TextField();
+        txfMængde.setPromptText("200");
+        maltbatchPane.add(lblMængde,0,2);
         maltbatchPane.add(txfMængde,1,2);
+
         Label lblEvtRygemateriale = new Label("Evt Rygemateriale:");
-        maltbatchPane.add(lblEvtRygemateriale,0,3);
         txfRygemateriale = new TextField();
+        txfRygemateriale.setPromptText("Tørv");
+        maltbatchPane.add(lblEvtRygemateriale,0,3);
         maltbatchPane.add(txfRygemateriale,1,3);
+
         maltPane.add(maltbatchPane,0,3,2,1);
     }
 
@@ -114,14 +133,12 @@ public class MaltbatchForm {
     public GridPane getMaltPane(){return maltPane;}
 
     public void clearAktion(){
-        txfMarkNavn.clear();
-        txfSort.clear();
-        txfSort.setEditable(true);
-        dpHøstdag.setDisable(false);
-        chbØkologisk.setSelected(false);
         txfBatchnummer.clear();
+        txfMarkNavn.clear();
         txfMængde.clear();
         txfRygemateriale.clear();
+        txfSort.clear();
+        chbØkologisk.setSelected(false);
         cbKorn.getItems().clear();
         cbKornMark.getItems().clear();
         cbKorn.getItems().addAll(controller.getStorage().getKorn());

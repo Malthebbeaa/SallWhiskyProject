@@ -2,6 +2,7 @@ package gui.maltbatch;
 
 import application.controller.Controller;
 import application.model.Korn;
+import application.model.Maltbatch;
 import application.model.Mark;
 import javafx.scene.control.Alert;
 
@@ -32,8 +33,11 @@ public class MaltbatchHandler {
         }
         else {
             double mængdeDouble = Double.parseDouble(mængde);
-            controller.opretMaltbatch(batchnummer, mængdeDouble, korn);
+            Maltbatch maltbatch = controller.opretMaltbatch(batchnummer, mængdeDouble, korn);
             form.clearAktion();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,  maltbatch.getBatchNummer() + " er blevet oprettet");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
     }
 
@@ -50,8 +54,11 @@ public class MaltbatchHandler {
             alert.showAndWait();
         }
         else {
-            controller.opretKorn(høstDag, sort, mark);
+            Korn korn = controller.opretKorn(høstDag, sort, mark);
             form.clearAktion();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, korn.getSort() + " er blevet oprettet");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
     }
 
@@ -63,8 +70,12 @@ public class MaltbatchHandler {
             alert.showAndWait();
         }
         else {
-            controller.opretMark(markNavn, økologisk);
+            Mark mark = controller.opretMark(markNavn, økologisk);
+            form.clearAktion();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, mark.getMarkNavn() + " er blevet oprettet");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
-        form.clearAktion();
+
     }
 }

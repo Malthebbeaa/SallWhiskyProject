@@ -47,16 +47,14 @@ public class FlytfadForm implements GuiObserver {
         Label lblVælgFlyt = new Label("Vælg Hvad der skal flyttes:");
         Label lblLedigePladser = new Label("Vælg placering:");
         flytFadPane.add(lblVælgFlyt, 0, 0);
+        flytFadPane.add(lblLedigePladser,1,0);
 
         PaneCreator fadOgLagerPane = new PaneCreator();
         flytFadPane.add(fadOgLagerPane, 0, 1);
 
         Label lblVælgFad = new Label("Vælg fad:");
         cbFade = new ComboBox<>();
-        for (Fad f : controller.getStorage().getFade()) {
-            if (f.getMængdeFyldtPåFad() > 0)
-                cbFade.getItems().add(f);
-        }
+        getFyldteFade();
 
         fadOgLagerPane.add(lblVælgFad, 0, 0);
         fadOgLagerPane.add(cbFade, 1, 0);
@@ -81,7 +79,7 @@ public class FlytfadForm implements GuiObserver {
         pladsPane.add(lblVælgHylde, 1, 0);
         pladsPane.add(lvHylde, 1, 1);
 
-        Label lblVælgPlads = new Label("Vælg Plads");
+        Label lblVælgPlads = new Label("Vælg Plads:");
         lvPlads = new ListView<>();
         lvPlads.setStyle("-fx-control-inner-background: #F0F0F0");
         pladsPane.add(lblVælgPlads, 2, 0);
@@ -128,6 +126,11 @@ public class FlytfadForm implements GuiObserver {
     }
 
     public void clearAktion() {
+        cbFade.setValue(null);
+        cbLagre.setValue(null);
+        lvReol.setItems(null);
+        lvHylde.setItems(null);
+        lvPlads.setItems(null);
     }
 
     public GridPane getFlytFadPane() {
@@ -136,18 +139,24 @@ public class FlytfadForm implements GuiObserver {
 
     public void selectedLagerChanged() {
         lager = cbLagre.getValue();
-        lvReol.setItems(lager.getReoler());
+        if(lager != null) {
+            lvReol.setItems(lager.getReoler());
+        }
         lvPlads.setItems(null);
     }
 
     public void selectedReolChanged() {
         reol = lvReol.getSelectionModel().getSelectedItem();
-        lvHylde.setItems(reol.getHylder());
+        if(reol != null) {
+            lvHylde.setItems(reol.getHylder());
+        }
     }
 
     public void selectedHyldeChanged() {
         hylde = lvHylde.getSelectionModel().getSelectedItem();
-        lvPlads.setItems(hylde.getPladser());
+        if(hylde != null) {
+            lvPlads.setItems(hylde.getPladser());
+        }
     }
 
     public void selectedPladsChanged() {
@@ -191,12 +200,15 @@ public class FlytfadForm implements GuiObserver {
         return fad;
     }
 
-    @Override
-    public void update(GuiSubject s) {
-        cbFade.getItems().clear();
+    public void getFyldteFade() {
         for (Fad f : controller.getStorage().getFade()) {
             if (f.getMængdeFyldtPåFad() > 0)
                 cbFade.getItems().add(f);
         }
+    }
+
+    @Override
+    public void update(GuiSubject s) {
+        getFyldteFade();
     }
 }
