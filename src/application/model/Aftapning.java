@@ -11,6 +11,7 @@ public class Aftapning {
     private Påfyldning påfyldning;
 
 
+
     public Aftapning(Double literAftappet, Double alkoholProcent) {
         this.literAftappet = literAftappet;
         this.alkoholProcent = alkoholProcent;
