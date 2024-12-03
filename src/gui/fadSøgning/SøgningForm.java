@@ -6,11 +6,12 @@ import application.model.Plads;
 import application.model.Påfyldning;
 import gui.PaneCreator;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,8 @@ public class SøgningForm {
     private Controller controller;
     private List<Fad> fade;
     private GridPane søgningsPane, søgningsInfoPane;
-    private TableView<Fad> tableViewFade;
+    private TableView<Fad> tableViewFade, tableViewFadeMed3År;
+    private TextField searchBar;
 
     public SøgningForm(Controller controller, SøgningHandler handler) {
         this.controller = controller;
@@ -35,6 +37,20 @@ public class SøgningForm {
         søgningsPane.add(søgningsInfoPane, 0, 1);
         søgningsPane.setHgap(10);
         søgningsPane.setVgap(10);
+
+        ComboBox comboBoxSøg = new ComboBox<>();
+        searchBar = new TextField();
+        searchBar.setPromptText("søg...");
+        Button btnSøg = new Button("Søg");
+        btnSøg.setOnAction(e -> {
+            if (searchBar.getText() != null) {
+                handler.søgningAction(this, Integer.valueOf(searchBar.getText()));
+            }
+        });
+        HBox hBox = new HBox(5);
+        hBox.getChildren().addAll(comboBoxSøg, searchBar, btnSøg);
+        søgningsInfoPane.add(hBox, 0, 0);
+
 
         tableViewFade = new TableView<>();
         TableColumn<Fad, Integer> tcFadId = new TableColumn<>("Fad Id");
@@ -66,13 +82,16 @@ public class SøgningForm {
         tableViewFade.setItems(controller.getStorage().getFade());
         tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde);
         tableViewFade.setMinWidth(600);
-        søgningsInfoPane.add(tableViewFade, 0, 0);
-
+        søgningsInfoPane.add(tableViewFade, 0, 1);
 
 
     }
 
     public GridPane getSøgningsPane() {
         return søgningsPane;
+    }
+
+    public TableView<Fad> getTableViewFade() {
+        return tableViewFade;
     }
 }
