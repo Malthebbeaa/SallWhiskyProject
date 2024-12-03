@@ -15,6 +15,7 @@ public class Fad {
     private double mængdeFyldtPåFad;
     private List<Påfyldning> påfyldninger;
     private Plads plads;
+    private int lagringstid;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.fadId = IdCount++;
@@ -25,6 +26,7 @@ public class Fad {
         this.alder = alder;
         this.antalGangeBrugt = antalGangeBrugt;
         this.mængdeFyldtPåFad = 0;
+        this.lagringstid = 0;
         this.påfyldninger = new ArrayList<>();
     }
 

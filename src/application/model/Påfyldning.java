@@ -76,6 +76,9 @@ public class Påfyldning {
         }
     }
 
+    public String getAntalÅrMånederDage(){
+        return antalÅrPåFad().getYears() + " år, " + antalÅrPåFad().getMonths() + " mnd og " + antalÅrPåFad().getDays() + " dage";
+    }
     public Period antalÅrPåFad(){
         Period periode = Period.between(påfyldningsDato,LocalDate.now());
         return periode;

@@ -5,6 +5,7 @@ import application.model.*;
 import gui.Whiskyprodukt.WhiskyProduktOpretWinow;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
+import gui.fadSøgning.SøgningWindow;
 import gui.flytfad.FlytFadWindow;
 import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
@@ -36,6 +37,7 @@ public class gui extends Application {
     private WhiskyProduktOpretWinow whiskyProduktOpretWinow;
     private PåfyldningWindow påfyldningWindow;
     private FlytFadWindow flytFadWindow;
+    private SøgningWindow søgningWindow;
 
     @Override
     public void start(Stage stage){
@@ -64,8 +66,9 @@ public class gui extends Application {
         whiskyProduktOpretWinow = new WhiskyProduktOpretWinow(controller);
         påfyldningWindow = new PåfyldningWindow(controller);
         flytFadWindow = new FlytFadWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWinow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane()));
+        søgningWindow = new SøgningWindow(controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Søg Fade"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWinow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -115,7 +118,7 @@ public class gui extends Application {
         Påfyldning påfyldning1 = controller.opretPåfyldning(fad1, LocalDate.of(2022,02,28));
         påfyldning1.tilføjMængde(new Mængde(50, destillering1));
         påfyldning1.tilføjMængde(new Mængde(44, destillering2));
-        Påfyldning påfyldning2 = controller.opretPåfyldning(fad2, LocalDate.now());
+        Påfyldning påfyldning2 = controller.opretPåfyldning(fad2, LocalDate.of(2021, 12,2));
         påfyldning2.tilføjMængde(new Mængde(32, destillering1));
 
         controller.påfyldFad(påfyldning1, fad1);
