@@ -67,7 +67,7 @@ public class gui extends Application {
         påfyldningWindow = new PåfyldningWindow(controller);
         flytFadWindow = new FlytFadWindow(controller);
         søgningWindow = new SøgningWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Søg Fade"));
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Fad Oversigt"));
         List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWinow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());

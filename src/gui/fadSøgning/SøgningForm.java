@@ -39,6 +39,9 @@ public class SøgningForm {
         søgningsPane.setVgap(10);
 
         ComboBox comboBoxSøg = new ComboBox<>();
+        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId"));
+        comboBoxSøg.getItems().add(søgningFiltre);
+        comboBoxSøg.setValue(søgningFiltre.get(0));
         searchBar = new TextField();
         searchBar.setPromptText("søg...");
         Button btnSøg = new Button("Søg");
