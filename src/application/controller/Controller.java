@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.*;
+import javafx.scene.control.Alert;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
@@ -77,7 +78,12 @@ public class Controller {
         return påfyldning;
     }
     public void påfyldFad(Påfyldning påfyldning, Fad fad){
-        fad.tilføjPåfyldning(påfyldning);
+        try {
+            fad.tilføjPåfyldning(påfyldning);
+        } catch (RuntimeException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+            alert.showAndWait();
+        }
         //påfyldning.getFad().tilføjPåfyldning(påfyldning);
     }
     public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
