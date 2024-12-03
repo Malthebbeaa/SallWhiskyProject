@@ -5,10 +5,9 @@ import java.time.LocalDate;
 public class Aftapning {
     public LocalDate aftapningsDato;
     public Double literAftappet;
-    public boolean fortyndet;
     public Double alkoholProcent;
-
     private Påfyldning påfyldning;
+
     public Aftapning(Double literAftappet, Double alkoholProcent) {
         this.literAftappet = literAftappet;
         this.alkoholProcent = alkoholProcent;
@@ -30,10 +29,6 @@ public class Aftapning {
 
     public Double getLiterAftappet() {
         return literAftappet;
-    }
-
-    public boolean isFortyndet() {
-        return fortyndet;
     }
 
     public Double getAlkoholProcent() {
