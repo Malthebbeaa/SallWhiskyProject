@@ -4,12 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class ReolTest {
     Reol reol;
     @BeforeEach
     void setUp() {
-        reol = new Reol(1);
+        Lager mockLager = mock(Lager.class);
+        reol = new Reol(1, mockLager);
     }
 
     @Test

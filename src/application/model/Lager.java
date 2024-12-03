@@ -23,7 +23,7 @@ public class Lager {
     }
 
     public Reol tilføjReol() {
-        Reol reol = new Reol(reolCounter);
+        Reol reol = new Reol(reolCounter, this);
         reoler.add(reol);
         reolCounter++;
         return reol;
@@ -33,6 +33,11 @@ public class Lager {
         return FXCollections.unmodifiableObservableList(reoler);
     }
 
+    /**
+     * Looper igennem hele lageret, spørger alle pladser om de er ledige.
+     * Hver gang den finder en ledig plads tæller den en op.
+     * @return int antal ledige pladser
+     */
     public int ledigePladser() {
         int count = 0;
         for (Reol reol : reoler) {
@@ -47,8 +52,13 @@ public class Lager {
         return count;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     @Override
     public String toString() {
         return navn;
     }
+
 }
