@@ -127,6 +127,9 @@ public class SøgningForm implements GuiObserver {
         sortedData.comparatorProperty().bind(tableViewFade.comparatorProperty());
         tableViewFade.setItems(sortedData);
         søgningsInfoPane.add(tableViewFade, 0, 1);
+        searchBar.setOnMouseClicked(e -> {
+            tableViewFade.setItems(sortedData);
+        });
     }
 
     public GridPane getSøgningsPane() {

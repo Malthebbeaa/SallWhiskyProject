@@ -3,6 +3,7 @@ package gui.fadSøgning;
 import application.controller.Controller;
 import application.model.Fad;
 import application.model.Påfyldning;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -41,12 +42,15 @@ public class SøgningHandler {
     }
 
     public void søgningMaterialeAction(SøgningForm form, String søgId){
-        for (int i = 0; i < form.getTableViewFade().getItems().size() - 1; i++) {
-            if(form.getTableViewFade().getItems().get(i).getMateriale().contains(søgId)){
+        ObservableList<Fad> fadeMedMateriale = FXCollections.observableArrayList();
+        for (int i = 0; i < form.getTableViewFade().getItems().size(); i++) {
+            if(form.getTableViewFade().getItems().get(i).getMateriale().toLowerCase().contains(søgId.toLowerCase())){
+                fadeMedMateriale.add(form.getTableViewFade().getItems().get(i));
                 form.getTableViewFade().getSelectionModel().select(i);
                 form.getTableViewFade().scrollTo(i);
             }
         }
+        form.getTableViewFade().setItems(fadeMedMateriale);
     }
 
     public void søgningAction(SøgningForm form, int søgId){
