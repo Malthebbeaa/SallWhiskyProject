@@ -201,6 +201,7 @@ public class FlytfadForm implements GuiObserver {
     }
 
     public void getFyldteFade() {
+        cbFade.getItems().clear();
         for (Fad f : controller.getStorage().getFade()) {
             if (f.getMængdeFyldtPåFad() > 0)
                 cbFade.getItems().add(f);

@@ -42,4 +42,8 @@ public class FlytFadWindow extends BaseWindow {
     public FlytfadForm getForm() {
         return form;
     }
+
+    public FlytFadHandler getHandler() {
+        return handler;
+    }
 }

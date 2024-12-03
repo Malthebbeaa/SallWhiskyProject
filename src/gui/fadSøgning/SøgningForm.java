@@ -4,6 +4,8 @@ import application.controller.Controller;
 import application.model.Fad;
 import application.model.Plads;
 import application.model.Påfyldning;
+import gui.GuiObserver;
+import gui.GuiSubject;
 import gui.PaneCreator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,13 +18,14 @@ import javafx.scene.layout.HBox;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SøgningForm {
+public class SøgningForm implements GuiObserver {
     private Controller controller;
     private List<Fad> fade;
     private GridPane søgningsPane, søgningsInfoPane;
     private TableView<Fad> tableViewFade, tableViewFadeMed3År;
     private TextField searchBar;
 
+    private TableColumn<Fad, String> tcPlads;
     public SøgningForm(Controller controller, SøgningHandler handler) {
         this.controller = controller;
         søgningsPane = new GridPane();
@@ -82,7 +85,7 @@ public class SøgningForm {
         tcTidligereIndhold.setCellValueFactory(new PropertyValueFactory<>("tidligereIndhold"));
         TableColumn<Fad, String> tcMateriale = new TableColumn<>("Materiale");
         tcMateriale.setCellValueFactory(new PropertyValueFactory<>("materiale"));
-        TableColumn<Fad, String> tcPlads = new TableColumn<>("Lagerplads");
+        tcPlads = new TableColumn<>("Lagerplads");
         tcPlads.setCellValueFactory(cellData -> {
             Plads plads = cellData.getValue().getPlads();
             return new SimpleStringProperty(plads != null ? plads.toString() : "Ikke tildelt");
@@ -94,8 +97,6 @@ public class SøgningForm {
         tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde);
         tableViewFade.setMinWidth(600);
         søgningsInfoPane.add(tableViewFade, 0, 1);
-
-
     }
 
     public GridPane getSøgningsPane() {
@@ -104,5 +105,10 @@ public class SøgningForm {
 
     public TableView<Fad> getTableViewFade() {
         return tableViewFade;
+    }
+
+    @Override
+    public void update(GuiSubject s) {
+
     }
 }

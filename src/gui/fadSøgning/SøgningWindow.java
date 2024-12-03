@@ -23,4 +23,8 @@ public class SøgningWindow extends BaseWindow {
         getPane().add(form.getSøgningsPane(), 0,1);
 
     }
+
+    public SøgningForm getForm() {
+        return form;
+    }
 }
