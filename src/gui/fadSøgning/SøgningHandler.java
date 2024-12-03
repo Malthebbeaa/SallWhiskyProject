@@ -6,6 +6,7 @@ import application.model.Påfyldning;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class SøgningHandler {
@@ -52,7 +53,7 @@ public class SøgningHandler {
 
         FilteredList<Fad> filtreredeFade = new FilteredList<>(alleFade, fad -> {
             List<Påfyldning> påfyldninger = fad.getPåfyldninger();
-            return !påfyldninger.isEmpty() && påfyldninger.getLast().klarTilAftapning();
+            return !påfyldninger.isEmpty() && påfyldninger.getLast().klarTilAftapning(LocalDate.now());
         });
 
         form.getTableViewFade().setItems(filtreredeFade);

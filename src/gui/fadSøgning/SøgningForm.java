@@ -109,6 +109,6 @@ public class SøgningForm implements GuiObserver {
 
     @Override
     public void update(GuiSubject s) {
-
+        tableViewFade.refresh();
     }
 }

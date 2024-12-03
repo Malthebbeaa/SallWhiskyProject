@@ -170,10 +170,10 @@ public class FlytfadForm implements GuiObserver {
             for (int i = 0; i < påfyldninger.size(); i++) {
                 påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
                         "\nTid på fad: " +
-                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad().getYears()+
-                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad().getMonths()+
-                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad().getDays()+
-                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning()? "Ja\n" : "Nej\n");
+                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getYears()+
+                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths()+
+                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays()+
+                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now())? "Ja\n" : "Nej\n");
                 mængder = påfyldninger.get(i).getMængderPåfyldt();
                 for (Mængde mængde : mængder) {
                     påfyldning += "batchnummer: " + mængde.getDestillering().getBatchNummer() +"\nAlkohol: " + mængde.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + mængde.getMængde()+" L\n";
