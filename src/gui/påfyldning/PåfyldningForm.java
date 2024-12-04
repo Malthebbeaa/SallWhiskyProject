@@ -86,7 +86,14 @@ public class PåfyldningForm implements GuiObserver {
         nextPane.add(lblDestillering, 1,0);
         lvwMuligeDestilleringer = new ListView<>();
         lveValgtDestilleringer = new ListView<>();
-        lvwMuligeDestilleringer.getItems().addAll(controller.getStorage().getDestilleringer());
+
+        ObservableList<Destillering> fyldteDestilleringer = FXCollections.observableArrayList();
+        for (Destillering destillering : controller.getStorage().getDestilleringer()){
+            if (destillering.getVæskeMængde() != 0){
+                fyldteDestilleringer.add(destillering);
+            }
+        }
+        lvwMuligeDestilleringer.getItems().addAll(fyldteDestilleringer);
         lveValgtDestilleringer.setPrefSize(250,100);
         lvwMuligeDestilleringer.setPrefSize(250,100);
 
@@ -131,10 +138,9 @@ public class PåfyldningForm implements GuiObserver {
     public Label getLblOverskrift() {
         return lblOverskrift;
     }
-
-    @Override
-    public void update(GuiSubject s) {
+    public void tommefade(){
         cboxFad.getItems().clear();
+
         ObservableList<Fad> tommeFade = FXCollections.observableArrayList();
         for (Fad fad : controller.getStorage().getFade()) {
             if (fad.getMængdeFyldtPåFad() != fad.getStørrelse()){
@@ -143,6 +149,12 @@ public class PåfyldningForm implements GuiObserver {
         }
 
         cboxFad.setItems(tommeFade);
+
+    }
+
+    @Override
+    public void update(GuiSubject s) {
+        tommefade();
     }
 }
 

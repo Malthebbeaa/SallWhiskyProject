@@ -45,6 +45,7 @@ public class PåfyldningHandler implements GuiSubject {
 
 
             notifyObservers();
+            form.tommefade();
         }
     }
 

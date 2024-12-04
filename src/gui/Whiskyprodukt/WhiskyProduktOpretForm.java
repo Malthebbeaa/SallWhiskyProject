@@ -73,14 +73,7 @@ public class WhiskyProduktOpretForm {
         lvwMuligePåfyldninger = new ListView<>();
         lvwValgtePåfyldninger = new ListView<>();
 
-        ArrayList<Påfyldning> påfyldningMed3År = new ArrayList<>();
-        for (Påfyldning pf : controller.getStorage().getPåfyldninger()) {
-            if (pf.klarTilAftapning(LocalDate.now())){
-                påfyldningMed3År.add(pf);
-            }
-        }
-
-        lvwMuligePåfyldninger.getItems().addAll(påfyldningMed3År);
+        lvwMuligePåfyldninger.getItems().addAll(getMuligePåfyldninger());
         lvwValgtePåfyldninger.setPrefSize(250,100);
         lvwMuligePåfyldninger.setPrefSize(250,100);
 
@@ -122,6 +115,15 @@ public class WhiskyProduktOpretForm {
     }
 
 
+    public ObservableList<Påfyldning> getMuligePåfyldninger(){
+        ObservableList<Påfyldning> påfyldningMed3År = FXCollections.observableArrayList();
+        for (Påfyldning pf : controller.getStorage().getPåfyldninger()) {
+            if (pf.klarTilAftapning(LocalDate.now())){
+                påfyldningMed3År.add(pf);
+            }
+        }
+        return påfyldningMed3År;
+    }
     public GridPane getNextPane() {return nextPane;}
 
     public Påfyldning getPåfyldning() {return påfyldning;}
