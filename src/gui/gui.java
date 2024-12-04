@@ -85,6 +85,7 @@ public class gui extends Application {
         påfyldningWindow.getHandler().addObserver(flytFadWindow.getForm());
         flytFadWindow.getHandler().addObserver(søgningWindow.getForm());
         whiskyProduktOpretWinow.getHandler().addObserver(påfyldningWindow.getForm());
+        whiskyProduktOpretWinow.getHandler().addObserver(søgningWindow.getForm());
     }
 
     public void initStorage(){

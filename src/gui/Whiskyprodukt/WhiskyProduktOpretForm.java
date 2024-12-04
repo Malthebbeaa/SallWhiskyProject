@@ -72,7 +72,15 @@ public class WhiskyProduktOpretForm {
         nextPane.add(lblDestillering, 1,0);
         lvwMuligePåfyldninger = new ListView<>();
         lvwValgtePåfyldninger = new ListView<>();
-        lvwMuligePåfyldninger.getItems().addAll(controller.getStorage().getPåfyldninger());
+
+        ArrayList<Påfyldning> påfyldningMed3År = new ArrayList<>();
+        for (Påfyldning pf : controller.getStorage().getPåfyldninger()) {
+            if (pf.klarTilAftapning(LocalDate.now())){
+                påfyldningMed3År.add(pf);
+            }
+        }
+
+        lvwMuligePåfyldninger.getItems().addAll(påfyldningMed3År);
         lvwValgtePåfyldninger.setPrefSize(250,100);
         lvwMuligePåfyldninger.setPrefSize(250,100);
 
@@ -105,6 +113,7 @@ public class WhiskyProduktOpretForm {
         });
         nextPane.add(lblAlkoholProcent, 1,2);
         Label lblVandMængde = new Label("Hvor mange liter vand skal der fortyndes med (L): ");
+        //todo listener på vand tilføjet
         txfVand = new TextField();
         txfVand.setMaxWidth(75);
         HBox hBoxVand = new HBox(10);
