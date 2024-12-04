@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.*;
+import javafx.scene.control.Alert;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
@@ -76,17 +77,13 @@ public class Controller {
         storage.addPåfyldning(påfyldning);
         return påfyldning;
     }
-
-
-
-    public FadLeverandør opretFadlevandør(String navn, String land) {
-        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
-        storage.addFadleverandør(fadLeverandør);
-        return fadLeverandør;
-    }
-
-    public void påfyldFad(Påfyldning påfyldning, Fad fad) {
-        fad.tilføjPåfyldning(påfyldning);
+    public void påfyldFad(Påfyldning påfyldning, Fad fad){
+        try {
+            fad.tilføjPåfyldning(påfyldning);
+        } catch (RuntimeException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+            alert.showAndWait();
+        }
         //påfyldning.getFad().tilføjPåfyldning(påfyldning);
     }
     public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
@@ -107,6 +104,11 @@ public class Controller {
     }
 
 
+    public FadLeverandør opretFadlevandør(String navn, String land) {
+        FadLeverandør fadLeverandør = new FadLeverandør(navn, land);
+        storage.addFadleverandør(fadLeverandør);
+        return fadLeverandør;
+    }
 
     public void flytFad(Plads plads, Fad fad){
         if(plads.isLedig() && fad != null){

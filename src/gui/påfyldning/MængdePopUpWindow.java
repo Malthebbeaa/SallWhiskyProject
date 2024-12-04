@@ -51,16 +51,11 @@ public class MængdePopUpWindow extends Stage {
 
         Button btnTilføj = new Button("Tilføj mængde");
         btnTilføj.setOnAction(e -> {
-                mængde = Double.parseDouble(txfMængde.getText());
-                if (påfyldning.mængdenOverskriderFadKapacitet(mængde)){
-                    Alert alert = new Alert(Alert.AlertType.WARNING, "Mængden overskrider fadets kapacitet");
-                    alert.showAndWait();
-                    return;
-                }
-                hide();
+                tilføjAction();
         });
         Button btnAfbryd = new Button("Afbryd");
         btnAfbryd.setOnAction(e -> {
+            mængde = 0;
             hide();
         });
 
@@ -69,6 +64,22 @@ public class MængdePopUpWindow extends Stage {
 
     }
 
+    public void tilføjAction(){
+        mængde = Double.parseDouble(txfMængde.getText());
+
+        if (destillering.getVæskeMængde() - mængde < 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Ikke tilstrækkeligt væske i destilleringen");
+            alert.showAndWait();
+            mængde = 0;
+        }
+
+        if (påfyldning.mængdenOverskriderFadKapacitet(mængde)){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Mængden overskrider fadets kapacitet");
+            alert.showAndWait();
+            mængde = 0;
+        }
+        hide();
+    }
     public Destillering getDestillering() {
         return destillering;
     }

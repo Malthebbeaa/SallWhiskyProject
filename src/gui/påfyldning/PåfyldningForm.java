@@ -6,6 +6,8 @@ import application.model.Fad;
 import application.model.Mængde;
 import application.model.Påfyldning;
 import gui.PaneCreator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -50,7 +52,16 @@ public class PåfyldningForm {
         pane.setHgap(10);
         Label lblFad = new Label("Vælg Fad:");
         cboxFad = new ComboBox<>();
-        cboxFad.setItems(controller.getStorage().getFade());
+        cboxFad.setVisibleRowCount(3);
+        //fade der kan fyldes
+        ObservableList<Fad> tommeFade = FXCollections.observableArrayList();
+        for (Fad fad : controller.getStorage().getFade()) {
+            if (fad.getMængdeFyldtPåFad() != fad.getStørrelse()){
+                tommeFade.add(fad);
+            }
+        }
+
+        cboxFad.setItems(tommeFade);
         pane.add(lblFad,0,0);
         pane.add(cboxFad, 0,1);
         Label lblPåfyldningsDato = new Label("Påfyldningsdato: ");

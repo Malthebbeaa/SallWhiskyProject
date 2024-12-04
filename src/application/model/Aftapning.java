@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aftapning {
-    public LocalDate aftapningsDato;
-    public Double literAftappet;
-    public Double alkoholProcent;
+    private LocalDate aftapningsDato;
+    private Double literAftappet;
+    private Double alkoholProcent;
     private Påfyldning påfyldning;
 
 

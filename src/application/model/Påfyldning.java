@@ -71,13 +71,16 @@ public class Påfyldning {
         }
     }
 
-    public Period antalÅrPåFad(){
-        Period periode = Period.between(påfyldningsDato,LocalDate.now());
+    public String getAntalÅrMånederDage(){
+        return antalÅrPåFad(LocalDate.now()).getYears() + " år, " + antalÅrPåFad(LocalDate.now()).getMonths() + " mnd og " + antalÅrPåFad(LocalDate.now()).getDays() + " dage";
+    }
+    public Period antalÅrPåFad(LocalDate date){
+        Period periode = Period.between(påfyldningsDato,date);
         return periode;
     }
 
-    public boolean klarTilAftapning(){
-        return (antalÅrPåFad().getYears() > 2)? true : false;
+    public boolean klarTilAftapning(LocalDate date){
+        return (antalÅrPåFad(date).getYears() > 2)? true : false;
     }
 
     public List<Mængde> getMængderPåfyldt() {
