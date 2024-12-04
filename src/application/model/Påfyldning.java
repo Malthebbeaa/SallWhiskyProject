@@ -20,6 +20,13 @@ public class Påfyldning {
         aftapninger = new ArrayList<>();
     }
 
+    /**
+     * metode tjekker om aftapningen er mulig på mængden i fadet (påfyldning)
+     * så trækker den væsken fra på påfyldningen
+     * skaber forbindelsen mellem Påfyldning og Aftapning
+     * til sidst aftapper den væsken som er væsken på påfyldningen
+     * @param aftapning
+     */
     public void aftapVæske(Aftapning aftapning){
         if (!aftapningGårIMinus(aftapning.getLiterAftappet())){
             literPåfyldt -= aftapning.getLiterAftappet();

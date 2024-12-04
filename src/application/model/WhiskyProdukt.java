@@ -150,7 +150,7 @@ public class WhiskyProdukt {
                 + "\n" + fadLand
                 + "\n" + tidligereIndhold
                 + "\nDerefter er det blevet lagret i " + getÅrLagret() + " år"
-                + "\nog hældt på flaske den " + aftapDato + ". "
+                + "\nog hældt på flaske den " + opretDato + ". "
                 + "\nWhiskyen er opblandet med " + vandMængde + " liter vand. "
                 + "\nDet er en " + getWhiskytype() + " whisky, der er endt på " + alkoholprocent + ". "
                 + "\nDer er blevet tappet " + antalFlasker(0.7) + " flasker";
@@ -162,7 +162,7 @@ public class WhiskyProdukt {
         int samletÅr = 0;
         for (Aftapning aftapning : aftapninger) {
             int påfyldningÅr = aftapning.getPåfyldning().getPåfyldningsDato().getYear();
-            int aftapningsÅr = aftapning.getAftapningsDato().getYear();
+            int aftapningsÅr = opretDato.getYear();
             int årlagret = aftapningsÅr - påfyldningÅr;
 
             samletÅr += årlagret;

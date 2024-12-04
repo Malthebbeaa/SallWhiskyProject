@@ -99,8 +99,8 @@ public class gui extends Application {
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
 
 
-        Destillering destillering1 = controller.opretDestillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 900,68, maltbatch1);
-        Destillering destillering2 = controller.opretDestillering(2, LocalDate.of(2024,11,26), LocalDate.of(2024, 11,29), 100,65, maltbatch2);
+        Destillering destillering1 = controller.opretDestillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 900,75, maltbatch1);
+        Destillering destillering2 = controller.opretDestillering(2, LocalDate.of(2024,11,26), LocalDate.of(2024, 11,29), 100,78, maltbatch2);
 
         Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
         Reol reol = lager.tilføjReol();
@@ -139,13 +139,27 @@ public class gui extends Application {
         påfyldning1.tilføjMængde(new Mængde(44, destillering2));
         Påfyldning påfyldning2 = controller.opretPåfyldning(fad2, LocalDate.of(2021, 12,2));
         påfyldning2.tilføjMængde(new Mængde(32, destillering1));
+        Påfyldning påfyldning3 = controller.opretPåfyldning(fad4, LocalDate.of(2020, 1,20));
+        påfyldning3.tilføjMængde(new Mængde(94, destillering1));
 
         controller.påfyldFad(påfyldning1, fad1);
         controller.påfyldFad(påfyldning2, fad2);
+        controller.påfyldFad(påfyldning3, fad4);
+
+        System.out.println("Liter påfyldt i påfyldning3: " + påfyldning3.getLiterPåfyldt());
+        System.out.println("Liter påfyldt i fad4: " + fad4.getMængdeFyldtPåFad());
 
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(1), fad2);
+        controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(2), fad4);
 
-        WhiskyProdukt whiskyProdukt = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
-     }
+        WhiskyProdukt whiskyProdukt1 = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
+        Aftapning aftapning1 = new Aftapning(94, 68);
+        aftapning1.setPåfyldning(påfyldning3);
+        ArrayList<Aftapning> aftapningerTilWhiskyProdukt1 = new ArrayList<>(List.of(aftapning1));
+        controller.lavAftapninger(aftapningerTilWhiskyProdukt1, whiskyProdukt1);
+        whiskyProdukt1.tilføjVand(5);
+
+        System.out.println(whiskyProdukt1.lavHistorie());
+    }
 }
