@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Fad;
 import application.model.Påfyldning;
 import gui.BaseWindow;
+import gui.flytfad.FlytFadWindow;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -65,8 +66,17 @@ public class PåfyldningWindow extends BaseWindow {
 
         Button btnPåfyld = new Button("Lav Påfyldning");
         btnPåfyld.setOnAction(e -> {
-            handler.påfyldFadAction(form, fad);
-            resetAction();
+            try {
+                handler.påfyldFadAction(form, fad);
+                resetAction();
+                if (påfyldning.getLiterPåfyldt() > 0){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Fad nummer " +fad.getFadId() +" er påfyldt, gå til flytning");
+                    alert.showAndWait();
+                }
+            } catch (RuntimeException exception){
+                Alert alert = new Alert(Alert.AlertType.WARNING, exception.getMessage());
+                alert.showAndWait();
+            }
         });
         Button btnAfbryd = new Button("Afbryd");
         btnAfbryd.setOnAction(e -> {

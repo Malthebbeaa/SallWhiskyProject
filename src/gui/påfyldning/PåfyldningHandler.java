@@ -28,39 +28,48 @@ public class PåfyldningHandler implements GuiSubject {
 
     public void påfyldFadAction(PåfyldningForm form, Fad fad) {
         påfyldning = form.getPåfyldning();
-        if (påfyldning.getMængderPåfyldt().isEmpty()){
+        if (påfyldning.getMængderPåfyldt().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Du skal tilføje mængde af destillering(er) inden du fortsætter");
             alert.showAndWait();
-        }
+        } else {
+            controller.påfyldFad(påfyldning, fad);
 
-        controller.påfyldFad(påfyldning, fad);
-        System.out.println("Påfyldning gennemført på fadnr: "+ påfyldning.getFad().getFadId() + " - der er nu " + fad.getMængdeFyldtPåFad() + " på fadet");
-        for (Mængde mængde : påfyldning.getMængderPåfyldt()){
-            System.out.println("Destillering " + mængde.getDestillering().getBatchNummer() + " har nu " + mængde.getDestillering().getVæskeMængde() + " L væske");
+
+            System.out.println("Påfyldning gennemført på fadnr: " + påfyldning.getFad().getFadId() + " - der er nu " + fad.getMængdeFyldtPåFad() + " på fadet");
+            for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
+                System.out.println("Destillering " + mængde.getDestillering().getBatchNummer() + " har nu " + mængde.getDestillering().getVæskeMængde() + " L væske");
+            }
+            if (fad.getMængdeFyldtPåFad() == fad.getStørrelse()) {
+                System.out.println("Fadnr " + fad.getFadId() + " er nu fyldt og klar til flytning");
+            }
+
+
+            notifyObservers();
         }
-        if (fad.getMængdeFyldtPåFad() == fad.getStørrelse()){
-            System.out.println("Fadnr " + fad.getFadId() + " er nu fyldt og klar til flytning");
-        }
-        notifyObservers();
     }
 
     public void vælgAction(PåfyldningForm form, Påfyldning påfyldning) {
-        Destillering selected = form.getLvwMuligeDestilleringer().getSelectionModel().getSelectedItem();
-        if (selected == null) return;
+        try {
+            Destillering selected = form.getLvwMuligeDestilleringer().getSelectionModel().getSelectedItem();
+            if (selected == null) return;
 
-        this.påfyldning = påfyldning;
-        MængdePopUpWindow popUpWindow = new MængdePopUpWindow("Afgiv mængde", selected, påfyldning);
-        popUpWindow.showAndWait();
-        //hvis mængde er udfyldt
-        if (popUpWindow.getMængde() != 0) {
-            if (selected != null) {
-                form.getLveValgtDestilleringer().getItems().add(selected);
-                form.getLvwMuligeDestilleringer().getItems().remove(selected);
-                Mængde mængde = new Mængde(popUpWindow.getMængde(), selected);
-                this.påfyldning.tilføjMængde(mængde);
+            this.påfyldning = påfyldning;
+            MængdePopUpWindow popUpWindow = new MængdePopUpWindow("Afgiv mængde", selected, påfyldning);
+            popUpWindow.showAndWait();
+            //hvis mængde er udfyldt
+            if (popUpWindow.getMængde() != 0) {
+                if (selected != null) {
+                    form.getLveValgtDestilleringer().getItems().add(selected);
+                    form.getLvwMuligeDestilleringer().getItems().remove(selected);
+                    Mængde mængde = new Mængde(popUpWindow.getMængde(), selected);
+                    this.påfyldning.tilføjMængde(mængde);
+                }
+                System.out.println("Mængde tilføjet til " + påfyldning.getFad().getFadId() + " fra batchnr " + selected.getBatchNummer() + ": " + påfyldning.getMængderPåfyldt().getLast().getMængde());
             }
+        } catch (RuntimeException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+            alert.showAndWait();
         }
-        System.out.println("Mængde tilføjet til " + påfyldning.getFad().getFadId() + " fra batchnr " + selected.getBatchNummer()+ ": "+ påfyldning.getMængderPåfyldt().getLast().getMængde());
     }
 
     public void removeAllAction(PåfyldningForm form) {
@@ -104,7 +113,7 @@ public class PåfyldningHandler implements GuiSubject {
         observers.remove(o);
     }
 
-    public void notifyObservers(){
+    public void notifyObservers() {
         for (GuiObserver o : observers) {
             o.update(this);
         }

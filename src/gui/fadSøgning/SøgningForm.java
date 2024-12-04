@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class SøgningForm implements GuiObserver {
     private Controller controller;
@@ -54,7 +55,14 @@ public class SøgningForm implements GuiObserver {
         btnSøg.setOnAction(e -> {
             if (searchBar.getText() != null) {
                 if (comboBoxSøg.getValue().equals(søgningFiltre.get(0))) {
-                    handler.søgningFadIdAction(this, Integer.valueOf(searchBar.getText()));
+                    Scanner scanner = new Scanner(searchBar.getText());
+                    if (scanner.hasNextInt()){
+                        handler.søgningFadIdAction(this, Integer.valueOf(searchBar.getText()));
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Fad Id skal være et gyldigt nummer");
+                        alert.showAndWait();
+                        searchBar.clear();
+                    }
                 } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(1))) {
                     handler.søgningMaterialeAction(this, searchBar.getText());
                 }
@@ -103,8 +111,10 @@ public class SøgningForm implements GuiObserver {
 
         TableColumn<Fad, Double> tcVæskeMængde = new TableColumn<>("Mængde på Fad (L)");
         tcVæskeMængde.setCellValueFactory(new PropertyValueFactory<>("mængdeFyldtPåFad"));
+        TableColumn<Fad, Integer> tcStørrelse = new TableColumn<>("Størrelse (L)");
+        tcStørrelse.setCellValueFactory(new PropertyValueFactory<>("størrelse"));
 //        tableViewFade.setItems(controller.getStorage().getFade());
-        tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde);
+        tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde, tcStørrelse);
         tableViewFade.setMinWidth(900);
         tcPlads.setPrefWidth(200);
         FilteredList<Fad> filteredData = new FilteredList<>(controller.getStorage().getFade(), p -> true);

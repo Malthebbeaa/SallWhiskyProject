@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.*;
+import javafx.scene.control.Alert;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
@@ -65,19 +66,24 @@ public class Controller {
         return lager;
     }
 
-    public WhiskyProdukt opretWhiskyProdukt(String navn, LocalDate opretdato) {
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(navn, opretdato);
+    public WhiskyProdukt opretWhiskyProdukt(double vand, int antalFlasker) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(vand, antalFlasker);
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
     }
 
-    public Påfyldning opretPåfyldning(Fad fad, LocalDate påfyldningsDato){
+    public Påfyldning opretPåfyldning(Fad fad, LocalDate påfyldningsDato) {
         Påfyldning påfyldning = new Påfyldning(påfyldningsDato, fad);
         storage.addPåfyldning(påfyldning);
         return påfyldning;
     }
     public void påfyldFad(Påfyldning påfyldning, Fad fad){
-        fad.tilføjPåfyldning(påfyldning);
+        try {
+            fad.tilføjPåfyldning(påfyldning);
+        } catch (RuntimeException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+            alert.showAndWait();
+        }
         //påfyldning.getFad().tilføjPåfyldning(påfyldning);
     }
     public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
@@ -85,6 +91,12 @@ public class Controller {
             whiskyProdukt.tilføjAftapning(aftapning);
             aftapning.getPåfyldning().aftapVæske(aftapning);
         }
+    }
+
+    public Aftapning aftapFad(Double literAftappet, double alkoholProcent) {
+        Aftapning aftapning = new Aftapning(literAftappet, alkoholProcent);
+        storage.addAftapning(aftapning);
+        return aftapning;
     }
 
     public StorageInterface getStorage() {

@@ -14,6 +14,7 @@ public class Fad {
     private int antalGangeBrugt;
     private double mængdeFyldtPåFad;
     private List<Påfyldning> påfyldninger;
+    private List<Aftapning> aftapninger;
     private Plads plads;
     private int lagringstid;
 
@@ -28,6 +29,7 @@ public class Fad {
         this.mængdeFyldtPåFad = 0;
         this.lagringstid = 0;
         this.påfyldninger = new ArrayList<>();
+        this.aftapninger = new ArrayList<>();
     }
 
     public boolean påFyldningOvergårGrænse(double mængde) {
@@ -49,23 +51,17 @@ public class Fad {
         }
     }
 
+    public double tilføjAftapning(Aftapning aftapning) {
+        double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
+        return mængdeEfterAftapning;
+    }
+
     public double getMængdeFyldtPåFad() {
         return mængdeFyldtPåFad;
     }
 
-    public void AftapWhisky(Double literAftappet) {
-        if (mængdeFyldtPåFad == 0) {
-            throw new IllegalStateException("Fadet er tomt");
-        }
-
-        if (literAftappet <= mængdeFyldtPåFad) {
-            mængdeFyldtPåFad -= literAftappet;
-            if (mængdeFyldtPåFad == 0) {
-                antalGangeBrugt++;
-            }
-        } else {
-            System.out.println();
-        }
+    public void setFadLeverandør(FadLeverandør fadLeverandør) {
+        this.fadLeverandør = fadLeverandør;
     }
 
     public FadLeverandør getFadLeverandør() {
@@ -102,7 +98,7 @@ public class Fad {
                 "\nAlder: " + alder +
                 "\nBrugt " + antalGangeBrugt + (antalGangeBrugt==1? " gang" : " gange") +
                 "\nLiter i fad: " + mængdeFyldtPåFad;
-        }
+    }
 
     public Plads getPlads() {
         return plads;
@@ -122,7 +118,7 @@ public class Fad {
     }
 
     public String toString2() {
-        return "FadID: " + fadId;
+        return  "FadID: " + fadId;
     }
 
     public int getAlder() {
@@ -140,7 +136,6 @@ public class Fad {
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
     }
-
     public String toString3() {
         return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }

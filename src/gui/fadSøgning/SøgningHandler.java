@@ -46,8 +46,6 @@ public class SøgningHandler {
         for (int i = 0; i < form.getTableViewFade().getItems().size(); i++) {
             if(form.getTableViewFade().getItems().get(i).getMateriale().toLowerCase().contains(søgId.toLowerCase())){
                 fadeMedMateriale.add(form.getTableViewFade().getItems().get(i));
-                form.getTableViewFade().getSelectionModel().select(i);
-                form.getTableViewFade().scrollTo(i);
             }
         }
         form.getTableViewFade().setItems(fadeMedMateriale);
