@@ -59,7 +59,7 @@ public class WhiskyProduktOpretHandler {
                 form.getAftapninger().add(aftapning);
             }
         }
-        System.out.println("Mængde tilføjet til " + whiskyProdukt.getNavn() + " fra fad " + selected.getFad().getFadId() + ": " + form.getAftapninger().getLast().literAftappet);
+        System.out.println("Mængde tilføjet til " + whiskyProdukt.getNavn() + " fra fad " + selected.getFad().getFadId() + ": " + form.getAftapninger().getLast().getLiterAftappet());
     }
 
     public void removeAllAction(WhiskyProduktOpretForm form) {

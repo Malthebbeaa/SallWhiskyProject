@@ -47,16 +47,15 @@ public class FlytfadForm implements GuiObserver {
         Label lblVælgFlyt = new Label("Vælg Hvad der skal flyttes:");
         Label lblLedigePladser = new Label("Vælg placering:");
         flytFadPane.add(lblVælgFlyt, 0, 0);
+        flytFadPane.add(lblLedigePladser,1,0);
 
         PaneCreator fadOgLagerPane = new PaneCreator();
         flytFadPane.add(fadOgLagerPane, 0, 1);
 
         Label lblVælgFad = new Label("Vælg fad:");
         cbFade = new ComboBox<>();
-        for (Fad f : controller.getStorage().getFade()) {
-            if (f.getMængdeFyldtPåFad() > 0)
-                cbFade.getItems().add(f);
-        }
+        cbFade.setVisibleRowCount(3);
+        getFyldteFade();
 
         fadOgLagerPane.add(lblVælgFad, 0, 0);
         fadOgLagerPane.add(cbFade, 1, 0);
@@ -81,7 +80,7 @@ public class FlytfadForm implements GuiObserver {
         pladsPane.add(lblVælgHylde, 1, 0);
         pladsPane.add(lvHylde, 1, 1);
 
-        Label lblVælgPlads = new Label("Vælg Plads");
+        Label lblVælgPlads = new Label("Vælg Plads:");
         lvPlads = new ListView<>();
         lvPlads.setStyle("-fx-control-inner-background: #F0F0F0");
         pladsPane.add(lblVælgPlads, 2, 0);
@@ -128,6 +127,11 @@ public class FlytfadForm implements GuiObserver {
     }
 
     public void clearAktion() {
+        cbFade.setValue(null);
+        cbLagre.setValue(null);
+        lvReol.setItems(null);
+        lvHylde.setItems(null);
+        lvPlads.setItems(null);
     }
 
     public GridPane getFlytFadPane() {
@@ -136,18 +140,24 @@ public class FlytfadForm implements GuiObserver {
 
     public void selectedLagerChanged() {
         lager = cbLagre.getValue();
-        lvReol.setItems(lager.getReoler());
+        if(lager != null) {
+            lvReol.setItems(lager.getReoler());
+        }
         lvPlads.setItems(null);
     }
 
     public void selectedReolChanged() {
         reol = lvReol.getSelectionModel().getSelectedItem();
-        lvHylde.setItems(reol.getHylder());
+        if(reol != null) {
+            lvHylde.setItems(reol.getHylder());
+        }
     }
 
     public void selectedHyldeChanged() {
         hylde = lvHylde.getSelectionModel().getSelectedItem();
-        lvPlads.setItems(hylde.getPladser());
+        if(hylde != null) {
+            lvPlads.setItems(hylde.getPladser());
+        }
     }
 
     public void selectedPladsChanged() {
@@ -161,10 +171,10 @@ public class FlytfadForm implements GuiObserver {
             for (int i = 0; i < påfyldninger.size(); i++) {
                 påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
                         "\nTid på fad: " +
-                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad().getYears()+
-                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad().getMonths()+
-                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad().getDays()+
-                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning()? "Ja\n" : "Nej\n");
+                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getYears()+
+                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths()+
+                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays()+
+                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now())? "Ja\n" : "Nej\n");
                 mængder = påfyldninger.get(i).getMængderPåfyldt();
                 for (Mængde mængde : mængder) {
                     påfyldning += "batchnummer: " + mængde.getDestillering().getBatchNummer() +"\nAlkohol: " + mængde.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + mængde.getMængde()+" L\n";
@@ -191,12 +201,16 @@ public class FlytfadForm implements GuiObserver {
         return fad;
     }
 
-    @Override
-    public void update(GuiSubject s) {
+    public void getFyldteFade() {
         cbFade.getItems().clear();
         for (Fad f : controller.getStorage().getFade()) {
             if (f.getMængdeFyldtPåFad() > 0)
                 cbFade.getItems().add(f);
         }
+    }
+
+    @Override
+    public void update(GuiSubject s) {
+        getFyldteFade();
     }
 }

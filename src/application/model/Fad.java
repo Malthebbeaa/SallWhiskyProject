@@ -15,8 +15,8 @@ public class Fad {
     private double mængdeFyldtPåFad;
     private List<Påfyldning> påfyldninger;
     private List<Aftapning> aftapninger;
-
     private Plads plads;
+    private int lagringstid;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.fadId = IdCount++;
@@ -27,6 +27,7 @@ public class Fad {
         this.alder = alder;
         this.antalGangeBrugt = antalGangeBrugt;
         this.mængdeFyldtPåFad = 0;
+        this.lagringstid = 0;
         this.påfyldninger = new ArrayList<>();
         this.aftapninger = new ArrayList<>();
     }
@@ -56,16 +57,6 @@ public class Fad {
     }
 
     public double getMængdeFyldtPåFad() {
-
-        double literAftappet = 0;
-        if (literAftappet <= mængdeFyldtPåFad) {
-            mængdeFyldtPåFad -= literAftappet;
-            if (mængdeFyldtPåFad == 0) {
-                antalGangeBrugt++;
-            }
-        } else {
-            System.out.println();
-        }
         return mængdeFyldtPåFad;
     }
 
@@ -92,13 +83,14 @@ public class Fad {
     public void AntalGangeBrugt() {
         antalGangeBrugt++;
     }
+
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
 
     @Override
     public String toString() {
-        return  "FadID: " + fadId +
+        return "FadID: " + fadId +
                 "\nStørrelse: " + størrelse +
                 "\nMateriale: " + materiale +
                 "\nLeverandør: " + fadLeverandør +
@@ -147,7 +139,4 @@ public class Fad {
     public String toString3() {
         return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }
-
-
-
 }

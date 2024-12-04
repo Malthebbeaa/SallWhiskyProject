@@ -65,8 +65,14 @@ public class PåfyldningWindow extends BaseWindow {
 
         Button btnPåfyld = new Button("Lav Påfyldning");
         btnPåfyld.setOnAction(e -> {
-            handler.påfyldFadAction(form, fad);
-            resetAction();
+            try {
+                handler.påfyldFadAction(form, fad);
+                resetAction();
+            } catch (RuntimeException exception){
+                Alert alert = new Alert(Alert.AlertType.WARNING, exception.getMessage());
+                alert.showAndWait();
+            }
+
         });
         Button btnAfbryd = new Button("Afbryd");
         btnAfbryd.setOnAction(e -> {
