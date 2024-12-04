@@ -5,6 +5,8 @@ import application.model.Destillering;
 import application.model.Fad;
 import application.model.Mængde;
 import application.model.Påfyldning;
+import gui.GuiObserver;
+import gui.GuiSubject;
 import gui.PaneCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PåfyldningForm {
+public class PåfyldningForm implements GuiObserver {
     private Controller controller;
     private ComboBox<Destillering> cboxDestillering;
     private ComboBox<Fad> cboxFad;
@@ -128,6 +130,19 @@ public class PåfyldningForm {
 
     public Label getLblOverskrift() {
         return lblOverskrift;
+    }
+
+    @Override
+    public void update(GuiSubject s) {
+        cboxFad.getItems().clear();
+        ObservableList<Fad> tommeFade = FXCollections.observableArrayList();
+        for (Fad fad : controller.getStorage().getFade()) {
+            if (fad.getMængdeFyldtPåFad() != fad.getStørrelse()){
+                tommeFade.add(fad);
+            }
+        }
+
+        cboxFad.setItems(tommeFade);
     }
 }
 

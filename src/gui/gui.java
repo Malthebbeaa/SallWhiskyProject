@@ -84,6 +84,7 @@ public class gui extends Application {
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
         påfyldningWindow.getHandler().addObserver(flytFadWindow.getForm());
         flytFadWindow.getHandler().addObserver(søgningWindow.getForm());
+        whiskyProduktOpretWinow.getHandler().addObserver(påfyldningWindow.getForm());
     }
 
     public void initStorage(){

@@ -49,6 +49,10 @@ public class Fad {
         }
     }
 
+    public void aftapVæskePåFad(Aftapning aftapning){
+        mængdeFyldtPåFad -= aftapning.getLiterAftappet();
+    }
+
     public double getMængdeFyldtPåFad() {
         return mængdeFyldtPåFad;
     }

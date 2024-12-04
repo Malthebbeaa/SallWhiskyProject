@@ -24,6 +24,7 @@ public class Påfyldning {
         if (!aftapningGårIMinus(aftapning.getLiterAftappet())){
             literPåfyldt -= aftapning.getLiterAftappet();
             tilføjAftapning(aftapning);
+            fad.aftapVæskePåFad(aftapning);
         } else {
             throw new RuntimeException("Du aftapper for meget fra fadet");
         }
