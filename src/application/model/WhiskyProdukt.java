@@ -26,6 +26,7 @@ public class WhiskyProdukt {
         if (!aftapninger.contains(aftapning)) {
             aftapninger.add(aftapning);
             totalWhiskyMængde += aftapning.getLiterAftappet();
+            aftapning.setWhiskyProdukt(this);
         }
     }
 
