@@ -66,8 +66,8 @@ public class Controller {
         return lager;
     }
 
-    public WhiskyProdukt opretWhiskyProdukt(double vand, int antalFlasker) {
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(vand, antalFlasker);
+    public WhiskyProdukt opretWhiskyProdukt(String navn, LocalDate opretDato) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(navn, opretDato);
         storage.addWhiskyProdukt(whiskyProdukt);
         return whiskyProdukt;
     }
@@ -91,12 +91,6 @@ public class Controller {
             whiskyProdukt.tilføjAftapning(aftapning);
             aftapning.getPåfyldning().aftapVæske(aftapning);
         }
-    }
-
-    public Aftapning aftapFad(Double literAftappet, double alkoholProcent) {
-        Aftapning aftapning = new Aftapning(literAftappet, alkoholProcent);
-        storage.addAftapning(aftapning);
-        return aftapning;
     }
 
     public StorageInterface getStorage() {

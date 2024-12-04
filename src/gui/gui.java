@@ -146,5 +146,7 @@ public class gui extends Application {
 
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(1), fad2);
+
+        WhiskyProdukt whiskyProdukt = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
      }
 }

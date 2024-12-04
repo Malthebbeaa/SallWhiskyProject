@@ -55,9 +55,8 @@ public class WhiskyProduktOpretWinow extends BaseWindow {
             alert.showAndWait();
             return;
         }
-        double vand = 0;
-        int antalFlasker = 0;
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(vand, antalFlasker);
+
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(navn, oprettelsesDato);
 
         form.initNextForm(handler, whiskyProdukt);
         getPane().getChildren().setAll(form.getNextPane());
