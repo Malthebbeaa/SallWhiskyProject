@@ -25,7 +25,7 @@ class PåfyldningTest {
         FadLeverandør mockFadLeverandør = mock(FadLeverandør.class);
         Maltbatch mockBatch = mock(Maltbatch.class);
         mockDestillering = mock(Destillering.class);
-        when(mockDestillering.getVæskeMængde()).thenReturn(950.0);
+        when(mockDestillering.getVæskeMængde()).thenReturn(90.0);
         mockFad = mock(Fad.class);
         when(mockFad.getStørrelse()).thenReturn(60);
         mockMængde1 = mock(Mængde.class);
@@ -49,11 +49,11 @@ class PåfyldningTest {
         Mængde mockMængde = mock(Mængde.class);
         when(mockMængde.getMængde()).thenReturn(60.0);
         påfyldning.tilføjMængde(mockMængde);
-        when(mockAftapning.getLiterAftappet()).thenReturn(59.0);
+        when(mockAftapning.getLiterAftappet()).thenReturn(60.0);
         //Act
         påfyldning.aftapVæske(mockAftapning);
         //Assert
-        double forventet = 1.0;
+        double forventet = 0;
         double aktuelt = påfyldning.getLiterPåfyldt();
 
         assertEquals(forventet, aktuelt);
@@ -62,15 +62,23 @@ class PåfyldningTest {
     @Test
     void aftapningGårIMinusInputTrue(){
         //Arrange & Act
+        Mængde mockMængde3 = mock(Mængde.class);
+        when(mockMængde3.getMængde()).thenReturn(60.0);
+        påfyldning.tilføjMængde(mockMængde3);
         boolean forventet = true;
-        boolean aktuelt = påfyldning.aftapningGårIMinus(951);
+        boolean aktuelt = påfyldning.aftapningGårIMinus(60.1);
+        assertEquals(forventet, aktuelt);
     }
 
     @Test
     void aftapningGårIMinusInputFalse(){
         //Arrange & Act
+        Mængde mockMængde4 = mock(Mængde.class);
+        when(mockMængde4.getMængde()).thenReturn(60.0);
+        påfyldning.tilføjMængde(mockMængde4);
         boolean forventet = false;
-        boolean aktuelt = påfyldning.aftapningGårIMinus(950);
+        boolean aktuelt = påfyldning.aftapningGårIMinus(60.0);
+        assertEquals(forventet, aktuelt);
     }
 
 
@@ -113,11 +121,12 @@ class PåfyldningTest {
     void tilføjMængde() {
         //Arrange Act
         påfyldning.tilføjMængde(mockMængde1);
-
-        boolean forventet = true;
-        boolean aktuelt = påfyldning.getMængderPåfyldt().contains(mockMængde1);
-
-        assertEquals(forventet,aktuelt);
+        Mængde mockMængde5 = mock(Mængde.class);
+        when(mockMængde5.getMængde()).thenReturn(0.1);
+        påfyldning.tilføjMængde(mockMængde5);
+        double forventetLiter = 60;
+        double aktuelLiter = påfyldning.getLiterPåfyldt();
+        assertEquals(forventetLiter,aktuelLiter);
     }
 
     @Test
@@ -194,6 +203,24 @@ class PåfyldningTest {
     }
 
     @Test
-    void klarTilAftapning() {
+    void klarTilAftapningGrænseFalsk() {
+        //Arrange
+        Påfyldning påfyldningFør = new Påfyldning(LocalDate.of(2021,12,31), mockFad);
+        //Act
+        boolean forventet = false;
+        boolean aktuelt = påfyldningFør.klarTilAftapning(LocalDate.of(2024,12,30));
+        //Assert
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void klarTilAftapningGrænseSand() {
+        //Arrange
+        Påfyldning påfyldningFør = new Påfyldning(LocalDate.of(2021,02,28), mockFad);
+        //Act
+        boolean forventet = true;
+        boolean aktuelt = påfyldningFør.klarTilAftapning(LocalDate.of(2024,02,28));
+        //Assert
+        assertEquals(forventet, aktuelt);
     }
 }
