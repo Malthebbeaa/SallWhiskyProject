@@ -2,7 +2,6 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
-import gui.whiskyprodukt.WhiskyProduktOpretWinow;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.fadSøgning.SøgningWindow;
@@ -10,6 +9,7 @@ import gui.flytfad.FlytFadWindow;
 import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
 import gui.påfyldning.PåfyldningWindow;
+import gui.whiskyprodukt.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -34,7 +34,7 @@ public class gui extends Application {
     private MaltbatchWindow maltbatchWindow;
     private FadWindow fadWindow;
     private opretLagerWindow opretLagerWindow;
-    private WhiskyProduktOpretWinow whiskyProduktOpretWinow;
+    private WhiskyProduktOpretWindow whiskyProduktOpretWindow;
     private PåfyldningWindow påfyldningWindow;
     private FlytFadWindow flytFadWindow;
     private SøgningWindow søgningWindow;
@@ -63,12 +63,12 @@ public class gui extends Application {
         destilleringWindow = new DestilleringWindow(controller);
         fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
-        whiskyProduktOpretWinow = new WhiskyProduktOpretWinow(controller);
+        whiskyProduktOpretWindow = new WhiskyProduktOpretWindow(controller);
         påfyldningWindow = new PåfyldningWindow(controller);
         flytFadWindow = new FlytFadWindow(controller);
         søgningWindow = new SøgningWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Fad Oversigt"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWinow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -84,8 +84,8 @@ public class gui extends Application {
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
         påfyldningWindow.getHandler().addObserver(flytFadWindow.getForm());
         flytFadWindow.getHandler().addObserver(søgningWindow.getForm());
-        whiskyProduktOpretWinow.getHandler().addObserver(påfyldningWindow.getForm());
-        whiskyProduktOpretWinow.getHandler().addObserver(søgningWindow.getForm());
+        whiskyProduktOpretWindow.getHandler().addObserver(påfyldningWindow.getForm());
+        whiskyProduktOpretWindow.getHandler().addObserver(søgningWindow.getForm());
     }
 
     public void initStorage(){

@@ -13,13 +13,13 @@ import javafx.scene.layout.HBox;
 
 import java.time.LocalDate;
 
-public class WhiskyProduktOpretWinow extends BaseWindow {
+public class WhiskyProduktOpretWindow extends BaseWindow {
     private WhiskyProduktOpretForm form;
     private WhiskyProduktOpretHandler handler;
     private GridPane whiskyOpretPane;
     private Controller controller;
 
-    public WhiskyProduktOpretWinow(Controller controller) {
+    public WhiskyProduktOpretWindow(Controller controller) {
         handler = new WhiskyProduktOpretHandler(controller);
         form = new WhiskyProduktOpretForm(controller, handler);
         this.controller = controller;
