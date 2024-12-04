@@ -69,7 +69,9 @@ public class Fad {
         return mængdeFyldtPåFad;
     }
 
-
+    public void setFadLeverandør(FadLeverandør fadLeverandør) {
+        this.fadLeverandør = fadLeverandør;
+    }
 
     public FadLeverandør getFadLeverandør() {
         return fadLeverandør;
@@ -145,4 +147,7 @@ public class Fad {
     public String toString3() {
         return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }
+
+
+
 }
