@@ -1,4 +1,4 @@
-package gui.Whiskyprodukt;
+package gui.whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.*;
@@ -32,7 +32,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
 
         controller.lavAftapninger(aftapninger, whiskyProdukt);
 
-        if (form.getVandMængde() != 0){
+        if (form.getVandMængde() > 0){
             whiskyProdukt.tilføjVand(form.getVandMængde());
         }
 

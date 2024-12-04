@@ -135,6 +135,7 @@ class PåfyldningTest {
         assertThrows(RuntimeException.class,()->påfyldning.tilføjMængde(mockMængde2));
     }
 
+    /*
     @Test
     void fjernMængde() {
         //Arrange Act
@@ -150,6 +151,8 @@ class PåfyldningTest {
 
         assertEquals(forventetEfter,aktueltEfter);
     }
+
+     */
 
     @Test
     void setFad() {

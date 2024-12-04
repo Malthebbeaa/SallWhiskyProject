@@ -31,12 +31,8 @@ public class WhiskyProdukt {
     }
 
     public void tilføjVand(double vandMængde) {
-        if (vandMængde > 0) {
-            totalWhiskyMængde += vandMængde;
-            this.vandMængde = vandMængde;
-        } else {
-            throw new RuntimeException("Mængden skal være positiv");
-        }
+        totalWhiskyMængde += vandMængde;
+        this.vandMængde = vandMængde;
     }
 
     public double beregnAlkoholProcentUdenVand() {
@@ -62,20 +58,6 @@ public class WhiskyProdukt {
     public List<Aftapning> getAftapninger() {
         return aftapninger;
     }
-
-    /*
-    public int getAarLagret(Aftapning aftapning, Påfyldning påfyldning) {
-        LocalDate a = påfyldning.getPåfyldningsDato();
-        LocalDate b = aftapning.getAftapningsDato();
-        int diff = b.getYear() - a.getYear();
-        if (a.getDayOfYear() - b.getDayOfYear() >= 0) {
-            diff--;
-        }
-        AarLagret = diff;
-    }
-
-     */
-
 
     public int antalFlasker(double flaskeStørrelse) {
         int antalFlasker = (int) (totalWhiskyMængde / flaskeStørrelse);

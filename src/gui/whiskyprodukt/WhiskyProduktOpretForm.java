@@ -1,9 +1,8 @@
-package gui.Whiskyprodukt;
+package gui.whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.*;
 import gui.PaneCreator;
-import gui.påfyldning.PåfyldningHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -13,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WhiskyProduktOpretForm {

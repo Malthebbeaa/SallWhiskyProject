@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 public class Aftapning {
     private LocalDate aftapningsDato;
-    private Double literAftappet;
-    private Double alkoholProcent;
+    private double literAftappet;
+    private double alkoholProcent;
     private Påfyldning påfyldning;
     private WhiskyProdukt whiskyProdukt;
 
-    public Aftapning(Double literAftappet, Double alkoholProcent) {
+    public Aftapning(double literAftappet, double alkoholProcent) {
         this.literAftappet = literAftappet;
         this.alkoholProcent = alkoholProcent;
     }
@@ -33,11 +33,11 @@ public class Aftapning {
         return aftapningsDato;
     }
 
-    public Double getLiterAftappet() {
+    public double getLiterAftappet() {
         return literAftappet;
     }
 
-    public Double getAlkoholProcent() {
+    public double getAlkoholProcent() {
         return alkoholProcent;
     }
 }

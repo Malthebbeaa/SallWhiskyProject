@@ -2,8 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
-import gui.aftapning.AftapningWindow;
-import gui.Whiskyprodukt.WhiskyProduktOpretWinow;
+import gui.whiskyprodukt.WhiskyProduktOpretWinow;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.fadSøgning.SøgningWindow;
