@@ -124,5 +124,8 @@ public class gui extends Application {
 
         controller.påfyldFad(påfyldning1, fad1);
         controller.påfyldFad(påfyldning2, fad2);
+
+        controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
+        controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(1), fad2);
      }
 }
