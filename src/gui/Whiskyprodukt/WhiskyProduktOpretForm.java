@@ -168,6 +168,9 @@ public class WhiskyProduktOpretForm {
         return txfVand;
     }
     public double getVandMængde(){
-        return Double.parseDouble(txfVand.getText());
+        if (!txfVand.getText().isEmpty()){
+            return Double.parseDouble(txfVand.getText());
+        }
+        return 0;
     }
 }
