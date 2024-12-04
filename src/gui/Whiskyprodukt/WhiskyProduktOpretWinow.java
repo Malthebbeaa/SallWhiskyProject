@@ -1,12 +1,8 @@
 package gui.Whiskyprodukt;
 
 import application.controller.Controller;
-import application.model.Fad;
-import application.model.Påfyldning;
 import application.model.WhiskyProdukt;
 import gui.BaseWindow;
-import gui.påfyldning.PåfyldningForm;
-import gui.påfyldning.PåfyldningHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -69,7 +65,7 @@ public class WhiskyProduktOpretWinow extends BaseWindow {
 
         Button btnPåfyld = new Button("Opret Whiskyprodukt");
         btnPåfyld.setOnAction(e -> {
-            handler.påfyldFadAction(form);
+            handler.aftapFadAction(form);
             resetAction();
         });
         Button btnAfbryd = new Button("Afbryd");
@@ -102,5 +98,9 @@ public class WhiskyProduktOpretWinow extends BaseWindow {
         logoViewer.setPreserveRatio(true);
 
         getPane().add(logoViewer, 0, 0);
+    }
+
+    public WhiskyProduktOpretHandler getHandler() {
+        return handler;
     }
 }

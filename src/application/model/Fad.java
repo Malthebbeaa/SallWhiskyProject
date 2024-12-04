@@ -51,6 +51,10 @@ public class Fad {
         }
     }
 
+    public void aftapVæskePåFad(Aftapning aftapning){
+        mængdeFyldtPåFad -= aftapning.getLiterAftappet();
+    }
+
     public double tilføjAftapning(Aftapning aftapning) {
         double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
         return mængdeEfterAftapning;
@@ -79,11 +83,6 @@ public class Fad {
     public String getLand() {
         return getFadLeverandør().getLand();
     }
-
-    public void AntalGangeBrugt() {
-        antalGangeBrugt++;
-    }
-
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
@@ -118,7 +117,7 @@ public class Fad {
     }
 
     public String toString2() {
-        return  "FadID: " + fadId;
+        return "FadID: " + fadId;
     }
 
     public int getAlder() {
@@ -135,8 +134,5 @@ public class Fad {
 
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
-    }
-    public String toString3() {
-        return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }
 }

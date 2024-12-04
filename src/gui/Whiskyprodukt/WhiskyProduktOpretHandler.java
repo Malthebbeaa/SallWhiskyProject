@@ -2,22 +2,27 @@ package gui.Whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.*;
+import gui.GuiObserver;
+import gui.GuiSubject;
 import javafx.scene.control.Alert;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-public class WhiskyProduktOpretHandler {
+public class WhiskyProduktOpretHandler implements GuiSubject {
 
     private Controller controller;
     private WhiskyProdukt whiskyProdukt;
+    private ArrayList<GuiObserver> observers;
 
     public WhiskyProduktOpretHandler(Controller controller) {
         this.controller = controller;
+        this.observers = new ArrayList<>();
     }
 
 
-    public void påfyldFadAction(WhiskyProduktOpretForm form) {
+    public void aftapFadAction(WhiskyProduktOpretForm form) {
         whiskyProdukt = form.getWhiskyProdukt();
         List<Aftapning> aftapninger = form.getAftapninger();
         if (aftapninger.isEmpty()) {
@@ -38,7 +43,7 @@ public class WhiskyProduktOpretHandler {
                 System.out.println("Fadnr" + aftapning.getPåfyldning().getFad().getFadId() + " er nu tomt");
             }
         }
-
+        notifyObservers();
 
     }
 
@@ -98,5 +103,22 @@ public class WhiskyProduktOpretHandler {
         }
 
         return volumeGangeAlkoholprocent / samledeVolume;
+    }
+
+    @Override
+    public void addObserver(GuiObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(GuiObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (GuiObserver observer : observers) {
+            observer.update(this);
+        }
     }
 }
