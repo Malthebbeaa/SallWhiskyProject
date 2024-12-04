@@ -111,8 +111,10 @@ public class SøgningForm implements GuiObserver {
 
         TableColumn<Fad, Double> tcVæskeMængde = new TableColumn<>("Mængde på Fad (L)");
         tcVæskeMængde.setCellValueFactory(new PropertyValueFactory<>("mængdeFyldtPåFad"));
+        TableColumn<Fad, Integer> tcStørrelse = new TableColumn<>("Størrelse (L)");
+        tcStørrelse.setCellValueFactory(new PropertyValueFactory<>("størrelse"));
 //        tableViewFade.setItems(controller.getStorage().getFade());
-        tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde);
+        tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde, tcStørrelse);
         tableViewFade.setMinWidth(900);
         tcPlads.setPrefWidth(200);
         FilteredList<Fad> filteredData = new FilteredList<>(controller.getStorage().getFade(), p -> true);

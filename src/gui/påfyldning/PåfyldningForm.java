@@ -52,6 +52,7 @@ public class PåfyldningForm {
         pane.setHgap(10);
         Label lblFad = new Label("Vælg Fad:");
         cboxFad = new ComboBox<>();
+        cboxFad.setVisibleRowCount(3);
         //fade der kan fyldes
         ObservableList<Fad> tommeFade = FXCollections.observableArrayList();
         for (Fad fad : controller.getStorage().getFade()) {

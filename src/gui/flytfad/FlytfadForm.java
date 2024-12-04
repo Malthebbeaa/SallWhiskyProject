@@ -54,6 +54,7 @@ public class FlytfadForm implements GuiObserver {
 
         Label lblVælgFad = new Label("Vælg fad:");
         cbFade = new ComboBox<>();
+        cbFade.setVisibleRowCount(3);
         getFyldteFade();
 
         fadOgLagerPane.add(lblVælgFad, 0, 0);

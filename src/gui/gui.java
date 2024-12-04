@@ -113,7 +113,23 @@ public class gui extends Application {
                 "Sherry", 56, 1);
         Fad fad2 = controller.opretFad(32, "Eg", fadLeverandør4,
                 "Rødvin", 23, 0);
-        Fad fad3 = controller.opretFad(94, "Eg", fadLeverandør3,
+        Fad fad3 = controller.opretFad(130, "Eg", fadLeverandør3,
+                "Bourbon", 25, 0);
+        Fad fad4 = controller.opretFad(94, "Eg", fadLeverandør1,
+                "Sherry", 45, 0);
+        Fad fad5 = controller.opretFad(130, "Eg", fadLeverandør3,
+                "Sherry", 39, 0);
+        Fad fad6 = controller.opretFad(32, "Eg", fadLeverandør4,
+                "Bourbon", 19, 0);
+        Fad fad7 = controller.opretFad(94, "Eg", fadLeverandør2,
+                "Bourbon", 27, 0);
+        Fad fad8 = controller.opretFad(94, "Eg", fadLeverandør3,
+                "Rødvin", 51, 0);
+        Fad fad9 = controller.opretFad(32, "Eg", fadLeverandør3,
+                "Bourbon", 29, 0);
+        Fad fad10 = controller.opretFad(130, "Eg", fadLeverandør4,
+                "Sherry", 29, 0);
+        Fad fad11 = controller.opretFad(94, "Eg", fadLeverandør1,
                 "Bourbon", 29, 0);
 
         Påfyldning påfyldning1 = controller.opretPåfyldning(fad1, LocalDate.of(2022,02,28));
