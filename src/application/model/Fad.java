@@ -53,21 +53,6 @@ public class Fad {
         return mængdeFyldtPåFad;
     }
 
-    public void AftapWhisky(Double literAftappet) {
-        if (mængdeFyldtPåFad == 0) {
-            throw new IllegalStateException("Fadet er tomt");
-        }
-
-        if (literAftappet <= mængdeFyldtPåFad) {
-            mængdeFyldtPåFad -= literAftappet;
-            if (mængdeFyldtPåFad == 0) {
-                antalGangeBrugt++;
-            }
-        } else {
-            System.out.println();
-        }
-    }
-
     public FadLeverandør getFadLeverandør() {
         return fadLeverandør;
     }
@@ -83,11 +68,6 @@ public class Fad {
     public String getLand() {
         return getFadLeverandør().getLand();
     }
-
-    public void AntalGangeBrugt() {
-        antalGangeBrugt++;
-    }
-
     public List<Påfyldning> getPåfyldninger() {
         return påfyldninger;
     }
@@ -139,9 +119,5 @@ public class Fad {
 
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
-    }
-
-    public String toString3() {
-        return "FadId: " + fadId + ", kapacitet: " + størrelse + "L, " + materiale + ", Land: " + fadLeverandør.getLand() + ", Tidliger indhold: " + tidligereIndhold;
     }
 }
