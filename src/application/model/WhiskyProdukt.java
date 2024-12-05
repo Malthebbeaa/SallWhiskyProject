@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Observer;
 
 public class WhiskyProdukt {
     private int AarLagret;
@@ -126,6 +127,7 @@ public class WhiskyProdukt {
 
 
     public String lavHistorie() {
+
         String aftapDato = null;
         String korn = "";
         String mark = "";
@@ -181,7 +183,7 @@ public class WhiskyProdukt {
 
         String historie = "Vores whisky " + getNavn() + " er lavet af " + korn + " korn,"
                 + "\nfra vores medejer Lars mark " + mark + ". "
-                + "\nDet er blevet maltet i Thy som en del af maltbachet nummer: " + maltbatchNummer + ". "
+                + "\nDet er blevet maltet i Thy i maltbacht nummer: " + maltbatchNummer + ". "
                 + "\n" + fadLand
                 + "\n" + tidligereIndhold
                 + "\nDerefter er det blevet lagret i " + getAarLagret() + " år"
@@ -192,6 +194,7 @@ public class WhiskyProdukt {
 
         return historie;
     }
+
 
 
     public int getAarLagret() {

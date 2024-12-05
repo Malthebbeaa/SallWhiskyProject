@@ -38,7 +38,7 @@ public class WhiskyProduktOpretHandler {
                 System.out.println("Fadnr" + aftapning.getPåfyldning().getFad().getFadId() + " er nu tomt");
             }
         }
-
+        form.updateDynamicText();
 
     }
 

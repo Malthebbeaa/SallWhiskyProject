@@ -8,8 +8,6 @@ public class Historie {
         this.historie = historie;
     }
 
-
-
     public void setHistorie(String historie) {
         this.historie = historie;
     }
