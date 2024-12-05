@@ -1,4 +1,4 @@
-package gui.Whiskyprodukt;
+package gui.whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.*;
@@ -18,7 +18,7 @@ import javafx.scene.text.Font;
 import java.time.LocalDate;
 import java.util.List;
 
-public class WhiskyProduktOpretForm{
+public class WhiskyProduktOpretForm {
     private Controller controller;
     private DatePicker datePickerOprettelsesdato;
     private GridPane opretWhiskyProduktPane, opretWhiskyProduktInfoPane, nextPane;
@@ -110,9 +110,9 @@ public class WhiskyProduktOpretForm{
         textOverlay.setPadding(new Insets(20, 15, 20, 0)); // Top, Right, Bottom, Left
 
 
-
         return stackPane;
     }
+
     public void updateDynamicText() {
         if (whiskyProdukt != null) {
             String historie = whiskyProdukt.lavHistorie();
@@ -167,6 +167,7 @@ public class WhiskyProduktOpretForm{
         });
         nextPane.add(lblAlkoholProcent, 1, 2);
         Label lblVandMængde = new Label("Hvor mange liter vand skal der fortyndes med (L): ");
+        //todo listener på vand tilføjet
         txfVand = new TextField();
         txfVand.setMaxWidth(75);
         HBox hBoxVand = new HBox(10);
@@ -174,6 +175,16 @@ public class WhiskyProduktOpretForm{
         nextPane.add(hBoxVand, 1, 3);
     }
 
+
+    public ObservableList<Påfyldning> getMuligePåfyldninger() {
+        ObservableList<Påfyldning> påfyldningMed3År = FXCollections.observableArrayList();
+        for (Påfyldning pf : controller.getStorage().getPåfyldninger()) {
+            if (pf.klarTilAftapning(LocalDate.now())) {
+                påfyldningMed3År.add(pf);
+            }
+        }
+        return påfyldningMed3År;
+    }
 
     public GridPane getNextPane() {
         return nextPane;
@@ -224,6 +235,9 @@ public class WhiskyProduktOpretForm{
     }
 
     public double getVandMængde() {
-        return Double.parseDouble(txfVand.getText());
+        if (!txfVand.getText().isEmpty()) {
+            return Double.parseDouble(txfVand.getText());
+        }
+        return 0;
     }
 }

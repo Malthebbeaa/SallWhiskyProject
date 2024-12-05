@@ -4,49 +4,35 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Observer;
 
 public class WhiskyProdukt {
     private int AarLagret;
     private LocalDate opretDato;
     private String navn;
     private String whiskytype;
-    private double vand;
-    private int antalFlasker;
-    private List<Aftapning> aftapninger = new ArrayList<>();
+    private List<Aftapning> aftapninger;
     private double totalWhiskyMængde;
     private double endeligAlkoholProcent;
     private double vandMængde;
+    private int antalFlasker;
 
-
-    public WhiskyProdukt(double vand, int antalFlasker) {
-        this.vand = vand;
-        this.antalFlasker = antalFlasker;
-    }
-
-    public int antalFlasker(double flaskeStørrelse) {
-        double antalLiter = 0;
-        for (Aftapning aftapning : aftapninger) {
-            antalLiter += aftapning.getLiterAftappet();
-        }
-        this.antalFlasker = (int) (antalLiter / flaskeStørrelse);
-        return antalFlasker;
+    public WhiskyProdukt(String navn, LocalDate opretDato) {
+        this.navn = navn;
+        this.opretDato = opretDato;
+        aftapninger = new ArrayList<>();
     }
 
     public void tilføjAftapning(Aftapning aftapning) {
         if (!aftapninger.contains(aftapning)) {
             aftapninger.add(aftapning);
             totalWhiskyMængde += aftapning.getLiterAftappet();
+            aftapning.setWhiskyProdukt(this);
         }
     }
 
     public void tilføjVand(double vandMængde) {
-        if (vandMængde > 0) {
-            totalWhiskyMængde += vandMængde;
-            this.vandMængde = vandMængde;
-        } else {
-            throw new RuntimeException("Mængden skal være positiv");
-        }
+        totalWhiskyMængde += vandMængde;
+        this.vandMængde = vandMængde;
     }
 
     public double beregnAlkoholProcentUdenVand() {
@@ -64,33 +50,19 @@ public class WhiskyProdukt {
     }
 
     public double beregnSamledeAlkoholProcent() {
-        double alkoholMængde = 0;
-        double samletVolumen = 0;
-
-        if (vandMængde > 0) {
-            alkoholMængde = totalWhiskyMængde * (beregnAlkoholProcentUdenVand() / 100);
-            samletVolumen = totalWhiskyMængde + vandMængde;
-        }
-
+        double alkoholMængde = totalWhiskyMængde * (beregnAlkoholProcentUdenVand() / 100);
+        double samletVolumen = totalWhiskyMængde + vandMængde;
         return (alkoholMængde / samletVolumen) * 100;
     }
-
 
     public List<Aftapning> getAftapninger() {
         return aftapninger;
     }
 
-
-    public void setAarLagret(Aftapning aftapning, Påfyldning påfyldning) {
-        LocalDate a = påfyldning.getPåfyldningsDato();
-        LocalDate b = aftapning.getAftapningsDato();
-        int diff = b.getYear() - a.getYear();
-        if (a.getDayOfYear() - b.getDayOfYear() >= 0) {
-            diff--;
-        }
-        AarLagret = diff;
+    public int antalFlasker(double flaskeStørrelse) {
+        int antalFlasker = (int) (totalWhiskyMængde / flaskeStørrelse);
+        return antalFlasker;
     }
-
 
     public LocalDate getOpretDato() {
         return opretDato;
@@ -100,34 +72,25 @@ public class WhiskyProdukt {
         return navn;
     }
 
+    public String getWhiskytype() {
+        String whiskytype = "";
+        if (vandMængde != 0.0 && aftapninger.size() == 1) {
+            whiskytype = "Single Cask";
+        } else if (vandMængde == 0.0 && aftapninger.size() == 1) {
+            whiskytype = "Cask Strength";
+        } else if (vandMængde == 0.0 && aftapninger.size() >= 2) {
+            whiskytype = "Cask Strength Single Malt";
+        } else if (vandMængde != 0.0 && aftapninger.size() >= 2) {
+            whiskytype = "Single Malt";
+        }
+        return whiskytype;
+    }
 
     public double getTotalWhiskyMængde() {
         return totalWhiskyMængde;
     }
 
-
-    public String setWhiskytype(Aftapning aftapning, WhiskyProdukt whiskyProdukt) {
-        String whiskytype = "";
-        if (vand != 0.0 && aftapninger.size() == 1) {
-            whiskytype = "Single Cask";
-        } else if (vand == 0.0 && aftapninger.size() == 1) {
-            whiskytype = "Cask Strength";
-        } else if (vand == 0.0 && aftapninger.size() >= 2) {
-            whiskytype = "Cask Strength Single Malt";
-        } else if (vand != 0.0 && aftapninger.size() >= 2) {
-            whiskytype = "Single Malt";
-        }
-        this.whiskytype = whiskytype;  // Ensure the instance variable is updated
-        return whiskytype;
-    }
-
-    public String getWhiskytype() {
-        return whiskytype;
-    }
-
-
     public String lavHistorie() {
-
         String aftapDato = null;
         String korn = "";
         String mark = "";
@@ -174,56 +137,39 @@ public class WhiskyProdukt {
             }
 
             // Alkoholprocent beregninger
-            if (vand > 0) {
+            if (vandMængde > 0) {
                 alkoholprocent = beregnSamledeAlkoholProcent();
             } else {
                 alkoholprocent = beregnAlkoholProcentUdenVand();
             }
         }
 
+        String stringAlkoholProcent = String.format("%.2f", alkoholprocent);
         String historie = "Vores whisky " + getNavn() + " er lavet af " + korn + " korn,"
                 + "\nfra vores medejer Lars mark " + mark + ". "
                 + "\nDet er blevet maltet i Thy i maltbacht nummer: " + maltbatchNummer + ". "
                 + "\n" + fadLand
                 + "\n" + tidligereIndhold
-                + "\nDerefter er det blevet lagret i " + getAarLagret() + " år"
-                + "\nog hældt på flaske den " + aftapDato + ". "
-                + "\nWhiskyen er opblandet med " + getVand() + " liter vand. "
-                + "\nDet er en " + getWhiskytype() + " whisky, der er endt på " + alkoholprocent + ". "
-                + "\nDer er blevet tappet " + getAntalFlasker() + " flasker";
+                + "\nDerefter er det blevet lagret i " + getÅrLagret() + " år"
+                + "\nog hældt på flaske den " + opretDato + ". "
+                + "\nWhiskyen er opblandet med " + vandMængde + " liter vand. "
+                + "\nDet er en " + getWhiskytype() + " whisky, der er endt på " + stringAlkoholProcent + "% alkohol. "
+                + "\nDer er blevet tappet " + antalFlasker(0.7) + " flasker";
 
         return historie;
     }
 
+    private int getÅrLagret() {
+        int samletÅr = 0;
+        for (Aftapning aftapning : aftapninger) {
+            int påfyldningÅr = aftapning.getPåfyldning().getPåfyldningsDato().getYear();
+            int aftapningsÅr = opretDato.getYear();
+            int årlagret = aftapningsÅr - påfyldningÅr;
 
+            samletÅr += årlagret;
 
-    public int getAarLagret() {
-        return AarLagret;
+        }
+        return samletÅr / aftapninger.size();
     }
 
-
-    public void setNavn(String navn) {
-        this.navn = navn;
-    }
-
-
-    public double getVand() {
-        return vand;
-    }
-
-    public void setVand(double vand) {
-        this.vand = vand;
-    }
-
-    public int getAntalFlasker() {
-        return antalFlasker;
-    }
-
-    public void setAntalFlasker(int antalFlasker) {
-        this.antalFlasker = antalFlasker;
-    }
-
-    public void setAftapninger(List<Aftapning> aftapninger) {
-        this.aftapninger = aftapninger;
-    }
 }

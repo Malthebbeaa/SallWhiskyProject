@@ -1,12 +1,8 @@
-package gui.Whiskyprodukt;
+package gui.whiskyprodukt;
 
 import application.controller.Controller;
-import application.model.Fad;
-import application.model.Påfyldning;
 import application.model.WhiskyProdukt;
 import gui.BaseWindow;
-import gui.påfyldning.PåfyldningForm;
-import gui.påfyldning.PåfyldningHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,13 +13,13 @@ import javafx.scene.layout.HBox;
 
 import java.time.LocalDate;
 
-public class WhiskyProduktOpretWinow extends BaseWindow {
+public class WhiskyProduktOpretWindow extends BaseWindow {
     private WhiskyProduktOpretForm form;
     private WhiskyProduktOpretHandler handler;
     private GridPane whiskyOpretPane;
     private Controller controller;
 
-    public WhiskyProduktOpretWinow(Controller controller) {
+    public WhiskyProduktOpretWindow(Controller controller) {
         handler = new WhiskyProduktOpretHandler(controller);
         form = new WhiskyProduktOpretForm(controller, handler);
         this.controller = controller;
@@ -59,9 +55,8 @@ public class WhiskyProduktOpretWinow extends BaseWindow {
             alert.showAndWait();
             return;
         }
-        double vand = 0;
-        int antalFlasker = 0;
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(vand, antalFlasker);
+
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(navn, oprettelsesDato);
 
         form.initNextForm(handler, whiskyProdukt);
         getPane().getChildren().setAll(form.getNextPane());
@@ -69,7 +64,7 @@ public class WhiskyProduktOpretWinow extends BaseWindow {
 
         Button btnPåfyld = new Button("Opret Whiskyprodukt");
         btnPåfyld.setOnAction(e -> {
-            handler.påfyldFadAction(form);
+            handler.aftapFadAction(form);
             resetAction();
         });
         Button btnAfbryd = new Button("Afbryd");
@@ -102,5 +97,9 @@ public class WhiskyProduktOpretWinow extends BaseWindow {
         logoViewer.setPreserveRatio(true);
 
         getPane().add(logoViewer, 0, 0);
+    }
+
+    public WhiskyProduktOpretHandler getHandler() {
+        return handler;
     }
 }

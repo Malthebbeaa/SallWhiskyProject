@@ -1,23 +1,28 @@
-package gui.Whiskyprodukt;
+package gui.whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.*;
+import gui.GuiObserver;
+import gui.GuiSubject;
 import javafx.scene.control.Alert;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-public class WhiskyProduktOpretHandler {
+public class WhiskyProduktOpretHandler implements GuiSubject {
 
     private Controller controller;
     private WhiskyProdukt whiskyProdukt;
+    private ArrayList<GuiObserver> observers;
 
     public WhiskyProduktOpretHandler(Controller controller) {
         this.controller = controller;
+        this.observers = new ArrayList<>();
     }
 
 
-    public void påfyldFadAction(WhiskyProduktOpretForm form) {
+    public void aftapFadAction(WhiskyProduktOpretForm form) {
         whiskyProdukt = form.getWhiskyProdukt();
         List<Aftapning> aftapninger = form.getAftapninger();
         if (aftapninger.isEmpty()) {
@@ -27,11 +32,11 @@ public class WhiskyProduktOpretHandler {
 
         controller.lavAftapninger(aftapninger, whiskyProdukt);
 
-        if (form.getVandMængde() != 0){
+        if (form.getVandMængde() > 0) {
             whiskyProdukt.tilføjVand(form.getVandMængde());
         }
 
-        System.out.println("Whiskyprouktet er oprettet " + whiskyProdukt.getNavn() + ", " + whiskyProdukt.getTotalWhiskyMængde()+ " med en alkoholprocent på " + whiskyProdukt.beregnSamledeAlkoholProcent());
+        System.out.println("Whiskyprouktet er oprettet " + whiskyProdukt.getNavn() + ", " + whiskyProdukt.getTotalWhiskyMængde() + " med en alkoholprocent på " + whiskyProdukt.beregnSamledeAlkoholProcent());
         for (Aftapning aftapning : whiskyProdukt.getAftapninger()) {
             System.out.println("Påfyldning " + aftapning.getPåfyldning() + " har nu " + aftapning.getPåfyldning().getLiterPåfyldt() + " L væske");
             if (aftapning.getPåfyldning().getLiterPåfyldt() == 0) {
@@ -39,6 +44,7 @@ public class WhiskyProduktOpretHandler {
             }
         }
         form.updateDynamicText();
+        notifyObservers();
 
     }
 
@@ -47,7 +53,7 @@ public class WhiskyProduktOpretHandler {
         if (selected == null) return;
 
         this.whiskyProdukt = whiskyProdukt;
-        PopupWindowAftap popupWindowAftap = new PopupWindowAftap("Aftap", selected, whiskyProdukt);
+        pop popupWindowAftap = new PopupWindowAftap("Aftap", selected, whiskyProdukt);
         popupWindowAftap.showAndWait();
         //hvis mængde er udfyldt
         if (popupWindowAftap.getMængde() != 0) {
@@ -98,5 +104,22 @@ public class WhiskyProduktOpretHandler {
         }
 
         return volumeGangeAlkoholprocent / samledeVolume;
+    }
+
+    @Override
+    public void addObserver(GuiObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(GuiObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (GuiObserver observer : observers) {
+            observer.update(this);
+        }
     }
 }

@@ -110,6 +110,10 @@ public class PåfyldningWindow extends BaseWindow {
         getPane().add(logoViewer, 0, 0);
     }
 
+    public PåfyldningForm getForm() {
+        return form;
+    }
+
     public PåfyldningHandler getHandler() {
         return handler;
     }

@@ -2,8 +2,6 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
-import gui.aftapning.AftapningWindow;
-import gui.Whiskyprodukt.WhiskyProduktOpretWinow;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.fadSøgning.SøgningWindow;
@@ -11,6 +9,7 @@ import gui.flytfad.FlytFadWindow;
 import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
 import gui.påfyldning.PåfyldningWindow;
+import gui.whiskyprodukt.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -35,7 +34,7 @@ public class gui extends Application {
     private MaltbatchWindow maltbatchWindow;
     private FadWindow fadWindow;
     private opretLagerWindow opretLagerWindow;
-    private WhiskyProduktOpretWinow whiskyProduktOpretWinow;
+    private WhiskyProduktOpretWindow whiskyProduktOpretWindow;
     private PåfyldningWindow påfyldningWindow;
     private FlytFadWindow flytFadWindow;
     private SøgningWindow søgningWindow;
@@ -64,12 +63,12 @@ public class gui extends Application {
         destilleringWindow = new DestilleringWindow(controller);
         fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
-        whiskyProduktOpretWinow = new WhiskyProduktOpretWinow(controller);
+        whiskyProduktOpretWindow = new WhiskyProduktOpretWindow(controller);
         påfyldningWindow = new PåfyldningWindow(controller);
         flytFadWindow = new FlytFadWindow(controller);
         søgningWindow = new SøgningWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Fad Oversigt"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWinow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -85,6 +84,8 @@ public class gui extends Application {
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
         påfyldningWindow.getHandler().addObserver(flytFadWindow.getForm());
         flytFadWindow.getHandler().addObserver(søgningWindow.getForm());
+        whiskyProduktOpretWindow.getHandler().addObserver(påfyldningWindow.getForm());
+        whiskyProduktOpretWindow.getHandler().addObserver(søgningWindow.getForm());
     }
 
     public void initStorage(){
@@ -98,8 +99,8 @@ public class gui extends Application {
         Maltbatch maltbatch2 = controller.opretMaltbatch("NM81P", 400, irina);
 
 
-        Destillering destillering1 = controller.opretDestillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 900,68, maltbatch1);
-        Destillering destillering2 = controller.opretDestillering(2, LocalDate.of(2024,11,26), LocalDate.of(2024, 11,29), 100,65, maltbatch2);
+        Destillering destillering1 = controller.opretDestillering(2, LocalDate.of(2024,11,25), LocalDate.of(2024, 11,27), 900,75, maltbatch1);
+        Destillering destillering2 = controller.opretDestillering(2, LocalDate.of(2024,11,26), LocalDate.of(2024, 11,29), 100,78, maltbatch2);
 
         Lager lager = controller.opretLager("Lars Gård", "Sall hovedgade","8450","Hammel");
         Reol reol = lager.tilføjReol();
@@ -138,11 +139,27 @@ public class gui extends Application {
         påfyldning1.tilføjMængde(new Mængde(44, destillering2));
         Påfyldning påfyldning2 = controller.opretPåfyldning(fad2, LocalDate.of(2021, 12,2));
         påfyldning2.tilføjMængde(new Mængde(32, destillering1));
+        Påfyldning påfyldning3 = controller.opretPåfyldning(fad4, LocalDate.of(2020, 1,20));
+        påfyldning3.tilføjMængde(new Mængde(94, destillering1));
 
         controller.påfyldFad(påfyldning1, fad1);
         controller.påfyldFad(påfyldning2, fad2);
+        controller.påfyldFad(påfyldning3, fad4);
+
+        System.out.println("Liter påfyldt i påfyldning3: " + påfyldning3.getLiterPåfyldt());
+        System.out.println("Liter påfyldt i fad4: " + fad4.getMængdeFyldtPåFad());
 
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(1), fad2);
-     }
+        controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(2), fad4);
+
+        WhiskyProdukt whiskyProdukt1 = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
+        Aftapning aftapning1 = new Aftapning(94, 68);
+        aftapning1.setPåfyldning(påfyldning3);
+        ArrayList<Aftapning> aftapningerTilWhiskyProdukt1 = new ArrayList<>(List.of(aftapning1));
+        controller.lavAftapninger(aftapningerTilWhiskyProdukt1, whiskyProdukt1);
+        whiskyProdukt1.tilføjVand(5);
+
+        System.out.println(whiskyProdukt1.lavHistorie());
+    }
 }
