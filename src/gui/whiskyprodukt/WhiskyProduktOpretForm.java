@@ -61,7 +61,6 @@ public class WhiskyProduktOpretForm {
         opretWhiskyProduktInfoPane.add(pane, 0, 0, 1, 3);
 
 
-//        Pane imagePane = labelImagePane(whiskyProdukt.lavHistorie());
 
         Pane imagePane = labelImagePane(controller.getStorage().getWhiskyProdukt().getLast().lavHistorie());
 
@@ -91,7 +90,6 @@ public class WhiskyProduktOpretForm {
         textOverlay.setFont(Font.font("Helvetica", 14));
         textOverlay.setStyle("-fx-font-weight: bold");
         textOverlay.setTextFill(Color.GOLDENROD);
-        textOverlay.setWrapText(true);
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(imageView, textOverlay);
