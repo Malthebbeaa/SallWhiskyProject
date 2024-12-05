@@ -160,6 +160,6 @@ public class gui extends Application {
         controller.lavAftapninger(aftapningerTilWhiskyProdukt1, whiskyProdukt1);
         whiskyProdukt1.tilføjVand(5);
 
-        System.out.println(whiskyProdukt1.lavHistorie());
+        System.out.println(whiskyProdukt1.lavHistorie(0.7));
     }
 }

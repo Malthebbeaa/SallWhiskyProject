@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -61,9 +62,7 @@ public class WhiskyProduktOpretForm {
         opretWhiskyProduktInfoPane.add(pane, 0, 0, 1, 3);
 
 
-
-        Pane imagePane = labelImagePane(controller.getStorage().getWhiskyProdukt().getLast().lavHistorie());
-
+        Pane imagePane = labelImagePane(controller.getStorage().getWhiskyProdukt().getLast().lavHistorie(0.7));
         opretWhiskyProduktPane.add(imagePane, 5, 0, 1, 3);
     }
 
@@ -75,7 +74,6 @@ public class WhiskyProduktOpretForm {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         if (image == null) {
             System.err.println("Failed to load image.");
             return new Pane();
@@ -83,28 +81,31 @@ public class WhiskyProduktOpretForm {
 
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(800);
-        imageView.setFitHeight(800);
+        imageView.setFitHeight(266.666666667);
         imageView.setPreserveRatio(true);
 
-        textOverlay = new Label(dynamicText);
-        textOverlay.setFont(Font.font("Helvetica", 14));
-        textOverlay.setStyle("-fx-font-weight: bold");
+        textOverlay = new Label();
+        textOverlay.setPrefSize(770, 300);
+        textOverlay.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+        textOverlay.setAlignment(Pos.CENTER_RIGHT);
         textOverlay.setTextFill(Color.GOLDENROD);
+        textOverlay.setText(dynamicText);
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(imageView, textOverlay);
+//        stackPane.setMaxSize(1200, 400);
 
-        StackPane.setAlignment(textOverlay, Pos.TOP_RIGHT);
+//        opretWhiskyProduktPane.add(imageView, 1, 0, 2, 3);
+//        opretWhiskyProduktPane.add(textOverlay, 2, 0, 1, 3);
+
         textOverlay.setPadding(new Insets(20, 15, 20, 0)); // Top, Right, Bottom, Left
-
 
         return stackPane;
     }
 
     public void updateDynamicText() {
         if (whiskyProdukt != null) {
-            String historie = whiskyProdukt.lavHistorie();
-            // Assuming `textOverlay` is the label displaying the dynamic text
+            String historie = whiskyProdukt.lavHistorie(0.7);
             textOverlay.setText(historie);
         }
     }
