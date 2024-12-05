@@ -38,19 +38,20 @@ class PåfyldningTest {
     }
 
     @Test
-    void aftapVæskeKasterException() {
+    void aftapVæskeKasterException_grænseværdi() {
+        //Assert
         assertThrows(RuntimeException.class,() -> påfyldning.aftapVæske(mockAftapning));
     }
 
     @Test
-    void aftapVæskeGåriMinusInputFalse() {
+    void aftapVæskeGåriMinusInputFalse_grænseværdi() {
         //Arrange
         Aftapning mockAftapning = mock(Aftapning.class);
+        when(mockAftapning.getLiterAftappet()).thenReturn(60.0);
         Mængde mockMængde = mock(Mængde.class);
         when(mockMængde.getMængde()).thenReturn(60.0);
-        påfyldning.tilføjMængde(mockMængde);
-        when(mockAftapning.getLiterAftappet()).thenReturn(60.0);
         //Act
+        påfyldning.tilføjMængde(mockMængde);
         påfyldning.aftapVæske(mockAftapning);
         //Assert
         double forventet = 0;
@@ -135,24 +136,6 @@ class PåfyldningTest {
         assertThrows(RuntimeException.class,()->påfyldning.tilføjMængde(mockMængde2));
     }
 
-    /*
-    @Test
-    void fjernMængde() {
-        //Arrange Act
-        påfyldning.tilføjMængde(mockMængde1);
-        boolean forventet = true;
-        boolean aktuelt = påfyldning.getMængderPåfyldt().contains(mockMængde1);
-
-        assertEquals(forventet,aktuelt);
-
-        påfyldning.fjernMængde(mockMængde1);
-        boolean forventetEfter = false;
-        boolean aktueltEfter = påfyldning.getMængderPåfyldt().contains(mockMængde1);
-
-        assertEquals(forventetEfter,aktueltEfter);
-    }
-
-     */
 
     @Test
     void setFad() {
