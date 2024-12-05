@@ -63,17 +63,7 @@ public class WhiskyProduktOpretForm {
 
 //        Pane imagePane = labelImagePane(whiskyProdukt.lavHistorie());
 
-        Pane imagePane = labelImagePane(
-                "Vores whisky Highland Spirit er lavet af Guldkorn korn,\n" +
-                        "fra vores medejer Lars mark Præstmark. \n" +
-                        "Det er blevet maltet i Thy i maltbacht nummer: 12345. \n" +
-                        "Den er lagret på et fad fra Finland, \n" +
-                        "der tidligere har været brugt til Sne. \n" +
-                        "Derefter er det blevet lagret i 9 år\n" +
-                        "og hældt på flaske den 2022-02-02. \n" +
-                        "Whiskyen er opblandet med 10.0 liter vand. \n" +
-                        "Det er en Single Cask whisky, der er endt på NaN. \n" +
-                        "Der er blevet tappet 714 flasker");
+        Pane imagePane = labelImagePane(controller.getStorage().getWhiskyProdukt().getLast().lavHistorie());
 
         opretWhiskyProduktPane.add(imagePane, 5, 0, 1, 3);
     }

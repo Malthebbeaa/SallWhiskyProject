@@ -53,7 +53,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
         if (selected == null) return;
 
         this.whiskyProdukt = whiskyProdukt;
-        pop popupWindowAftap = new PopupWindowAftap("Aftap", selected, whiskyProdukt);
+        PopupWindowAftap popupWindowAftap = new PopupWindowAftap("Aftap", selected, whiskyProdukt);
         popupWindowAftap.showAndWait();
         //hvis mængde er udfyldt
         if (popupWindowAftap.getMængde() != 0) {
