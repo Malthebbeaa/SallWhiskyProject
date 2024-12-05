@@ -144,6 +144,7 @@ public class WhiskyProdukt {
             }
         }
 
+        String stringAlkoholProcent = String.format("%.2f", alkoholprocent);
         String historie = "Vores whisky " + getNavn() + " er lavet af " + korn + " korn,"
                 + "\nfra vores medejer Lars mark " + mark + ". "
                 + "\nDet er blevet maltet i Thy som en del af maltbachet nummer: " + maltbatchNummer + ". "
@@ -152,7 +153,7 @@ public class WhiskyProdukt {
                 + "\nDerefter er det blevet lagret i " + getÅrLagret() + " år"
                 + "\nog hældt på flaske den " + opretDato + ". "
                 + "\nWhiskyen er opblandet med " + vandMængde + " liter vand. "
-                + "\nDet er en " + getWhiskytype() + " whisky, der er endt på " + alkoholprocent + ". "
+                + "\nDet er en " + getWhiskytype() + " whisky, der er endt på " + stringAlkoholProcent + "% alkohol. "
                 + "\nDer er blevet tappet " + antalFlasker(0.7) + " flasker";
 
         return historie;
