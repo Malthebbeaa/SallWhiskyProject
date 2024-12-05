@@ -116,7 +116,7 @@ public class WhiskyProduktOpretForm {
     public ObservableList<Påfyldning> getMuligePåfyldninger(){
         ObservableList<Påfyldning> påfyldningMed3År = FXCollections.observableArrayList();
         for (Påfyldning pf : controller.getStorage().getPåfyldninger()) {
-            if (pf.klarTilAftapning(LocalDate.now())){
+            if (pf.klarTilAftapning(LocalDate.now()) && pf.getLiterPåfyldt() != 0){
                 påfyldningMed3År.add(pf);
             }
         }

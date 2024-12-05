@@ -66,7 +66,18 @@ public class SøgningHandler {
 
         FilteredList<Fad> filtreredeFade = new FilteredList<>(alleFade, fad -> {
             List<Påfyldning> påfyldninger = fad.getPåfyldninger();
-            return !påfyldninger.isEmpty() && påfyldninger.getLast().klarTilAftapning(LocalDate.now());
+
+            // listen af påfyldninger må ikke være tom
+            if (påfyldninger.isEmpty()) {
+                return false;
+            }
+
+            // Find sidste påfyldning
+            Påfyldning sidstePåfyldning = påfyldninger.get(påfyldninger.size() - 1);
+
+            // Tjek om sidste påfyldning ikke er tom og klar til aftapning
+            return sidstePåfyldning.getLiterPåfyldt() > 0 &&
+                    sidstePåfyldning.klarTilAftapning(LocalDate.now());
         });
 
         form.getTableViewFade().setItems(filtreredeFade);
