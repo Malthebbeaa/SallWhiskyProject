@@ -29,7 +29,7 @@ class PåfyldningTest {
         mockFad = mock(Fad.class);
         when(mockFad.getStørrelse()).thenReturn(60);
         mockMængde1 = mock(Mængde.class);
-        when(mockMængde1.getMængde()).thenReturn(59.9);
+        when(mockMængde1.getMængde()).thenReturn(60.0);
         mockMængde2 = mock(Mængde.class);
         when(mockMængde2.getMængde()).thenReturn(60.1);
         påfyldning = new Påfyldning(LocalDate.of(2023,01,01), mockFad);
@@ -120,13 +120,17 @@ class PåfyldningTest {
     }
     @Test
     void tilføjMængde() {
-        //Arrange Act
-        påfyldning.tilføjMængde(mockMængde1);
+        //Arrange
+        Mængde mockMængde6 = mock(Mængde.class);
+        when(mockMængde6.getMængde()).thenReturn(59.9);
         Mængde mockMængde5 = mock(Mængde.class);
         when(mockMængde5.getMængde()).thenReturn(0.1);
+        //Act
+        påfyldning.tilføjMængde(mockMængde1);
         påfyldning.tilføjMængde(mockMængde5);
         double forventetLiter = 60;
         double aktuelLiter = påfyldning.getLiterPåfyldt();
+        //Assert
         assertEquals(forventetLiter,aktuelLiter);
     }
 
@@ -139,12 +143,11 @@ class PåfyldningTest {
 
     @Test
     void setFad() {
-        //Arrange Act
+        //Arrange
         påfyldning.setFad(mockFad);
-
         boolean forventet = true;
         boolean aktuelt = påfyldning.getFad().equals(mockFad);
-
+        //Assert
         assertEquals(forventet, aktuelt);
     }
 
@@ -154,7 +157,7 @@ class PåfyldningTest {
         påfyldning.tilføjMængde(mockMængde1);
         double forventet = 59.9;
         double aktuelt = påfyldning.getLiterPåfyldt();
-
+        //Assert
         assertEquals(forventet,aktuelt);
     }
 
@@ -164,7 +167,7 @@ class PåfyldningTest {
         påfyldning.tilføjAftapning(mockAftapning);
         boolean forventet = true;
         boolean aktuelt = påfyldning.getAftapninger().contains(mockAftapning);
-
+        //Assert
         assertEquals(forventet,aktuelt);
     }
 
@@ -181,8 +184,8 @@ class PåfyldningTest {
         int forventetÅr = 1;
         int forventetMåneder = 0;
         int forventetDage = 0;
-        //Assert
 
+        //Assert
         assertEquals(forventetÅr,aktueltÅr);
         assertEquals(forventetMåneder,aktueltMåned);
         assertEquals(forventetDage,aktueltDage);
@@ -202,10 +205,10 @@ class PåfyldningTest {
     @Test
     void klarTilAftapningGrænseSand() {
         //Arrange
-        Påfyldning påfyldningFør = new Påfyldning(LocalDate.of(2021,02,28), mockFad);
+        Påfyldning påfyldningFør = new Påfyldning(LocalDate.of(2021,12,31), mockFad);
         //Act
         boolean forventet = true;
-        boolean aktuelt = påfyldningFør.klarTilAftapning(LocalDate.of(2024,02,28));
+        boolean aktuelt = påfyldningFør.klarTilAftapning(LocalDate.of(2024,12,31));
         //Assert
         assertEquals(forventet, aktuelt);
     }
