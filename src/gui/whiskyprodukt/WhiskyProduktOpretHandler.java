@@ -36,7 +36,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
             whiskyProdukt.tilføjVand(form.getVandMængde());
         }
 
-        System.out.println("Whiskyprouktet er oprettet " + whiskyProdukt.getNavn() + ", " + whiskyProdukt.getTotalWhiskyMængde()+ " med en alkoholprocent på " + whiskyProdukt.beregnSamledeAlkoholProcent());
+        System.out.println("Whiskyprouktet er oprettet " + whiskyProdukt.getNavn() + ", " + whiskyProdukt.getTotalWhiskyMængde()+ " med en alkoholprocent på " + whiskyProdukt.beregnSamledeAlkoholProcentMedVand());
         for (Aftapning aftapning : whiskyProdukt.getAftapninger()) {
             System.out.println("Påfyldning " + aftapning.getPåfyldning() + " har nu " + aftapning.getPåfyldning().getLiterPåfyldt() + " L væske");
             if (aftapning.getPåfyldning().getLiterPåfyldt() == 0) {

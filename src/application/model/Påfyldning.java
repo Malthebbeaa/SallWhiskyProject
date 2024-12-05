@@ -38,30 +38,45 @@ public class Påfyldning {
         }
     }
 
+    /***
+     *
+     * @param mængde
+     * @return true hvis aftapningen gør at total mængde går i minus
+     */
     public boolean aftapningGårIMinus(double mængde) {
         double fremtidigeTotal = literPåfyldt - mængde;
         return fremtidigeTotal < 0;
     }
+
+    /***
+     * Mængde klasse input
+     * @param mængde
+     * @return true hvis tilføjelsen overgår fadets grænse
+     */
     public boolean mængdenOverskriderFadKapacitet(Mængde mængde){
-        double totalMedTilføjelse = literPåfyldt + mængde.getMængde();
-        double fremtidigeTotal = totalMedTilføjelse + fad.getMængdeFyldtPåFad();
-
-        return fremtidigeTotal > fad.getStørrelse();
-
+        return fad.påFyldningOvergårGrænse(mængde.getMængde());
     }
 
+    /***
+     * double input
+     * @param mængde
+     * @return true hvis tilføjelsen overgår fadets grænse
+     */
     public boolean mængdenOverskriderFadKapacitet(double mængde){
-        double totalMedTilføjelse = literPåfyldt + mængde;
-        double fremtidigeTotal = totalMedTilføjelse + fad.getMængdeFyldtPåFad();
-
-        return fremtidigeTotal > fad.getStørrelse();
-
+        return fad.påFyldningOvergårGrænse(mængde);
     }
+
+    /***
+     * Forbindelsen mellem Mængde og Påfyldning realiseres
+     * mængdens væske tilføjes til påfyldningens totale væske
+     * @param mængde
+     */
     public void tilføjMængde(Mængde mængde){
         if (!mængdenOverskriderFadKapacitet(mængde)){
+            //mængde.getDestillering().tilføjMængdeGivet(mængde); enten i Fad eller Her
             mængde.setPåfyldning(this);
             mængderPåfyldt.add(mængde);
-            literPåfyldt = literPåfyldt + mængde.getMængde();
+            literPåfyldt += mængde.getMængde();
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }
@@ -80,6 +95,10 @@ public class Påfyldning {
         }
     }
 
+    /***
+     *
+     * @return String med år, måneder og dage Påfyldningen har lagret
+     */
     public String getAntalÅrMånederDage(){
         return antalÅrPåFad(LocalDate.now()).getYears() + " år, " + antalÅrPåFad(LocalDate.now()).getMonths() + " mnd og " + antalÅrPåFad(LocalDate.now()).getDays() + " dage";
     }
@@ -88,8 +107,13 @@ public class Påfyldning {
         return periode;
     }
 
+    /***
+     *
+     * @param date dato til sammenligning med påfyldningsdatoen
+     * @return om det er over 3 eller flere år siden væsken er påfyldt
+     */
     public boolean klarTilAftapning(LocalDate date){
-        return (antalÅrPåFad(date).getYears() > 2)? true : false;
+        return antalÅrPåFad(date).getYears() > 2;
     }
 
     public List<Mængde> getMængderPåfyldt() {

@@ -23,9 +23,8 @@ class DestilleringTest {
     @Test
     void test_afgivVæske() {
         //Arrange & Act
-        double mængde = 600;
+        Mængde mængde = new Mængde(600, destillering);
 
-        destillering.afgivVæske(mængde);
         boolean forventet = true;
         boolean aktuelt = destillering.getVæskeMængde() == 350;
 
@@ -35,9 +34,9 @@ class DestilleringTest {
     @Test
     void test_forbindelse() {
         //Arrange & Act
-        double mængdeAfgiv = 600;
+        Mængde mængde = new Mængde(600, destillering);
 
-        Mængde mængde = destillering.afgivVæske(mængdeAfgiv);
+
         boolean forventet = true;
         boolean aktuelt = destillering.getMængderGivet().contains(mængde);
 
