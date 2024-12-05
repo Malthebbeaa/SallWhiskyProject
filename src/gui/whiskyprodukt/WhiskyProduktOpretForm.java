@@ -104,7 +104,6 @@ public class WhiskyProduktOpretForm {
         });
         nextPane.add(lblAlkoholProcent, 1,2);
         Label lblVandMængde = new Label("Hvor mange liter vand skal der fortyndes med (L): ");
-        //todo listener på vand tilføjet
         txfVand = new TextField();
         txfVand.setMaxWidth(75);
         HBox hBoxVand = new HBox(10);

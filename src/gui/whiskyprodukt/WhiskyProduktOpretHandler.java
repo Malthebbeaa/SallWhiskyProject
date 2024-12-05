@@ -63,8 +63,8 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
                 aftapning.setPåfyldning(selected);
                 form.getAftapninger().add(aftapning);
             }
+            System.out.println("Mængde tilføjet til " + whiskyProdukt.getNavn() + " fra fad " + selected.getFad().getFadId() + ": " + form.getAftapninger().getLast().getLiterAftappet());
         }
-        System.out.println("Mængde tilføjet til " + whiskyProdukt.getNavn() + " fra fad " + selected.getFad().getFadId() + ": " + form.getAftapninger().getLast().getLiterAftappet());
     }
 
     public void removeAllAction(WhiskyProduktOpretForm form) {
