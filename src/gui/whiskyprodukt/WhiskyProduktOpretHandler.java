@@ -1,4 +1,4 @@
-package gui.whiskyprodukt;
+package gui.Whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.*;
