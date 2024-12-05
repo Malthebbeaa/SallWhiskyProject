@@ -9,7 +9,7 @@ import gui.flytfad.FlytFadWindow;
 import gui.lager.opretLagerWindow;
 import gui.maltbatch.MaltbatchWindow;
 import gui.påfyldning.PåfyldningWindow;
-import gui.Whiskyprodukt.*;
+import gui.whiskyprodukt.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
