@@ -201,6 +201,10 @@ public class FlytfadForm implements GuiObserver {
         return fad;
     }
 
+    public ComboBox<Fad> getCbFade() {
+        return cbFade;
+    }
+
     public void getFyldteFade() {
         cbFade.getItems().clear();
         for (Fad f : controller.getStorage().getFade()) {

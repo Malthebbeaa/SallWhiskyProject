@@ -50,6 +50,8 @@ public class gui extends Application {
 
         initContent();
         startTabPane = tabPaneGenerator.getTabPane();
+        påfyldningWindow.setTabPane(startTabPane);
+
 
         scene = new Scene(startTabPane);
         stage.setScene(scene);
@@ -64,8 +66,8 @@ public class gui extends Application {
         fadWindow = new FadWindow(controller);
         opretLagerWindow = new opretLagerWindow(controller);
         whiskyProduktOpretWindow = new WhiskyProduktOpretWindow(controller);
-        påfyldningWindow = new PåfyldningWindow(controller);
         flytFadWindow = new FlytFadWindow(controller);
+        påfyldningWindow = new PåfyldningWindow(controller, flytFadWindow);
         søgningWindow = new SøgningWindow(controller);
         List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Fad Oversigt"));
         List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
