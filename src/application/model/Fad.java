@@ -51,20 +51,22 @@ public class Fad {
      */
 
     //TODO
-//    public void tilføjPåfyldning(PåfyldningsComponent påfyldningsComponent) {
-//        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())) {
-//            påfyldninger.add(påfyldning);
-//            mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
-//
-//            //først her bliver mængden trukket fra destilleringen
-//            for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
-//                mængde.getDestillering().tilføjMængdeGivet(mængde);
-//            }
-//
-//        } else {
-//            throw new RuntimeException("Du overskrider fadets kapacitet");
-//        }
-//    }
+    public void tilføjPåfyldning(PåfyldningsComponent påfyldningsComponent) {
+        if (!påFyldningOvergårGrænse(påfyldningsComponent.getVæskeMængde())) {
+            påfyldningsComponenter.add(påfyldningsComponent);
+            mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldningsComponent.getVæskeMængde();
+
+            //først her bliver mængden trukket fra destilleringen
+            for (Væske væske : påfyldningsComponenter) {
+                if(væske instanceof Væske) {
+                    væske.getDestillering().tilføjMængdeGivet(væske);
+                }
+            }
+
+        } else {
+            throw new RuntimeException("Du overskrider fadets kapacitet");
+        }
+    }
 
     /***
      * bruges på Påfyldning klassen til at opdatere mængden på fadet
