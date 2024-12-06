@@ -6,12 +6,8 @@ import gui.GuiObserver;
 import gui.GuiSubject;
 import gui.PaneCreator;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -166,8 +162,8 @@ public class FlytfadForm implements GuiObserver {
 
         if (plads != null && plads.getFad() != null) {
             String påfyldning = "";
-            List<Påfyldning> påfyldninger = plads.getFad().getPåfyldninger();
-            List<Mængde> mængder = new ArrayList<>();
+            List<VæskeMix> påfyldninger = plads.getFad().getPåfyldninger();
+            List<Væske> mængder = new ArrayList<>();
             for (int i = 0; i < påfyldninger.size(); i++) {
                 påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
                         "\nTid på fad: " +
@@ -176,8 +172,8 @@ public class FlytfadForm implements GuiObserver {
                         "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays()+
                         "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now())? "Ja\n" : "Nej\n");
                 mængder = påfyldninger.get(i).getMængderPåfyldt();
-                for (Mængde mængde : mængder) {
-                    påfyldning += "batchnummer: " + mængde.getDestillering().getBatchNummer() +"\nAlkohol: " + mængde.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + mængde.getMængde()+" L\n";
+                for (Væske væske : mængder) {
+                    påfyldning += "batchnummer: " + væske.getDestillering().getBatchNummer() +"\nAlkohol: " + væske.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + væske.getMængde()+" L\n";
                 }
             }
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +

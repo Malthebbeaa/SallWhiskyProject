@@ -3,13 +3,11 @@ package gui.fadSøgning;
 import application.controller.Controller;
 import application.model.Fad;
 import application.model.Plads;
-import application.model.Påfyldning;
+import application.model.VæskeMix;
 import gui.GuiObserver;
 import gui.GuiSubject;
 import gui.PaneCreator;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.*;
@@ -88,12 +86,12 @@ public class SøgningForm implements GuiObserver {
         tcLagringstid.setCellValueFactory(cellData -> {
             Fad fad = cellData.getValue();
             // Hent den nyeste påfyldning
-            List<Påfyldning> påfyldninger = fad.getPåfyldninger();
+            List<VæskeMix> påfyldninger = fad.getPåfyldninger();
             if (påfyldninger.isEmpty() || påfyldninger.getLast().getLiterPåfyldt() == 0) {
                 return new SimpleStringProperty("Ingen påfyldninger");
             } else {
-                Påfyldning senestePåfyldning = påfyldninger.getLast();
-                return new SimpleStringProperty(senestePåfyldning.getAntalÅrMånederDage());
+                VæskeMix senesteVæskeMix = påfyldninger.getLast();
+                return new SimpleStringProperty(senesteVæskeMix.getAntalÅrMånederDage());
             }
         });
         TableColumn<Fad, String> tcTidligereIndhold = new TableColumn<>("Tidligere indhold");

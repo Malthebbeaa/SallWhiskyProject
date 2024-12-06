@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PåfyldningTest {
+public class VæskeMixTest {
     private StorageInterface storage = new Storage();
     private Controller controller = new Controller(storage);
     private Fad fad;
@@ -50,16 +50,16 @@ public class PåfyldningTest {
     @Test
     void test_PåfyldningAfFad(){
         //Arrange
-        Mængde mængde = new Mængde(200, destillering);
-        Mængde mængde1 = new Mængde(150, destillering2);
+        Væske væske = new Væske(200, destillering);
+        Væske væske1 = new Væske(150, destillering2);
 
-        Påfyldning påfyldning = new Påfyldning(LocalDate.now(),fad);
-        påfyldning.tilføjMængde(mængde);
-        påfyldning.tilføjMængde(mængde1);
+        VæskeMix væskeMix = new VæskeMix(LocalDate.now(),fad);
+        væskeMix.tilføjMængde(væske);
+        væskeMix.tilføjMængde(væske1);
 
-        controller.påfyldFad(påfyldning, fad);
+        controller.påfyldFad(væskeMix, fad);
 
-        assertEquals(350,påfyldning.getLiterPåfyldt());
+        assertEquals(350, væskeMix.getLiterPåfyldt());
         assertEquals(350, fad.getMængdeFyldtPåFad());
         assertEquals(700, destillering.getVæskeMængde());
         assertEquals(750, destillering2.getVæskeMængde());

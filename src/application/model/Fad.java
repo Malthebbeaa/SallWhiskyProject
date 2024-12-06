@@ -13,7 +13,7 @@ public class Fad {
     private int alder;
     private int antalGangeBrugt;
     private double mængdeFyldtPåFad;
-    private List<Påfyldning> påfyldninger;
+    private List<PåfyldningsComponent> påfyldningsComponenter;
     private List<Aftapning> aftapninger;
     private Plads plads;
     private int lagringstid;
@@ -28,7 +28,7 @@ public class Fad {
         this.antalGangeBrugt = antalGangeBrugt;
         this.mængdeFyldtPåFad = 0;
         this.lagringstid = 0;
-        this.påfyldninger = new ArrayList<>();
+        this.påfyldningsComponenter = new ArrayList<>();
         this.aftapninger = new ArrayList<>();
     }
 
@@ -50,20 +50,21 @@ public class Fad {
      * @param påfyldning
      */
 
-    public void tilføjPåfyldning(Påfyldning påfyldning) {
-        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())) {
-            påfyldninger.add(påfyldning);
-            mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
-
-            //først her bliver mængden trukket fra destilleringen
-            for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
-                mængde.getDestillering().tilføjMængdeGivet(mængde);
-            }
-
-        } else {
-            throw new RuntimeException("Du overskrider fadets kapacitet");
-        }
-    }
+    //TODO
+//    public void tilføjPåfyldning(PåfyldningsComponent påfyldningsComponent) {
+//        if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())) {
+//            påfyldninger.add(påfyldning);
+//            mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldning.getLiterPåfyldt();
+//
+//            //først her bliver mængden trukket fra destilleringen
+//            for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
+//                mængde.getDestillering().tilføjMængdeGivet(mængde);
+//            }
+//
+//        } else {
+//            throw new RuntimeException("Du overskrider fadets kapacitet");
+//        }
+//    }
 
     /***
      * bruges på Påfyldning klassen til at opdatere mængden på fadet
@@ -96,8 +97,9 @@ public class Fad {
     public String getLand() {
         return getFadLeverandør().getLand();
     }
-    public List<Påfyldning> getPåfyldninger() {
-        return påfyldninger;
+
+    public List<PåfyldningsComponent> getPåfyldningsComponenter() {
+        return påfyldningsComponenter;
     }
 
     @Override

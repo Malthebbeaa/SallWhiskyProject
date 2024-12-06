@@ -136,19 +136,19 @@ public class gui extends Application {
         Fad fad11 = controller.opretFad(94, "Eg", fadLeverandør1,
                 "Bourbon", 29, 0);
 
-        Påfyldning påfyldning1 = controller.opretPåfyldning(fad1, LocalDate.of(2022,02,28));
-        påfyldning1.tilføjMængde(new Mængde(50, destillering1));
-        påfyldning1.tilføjMængde(new Mængde(44, destillering2));
-        Påfyldning påfyldning2 = controller.opretPåfyldning(fad2, LocalDate.of(2021, 12,2));
-        påfyldning2.tilføjMængde(new Mængde(32, destillering1));
-        Påfyldning påfyldning3 = controller.opretPåfyldning(fad4, LocalDate.of(2020, 1,20));
-        påfyldning3.tilføjMængde(new Mængde(94, destillering1));
+        VæskeMix væskeMix1 = controller.opretPåfyldning(fad1, LocalDate.of(2022,02,28));
+        væskeMix1.tilføjMængde(new Væske(50, destillering1));
+        væskeMix1.tilføjMængde(new Væske(44, destillering2));
+        VæskeMix væskeMix2 = controller.opretPåfyldning(fad2, LocalDate.of(2021, 12,2));
+        væskeMix2.tilføjMængde(new Væske(32, destillering1));
+        VæskeMix væskeMix3 = controller.opretPåfyldning(fad4, LocalDate.of(2020, 1,20));
+        væskeMix3.tilføjMængde(new Væske(94, destillering1));
 
-        controller.påfyldFad(påfyldning1, fad1);
-        controller.påfyldFad(påfyldning2, fad2);
-        controller.påfyldFad(påfyldning3, fad4);
+        controller.påfyldFad(væskeMix1, fad1);
+        controller.påfyldFad(væskeMix2, fad2);
+        controller.påfyldFad(væskeMix3, fad4);
 
-        System.out.println("Liter påfyldt i påfyldning3: " + påfyldning3.getLiterPåfyldt());
+        System.out.println("Liter påfyldt i påfyldning3: " + væskeMix3.getLiterPåfyldt());
         System.out.println("Liter påfyldt i fad4: " + fad4.getMængdeFyldtPåFad());
 
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
@@ -157,7 +157,8 @@ public class gui extends Application {
 
         WhiskyProdukt whiskyProdukt1 = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
         Aftapning aftapning1 = new Aftapning(94, 68);
-        aftapning1.setPåfyldning(påfyldning3);
+        //TODO
+        //aftapning1.setPåfyldning(påfyldning3);
         ArrayList<Aftapning> aftapningerTilWhiskyProdukt1 = new ArrayList<>(List.of(aftapning1));
         controller.lavAftapninger(aftapningerTilWhiskyProdukt1, whiskyProdukt1);
         whiskyProdukt1.tilføjVand(5);

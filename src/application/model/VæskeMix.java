@@ -5,19 +5,17 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Påfyldning {
+public class VæskeMix implements PåfyldningsComponent {
     private LocalDate påfyldningsDato;
     private double literPåfyldt;
     private Fad fad;
-    private List<Mængde> mængderPåfyldt;
-    private List<Aftapning> aftapninger;
+    private List<PåfyldningsComponent> påfyldningsComponent;
 
-    public Påfyldning(LocalDate påfyldningsDato, Fad fad) {
+    public VæskeMix(LocalDate påfyldningsDato, Fad fad) {
         this.påfyldningsDato = påfyldningsDato;
         this.fad = fad;
         this.literPåfyldt = 0;
-        mængderPåfyldt = new ArrayList<>();
-        aftapninger = new ArrayList<>();
+        påfyldningsComponent = new ArrayList<>();
     }
 
     /**
@@ -31,7 +29,8 @@ public class Påfyldning {
         if (!aftapningGårIMinus(aftapning.getLiterAftappet())){
             literPåfyldt -= aftapning.getLiterAftappet();
             tilføjAftapning(aftapning);
-            aftapning.setPåfyldning(this);
+            //TODO
+            //aftapning.setPåfyldning(this);
             fad.aftapVæskePåFad(aftapning);
         } else {
             throw new RuntimeException("Du aftapper for meget fra fadet");
@@ -50,11 +49,11 @@ public class Påfyldning {
 
     /***
      * Mængde klasse input
-     * @param mængde
+     * @param væske
      * @return true hvis tilføjelsen overgår fadets grænse
      */
-    public boolean mængdenOverskriderFadKapacitet(Mængde mængde){
-        return fad.påFyldningOvergårGrænse(mængde.getMængde());
+    public boolean mængdenOverskriderFadKapacitet(Væske væske){
+        return fad.påFyldningOvergårGrænse(væske.getMængde());
     }
 
     /***
@@ -69,13 +68,13 @@ public class Påfyldning {
     /***
      * Forbindelsen mellem Mængde og Påfyldning realiseres
      * mængdens væske tilføjes til påfyldningens totale væske
-     * @param mængde
+     * @param væske
      */
-    public void tilføjMængde(Mængde mængde){
-        if (!mængdenOverskriderFadKapacitet(mængde)){
-            mængde.setPåfyldning(this);
-            mængderPåfyldt.add(mængde);
-            literPåfyldt += mængde.getMængde();
+    public void tilføjMængde(Væske væske){
+        if (!mængdenOverskriderFadKapacitet(væske)){
+            væske.setPåfyldning(this);
+            mængderPåfyldt.add(væske);
+            literPåfyldt += væske.getMængde();
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }
@@ -115,7 +114,7 @@ public class Påfyldning {
         return antalÅrPåFad(date).getYears() > 2;
     }
 
-    public List<Mængde> getMængderPåfyldt() {
+    public List<Væske> getMængderPåfyldt() {
         return mængderPåfyldt;
     }
     public LocalDate getPåfyldningsDato() {
@@ -134,12 +133,24 @@ public class Påfyldning {
         return fad;
     }
 
-    public List<Aftapning> getAftapninger() {
-        return aftapninger;
-    }
-
     @Override
     public String toString() {
         return "FadId" +fad.getFadId() + ", " + literPåfyldt + " L, evt år lagret";
+    }
+
+    @Override
+    public void add(PåfyldningsComponent påfyldningsComponent) {
+        //TODO
+    }
+
+    @Override
+    public void remove(PåfyldningsComponent påfyldningsComponent) {
+        //TODO
+    }
+
+    @Override
+    public PåfyldningsComponent getChild(int i) {
+        //TODO
+        return null;
     }
 }

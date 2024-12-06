@@ -3,14 +3,13 @@ package gui.påfyldning;
 import application.controller.Controller;
 import application.model.Destillering;
 import application.model.Fad;
-import application.model.Mængde;
-import application.model.Påfyldning;
+import application.model.Væske;
+import application.model.VæskeMix;
 import gui.GuiObserver;
 import gui.GuiSubject;
 import gui.PaneCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -28,9 +27,9 @@ public class PåfyldningForm implements GuiObserver {
     private GridPane påfyldningsPane, påfyldningsInfoPane, nextPane;
     private ListView<Destillering> lvwMuligeDestilleringer;
     private ListView<Destillering> lveValgtDestilleringer;
-    private List<Mængde> mængder;
+    private List<Væske> mængder;
     private Label lblOverskrift;
-    private Påfyldning påfyldning;
+    private VæskeMix væskeMix;
 
 
     public PåfyldningForm(Controller controller, PåfyldningHandler handler) {
@@ -73,12 +72,12 @@ public class PåfyldningForm implements GuiObserver {
         påfyldningsInfoPane.add(pane,0,0,1,3);
     }
 
-    public void initNextForm(PåfyldningHandler handler, Påfyldning påfyldning){
+    public void initNextForm(PåfyldningHandler handler, VæskeMix væskeMix){
         //Valg af destilleringer og mængde popup
-        this.påfyldning = påfyldning;
+        this.væskeMix = væskeMix;
         nextPane = new PaneCreator();
-        lblOverskrift.setText("Påfyldning af fadnr " + påfyldning.getFad().getFadId() + " som har plads til " +
-                påfyldning.getLiterPåfyldt() + " L");
+        lblOverskrift.setText("Påfyldning af fadnr " + væskeMix.getFad().getFadId() + " som har plads til " +
+                væskeMix.getLiterPåfyldt() + " L");
         påfyldningsPane.layout();
         påfyldningsPane.add(nextPane, 0,1);
 
@@ -100,7 +99,7 @@ public class PåfyldningForm implements GuiObserver {
 
         Button btnAddSelected = new Button("Vælg");
         btnAddSelected.setOnAction(e -> {
-            handler.vælgAction(this, påfyldning);
+            handler.vælgAction(this, væskeMix);
         });
         Button btnRemoveSelected = new Button("Fravælg");
         btnRemoveSelected.setOnAction(e -> {
@@ -129,11 +128,11 @@ public class PåfyldningForm implements GuiObserver {
     public GridPane getPåfyldningsPane() {return påfyldningsPane;}
     public ListView<Destillering> getLvwMuligeDestilleringer(){return lvwMuligeDestilleringer;}
     public ListView<Destillering> getLveValgtDestilleringer(){return lveValgtDestilleringer;}
-    public List<Mængde> getMængder(){return mængder;}
+    public List<Væske> getMængder(){return mængder;}
 
     public GridPane getNextPane() {return nextPane;}
 
-    public Påfyldning getPåfyldning() {return påfyldning;}
+    public VæskeMix getPåfyldning() {return væskeMix;}
 
     public Label getLblOverskrift() {
         return lblOverskrift;

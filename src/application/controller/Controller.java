@@ -72,24 +72,26 @@ public class Controller {
         return whiskyProdukt;
     }
 
-    public Påfyldning opretPåfyldning(Fad fad, LocalDate påfyldningsDato) {
-        Påfyldning påfyldning = new Påfyldning(påfyldningsDato, fad);
-        storage.addPåfyldning(påfyldning);
-        return påfyldning;
+    public VæskeMix opretPåfyldning(Fad fad, LocalDate påfyldningsDato) {
+        VæskeMix væskeMix = new VæskeMix(påfyldningsDato, fad);
+        storage.addPåfyldning(væskeMix);
+        return væskeMix;
     }
-    public void påfyldFad(Påfyldning påfyldning, Fad fad){
+    public void påfyldFad(VæskeMix væskeMix, Fad fad){
         try {
-            fad.tilføjPåfyldning(påfyldning);
+            fad.tilføjPåfyldning(væskeMix);
         } catch (RuntimeException e){
             Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
             alert.showAndWait();
         }
+        //TODO
         //påfyldning.getFad().tilføjPåfyldning(påfyldning);
     }
     public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
         for (Aftapning aftapning : aftapninger){
             whiskyProdukt.tilføjAftapning(aftapning);
-            aftapning.getPåfyldning().aftapVæske(aftapning);
+            //TODO
+            //aftapning.getPåfyldning().aftapVæske(aftapning);
         }
     }
 

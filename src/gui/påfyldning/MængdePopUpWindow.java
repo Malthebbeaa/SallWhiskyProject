@@ -1,10 +1,7 @@
 package gui.påfyldning;
 
 import application.model.Destillering;
-import application.model.Fad;
-import application.model.Påfyldning;
-import gui.PaneCreator;
-import javafx.geometry.Insets;
+import application.model.VæskeMix;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,15 +18,15 @@ public class MængdePopUpWindow extends Stage {
     private Destillering destillering;
     private double mængde;
     private TextField txfMængde;
-    private Påfyldning påfyldning;
+    private VæskeMix væskeMix;
 
-    public MængdePopUpWindow(String title, Destillering selected, Påfyldning påfyldning) {
+    public MængdePopUpWindow(String title, Destillering selected, VæskeMix væskeMix) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
 
         destillering = selected;
-        this.påfyldning = påfyldning;
+        this.væskeMix = væskeMix;
 
         setTitle(title);
         GridPane pane = new GridPane();
@@ -73,7 +70,7 @@ public class MængdePopUpWindow extends Stage {
             mængde = 0;
         }
 
-        if (påfyldning.mængdenOverskriderFadKapacitet(mængde)){
+        if (væskeMix.mængdenOverskriderFadKapacitet(mængde)){
             Alert alert = new Alert(Alert.AlertType.WARNING, "Mængden overskrider fadets kapacitet");
             alert.showAndWait();
             mængde = 0;

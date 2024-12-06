@@ -40,7 +40,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
     }
 
     public void vælgAction(WhiskyProduktOpretForm form, WhiskyProdukt whiskyProdukt) {
-        Påfyldning selected = form.getLvwMuligePåfyldninger().getSelectionModel().getSelectedItem();
+        VæskeMix selected = form.getLvwMuligePåfyldninger().getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
         this.whiskyProdukt = whiskyProdukt;
@@ -52,7 +52,8 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
                 form.getLvwValgtePåfyldninger().getItems().add(selected);
                 form.getLvwMuligePåfyldninger().getItems().remove(selected);
                 Aftapning aftapning = new Aftapning(popupWindowAftap.getMængde(), popupWindowAftap.getAlkoholProcent());
-                aftapning.setPåfyldning(selected);
+                //TODO
+                //aftapning.setPåfyldning(selected);
                 form.getAftapninger().add(aftapning);
             }
         }
@@ -73,7 +74,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
     }
 
     public void fravælgAction(WhiskyProduktOpretForm form) {
-        Påfyldning selected = form.getLvwValgtePåfyldninger().getSelectionModel().getSelectedItem();
+        VæskeMix selected = form.getLvwValgtePåfyldninger().getSelectionModel().getSelectedItem();
         whiskyProdukt = form.getWhiskyProdukt();
         if (selected != null) {
             form.getLvwMuligePåfyldninger().getItems().add(selected);

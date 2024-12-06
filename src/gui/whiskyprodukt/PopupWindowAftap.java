@@ -1,6 +1,6 @@
 package gui.whiskyprodukt;
 
-import application.model.Påfyldning;
+import application.model.VæskeMix;
 import application.model.WhiskyProdukt;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,17 +15,17 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class PopupWindowAftap extends Stage {
-    private Påfyldning påfyldning;
+    private VæskeMix væskeMix;
     private WhiskyProdukt whiskyProdukt;
     private TextField txfAlkoholProcent, txfMængde;
     private double mængde;
     private double alkoholProcent;
-    public PopupWindowAftap(String title, Påfyldning selected, WhiskyProdukt whiskyProdukt) {
+    public PopupWindowAftap(String title, VæskeMix selected, WhiskyProdukt whiskyProdukt) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
 
-        påfyldning = selected;
+        væskeMix = selected;
         this.whiskyProdukt = whiskyProdukt;
 
         setTitle(title);
@@ -53,7 +53,7 @@ public class PopupWindowAftap extends Stage {
         btnTilføj.setOnAction(e -> {
             mængde = Double.parseDouble(txfMængde.getText());
             alkoholProcent = Double.parseDouble(txfAlkoholProcent.getText());
-            if (påfyldning.aftapningGårIMinus(mængde)){
+            if (væskeMix.aftapningGårIMinus(mængde)){
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Der er ikke nok væske i fadet");
                 alert.showAndWait();
                 return;

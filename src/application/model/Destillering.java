@@ -11,7 +11,7 @@ public class Destillering {
     private double alkoholProcent;
     private Maltbatch maltbatch;
     private Kommentar kommentar;
-    private List<Mængde> mængderGivet;
+    private List<Væske> mængderGivet;
 
     public Destillering(int antalDestilleringer, LocalDate startDato, LocalDate slutDato,
                         double væskeMængde, double alkoholProcent, Maltbatch maltbatch) {
@@ -29,10 +29,10 @@ public class Destillering {
      * skaber forbindelsen til Mængde klassen
      * @param påfyldningsMængde
      */
-    public void tilføjMængdeGivet(Mængde mængde){
-        if (væskeMængde - mængde.getMængde() >= 0){
-            væskeMængde -= mængde.getMængde();
-            mængderGivet.add(mængde);
+    public void tilføjMængdeGivet(Væske væske){
+        if (væskeMængde - væske.getMængde() >= 0){
+            væskeMængde -= væske.getMængde();
+            mængderGivet.add(væske);
         } else {
             throw new RuntimeException("Ikke tilstrækkeligt væske i destilleringen");
         }
@@ -82,7 +82,7 @@ public class Destillering {
         return kommentar;
     }
 
-    public List<Mængde> getMængderGivet() {return mængderGivet;}
+    public List<Væske> getMængderGivet() {return mængderGivet;}
 
     @Override
     public String toString() {

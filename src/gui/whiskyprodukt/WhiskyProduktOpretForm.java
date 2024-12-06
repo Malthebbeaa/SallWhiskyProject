@@ -18,11 +18,11 @@ public class WhiskyProduktOpretForm {
     private Controller controller;
     private DatePicker datePickerOprettelsesdato;
     private GridPane opretWhiskyProduktPane, opretWhiskyProduktInfoPane, nextPane;
-    private ListView<Påfyldning> lvwMuligePåfyldninger;
-    private ListView<Påfyldning> lvwValgtePåfyldninger;
+    private ListView<VæskeMix> lvwMuligePåfyldninger;
+    private ListView<VæskeMix> lvwValgtePåfyldninger;
     private ObservableList<Aftapning> aftapninger;
     private Label lblOverskrift;
-    private Påfyldning påfyldning;
+    private VæskeMix væskeMix;
     private WhiskyProdukt whiskyProdukt;
     private TextField txfNavn, txfVand;
 
@@ -112,18 +112,18 @@ public class WhiskyProduktOpretForm {
     }
 
 
-    public ObservableList<Påfyldning> getMuligePåfyldninger(){
-        ObservableList<Påfyldning> påfyldningMed3År = FXCollections.observableArrayList();
-        for (Påfyldning pf : controller.getStorage().getPåfyldninger()) {
+    public ObservableList<VæskeMix> getMuligePåfyldninger(){
+        ObservableList<VæskeMix> væskeMixMed3År = FXCollections.observableArrayList();
+        for (VæskeMix pf : controller.getStorage().getPåfyldninger()) {
             if (pf.klarTilAftapning(LocalDate.now()) && pf.getLiterPåfyldt() != 0){
-                påfyldningMed3År.add(pf);
+                væskeMixMed3År.add(pf);
             }
         }
-        return påfyldningMed3År;
+        return væskeMixMed3År;
     }
     public GridPane getNextPane() {return nextPane;}
 
-    public Påfyldning getPåfyldning() {return påfyldning;}
+    public VæskeMix getPåfyldning() {return væskeMix;}
 
     public Label getLblOverskrift() {
         return lblOverskrift;
@@ -141,11 +141,11 @@ public class WhiskyProduktOpretForm {
         return opretWhiskyProduktInfoPane;
     }
 
-    public ListView<Påfyldning> getLvwMuligePåfyldninger() {
+    public ListView<VæskeMix> getLvwMuligePåfyldninger() {
         return lvwMuligePåfyldninger;
     }
 
-    public ListView<Påfyldning> getLvwValgtePåfyldninger() {
+    public ListView<VæskeMix> getLvwValgtePåfyldninger() {
         return lvwValgtePåfyldninger;
     }
 

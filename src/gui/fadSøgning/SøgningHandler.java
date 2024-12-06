@@ -2,12 +2,11 @@ package gui.fadSøgning;
 
 import application.controller.Controller;
 import application.model.Fad;
-import application.model.Påfyldning;
+import application.model.VæskeMix;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import javax.swing.text.TableView;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class SøgningHandler {
         ObservableList<Fad> alleFade = controller.getStorage().getFade();
 
         FilteredList<Fad> filtreredeFade = new FilteredList<>(alleFade, fad -> {
-            List<Påfyldning> påfyldninger = fad.getPåfyldninger();
+            List<VæskeMix> påfyldninger = fad.getPåfyldninger();
 
             // listen af påfyldninger må ikke være tom
             if (påfyldninger.isEmpty()) {
@@ -73,11 +72,11 @@ public class SøgningHandler {
             }
 
             // Find sidste påfyldning
-            Påfyldning sidstePåfyldning = påfyldninger.get(påfyldninger.size() - 1);
+            VæskeMix sidsteVæskeMix = påfyldninger.get(påfyldninger.size() - 1);
 
             // Tjek om sidste påfyldning ikke er tom og klar til aftapning
-            return sidstePåfyldning.getLiterPåfyldt() > 0 &&
-                    sidstePåfyldning.klarTilAftapning(LocalDate.now());
+            return sidsteVæskeMix.getLiterPåfyldt() > 0 &&
+                    sidsteVæskeMix.klarTilAftapning(LocalDate.now());
         });
 
         form.getTableViewFade().setItems(filtreredeFade);

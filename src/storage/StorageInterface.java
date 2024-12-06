@@ -22,7 +22,7 @@ public interface StorageInterface {
     public void addWhiskyProdukt(WhiskyProdukt whiskyProdukt);
     public void addFadleverandør(FadLeverandør fadLeverandør);
     public void addAftapning(Aftapning aftapning);
-    public void addPåfyldning(Påfyldning påfyldning);
+    public void addPåfyldning(VæskeMix væskeMix);
 
 
     public ObservableList<Fad> getFade();
@@ -40,7 +40,7 @@ public interface StorageInterface {
 
     public List<WhiskyProdukt> getWhiskyProdukt();
     public List<Aftapning> getAftapning();
-    public List<Påfyldning> getPåfyldning();
-    public List<Påfyldning> getPåfyldninger();
+    public List<VæskeMix> getPåfyldning();
+    public List<VæskeMix> getPåfyldninger();
 
 }

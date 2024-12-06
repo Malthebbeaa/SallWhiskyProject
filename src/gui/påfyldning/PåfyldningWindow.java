@@ -2,7 +2,7 @@ package gui.påfyldning;
 
 import application.controller.Controller;
 import application.model.Fad;
-import application.model.Påfyldning;
+import application.model.VæskeMix;
 import gui.BaseWindow;
 import gui.flytfad.FlytFadWindow;
 import javafx.geometry.Pos;
@@ -62,9 +62,9 @@ public class PåfyldningWindow extends BaseWindow {
             alert.showAndWait();
             return;
         }
-        Påfyldning påfyldning = controller.opretPåfyldning(form.getFad(),form.getPåfyldningsDato());
+        VæskeMix væskeMix = controller.opretPåfyldning(form.getFad(),form.getPåfyldningsDato());
 
-        form.initNextForm(handler, påfyldning);
+        form.initNextForm(handler, væskeMix);
         getPane().getChildren().setAll(form.getNextPane());
         setØverste();
 
@@ -73,7 +73,7 @@ public class PåfyldningWindow extends BaseWindow {
             try {
                 handler.påfyldFadAction(form, fad);
                 resetAction();
-                if (påfyldning.getLiterPåfyldt() > 0){
+                if (væskeMix.getLiterPåfyldt() > 0){
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Fad nummer " +fad.getFadId() +" er påfyldt, gå til flytning");
                     alert.showAndWait();
                     if (alert.getResult().getButtonData().isDefaultButton()){
