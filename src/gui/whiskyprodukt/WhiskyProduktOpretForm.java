@@ -15,6 +15,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -123,9 +126,10 @@ public class WhiskyProduktOpretForm {
         nextPane.add(lblDestillering, 1, 0);
         lvwMuligePåfyldninger = new ListView<>();
         lvwValgtePåfyldninger = new ListView<>();
-        lvwMuligePåfyldninger.getItems().addAll(controller.getStorage().getPåfyldninger());
-        lvwValgtePåfyldninger.setPrefSize(250, 100);
-        lvwMuligePåfyldninger.setPrefSize(250, 100);
+
+        lvwMuligePåfyldninger.getItems().addAll(getMuligePåfyldninger());
+        lvwValgtePåfyldninger.setPrefSize(250,100);
+        lvwMuligePåfyldninger.setPrefSize(250,100);
 
 
         Button btnAddSelected = new Button("Vælg");
@@ -168,20 +172,15 @@ public class WhiskyProduktOpretForm {
     public ObservableList<Påfyldning> getMuligePåfyldninger() {
         ObservableList<Påfyldning> påfyldningMed3År = FXCollections.observableArrayList();
         for (Påfyldning pf : controller.getStorage().getPåfyldninger()) {
-            if (pf.klarTilAftapning(LocalDate.now())) {
+            if (pf.klarTilAftapning(LocalDate.now()) && pf.getLiterPåfyldt() != 0){
                 påfyldningMed3År.add(pf);
             }
         }
         return påfyldningMed3År;
     }
+    public GridPane getNextPane() {return nextPane;}
 
-    public GridPane getNextPane() {
-        return nextPane;
-    }
-
-    public Påfyldning getPåfyldning() {
-        return påfyldning;
-    }
+    public Påfyldning getPåfyldning() {return påfyldning;}
 
     public Label getLblOverskrift() {
         return lblOverskrift;

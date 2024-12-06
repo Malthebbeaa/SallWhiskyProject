@@ -8,6 +8,7 @@ import gui.flytfad.FlytFadWindow;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -20,11 +21,14 @@ public class PåfyldningWindow extends BaseWindow {
     private PåfyldningHandler handler;
     private GridPane påfyldningsPane;
     private Controller controller;
+    private TabPane tabPane;
+    private FlytFadWindow flytFadWindow;
 
-    public PåfyldningWindow(Controller controller) {
+    public PåfyldningWindow(Controller controller, FlytFadWindow flytFadWindow) {
         handler = new PåfyldningHandler(controller);
         form = new PåfyldningForm(controller, handler);
         this.controller = controller;
+        this.flytFadWindow = flytFadWindow;
 
         initContent();
     }
@@ -70,8 +74,12 @@ public class PåfyldningWindow extends BaseWindow {
                 handler.påfyldFadAction(form, fad);
                 resetAction();
                 if (påfyldning.getLiterPåfyldt() > 0){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Fad nummer " +fad.getFadId() +" er påfyldt, gå til flytning");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Fad nummer " +fad.getFadId() +" er påfyldt, gå til flytning");
                     alert.showAndWait();
+                    if (alert.getResult().getButtonData().isDefaultButton()){
+                        tabPane.getSelectionModel().select(6);
+                        flytFadWindow.getForm().getCbFade().setValue(fad);
+                    }
                 }
             } catch (RuntimeException exception){
                 Alert alert = new Alert(Alert.AlertType.WARNING, exception.getMessage());
@@ -116,5 +124,9 @@ public class PåfyldningWindow extends BaseWindow {
 
     public PåfyldningHandler getHandler() {
         return handler;
+    }
+
+    public void setTabPane(TabPane tabPane) {
+        this.tabPane = tabPane;
     }
 }
