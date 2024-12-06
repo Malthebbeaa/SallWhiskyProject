@@ -24,12 +24,15 @@ public class Destillering {
         this.mængderGivet = new ArrayList<>();
     }
 
-    public Mængde afgivVæske(double påfyldningsMængde){
-        if (væskeMængde - påfyldningsMængde >= 0){
-            Mængde mængde = new Mængde(påfyldningsMængde, this);
-            væskeMængde -= påfyldningsMængde;
+    /***
+     * trækker væsken fra destilleringen
+     * skaber forbindelsen til Mængde klassen
+     * @param påfyldningsMængde
+     */
+    public void tilføjMængdeGivet(Mængde mængde){
+        if (væskeMængde - mængde.getMængde() >= 0){
+            væskeMængde -= mængde.getMængde();
             mængderGivet.add(mængde);
-            return mængde;
         } else {
             throw new RuntimeException("Ikke tilstrækkeligt væske i destilleringen");
         }

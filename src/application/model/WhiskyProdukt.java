@@ -2,7 +2,6 @@ package application.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class WhiskyProdukt {
@@ -30,11 +29,19 @@ public class WhiskyProdukt {
         }
     }
 
+    /***
+     * en vandmængde tilføjes til den samlede mængde af whiskyprodukt
+     * @param vandMængde
+     */
     public void tilføjVand(double vandMængde) {
         totalWhiskyMængde += vandMængde;
         this.vandMængde = vandMængde;
     }
 
+    /***
+     * beregner den samlede alkoholprocent uden tilføjet vand
+     * @return alkoholprocent uden vand
+     */
     public double beregnAlkoholProcentUdenVand() {
         double volumeGangeAlkoholprocent = 0;
         double samledeVolume = 0;
@@ -49,7 +56,12 @@ public class WhiskyProdukt {
         return volumeGangeAlkoholprocent / samledeVolume;
     }
 
-    public double beregnSamledeAlkoholProcent() {
+    /***
+     * beregner samlede alkoholprocent med vand tilføjet
+     * tager mængden af alkohol divideret med samlet volume og ganger med 100
+     * @return alkoholprocent med vand
+     */
+    public double beregnSamledeAlkoholProcentMedVand() {
         double alkoholMængde = totalWhiskyMængde * (beregnAlkoholProcentUdenVand() / 100);
         double samletVolumen = totalWhiskyMængde + vandMængde;
         return (alkoholMængde / samletVolumen) * 100;
@@ -59,6 +71,11 @@ public class WhiskyProdukt {
         return aftapninger;
     }
 
+    /***
+     *
+     * @param flaskeStørrelse
+     * @return hvor mange flasker der kan laves uf af den total mængde
+     */
     public int antalFlasker(double flaskeStørrelse) {
         int antalFlasker = (int) (totalWhiskyMængde / flaskeStørrelse);
         return antalFlasker;
@@ -138,7 +155,7 @@ public class WhiskyProdukt {
 
             // Alkoholprocent beregninger
             if (vandMængde > 0) {
-                alkoholprocent = beregnSamledeAlkoholProcent();
+                alkoholprocent = beregnSamledeAlkoholProcentMedVand();
             } else {
                 alkoholprocent = beregnAlkoholProcentUdenVand();
             }
@@ -161,6 +178,10 @@ public class WhiskyProdukt {
         return historie;
     }
 
+    /***
+     *
+     * @return gennemsnit af år lagret på aftapninger
+     */
     private int getÅrLagret() {
         int samletÅr = 0;
         for (Aftapning aftapning : aftapninger) {

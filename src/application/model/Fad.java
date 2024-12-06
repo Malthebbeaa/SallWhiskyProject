@@ -32,9 +32,23 @@ public class Fad {
         this.aftapninger = new ArrayList<>();
     }
 
+    /***
+     *
+     * @param mængde
+     * @return true hvis tilføjelsen af væske overskrider fadets størrelse
+     * false hvis tilføjelsen ikke overgår størrelsen
+     */
     public boolean påFyldningOvergårGrænse(double mængde) {
         return mængde + mængdeFyldtPåFad > størrelse;
     }
+
+    /***
+     * hvis påfyldningens mængde ikke overgår størrelsen på fadet
+     * tilføjes påfyldningen til listen
+     * mængden på påfyldningen tilføjes mængden på fadet
+     * mængderne på påfyldningen trækkes fra deres destilleringer
+     * @param påfyldning
+     */
 
     public void tilføjPåfyldning(Påfyldning påfyldning) {
         if (!påFyldningOvergårGrænse(påfyldning.getLiterPåfyldt())) {
@@ -43,7 +57,7 @@ public class Fad {
 
             //først her bliver mængden trukket fra destilleringen
             for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
-                mængde.getDestillering().afgivVæske(mængde.getMængde());
+                mængde.getDestillering().tilføjMængdeGivet(mængde);
             }
 
         } else {
@@ -51,13 +65,12 @@ public class Fad {
         }
     }
 
+    /***
+     * bruges på Påfyldning klassen til at opdatere mængden på fadet
+     * @param aftapning
+     */
     public void aftapVæskePåFad(Aftapning aftapning){
         mængdeFyldtPåFad -= aftapning.getLiterAftappet();
-    }
-
-    public double tilføjAftapning(Aftapning aftapning) {
-        double mængdeEfterAftapning = mængdeFyldtPåFad - aftapning.getLiterAftappet();
-        return mængdeEfterAftapning;
     }
 
     public double getMængdeFyldtPåFad() {

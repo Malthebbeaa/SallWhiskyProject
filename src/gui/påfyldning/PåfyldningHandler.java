@@ -34,16 +34,6 @@ public class PåfyldningHandler implements GuiSubject {
         } else {
             controller.påfyldFad(påfyldning, fad);
 
-
-            System.out.println("Påfyldning gennemført på fadnr: " + påfyldning.getFad().getFadId() + " - der er nu " + fad.getMængdeFyldtPåFad() + " på fadet");
-            for (Mængde mængde : påfyldning.getMængderPåfyldt()) {
-                System.out.println("Destillering " + mængde.getDestillering().getBatchNummer() + " har nu " + mængde.getDestillering().getVæskeMængde() + " L væske");
-            }
-            if (fad.getMængdeFyldtPåFad() == fad.getStørrelse()) {
-                System.out.println("Fadnr " + fad.getFadId() + " er nu fyldt og klar til flytning");
-            }
-
-
             notifyObservers();
             form.tommefade();
         }

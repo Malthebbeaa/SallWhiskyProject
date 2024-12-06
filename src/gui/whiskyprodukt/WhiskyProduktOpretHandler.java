@@ -32,20 +32,11 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
 
         controller.lavAftapninger(aftapninger, whiskyProdukt);
 
-        if (form.getVandMængde() > 0) {
+        if (form.getVandMængde() > 0){
             whiskyProdukt.tilføjVand(form.getVandMængde());
         }
 
-        System.out.println("Whiskyprouktet er oprettet " + whiskyProdukt.getNavn() + ", " + whiskyProdukt.getTotalWhiskyMængde() + " med en alkoholprocent på " + whiskyProdukt.beregnSamledeAlkoholProcent());
-        for (Aftapning aftapning : whiskyProdukt.getAftapninger()) {
-            System.out.println("Påfyldning " + aftapning.getPåfyldning() + " har nu " + aftapning.getPåfyldning().getLiterPåfyldt() + " L væske");
-            if (aftapning.getPåfyldning().getLiterPåfyldt() == 0) {
-                System.out.println("Fadnr" + aftapning.getPåfyldning().getFad().getFadId() + " er nu tomt");
-            }
-        }
-        form.updateDynamicText();
         notifyObservers();
-
     }
 
     public void vælgAction(WhiskyProduktOpretForm form, WhiskyProdukt whiskyProdukt) {
@@ -65,7 +56,6 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
                 form.getAftapninger().add(aftapning);
             }
         }
-        System.out.println("Mængde tilføjet til " + whiskyProdukt.getNavn() + " fra fad " + selected.getFad().getFadId() + ": " + form.getAftapninger().getLast().getLiterAftappet());
     }
 
     public void removeAllAction(WhiskyProduktOpretForm form) {
