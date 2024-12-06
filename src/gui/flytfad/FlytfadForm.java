@@ -171,7 +171,7 @@ public class FlytfadForm implements GuiObserver {
                         "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths()+
                         "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays()+
                         "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now())? "Ja\n" : "Nej\n");
-                mængder = påfyldninger.get(i).getMængderPåfyldt();
+                mængder = påfyldninger.get(i).getVæskerFyldtPå();
                 for (Væske væske : mængder) {
                     påfyldning += "batchnummer: " + væske.getDestillering().getBatchNummer() +"\nAlkohol: " + væske.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + væske.getMængde()+" L\n";
                 }

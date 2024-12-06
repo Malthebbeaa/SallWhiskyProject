@@ -47,8 +47,8 @@ class FadTest {
     @Test
     void tilføjPåfyldning() {
         //Arrange Act
-        væskeMix1.tilføjMængde(væske1);
-        væskeMix2.tilføjMængde(væske3);
+        væskeMix1.tilføjVæske(væske1);
+        væskeMix2.tilføjVæske(væske3);
         fad.tilføjPåfyldning(væskeMix1);
         fad.tilføjPåfyldning(væskeMix2);
 
@@ -60,8 +60,8 @@ class FadTest {
 
     @Test
     void getMængdeFyldtPåFad() {
-        væskeMix1.tilføjMængde(væske1);
-        væskeMix2.tilføjMængde(væske3);
+        væskeMix1.tilføjVæske(væske1);
+        væskeMix2.tilføjVæske(væske3);
         fad.tilføjPåfyldning(væskeMix1);
         fad.tilføjPåfyldning(væskeMix2);
 

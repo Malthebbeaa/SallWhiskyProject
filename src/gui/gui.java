@@ -137,12 +137,12 @@ public class gui extends Application {
                 "Bourbon", 29, 0);
 
         VæskeMix væskeMix1 = controller.opretPåfyldning(fad1, LocalDate.of(2022,02,28));
-        væskeMix1.tilføjMængde(new Væske(50, destillering1));
-        væskeMix1.tilføjMængde(new Væske(44, destillering2));
+        væskeMix1.tilføjVæske(new Væske(50, destillering1));
+        væskeMix1.tilføjVæske(new Væske(44, destillering2));
         VæskeMix væskeMix2 = controller.opretPåfyldning(fad2, LocalDate.of(2021, 12,2));
-        væskeMix2.tilføjMængde(new Væske(32, destillering1));
+        væskeMix2.tilføjVæske(new Væske(32, destillering1));
         VæskeMix væskeMix3 = controller.opretPåfyldning(fad4, LocalDate.of(2020, 1,20));
-        væskeMix3.tilføjMængde(new Væske(94, destillering1));
+        væskeMix3.tilføjVæske(new Væske(94, destillering1));
 
         controller.påfyldFad(væskeMix1, fad1);
         controller.påfyldFad(væskeMix2, fad2);

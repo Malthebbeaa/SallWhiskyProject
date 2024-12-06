@@ -50,7 +50,7 @@ class VæskeMixTest {
         Væske mockVæske = mock(Væske.class);
         when(mockVæske.getMængde()).thenReturn(60.0);
         //Act
-        væskeMix.tilføjMængde(mockVæske);
+        væskeMix.tilføjVæske(mockVæske);
         væskeMix.aftapVæske(mockAftapning);
         //Assert
         double forventet = 0;
@@ -64,7 +64,7 @@ class VæskeMixTest {
         //Arrange & Act
         Væske mockVæske3 = mock(Væske.class);
         when(mockVæske3.getMængde()).thenReturn(60.0);
-        væskeMix.tilføjMængde(mockVæske3);
+        væskeMix.tilføjVæske(mockVæske3);
         boolean forventet = true;
         boolean aktuelt = væskeMix.aftapningGårIMinus(60.1);
         assertEquals(forventet, aktuelt);
@@ -75,7 +75,7 @@ class VæskeMixTest {
         //Arrange & Act
         Væske mockVæske4 = mock(Væske.class);
         when(mockVæske4.getMængde()).thenReturn(60.0);
-        væskeMix.tilføjMængde(mockVæske4);
+        væskeMix.tilføjVæske(mockVæske4);
         boolean forventet = false;
         boolean aktuelt = væskeMix.aftapningGårIMinus(60.0);
         assertEquals(forventet, aktuelt);
@@ -125,8 +125,8 @@ class VæskeMixTest {
         Væske mockVæske5 = mock(Væske.class);
         when(mockVæske5.getMængde()).thenReturn(0.1);
         //Act
-        væskeMix.tilføjMængde(mockVæske1);
-        væskeMix.tilføjMængde(mockVæske5);
+        væskeMix.tilføjVæske(mockVæske1);
+        væskeMix.tilføjVæske(mockVæske5);
         double forventetLiter = 60;
         double aktuelLiter = væskeMix.getLiterPåfyldt();
         //Assert
@@ -136,7 +136,7 @@ class VæskeMixTest {
     @Test
     void tilføjMængdeKasterException() {
         //Arrange Act
-        assertThrows(RuntimeException.class,()-> væskeMix.tilføjMængde(mockVæske2));
+        assertThrows(RuntimeException.class,()-> væskeMix.tilføjVæske(mockVæske2));
     }
 
 
@@ -153,7 +153,7 @@ class VæskeMixTest {
     @Test
     void getLiterPåfyldt() {
         //Arrange act
-        væskeMix.tilføjMængde(mockVæske1);
+        væskeMix.tilføjVæske(mockVæske1);
         double forventet = 59.9;
         double aktuelt = væskeMix.getLiterPåfyldt();
         //Assert

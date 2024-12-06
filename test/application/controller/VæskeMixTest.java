@@ -54,8 +54,8 @@ public class VæskeMixTest {
         Væske væske1 = new Væske(150, destillering2);
 
         VæskeMix væskeMix = new VæskeMix(LocalDate.now(),fad);
-        væskeMix.tilføjMængde(væske);
-        væskeMix.tilføjMængde(væske1);
+        væskeMix.tilføjVæske(væske);
+        væskeMix.tilføjVæske(væske1);
 
         controller.påfyldFad(væskeMix, fad);
 
