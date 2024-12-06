@@ -27,6 +27,7 @@ public class SøgningForm implements GuiObserver {
     private GridPane søgningsPane, søgningsInfoPane;
     private TableView<Fad> tableViewFade, tableViewFadeMed3År;
     private TextField searchBar;
+    private FilteredList<Fad> filteredData;
 
     private TableColumn<Fad, String> tcPlads;
 
@@ -46,7 +47,7 @@ public class SøgningForm implements GuiObserver {
         søgningsPane.setVgap(10);
 
         ComboBox comboBoxSøg = new ComboBox<>();
-        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId", "Materiale"));
+        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId", "Materiale", "Tidligere Indhold", "Lagerplads"));
         comboBoxSøg.getItems().addAll(søgningFiltre);
         comboBoxSøg.setValue(søgningFiltre.getFirst());
         searchBar = new TextField();
@@ -56,7 +57,7 @@ public class SøgningForm implements GuiObserver {
             if (searchBar.getText() != null) {
                 if (comboBoxSøg.getValue().equals(søgningFiltre.get(0))) {
                     Scanner scanner = new Scanner(searchBar.getText());
-                    if (scanner.hasNextInt()){
+                    if (scanner.hasNextInt()) {
                         handler.søgningFadIdAction(this, Integer.valueOf(searchBar.getText()));
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING, "Fad Id skal være et gyldigt nummer");
@@ -65,6 +66,10 @@ public class SøgningForm implements GuiObserver {
                     }
                 } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(1))) {
                     handler.søgningMaterialeAction(this, searchBar.getText());
+                } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(2))) {
+                    handler.søgningTidligereIndholdAction(this, searchBar.getText());
+                } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(3))) {
+                    handler.søgningLagerpladsAction(this, searchBar.getText());
                 }
             }
         });
@@ -84,7 +89,7 @@ public class SøgningForm implements GuiObserver {
         tableViewFade = new TableView<>();
         TableColumn<Fad, Integer> tcFadId = new TableColumn<>("Fad Id");
         tcFadId.setCellValueFactory(new PropertyValueFactory<>("fadId"));
-        TableColumn<Fad, String> tcLagringstid = new TableColumn<>("Lagrindstid");
+        TableColumn<Fad, String> tcLagringstid = new TableColumn<>("Lagringstid");
         tcLagringstid.setCellValueFactory(cellData -> {
             Fad fad = cellData.getValue();
             // Hent den nyeste påfyldning
@@ -113,26 +118,10 @@ public class SøgningForm implements GuiObserver {
         tcVæskeMængde.setCellValueFactory(new PropertyValueFactory<>("mængdeFyldtPåFad"));
         TableColumn<Fad, Integer> tcStørrelse = new TableColumn<>("Størrelse (L)");
         tcStørrelse.setCellValueFactory(new PropertyValueFactory<>("størrelse"));
-//        tableViewFade.setItems(controller.getStorage().getFade());
         tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde, tcStørrelse);
         tableViewFade.setMinWidth(900);
         tcPlads.setPrefWidth(200);
-        FilteredList<Fad> filteredData = new FilteredList<>(controller.getStorage().getFade(), p -> true);
-//        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-//            filteredData.setPredicate(fad -> {
-//                if (newValue == null || newValue.isEmpty()) {
-//                    return true;
-//                }
-//                String lowerCaseFilter = newValue.toLowerCase();
-//                if (fad.getMateriale().toLowerCase().contains(lowerCaseFilter)) {
-//                    return true;
-//                } else if (fad.getTidligereIndhold().toLowerCase().contains(lowerCaseFilter)) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            });
-//        });
+        filteredData = new FilteredList<>(controller.getStorage().getFade(), p -> true);
         SortedList<Fad> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewFade.comparatorProperty());
         tableViewFade.setItems(sortedData);
@@ -148,6 +137,10 @@ public class SøgningForm implements GuiObserver {
 
     public TableView<Fad> getTableViewFade() {
         return tableViewFade;
+    }
+
+    public TableColumn<Fad, String> getTcPlads() {
+        return tcPlads;
     }
 
     @Override
