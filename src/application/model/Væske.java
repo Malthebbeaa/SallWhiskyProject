@@ -1,6 +1,6 @@
 package application.model;
 
-public class Væske implements PåfyldningsComponent {
+public class Væske extends PåfyldningsComponent {
     private double mængde;
     private Destillering destillering;
     private PåfyldningsComponent påfyldningsComponent;
@@ -26,21 +26,5 @@ public class Væske implements PåfyldningsComponent {
 
     public PåfyldningsComponent getPåfyldning() {
         return påfyldningsComponent;
-    }
-
-    @Override
-    public void add(PåfyldningsComponent påfyldningsComponent) {
-        //TODO
-    }
-
-    @Override
-    public void remove(PåfyldningsComponent påfyldningsComponent) {
-        //TODO
-    }
-
-    @Override
-    public PåfyldningsComponent getChild(int i) {
-        //TODO
-        return null;
     }
 }

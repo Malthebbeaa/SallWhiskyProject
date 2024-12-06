@@ -5,17 +5,19 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VæskeMix implements PåfyldningsComponent {
+public class VæskeMix extends PåfyldningsComponent {
     private LocalDate påfyldningsDato;
     private double literPåfyldt;
     private Fad fad;
     private List<PåfyldningsComponent> påfyldningsComponent;
+    private List<Aftapning> aftapninger;
 
     public VæskeMix(LocalDate påfyldningsDato, Fad fad) {
         this.påfyldningsDato = påfyldningsDato;
         this.fad = fad;
         this.literPåfyldt = 0;
         påfyldningsComponent = new ArrayList<>();
+        aftapninger = new ArrayList<>();
     }
 
     /**
@@ -87,9 +89,9 @@ public class VæskeMix implements PåfyldningsComponent {
         }
     }
 
-    public void tilføjAftapning(Aftapning aftapning){
-        if (!aftapninger.contains(aftapning)){
-            aftapninger.add(aftapning);
+    public void tilføjAftapning(PåfyldningsComponent påfyldningsComponent){
+        if (påfyldningsComponent instanceof Aftapning){
+            aftapninger.add((Aftapning)påfyldningsComponent);
         }
     }
 
