@@ -8,7 +8,6 @@ public class Mængde {
     public Mængde(double mængde, Destillering destillering) {
         this.mængde = mængde;
         this.destillering = destillering;
-        this.destillering.tilføjMængdeGivet(this);
     }
 
     public void setPåfyldning(Påfyldning påfyldning){

@@ -73,7 +73,6 @@ public class Påfyldning {
      */
     public void tilføjMængde(Mængde mængde){
         if (!mængdenOverskriderFadKapacitet(mængde)){
-            //mængde.getDestillering().tilføjMængdeGivet(mængde); enten i Fad eller Her
             mængde.setPåfyldning(this);
             mængderPåfyldt.add(mængde);
             literPåfyldt += mængde.getMængde();

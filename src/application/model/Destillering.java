@@ -25,9 +25,9 @@ public class Destillering {
     }
 
     /***
-     *
+     * trækker væsken fra destilleringen
+     * skaber forbindelsen til Mængde klassen
      * @param påfyldningsMængde
-     * @return
      */
     public void tilføjMængdeGivet(Mængde mængde){
         if (væskeMængde - mængde.getMængde() >= 0){
