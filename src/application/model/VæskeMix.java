@@ -54,8 +54,8 @@ public class VæskeMix extends PåfyldningsComponent {
      * @param væske
      * @return true hvis tilføjelsen overgår fadets grænse
      */
-    public boolean mængdenOverskriderFadKapacitet(Væske væske){
-        return fad.påFyldningOvergårGrænse(væske.getMængde());
+    public boolean mængdenOverskriderFadKapacitet(PåfyldningsComponent væske){
+        return fad.påFyldningOvergårGrænse(væske.getVæskeMængde());
     }
 
     /***
@@ -74,7 +74,7 @@ public class VæskeMix extends PåfyldningsComponent {
      */
     public void tilføjVæske(Væske væske){
         if (!mængdenOverskriderFadKapacitet(væske)){
-            væske.setPåfyldning(this);
+            væske.setVæskeMix(this);
             påfyldningsComponenter.add(væske);
             literPåfyldt += væske.getMængde();
         } else {
@@ -89,9 +89,9 @@ public class VæskeMix extends PåfyldningsComponent {
         }
     }
 
-    public void tilføjAftapning(PåfyldningsComponent påfyldningsComponent){
-        if (påfyldningsComponent instanceof Aftapning){
-            aftapninger.add((Aftapning)påfyldningsComponent);
+    public void tilføjAftapning(Aftapning aftapning){
+        if (!aftapninger.contains(aftapning)){
+            aftapninger.add(aftapning);
         }
     }
 
@@ -116,9 +116,6 @@ public class VæskeMix extends PåfyldningsComponent {
         return antalÅrPåFad(date).getYears() > 2;
     }
 
-    public List<Væske> getVæskerFyldtPå() {
-        return (List<Væske>) påfyldningsComponenter;
-    }
     public LocalDate getPåfyldningsDato() {
         return påfyldningsDato;
     }
@@ -143,9 +140,11 @@ public class VæskeMix extends PåfyldningsComponent {
     @Override
     public void add(PåfyldningsComponent påfyldningsComponent) {
         if (!mængdenOverskriderFadKapacitet(påfyldningsComponent)){
-            påfyldningsComponent.setPåfyldning(this);
+            if (påfyldningsComponent instanceof Væske){
+                ((Væske) påfyldningsComponent).setVæskeMix(this);
+            }
             påfyldningsComponent.add(påfyldningsComponent);
-            literPåfyldt += påfyldningsComponent.getMængde();
+            literPåfyldt += påfyldningsComponent.getVæskeMængde();
         } else {
             throw new RuntimeException("Du overskrider fadets kapacitet");
         }
@@ -153,12 +152,13 @@ public class VæskeMix extends PåfyldningsComponent {
 
     @Override
     public void remove(PåfyldningsComponent påfyldningsComponent) {
-        //TODO
+        if (påfyldningsComponenter.contains(påfyldningsComponent)){
+            påfyldningsComponenter.remove(påfyldningsComponent);
+        }
     }
 
     @Override
     public PåfyldningsComponent getChild(int i) {
-        //TODO
-        return null;
+        return påfyldningsComponenter.get(i);
     }
 }

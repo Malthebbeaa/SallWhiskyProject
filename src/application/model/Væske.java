@@ -10,7 +10,7 @@ public class Væske extends PåfyldningsComponent {
         this.destillering = destillering;
     }
 
-    public void setPåfyldning(PåfyldningsComponent påfyldningsComponent){
+    public void setVæskeMix(PåfyldningsComponent påfyldningsComponent){
         if (påfyldningsComponent != null){
             this.påfyldningsComponent = påfyldningsComponent;
         }
