@@ -55,4 +55,8 @@ public abstract class PåfyldningsComponent {
     public String getAntalÅrMånederDage() {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
+
+    public String toString(){
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
+    }
 }

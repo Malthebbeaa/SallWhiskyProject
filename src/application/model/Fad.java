@@ -62,15 +62,13 @@ public class Fad {
         if (påfyldningsComponenter.isEmpty()) {
             throw new RuntimeException("Ingen væsker tilgængelige for at oprette væskemix.");
         }
-
         væskeMix = new VæskeMix(dato, this);
         for (PåfyldningsComponent påfyldningsComponent : påfyldningsComponenter) {
             væskeMix.add(påfyldningsComponent);
         }
         væskeMix.add(pc);
-
-        // Tøm de individuelle væsker fra fadet
         påfyldningsComponenter.clear();
+        påfyldningsComponenter.add(væskeMix);
         mængdeFyldtPåFad = væskeMix.getVæskeMængde();
     }
 

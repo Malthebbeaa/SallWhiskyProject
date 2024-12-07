@@ -74,7 +74,6 @@ public class Controller {
 
     public Væske opretVæske(double mængde, Destillering destillering) {
         Væske væske = new Væske(mængde, destillering);
-        destillering.giveVæske(væske);
         return væske;
     }
 

@@ -138,4 +138,7 @@ public class VæskeMix extends PåfyldningsComponent {
     public List<PåfyldningsComponent> getPåfyldningsComponenter() {
         return påfyldningsComponenter;
     }
+
 }
+
+

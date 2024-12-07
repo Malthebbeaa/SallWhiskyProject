@@ -8,6 +8,7 @@ public class Væske extends PåfyldningsComponent {
     public Væske(double mængde, Destillering destillering) {
         this.mængde = mængde;
         this.destillering = destillering;
+        destillering.givVæske(this);
     }
 
     public void setVæskeMix(PåfyldningsComponent påfyldningsComponent){
@@ -28,4 +29,8 @@ public class Væske extends PåfyldningsComponent {
         return påfyldningsComponent;
     }
 
+    @Override
+    public String toString() {
+        return "Væske{}" + mængde + " " + destillering;
+    }
 }

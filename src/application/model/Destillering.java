@@ -48,7 +48,7 @@ public class Destillering {
         return væskeMængde;
     }
 
-    public void giveVæske(Væske væske) {
+    public void givVæske(Væske væske) {
         if (væske.getVæskeMængde() > væskeMængde) {
             throw new IllegalArgumentException("Ikke nok væske til rådighed.");
         }

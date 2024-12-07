@@ -51,6 +51,16 @@ public class SøgningHandler {
         form.getTableViewFade().setItems(fadeMedMateriale);
     }
 
+    public void søgningTidligereIndholdAction(SøgningForm form, String søgId) {
+        ObservableList<Fad> fadeMedTidligereIndhold = FXCollections.observableArrayList();
+        for (int i = 0; i < form.getTableViewFade().getItems().size(); i++) {
+            if (form.getTableViewFade().getItems().get(i).getTidligereIndhold().toLowerCase().contains(søgId.toLowerCase())) {
+                fadeMedTidligereIndhold.add(form.getTableViewFade().getItems().get(i));
+            }
+        }
+        form.getTableViewFade().setItems(fadeMedTidligereIndhold);
+    }
+
     public void søgningAction(SøgningForm form, int søgId){
         form.getTableViewFade().getItems().stream()
                 .filter(item -> item.getFadId() == søgId)
