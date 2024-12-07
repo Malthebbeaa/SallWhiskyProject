@@ -62,31 +62,6 @@ public class SøgningHandler {
         form.getTableViewFade().setItems(fadeMedTidligereIndhold);
     }
 
-    public void søgningLagerpladsAction(SøgningForm form, String søgId) {
-        ObservableList<Fad> fadeLagerPlads= FXCollections.observableArrayList();
-        for (int i = 0; i < form.getTableViewFade().getItems().size(); i++) {
-            if(form.getTableViewFade().getItems().get(i).getPlads() != null) {
-                if (form.getTableViewFade().getItems().get(i).getPlads().getHylde().getReol().getLager().getNavn().toLowerCase().contains(søgId.toLowerCase()) || søgId.toLowerCase().contains("reol") || søgId.toLowerCase().contains("hylde") || søgId.toLowerCase().contains("plads")) {
-                    fadeLagerPlads.add(form.getTableViewFade().getItems().get(i));
-                }
-                else if(søgId.matches("\\d+")){
-                    if(form.getTableViewFade().getItems().get(i).getPlads().getPladsNummer() == Integer.parseInt(søgId)) {
-                        fadeLagerPlads.add(form.getTableViewFade().getItems().get(i));
-                    }
-                    else if(form.getTableViewFade().getItems().get(i).getPlads().getHylde().getHyldeNummer() == Integer.parseInt(søgId)) {
-                        fadeLagerPlads.add(form.getTableViewFade().getItems().get(i));
-                    }
-                    else if(form.getTableViewFade().getItems().get(i).getPlads().getHylde().getReol().getReolNummer() == Integer.parseInt(søgId)) {
-                        fadeLagerPlads.add(form.getTableViewFade().getItems().get(i));
-                    }
-                }
-            }
-            else{
-            }
-        }
-        form.getTableViewFade().setItems(fadeLagerPlads);
-    }
-
     public void søgningAction(SøgningForm form, int søgId) {
         form.getTableViewFade().getItems().stream()
                 .filter(item -> item.getFadId() == søgId)

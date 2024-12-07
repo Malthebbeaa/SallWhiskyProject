@@ -47,7 +47,7 @@ public class SøgningForm implements GuiObserver {
         søgningsPane.setVgap(10);
 
         ComboBox comboBoxSøg = new ComboBox<>();
-        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId", "Materiale", "Tidligere Indhold", "Lagerplads"));
+        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId", "Materiale", "Tidligere Indhold"));
         comboBoxSøg.getItems().addAll(søgningFiltre);
         comboBoxSøg.setValue(søgningFiltre.getFirst());
         searchBar = new TextField();
@@ -68,8 +68,6 @@ public class SøgningForm implements GuiObserver {
                     handler.søgningMaterialeAction(this, searchBar.getText());
                 } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(2))) {
                     handler.søgningTidligereIndholdAction(this, searchBar.getText());
-                } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(3))) {
-                    handler.søgningLagerpladsAction(this, searchBar.getText());
                 }
             }
         });
