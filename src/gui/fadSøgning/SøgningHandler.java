@@ -86,8 +86,13 @@ public class SøgningHandler {
             PåfyldningsComponent sidsteVæskeMix = påfyldninger.get(påfyldninger.size() - 1);
 
             // Tjek om sidste påfyldning ikke er tom og klar til aftapning
-            return sidsteVæskeMix.getLiterPåfyldt() > 0 &&
-                    sidsteVæskeMix.klarTilAftapning(LocalDate.now());
+            if(sidsteVæskeMix instanceof VæskeMix) {
+                return sidsteVæskeMix.getLiterPåfyldt() > 0 &&
+                        sidsteVæskeMix.klarTilAftapning(LocalDate.now());
+            }
+            else{
+                return sidsteVæskeMix.getVæskeMængde() > 0 && sidsteVæskeMix.klarTilAftapning(LocalDate.now());
+            }
         });
 
         form.getTableViewFade().setItems(filtreredeFade);

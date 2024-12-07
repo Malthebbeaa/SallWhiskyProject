@@ -14,6 +14,10 @@ public class Aftapning {
         this.alkoholProcent = alkoholProcent;
     }
 
+    public Aftapning(double literAftappet){
+        this.literAftappet = literAftappet;
+    }
+
     public void setWhiskyProdukt(WhiskyProdukt whiskyProdukt){
         if (this.whiskyProdukt != whiskyProdukt){
             this.whiskyProdukt = whiskyProdukt;

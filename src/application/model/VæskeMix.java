@@ -11,6 +11,7 @@ public class VæskeMix extends PåfyldningsComponent {
     private Fad fad;
     private List<Aftapning> aftapninger;
     private List<PåfyldningsComponent> påfyldningsComponenter;
+    private List<LocalDate> omhældningsDatoer;
 
     public VæskeMix(LocalDate påfyldningsDato, Fad fad) {
         this.påfyldningsDato = påfyldningsDato;
@@ -18,6 +19,15 @@ public class VæskeMix extends PåfyldningsComponent {
         this.fad = fad;
         aftapninger = new ArrayList<>();
         påfyldningsComponenter = new ArrayList<>();
+    }
+
+    public VæskeMix(LocalDate omhældningsDato, LocalDate påfyldningsDato, Fad fad){
+        this.omhældningsDatoer = new ArrayList<>();
+        this.påfyldningsComponenter = new ArrayList<>();
+        this.literPåfyldt = 0;
+        this.omhældningsDatoer.add(omhældningsDato);
+        this.påfyldningsDato = påfyldningsDato;
+        this.fad = fad;
     }
 
     /**
@@ -139,6 +149,32 @@ public class VæskeMix extends PåfyldningsComponent {
         return påfyldningsComponenter;
     }
 
+    public List<Væske> hentAlleVæsker() {
+        List<Væske> væsker = new ArrayList<>();
+        for (PåfyldningsComponent component : påfyldningsComponenter) {
+            if (component instanceof Væske) {
+                væsker.add((Væske) component);
+            } else if (component instanceof VæskeMix) {
+                væsker.addAll(((VæskeMix) component).hentAlleVæsker()); // Rekursion
+            }
+        }
+        return væsker;
+    }
+
+    public void setLiterPåfyldt(double literPåfyldt) {
+        this.literPåfyldt = literPåfyldt;
+    }
+
+    public void tilføjOmhældningsDato(LocalDate dato) {
+        if (omhældningsDatoer == null) {
+            omhældningsDatoer = new ArrayList<>();
+        }
+        omhældningsDatoer.add(dato);
+    }
+
+    public List<LocalDate> getOmhældningsDatoer() {
+        return new ArrayList<>(omhældningsDatoer);
+    }
 }
 
 

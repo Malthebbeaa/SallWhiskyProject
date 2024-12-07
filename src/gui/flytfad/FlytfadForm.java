@@ -43,7 +43,7 @@ public class FlytfadForm implements GuiObserver {
         Label lblVælgFlyt = new Label("Vælg Hvad der skal flyttes:");
         Label lblLedigePladser = new Label("Vælg placering:");
         flytFadPane.add(lblVælgFlyt, 0, 0);
-        flytFadPane.add(lblLedigePladser,1,0);
+        flytFadPane.add(lblLedigePladser, 1, 0);
 
         PaneCreator fadOgLagerPane = new PaneCreator();
         flytFadPane.add(fadOgLagerPane, 0, 1);
@@ -86,7 +86,7 @@ public class FlytfadForm implements GuiObserver {
         txFadInfo.setEditable(false);
         txFadInfo.setMaxWidth(300);
         txFadInfo.setStyle("-fx-control-inner-background: lightblue; -fx-font-weight: bold;");
-        pladsPane.add(txFadInfo,3,1);
+        pladsPane.add(txFadInfo, 3, 1);
 
         ChangeListener<Lager> lagerListener = (lager, OldLager, NewLager) -> selectedLagerChanged();
         cbLagre.getSelectionModel().selectedItemProperty().addListener(lagerListener);
@@ -111,7 +111,7 @@ public class FlytfadForm implements GuiObserver {
                     setText(null);
                     setStyle("");
                 } else {
-                  setText(plads.toString());
+                    setText(plads.toString());
                     if (plads.isLedig()) {
                         setStyle("-fx-text-fill: green;");
                     } else {
@@ -136,7 +136,7 @@ public class FlytfadForm implements GuiObserver {
 
     public void selectedLagerChanged() {
         lager = cbLagre.getValue();
-        if(lager != null) {
+        if (lager != null) {
             lvReol.setItems(lager.getReoler());
         }
         lvPlads.setItems(null);
@@ -144,14 +144,14 @@ public class FlytfadForm implements GuiObserver {
 
     public void selectedReolChanged() {
         reol = lvReol.getSelectionModel().getSelectedItem();
-        if(reol != null) {
+        if (reol != null) {
             lvHylde.setItems(reol.getHylder());
         }
     }
 
     public void selectedHyldeChanged() {
         hylde = lvHylde.getSelectionModel().getSelectedItem();
-        if(hylde != null) {
+        if (hylde != null) {
             lvPlads.setItems(hylde.getPladser());
         }
     }
@@ -167,13 +167,15 @@ public class FlytfadForm implements GuiObserver {
             for (int i = 0; i < påfyldninger.size(); i++) {
                 påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
                         "\nTid på fad: " +
-                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getYears()+
-                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths()+
-                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays()+
-                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now())? "Ja\n" : "Nej\n");
+                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getYears() +
+                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths() +
+                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays() +
+                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now()) ? "Ja\n" : "Nej\n");
                 mængder = påfyldninger.get(i).getPåfyldningsComponenter();
                 for (PåfyldningsComponent væske : mængder) {
-                    påfyldning += "batchnummer: " + væske.getDestillering().getBatchNummer() +"\nAlkohol: " + væske.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + væske.getVæskeMængde()+" L\n";
+                    if (væske instanceof Væske) {
+                        påfyldning += "batchnummer: " + væske.getDestillering().getBatchNummer() + "\nAlkohol: " + væske.getDestillering().getAlkoholProcent() + " %\nantal liter i fad: " + væske.getVæskeMængde() + " L\n";
+                    }
                 }
             }
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +

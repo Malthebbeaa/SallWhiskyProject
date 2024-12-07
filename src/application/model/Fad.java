@@ -160,4 +160,49 @@ public class Fad {
     public PåfyldningsComponent getVæskeMix() {
         return væskeMix;
     }
+
+    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde) {
+        if (valgtMix == null) {
+            throw new IllegalArgumentException("Ingen væskemix valgt.");
+        }
+
+        if (mængde <= 0 || mængde > valgtMix.getVæskeMængde()) {
+            throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige væskemixets mængde.");
+        }
+
+        if (andetFad.overskriderFadKapacitet(mængde)) {
+            throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
+        }
+
+        // Proportionelt split af væskemixets komponenter
+        VæskeMix nytMix = new VæskeMix(LocalDate.now(), valgtMix.getPåfyldningsDato(), andetFad);
+
+        for (PåfyldningsComponent komponent : valgtMix.getPåfyldningsComponenter()) {
+            double andel = komponent.getVæskeMængde() / valgtMix.getVæskeMængde();
+            double flyttetMængde = andel * mængde;
+
+            if (komponent instanceof Væske) {
+                Væske originalVæske = (Væske) komponent;
+                Væske nyVæske = new Væske(flyttetMængde, originalVæske.getDestillering());
+                nytMix.add(nyVæske);
+                originalVæske.setMængde(originalVæske.getVæskeMængde() - flyttetMængde);
+
+            } else if (komponent instanceof VæskeMix) {
+                VæskeMix originalMix = (VæskeMix) komponent;
+                flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde);
+            }
+        }
+
+        // Tilføj det nye mix til det nye fad
+        andetFad.tilføjVæske(nytMix);
+
+        // Reducer mængden i det oprindelige væskemix
+        valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
+        mængdeFyldtPåFad -= mængde;
+        andetFad.tilføjMængdeFyldtPåFad(mængde);
+    }
+
+    public void tilføjMængdeFyldtPåFad(double mængdeFyldtPåFad) {
+        mængdeFyldtPåFad += mængdeFyldtPåFad;
+    }
 }
