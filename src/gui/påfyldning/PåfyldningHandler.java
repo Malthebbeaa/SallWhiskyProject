@@ -25,7 +25,7 @@ public class PåfyldningHandler implements GuiSubject {
 
     public void påfyldFadAction(PåfyldningForm form, Fad fad) {
         væskeMix = form.getPåfyldning();
-        if (væskeMix.getVæskerFyldtPå().isEmpty()) {
+        if (væskeMix.getPåfyldningsComponenter().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Du skal tilføje mængde af destillering(er) inden du fortsætter");
             alert.showAndWait();
         } else {
@@ -33,7 +33,7 @@ public class PåfyldningHandler implements GuiSubject {
 
             notifyObservers();
             form.tommefade();
-        }
+       }
     }
 
     public void vælgAction(PåfyldningForm form, VæskeMix væskeMix) {
@@ -50,9 +50,9 @@ public class PåfyldningHandler implements GuiSubject {
                     form.getLveValgtDestilleringer().getItems().add(selected);
                     form.getLvwMuligeDestilleringer().getItems().remove(selected);
                     Væske væske = new Væske(popUpWindow.getMængde(), selected);
-                    this.væskeMix.tilføjVæske(væske);
+                    this.væskeMix.add(væske);
                 }
-                System.out.println("Mængde tilføjet til " + væskeMix.getFad().getFadId() + " fra batchnr " + selected.getBatchNummer() + ": " + væskeMix.getVæskerFyldtPå().getLast().getMængde());
+                System.out.println("Mængde tilføjet til " + væskeMix.getFad().getFadId() + " fra batchnr " + selected.getBatchNummer() + ": " + væskeMix.getPåfyldningsComponenter().getLast().getVæskeMængde());
             }
         } catch (RuntimeException e){
             Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
@@ -64,7 +64,7 @@ public class PåfyldningHandler implements GuiSubject {
         væskeMix = form.getPåfyldning();
         form.getLvwMuligeDestilleringer().getItems().addAll(form.getLveValgtDestilleringer().getItems());
         form.getLveValgtDestilleringer().getItems().clear();
-        væskeMix.getVæskerFyldtPå().clear();
+        væskeMix.getPåfyldningsComponenter().clear();
     }
 
     public void clearAction(PåfyldningForm form) {
@@ -81,7 +81,7 @@ public class PåfyldningHandler implements GuiSubject {
             form.getLvwMuligeDestilleringer().getItems().add(selected);
             form.getLveValgtDestilleringer().getItems().remove(selected);
 
-            væskeMix.getVæskerFyldtPå().removeIf(mængde -> mængde.getDestillering().equals(selected));
+            væskeMix.getPåfyldningsComponenter().removeIf(mængde -> mængde.getDestillering().equals(selected));
         }
     }
 

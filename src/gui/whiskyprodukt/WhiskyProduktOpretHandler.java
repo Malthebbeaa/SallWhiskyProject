@@ -52,8 +52,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
                 form.getLvwValgtePåfyldninger().getItems().add(selected);
                 form.getLvwMuligePåfyldninger().getItems().remove(selected);
                 Aftapning aftapning = new Aftapning(popupWindowAftap.getMængde(), popupWindowAftap.getAlkoholProcent());
-                //TODO
-                //aftapning.setPåfyldning(selected);
+                aftapning.setPåfyldning(selected);
                 form.getAftapninger().add(aftapning);
             }
         }

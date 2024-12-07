@@ -136,13 +136,13 @@ public class gui extends Application {
         Fad fad11 = controller.opretFad(94, "Eg", fadLeverandør1,
                 "Bourbon", 29, 0);
 
-        VæskeMix væskeMix1 = controller.opretPåfyldning(fad1, LocalDate.of(2022,02,28));
-        væskeMix1.tilføjVæske(new Væske(50, destillering1));
-        væskeMix1.tilføjVæske(new Væske(44, destillering2));
-        VæskeMix væskeMix2 = controller.opretPåfyldning(fad2, LocalDate.of(2021, 12,2));
-        væskeMix2.tilføjVæske(new Væske(32, destillering1));
-        VæskeMix væskeMix3 = controller.opretPåfyldning(fad4, LocalDate.of(2020, 1,20));
-        væskeMix3.tilføjVæske(new Væske(94, destillering1));
+        VæskeMix væskeMix1 = controller.opretVæskeMix(fad1, LocalDate.of(2022,02,28));
+        væskeMix1.add(new Væske(50, destillering1));
+        væskeMix1.add(new Væske(44, destillering2));
+        VæskeMix væskeMix2 = controller.opretVæskeMix(fad2, LocalDate.of(2021, 12,2));
+        væskeMix2.add(new Væske(32, destillering1));
+        VæskeMix væskeMix3 = controller.opretVæskeMix(fad4, LocalDate.of(2020, 1,20));
+        væskeMix3.add(new Væske(94, destillering1));
 
         controller.påfyldFad(væskeMix1, fad1);
         controller.påfyldFad(væskeMix2, fad2);
@@ -157,8 +157,7 @@ public class gui extends Application {
 
         WhiskyProdukt whiskyProdukt1 = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
         Aftapning aftapning1 = new Aftapning(94, 68);
-        //TODO
-        //aftapning1.setPåfyldning(påfyldning3);
+        aftapning1.setPåfyldning(væskeMix3);
         ArrayList<Aftapning> aftapningerTilWhiskyProdukt1 = new ArrayList<>(List.of(aftapning1));
         controller.lavAftapninger(aftapningerTilWhiskyProdukt1, whiskyProdukt1);
         whiskyProdukt1.tilføjVand(5);

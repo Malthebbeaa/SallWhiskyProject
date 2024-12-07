@@ -62,7 +62,7 @@ public class PåfyldningWindow extends BaseWindow {
             alert.showAndWait();
             return;
         }
-        VæskeMix væskeMix = controller.opretPåfyldning(form.getFad(),form.getPåfyldningsDato());
+        VæskeMix væskeMix = controller.opretVæskeMix(form.getFad(),form.getPåfyldningsDato());
 
         form.initNextForm(handler, væskeMix);
         getPane().getChildren().setAll(form.getNextPane());

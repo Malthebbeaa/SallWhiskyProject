@@ -25,20 +25,6 @@ public class Destillering {
     }
 
     /***
-     * trækker væsken fra destilleringen
-     * skaber forbindelsen til Mængde klassen
-     * @param påfyldningsMængde
-     */
-    public void tilføjMængdeGivet(Væske væske){
-        if (væskeMængde - væske.getMængde() >= 0){
-            væskeMængde -= væske.getMængde();
-            mængderGivet.add(væske);
-        } else {
-            throw new RuntimeException("Ikke tilstrækkeligt væske i destilleringen");
-        }
-    }
-
-    /***
      * tilføjer en evt kommentar til destilleringen
      * @param kommentar evt kommentar til destillering
      */
@@ -61,8 +47,17 @@ public class Destillering {
     public double getVæskeMængde() {
         return væskeMængde;
     }
-    public void setVæskeMængde(double nyMængde){
-        this.væskeMængde = nyMængde;
+
+    public void giveVæske(Væske væske) {
+        if (væske.getVæskeMængde() > væskeMængde) {
+            throw new IllegalArgumentException("Ikke nok væske til rådighed.");
+        }
+        væskeMængde -= væske.getVæskeMængde();
+        mængderGivet.add(væske);
+    }
+
+    public void setVæskeMængde(double væskeMængde) {
+        this.væskeMængde = væskeMængde;
     }
 
     public double getAlkoholProcent() {
@@ -76,6 +71,7 @@ public class Destillering {
     public Maltbatch getMaltbatch() {
         return maltbatch;
     }
+
     public String getBatchNummer(){return maltbatch.getBatchNummer();}
 
     public Kommentar getKommentar() {

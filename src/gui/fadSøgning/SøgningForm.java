@@ -3,6 +3,7 @@ package gui.fadSøgning;
 import application.controller.Controller;
 import application.model.Fad;
 import application.model.Plads;
+import application.model.PåfyldningsComponent;
 import application.model.VæskeMix;
 import gui.GuiObserver;
 import gui.GuiSubject;
@@ -86,11 +87,11 @@ public class SøgningForm implements GuiObserver {
         tcLagringstid.setCellValueFactory(cellData -> {
             Fad fad = cellData.getValue();
             // Hent den nyeste påfyldning
-            List<VæskeMix> påfyldninger = fad.getPåfyldninger();
+            List<PåfyldningsComponent> påfyldninger = fad.getPåfyldningsComponenter();
             if (påfyldninger.isEmpty() || påfyldninger.getLast().getLiterPåfyldt() == 0) {
                 return new SimpleStringProperty("Ingen påfyldninger");
             } else {
-                VæskeMix senesteVæskeMix = påfyldninger.getLast();
+                PåfyldningsComponent senesteVæskeMix = påfyldninger.getLast();
                 return new SimpleStringProperty(senesteVæskeMix.getAntalÅrMånederDage());
             }
         });
@@ -111,26 +112,11 @@ public class SøgningForm implements GuiObserver {
         tcVæskeMængde.setCellValueFactory(new PropertyValueFactory<>("mængdeFyldtPåFad"));
         TableColumn<Fad, Integer> tcStørrelse = new TableColumn<>("Størrelse (L)");
         tcStørrelse.setCellValueFactory(new PropertyValueFactory<>("størrelse"));
-//        tableViewFade.setItems(controller.getStorage().getFade());
+        tableViewFade.setItems(controller.getStorage().getFade());
         tableViewFade.getColumns().addAll(tcFadId, tcLagringstid, tcTidligereIndhold, tcMateriale, tcPlads, tcVæskeMængde, tcStørrelse);
         tableViewFade.setMinWidth(900);
         tcPlads.setPrefWidth(200);
         FilteredList<Fad> filteredData = new FilteredList<>(controller.getStorage().getFade(), p -> true);
-//        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-//            filteredData.setPredicate(fad -> {
-//                if (newValue == null || newValue.isEmpty()) {
-//                    return true;
-//                }
-//                String lowerCaseFilter = newValue.toLowerCase();
-//                if (fad.getMateriale().toLowerCase().contains(lowerCaseFilter)) {
-//                    return true;
-//                } else if (fad.getTidligereIndhold().toLowerCase().contains(lowerCaseFilter)) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            });
-//        });
         SortedList<Fad> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableViewFade.comparatorProperty());
         tableViewFade.setItems(sortedData);

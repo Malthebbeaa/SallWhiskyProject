@@ -1,5 +1,8 @@
 package application.model;
 
+import application.controller.Controller;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class Fad {
     private List<Aftapning> aftapninger;
     private Plads plads;
     private int lagringstid;
+    private PåfyldningsComponent væskeMix;
 
     public Fad(int størrelse, String materiale, FadLeverandør fadLeverandør, String tidligereIndhold, int alder, int antalGangeBrugt) {
         this.fadId = IdCount++;
@@ -32,40 +36,42 @@ public class Fad {
         this.aftapninger = new ArrayList<>();
     }
 
-    /***
-     *
-     * @param mængde
-     * @return true hvis tilføjelsen af væske overskrider fadets størrelse
-     * false hvis tilføjelsen ikke overgår størrelsen
-     */
-    public boolean påFyldningOvergårGrænse(double mængde) {
-        return mængde + mængdeFyldtPåFad > størrelse;
+    public void tilføjVæske(PåfyldningsComponent påfyldningsComponent){
+        if(mængdeFyldtPåFad + påfyldningsComponent.getVæskeMængde() <= størrelse){
+            if(påfyldningsComponenter.size() > 0){
+                opretVæskemix(LocalDate.now(), påfyldningsComponent);
+            }
+            else {
+                påfyldningsComponenter.add(påfyldningsComponent);
+                mængdeFyldtPåFad += påfyldningsComponent.getVæskeMængde();
+            }
+        }
+        else{
+            throw new RuntimeException("Kan ikke påfyldes, Overskrider fadets kapacitet");
+        }
     }
 
-    /***
-     * hvis påfyldningens mængde ikke overgår størrelsen på fadet
-     * tilføjes påfyldningen til listen
-     * mængden på påfyldningen tilføjes mængden på fadet
-     * mængderne på påfyldningen trækkes fra deres destilleringer
-     * @param påfyldning
-     */
-
-    //TODO
-    public void tilføjPåfyldning(PåfyldningsComponent påfyldningsComponent) {
-        if (!påFyldningOvergårGrænse(påfyldningsComponent.getVæskeMængde())) {
-            påfyldningsComponenter.add(påfyldningsComponent);
-            mængdeFyldtPåFad = mængdeFyldtPåFad + påfyldningsComponent.getVæskeMængde();
-
-            //først her bliver mængden trukket fra destilleringen
-            for (Væske væske : påfyldningsComponenter) {
-                if(væske instanceof Væske) {
-                    væske.getDestillering().tilføjMængdeGivet(væske);
-                }
-            }
-
-        } else {
-            throw new RuntimeException("Du overskrider fadets kapacitet");
+    public boolean overskriderFadKapacitet(double mængde){
+        if(mængde + mængdeFyldtPåFad > størrelse){
+            return true;
         }
+        return false;
+    }
+
+    public void opretVæskemix(LocalDate dato, PåfyldningsComponent pc) {
+        if (påfyldningsComponenter.isEmpty()) {
+            throw new RuntimeException("Ingen væsker tilgængelige for at oprette væskemix.");
+        }
+
+        væskeMix = new VæskeMix(dato, this);
+        for (PåfyldningsComponent påfyldningsComponent : påfyldningsComponenter) {
+            væskeMix.add(påfyldningsComponent);
+        }
+        væskeMix.add(pc);
+
+        // Tøm de individuelle væsker fra fadet
+        påfyldningsComponenter.clear();
+        mængdeFyldtPåFad = væskeMix.getVæskeMængde();
     }
 
     /***
@@ -151,5 +157,9 @@ public class Fad {
 
     public int getAntalGangeBrugt() {
         return antalGangeBrugt;
+    }
+
+    public PåfyldningsComponent getVæskeMix() {
+        return væskeMix;
     }
 }

@@ -119,25 +119,25 @@ public class WhiskyProdukt {
         double alkoholprocent = 0.0;
 
         for (Aftapning aftapning : getAftapninger()) {
-            //TODO
-            //aftapning.getPåfyldning().getFad();
+            aftapning.getPåfyldning().getFad();
             aftapDato = String.valueOf(aftapning.getAftapningsDato());
-            //TODO
-            //String currentFadLand = String.valueOf(aftapning.getPåfyldning().getFad().getLand());
-//            if (!fadLande.contains(currentFadLand)) {
-//                fadLande.add(currentFadLand);
-//            }
-            //String currentFadTidlIndhold = String.valueOf(aftapning.getPåfyldning().getFad().getTidligereIndhold());
-//            if (!tidligereIndholde.contains(currentFadTidlIndhold)) {
-//                tidligereIndholde.add(currentFadTidlIndhold);
-//            }
-//            for (Mængde mængde : aftapning.getPåfyldning().getMængderPåfyldt()) {
-//                if (mængde != null && mængde.getDestillering() != null) {
-//                    korn = String.valueOf(mængde.getDestillering().getMaltbatch().getKorn().getSort());
-//                    mark = String.valueOf(mængde.getDestillering().getMaltbatch().getKorn().getMark().getMarkNavn());
-//                    maltbatchNummer = mængde.getDestillering().getMaltbatch().getBatchNummer();
-//                }
-//            }
+            String currentFadLand = String.valueOf(aftapning.getPåfyldning().getFad().getLand());
+            if (!fadLande.contains(currentFadLand)) {
+                fadLande.add(currentFadLand);
+            }
+            String currentFadTidlIndhold = String.valueOf(aftapning.getPåfyldning().getFad().getTidligereIndhold());
+            if (!tidligereIndholde.contains(currentFadTidlIndhold)) {
+                tidligereIndholde.add(currentFadTidlIndhold);
+            }
+            for (PåfyldningsComponent væske : aftapning.getPåfyldning().getPåfyldningsComponenter()) {
+                if (væske instanceof Væske) {
+                    if (væske != null && ((Væske)væske).getDestillering() != null) {
+                        korn = String.valueOf(((Væske)væske).getDestillering().getMaltbatch().getKorn().getSort());
+                        mark = String.valueOf(((Væske)væske).getDestillering().getMaltbatch().getKorn().getMark().getMarkNavn());
+                        maltbatchNummer = ((Væske)væske).getDestillering().getMaltbatch().getBatchNummer();
+                    }
+                }
+            }
 
             // Lande fade er fra
             if (fadLande.size() > 1) {
@@ -185,12 +185,11 @@ public class WhiskyProdukt {
     private int getÅrLagret() {
         int samletÅr = 0;
         for (Aftapning aftapning : aftapninger) {
-             //TODO
-            //int påfyldningÅr = aftapning.getPåfyldning().getPåfyldningsDato().getYear();
+            int påfyldningÅr = aftapning.getPåfyldning().getPåfyldningsDato().getYear();
             int aftapningsÅr = opretDato.getYear();
-            //int årlagret = aftapningsÅr - påfyldningÅr;
+            int årlagret = aftapningsÅr - påfyldningÅr;
 
-            //samletÅr += årlagret;
+            samletÅr += årlagret;
 
         }
         return samletÅr / aftapninger.size();

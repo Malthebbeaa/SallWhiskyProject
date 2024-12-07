@@ -162,8 +162,8 @@ public class FlytfadForm implements GuiObserver {
 
         if (plads != null && plads.getFad() != null) {
             String påfyldning = "";
-            List<VæskeMix> påfyldninger = plads.getFad().getPåfyldninger();
-            List<Væske> mængder = new ArrayList<>();
+            List<PåfyldningsComponent> påfyldninger = plads.getFad().getPåfyldningsComponenter();
+            List<PåfyldningsComponent> mængder = new ArrayList<>();
             for (int i = 0; i < påfyldninger.size(); i++) {
                 påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
                         "\nTid på fad: " +
@@ -171,9 +171,9 @@ public class FlytfadForm implements GuiObserver {
                         "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths()+
                         "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays()+
                         "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now())? "Ja\n" : "Nej\n");
-                mængder = påfyldninger.get(i).getVæskerFyldtPå();
-                for (Væske væske : mængder) {
-                    påfyldning += "batchnummer: " + væske.getDestillering().getBatchNummer() +"\nAlkohol: " + væske.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + væske.getMængde()+" L\n";
+                mængder = påfyldninger.get(i).getPåfyldningsComponenter();
+                for (PåfyldningsComponent væske : mængder) {
+                    påfyldning += "batchnummer: " + væske.getDestillering().getBatchNummer() +"\nAlkohol: " + væske.getDestillering().getAlkoholProcent()+" %\nantal liter i fad: " + væske.getVæskeMængde()+" L\n";
                 }
             }
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +

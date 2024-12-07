@@ -16,7 +16,7 @@ public class Væske extends PåfyldningsComponent {
         }
     }
 
-    public double getMængde() {
+    public double getVæskeMængde() {
         return mængde;
     }
 
@@ -27,4 +27,5 @@ public class Væske extends PåfyldningsComponent {
     public PåfyldningsComponent getPåfyldning() {
         return påfyldningsComponent;
     }
+
 }

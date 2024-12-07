@@ -50,14 +50,12 @@ public class VæskeMixTest {
     @Test
     void test_PåfyldningAfFad(){
         //Arrange
-        Væske væske = new Væske(200, destillering);
-        Væske væske1 = new Væske(150, destillering2);
+        Væske væske = controller.opretVæske(200, destillering);
+        Væske væske1 = controller.opretVæske(150, destillering2);
 
-        VæskeMix væskeMix = new VæskeMix(LocalDate.now(),fad);
-        væskeMix.tilføjVæske(væske);
-        væskeMix.tilføjVæske(væske1);
-
-        controller.påfyldFad(væskeMix, fad);
+        fad.tilføjVæske(væske);
+        fad.tilføjVæske(væske1);
+        PåfyldningsComponent væskeMix = fad.getVæskeMix();
 
         assertEquals(350, væskeMix.getLiterPåfyldt());
         assertEquals(350, fad.getMængdeFyldtPåFad());

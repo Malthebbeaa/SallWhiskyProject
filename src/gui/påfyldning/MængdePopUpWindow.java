@@ -69,7 +69,6 @@ public class MængdePopUpWindow extends Stage {
             alert.showAndWait();
             mængde = 0;
         }
-
         if (væskeMix.mængdenOverskriderFadKapacitet(mængde)){
             Alert alert = new Alert(Alert.AlertType.WARNING, "Mængden overskrider fadets kapacitet");
             alert.showAndWait();
