@@ -45,7 +45,7 @@ public class SøgningForm implements GuiObserver {
         søgningsPane.setVgap(10);
 
         ComboBox comboBoxSøg = new ComboBox<>();
-        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId", "Materiale"));
+        ArrayList søgningFiltre = new ArrayList<>(List.of("FadId", "Materiale", "Tidligere Indhold"));
         comboBoxSøg.getItems().addAll(søgningFiltre);
         comboBoxSøg.setValue(søgningFiltre.getFirst());
         searchBar = new TextField();
@@ -55,7 +55,7 @@ public class SøgningForm implements GuiObserver {
             if (searchBar.getText() != null) {
                 if (comboBoxSøg.getValue().equals(søgningFiltre.get(0))) {
                     Scanner scanner = new Scanner(searchBar.getText());
-                    if (scanner.hasNextInt()){
+                    if (scanner.hasNextInt()) {
                         handler.søgningFadIdAction(this, Integer.valueOf(searchBar.getText()));
                     } else {
                         Alert alert = new Alert(Alert.AlertType.WARNING, "Fad Id skal være et gyldigt nummer");
@@ -64,6 +64,8 @@ public class SøgningForm implements GuiObserver {
                     }
                 } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(1))) {
                     handler.søgningMaterialeAction(this, searchBar.getText());
+                } else if (comboBoxSøg.getValue().equals(søgningFiltre.get(2))) {
+                    handler.søgningTidligereIndholdAction(this, searchBar.getText());
                 }
             }
         });
