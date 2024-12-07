@@ -157,8 +157,9 @@ public class gui extends Application {
 
         WhiskyProdukt whiskyProdukt1 = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
         Aftapning aftapning1 = new Aftapning(94, 68);
-        aftapning1.setPåfyldning(væskeMix3);
+
         ArrayList<Aftapning> aftapningerTilWhiskyProdukt1 = new ArrayList<>(List.of(aftapning1));
+        aftapning1.setPåfyldning(væskeMix3);
         controller.lavAftapninger(aftapningerTilWhiskyProdukt1, whiskyProdukt1);
         whiskyProdukt1.tilføjVand(5);
     }

@@ -17,6 +17,7 @@ public class Fad {
     private int antalGangeBrugt;
     private double mængdeFyldtPåFad;
     private List<PåfyldningsComponent> påfyldningsComponenter;
+    private List<PåfyldningsComponent> gamleVæskeMix;
     private List<Aftapning> aftapninger;
     private Plads plads;
     private int lagringstid;
@@ -34,6 +35,7 @@ public class Fad {
         this.lagringstid = 0;
         this.påfyldningsComponenter = new ArrayList<>();
         this.aftapninger = new ArrayList<>();
+        this.gamleVæskeMix = new ArrayList<>();
     }
 
     public void tilføjVæske(PåfyldningsComponent påfyldningsComponent){
@@ -69,7 +71,7 @@ public class Fad {
         væskeMix.add(pc);
         påfyldningsComponenter.clear();
         påfyldningsComponenter.add(væskeMix);
-        mængdeFyldtPåFad = væskeMix.getVæskeMængde();
+        mængdeFyldtPåFad += pc.getVæskeMængde();
     }
 
     /***
@@ -78,6 +80,12 @@ public class Fad {
      */
     public void aftapVæskePåFad(Aftapning aftapning){
         mængdeFyldtPåFad -= aftapning.getLiterAftappet();
+        if(mængdeFyldtPåFad == 0){
+            for (PåfyldningsComponent påfyldningsComponent : påfyldningsComponenter) {
+                gamleVæskeMix.add(påfyldningsComponent);
+            }
+        }
+        påfyldningsComponenter.clear();
     }
 
     public double getMængdeFyldtPåFad() {
@@ -159,5 +167,9 @@ public class Fad {
 
     public PåfyldningsComponent getVæskeMix() {
         return væskeMix;
+    }
+
+    public List<PåfyldningsComponent> getGamleVæskeMix() {
+        return gamleVæskeMix;
     }
 }
