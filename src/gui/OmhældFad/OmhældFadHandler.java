@@ -20,6 +20,7 @@ public class OmhældFadHandler implements GuiSubject{
 
     public void flytFadAktion(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, OmhældFadForm form){
         controller.flytVæskeTilFad(form.getfraFad(), form.getDestinationsFad(), form.getVæske(), Double.parseDouble(form.getTxfMængde().getText()));
+        notifyObservers();
     }
 
     @Override

@@ -17,6 +17,7 @@ public class Fad {
     private int antalGangeBrugt;
     private double mængdeFyldtPåFad;
     private List<PåfyldningsComponent> påfyldningsComponenter;
+    private List<PåfyldningsComponent> TidligerepåfyldningsComponenter;
     private List<Aftapning> aftapninger;
     private Plads plads;
     private int lagringstid;
@@ -33,6 +34,7 @@ public class Fad {
         this.mængdeFyldtPåFad = 0;
         this.lagringstid = 0;
         this.påfyldningsComponenter = new ArrayList<>();
+        this.TidligerepåfyldningsComponenter = new ArrayList<>();
         this.aftapninger = new ArrayList<>();
     }
 
@@ -78,6 +80,10 @@ public class Fad {
      */
     public void aftapVæskePåFad(Aftapning aftapning){
         mængdeFyldtPåFad -= aftapning.getLiterAftappet();
+        if(mængdeFyldtPåFad <= 0){
+            TidligerepåfyldningsComponenter.addAll(påfyldningsComponenter);
+            påfyldningsComponenter.clear();
+        }
     }
 
     public double getMængdeFyldtPåFad() {
@@ -173,30 +179,23 @@ public class Fad {
         if (andetFad.overskriderFadKapacitet(mængde)) {
             throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
         }
-
-        // Proportionelt split af væskemixets komponenter
         VæskeMix nytMix = new VæskeMix(LocalDate.now(), valgtMix.getPåfyldningsDato(), andetFad);
-
-        for (PåfyldningsComponent komponent : valgtMix.getPåfyldningsComponenter()) {
-            double andel = komponent.getVæskeMængde() / valgtMix.getVæskeMængde();
+        for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
+            double andel = pc.getVæskeMængde() / valgtMix.getVæskeMængde();
             double flyttetMængde = andel * mængde;
 
-            if (komponent instanceof Væske) {
-                Væske originalVæske = (Væske) komponent;
+            if (pc instanceof Væske) {
+                Væske originalVæske = (Væske) pc;
                 Væske nyVæske = new Væske(flyttetMængde, originalVæske.getDestillering());
                 nytMix.add(nyVæske);
                 originalVæske.setMængde(originalVæske.getVæskeMængde() - flyttetMængde);
 
-            } else if (komponent instanceof VæskeMix) {
-                VæskeMix originalMix = (VæskeMix) komponent;
+            } else if (pc instanceof VæskeMix) {
+                VæskeMix originalMix = (VæskeMix) pc;
                 flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde);
             }
         }
-
-        // Tilføj det nye mix til det nye fad
         andetFad.tilføjVæske(nytMix);
-
-        // Reducer mængden i det oprindelige væskemix
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
         mængdeFyldtPåFad -= mængde;
         andetFad.tilføjMængdeFyldtPåFad(mængde);
