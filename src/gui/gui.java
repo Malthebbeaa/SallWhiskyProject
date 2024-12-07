@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
+import gui.OmhældFad.OmhældFadWindow;
 import gui.destillering.DestilleringWindow;
 import gui.fad.FadWindow;
 import gui.fadSøgning.SøgningWindow;
@@ -37,6 +38,7 @@ public class gui extends Application {
     private WhiskyProduktOpretWindow whiskyProduktOpretWindow;
     private PåfyldningWindow påfyldningWindow;
     private FlytFadWindow flytFadWindow;
+    private OmhældFadWindow omhældFadWindow;
     private SøgningWindow søgningWindow;
 
     @Override
@@ -69,8 +71,9 @@ public class gui extends Application {
         flytFadWindow = new FlytFadWindow(controller);
         påfyldningWindow = new PåfyldningWindow(controller, flytFadWindow);
         søgningWindow = new SøgningWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Fad Oversigt"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane()));
+        omhældFadWindow = new OmhældFadWindow(controller);
+        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Fad Oversigt", "Omhæld Fad"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane(), omhældFadWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -88,6 +91,8 @@ public class gui extends Application {
         flytFadWindow.getHandler().addObserver(søgningWindow.getForm());
         whiskyProduktOpretWindow.getHandler().addObserver(påfyldningWindow.getForm());
         whiskyProduktOpretWindow.getHandler().addObserver(søgningWindow.getForm());
+        omhældFadWindow.getHandler().addObserver(omhældFadWindow.getForm());
+        omhældFadWindow.getHandler().addObserver(flytFadWindow.getForm());
     }
 
     public void initStorage(){

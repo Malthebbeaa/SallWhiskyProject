@@ -117,4 +117,12 @@ public class Controller {
         else{
         }
     }
+
+    public void flytVæskeTilFad(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde){
+        fraFad.flytDelAfVæskeMixTilFad(destinationsFad,væske,mængde);
+    }
+
+    public void flytVæske(Væske væske){
+
+    }
 }

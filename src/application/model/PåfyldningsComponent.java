@@ -5,6 +5,7 @@ import java.time.Period;
 import java.util.List;
 
 public abstract class PåfyldningsComponent {
+    private double mængde;
     public void add(PåfyldningsComponent påfyldningsComponent) {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
@@ -57,6 +58,28 @@ public abstract class PåfyldningsComponent {
     }
 
     public String toString(){
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
+    }
+
+    public List<Væske> hentAlleVæsker(){
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
+    }
+
+    public void setMængde(double mængde){
+        if (mængde < 0) {
+            throw new IllegalArgumentException("Mængde kan ikke være negativ.");
+        }
+        this.mængde = mængde;
+    }
+
+    public void setLiterPåfyldt(double literPåfyldt){
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
+    }
+
+    public void tilføjOmhældningsDato(LocalDate dato){
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
+    }
+    public List<LocalDate> getOmhældningsDatoer(){
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 }
