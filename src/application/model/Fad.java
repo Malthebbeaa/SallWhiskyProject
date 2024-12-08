@@ -197,7 +197,7 @@ public class Fad {
 
             } else if (pc instanceof VæskeMix) {
                 VæskeMix originalMix = (VæskeMix) pc;
-                flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde, totalVæske);
+                flytDelAfVæskeMixTilFad(andetFad, originalMix, mængde, totalVæske);
             }
         }
         andetFad.tilføjVæske(nytMix);
