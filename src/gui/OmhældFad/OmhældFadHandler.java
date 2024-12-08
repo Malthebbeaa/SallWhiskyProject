@@ -7,6 +7,7 @@ import application.model.PåfyldningsComponent;
 import application.model.Væske;
 import gui.GuiObserver;
 import gui.GuiSubject;
+import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
@@ -18,10 +19,13 @@ public class OmhældFadHandler implements GuiSubject{
         this.controller = controller;
     }
 
-    public void flytFadAktion(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, OmhældFadForm form){
+    public void omhældFadAktion(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, OmhældFadForm form){
         controller.flytVæskeTilFad(form.getfraFad(), form.getDestinationsFad(), form.getVæske(), Double.parseDouble(form.getTxfMængde().getText()));
         form.clearAktion();
         notifyObservers();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,  "Fad " + destinationsFad.getFadId() + " har fået " + mængde + " L "  + " omhældt");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 
     @Override
