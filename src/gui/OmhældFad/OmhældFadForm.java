@@ -51,6 +51,7 @@ public class OmhældFadForm implements GuiObserver {
 
         Label lblVælgLager = new Label("Vælg til fad:");
         cbTilFad = new ComboBox<>(controller.getStorage().getFade());
+        cbTilFad.setVisibleRowCount(3);
         fadOgLagerPane.add(lblVælgLager, 0, 1);
         fadOgLagerPane.add(cbTilFad, 1, 1);
 
