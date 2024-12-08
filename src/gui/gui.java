@@ -91,6 +91,7 @@ public class gui extends Application {
         flytFadWindow.getHandler().addObserver(søgningWindow.getForm());
         whiskyProduktOpretWindow.getHandler().addObserver(påfyldningWindow.getForm());
         whiskyProduktOpretWindow.getHandler().addObserver(søgningWindow.getForm());
+        whiskyProduktOpretWindow.getHandler().addObserver(omhældFadWindow.getForm());
         omhældFadWindow.getHandler().addObserver(omhældFadWindow.getForm());
         omhældFadWindow.getHandler().addObserver(flytFadWindow.getForm());
         omhældFadWindow.getHandler().addObserver(whiskyProduktOpretWindow.getForm());
@@ -150,6 +151,13 @@ public class gui extends Application {
         væskeMix2.add(new Væske(32, destillering1));
         VæskeMix væskeMix3 = controller.opretVæskeMix(fad4, LocalDate.of(2020, 1,20));
         væskeMix3.add(new Væske(94, destillering1));
+
+        VæskeMix væskeMix4 = controller.opretVæskeMix(fad3, LocalDate.of(2020, 1,20));
+        væskeMix4.add(new Væske(94, destillering1));
+        controller.påfyldFad(væskeMix4, fad3, væskeMix4.getPåfyldningsDato());
+        VæskeMix væskeMix5 = controller.opretVæskeMix(fad5, LocalDate.of(2020, 1,20));
+        væskeMix5.add(new Væske(94, destillering1));
+        controller.påfyldFad(væskeMix5, fad5, væskeMix4.getPåfyldningsDato());
 
         controller.påfyldFad(væskeMix1, fad1, væskeMix1.getPåfyldningsDato());
         controller.påfyldFad(væskeMix2, fad2, væskeMix1.getPåfyldningsDato());

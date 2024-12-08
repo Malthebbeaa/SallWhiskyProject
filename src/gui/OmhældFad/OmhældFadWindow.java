@@ -22,7 +22,7 @@ public class OmhældFadWindow extends BaseWindow {
     public void initContent() {
         getPane().add(form.getOmhældFadPane(), 0,1);
 
-        Button btnFlytFad = new Button("Flyt Fad");
+        Button btnFlytFad = new Button("Omhæld Fad");
         btnFlytFad.setOnAction(e -> handler.flytFadAktion(form.getfraFad(),form.getDestinationsFad(), form.getVæske(), Double.parseDouble(form.getTxfMængde().getText()),form));
 
         Button btnAfbrydAktion = new Button("Afbryd");
