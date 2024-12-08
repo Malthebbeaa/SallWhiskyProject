@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FadTest {
-    private Fad fad;
+    private Fad fad, fad2;
     private VæskeMix væskeMix1, væskeMix2;
     private Væske væske1, væske2, væske3;
     private Destillering destillering;
@@ -17,6 +17,8 @@ class FadTest {
     void setUp() {
         FadLeverandør fadLeverandør = new FadLeverandør("Alberto", "Spanien");
         fad = new Fad(65, "Eg", fadLeverandør,"Sherry", 10, 1);
+        fad2 = new Fad(90, "Eg", fadLeverandør,"Sherry", 15, 1);
+
         væskeMix1 = new VæskeMix(LocalDate.now(), fad);
         væskeMix2 = new VæskeMix(LocalDate.now(), fad);
 
@@ -25,6 +27,18 @@ class FadTest {
         væske1 = new Væske(60, destillering);
         væske2 = new Væske(70, destillering);
         væske3 = new Væske(5, destillering);
+    }
+
+    @Test
+    void omhældVæskeMix() {
+        væskeMix1.add(væske1);
+        fad.tilføjVæske(væskeMix1);
+        assertEquals(fad.getMængdeFyldtPåFad(), 60);
+
+        fad2.omhældVæskeMix(LocalDate.now(), væskeMix1, 10);
+
+        assertEquals(fad2.getMængdeFyldtPåFad(), 10);
+
     }
 
     @Test
@@ -70,4 +84,6 @@ class FadTest {
 //
 //        assertEquals(forventet, aktuelt);
     }
+
+
 }

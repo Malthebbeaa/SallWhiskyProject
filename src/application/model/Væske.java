@@ -17,6 +17,10 @@ public class Væske extends PåfyldningsComponent {
         }
     }
 
+    public void omhældVæske(double omhældMængde){
+        mængde -= omhældMængde;
+    }
+
     public double getVæskeMængde() {
         return mængde;
     }
