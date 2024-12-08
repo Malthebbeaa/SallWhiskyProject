@@ -17,6 +17,7 @@ public class Fad {
     private int antalGangeBrugt;
     private double mængdeFyldtPåFad;
     private List<PåfyldningsComponent> påfyldningsComponenter;
+    private List<PåfyldningsComponent> TidligerepåfyldningsComponenter;
     private List<Aftapning> aftapninger;
     private Plads plads;
     private int lagringstid;
@@ -33,6 +34,7 @@ public class Fad {
         this.mængdeFyldtPåFad = 0;
         this.lagringstid = 0;
         this.påfyldningsComponenter = new ArrayList<>();
+        this.TidligerepåfyldningsComponenter = new ArrayList<>();
         this.aftapninger = new ArrayList<>();
     }
 
@@ -95,6 +97,10 @@ public class Fad {
      */
     public void aftapVæskePåFad(Aftapning aftapning){
         mængdeFyldtPåFad -= aftapning.getLiterAftappet();
+        if(mængdeFyldtPåFad <= 0){
+            TidligerepåfyldningsComponenter.addAll(påfyldningsComponenter);
+            påfyldningsComponenter.clear();
+        }
     }
 
     public double getMængdeFyldtPåFad() {
@@ -176,5 +182,43 @@ public class Fad {
 
     public PåfyldningsComponent getVæskeMix() {
         return væskeMix;
+    }
+
+    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde) {
+        if (valgtMix == null) {
+            throw new IllegalArgumentException("Ingen væskemix valgt.");
+        }
+
+        if (mængde <= 0 || mængde > valgtMix.getVæskeMængde()) {
+            throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige væskemixets mængde.");
+        }
+
+        if (andetFad.overskriderFadKapacitet(mængde)) {
+            throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
+        }
+        VæskeMix nytMix = new VæskeMix(LocalDate.now(), valgtMix.getPåfyldningsDato(), andetFad);
+        for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
+            double andel = pc.getVæskeMængde() / valgtMix.getVæskeMængde();
+            double flyttetMængde = andel * mængde;
+
+            if (pc instanceof Væske) {
+                Væske originalVæske = (Væske) pc;
+                Væske nyVæske = new Væske(flyttetMængde, originalVæske.getDestillering());
+                nytMix.add(nyVæske);
+                originalVæske.setMængde(originalVæske.getVæskeMængde() - flyttetMængde);
+
+            } else if (pc instanceof VæskeMix) {
+                VæskeMix originalMix = (VæskeMix) pc;
+                flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde);
+            }
+        }
+        andetFad.tilføjVæske(nytMix);
+        valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
+        mængdeFyldtPåFad -= mængde;
+        andetFad.tilføjMængdeFyldtPåFad(mængde);
+    }
+
+    public void tilføjMængdeFyldtPåFad(double mængdeFyldtPåFad) {
+        mængdeFyldtPåFad += mængdeFyldtPåFad;
     }
 }

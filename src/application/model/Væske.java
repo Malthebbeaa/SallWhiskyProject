@@ -1,5 +1,10 @@
 package application.model;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Væske extends PåfyldningsComponent {
     private double mængde;
     private Destillering destillering;
@@ -11,18 +16,12 @@ public class Væske extends PåfyldningsComponent {
         destillering.givVæske(this);
     }
 
-    public void setVæskeMix(PåfyldningsComponent påfyldningsComponent){
-        if (påfyldningsComponent != null){
-            this.påfyldningsComponent = påfyldningsComponent;
-        }
-    }
-
-    public void omhældVæske(double omhældMængde){
-        mængde -= omhældMængde;
-    }
-
     public double getVæskeMængde() {
         return mængde;
+    }
+
+    public void setMængde(double mængde) {
+        this.mængde = mængde;
     }
 
     public Destillering getDestillering() {
@@ -35,6 +34,6 @@ public class Væske extends PåfyldningsComponent {
 
     @Override
     public String toString() {
-        return "Væske{}" + mængde + " " + destillering;
+        return "Væske: " + mængde + "L";
     }
 }
