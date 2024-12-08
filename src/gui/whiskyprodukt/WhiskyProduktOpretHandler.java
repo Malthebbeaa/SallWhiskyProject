@@ -15,6 +15,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
     private Controller controller;
     private WhiskyProdukt whiskyProdukt;
     private ArrayList<GuiObserver> observers;
+    private PopupWindowAftap popupWindowAftap;
 
     public WhiskyProduktOpretHandler(Controller controller) {
         this.controller = controller;
@@ -45,7 +46,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
         if (selected == null) return;
 
         this.whiskyProdukt = whiskyProdukt;
-        PopupWindowAftap popupWindowAftap = new PopupWindowAftap("Aftap", selected, whiskyProdukt);
+        popupWindowAftap = new PopupWindowAftap("Aftap", selected, whiskyProdukt);
         popupWindowAftap.showAndWait();
         //hvis mængde er udfyldt
         if (popupWindowAftap.getMængde() != 0) {
@@ -57,6 +58,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
                 form.getAftapninger().add(aftapning);
             }
         }
+        System.out.println("Popup mængde: " + popupWindowAftap.getMængde());
     }
 
     public void removeAllAction(WhiskyProduktOpretForm form) {
