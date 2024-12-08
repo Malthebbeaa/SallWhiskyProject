@@ -74,11 +74,27 @@ public class PåfyldningWindow extends BaseWindow {
                 handler.påfyldFadAction(form, fad);
                 resetAction();
                 if (væskeMix.getLiterPåfyldt() > 0){
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Fad nummer " +fad.getFadId() +" er påfyldt, gå til flytning");
-                    alert.showAndWait();
-                    if (alert.getResult().getButtonData().isDefaultButton()){
-                        tabPane.getSelectionModel().select(6);
-                        flytFadWindow.getForm().getCbFade().setValue(fad);
+                    if (fad.getPlads() != null){
+                        String plads = String.valueOf(fad.getPlads().getPladsNummer());
+                        String hylde = String.valueOf(fad.getPlads().getHylde().getHyldeNummer());
+                        String reol = String.valueOf(fad.getPlads().getHylde().getReol().getReolNummer());
+                        String lager = String.valueOf(fad.getPlads().getHylde().getReol().getLager().getNavn());
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Fadet er på " + lager + " på reol " + reol +
+                                " hylde " + hylde + " på pladsnummer " + plads + ". Vil du give fadet en ny plads?");
+                        alert.setHeaderText("Fad nummer " + fad.getFadId() + " er påfydlt");
+                        alert.showAndWait();
+                        if (alert.getResult().getButtonData().isDefaultButton()){
+                            tabPane.getSelectionModel().select(6);
+                            flytFadWindow.getForm().getCbFade().setValue(fad);
+                        }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Gå til flytning");
+                        alert.setHeaderText("Fad nummer " + fad.getFadId() + " er påfyldt");
+                        alert.showAndWait();
+                        if (alert.getResult().getButtonData().isDefaultButton()){
+                            tabPane.getSelectionModel().select(6);
+                            flytFadWindow.getForm().getCbFade().setValue(fad);
+                        }
                     }
                 }
             } catch (RuntimeException exception){
