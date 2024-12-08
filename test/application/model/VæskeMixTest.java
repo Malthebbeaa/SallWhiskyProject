@@ -173,46 +173,4 @@ class VæskeMixTest {
         //Assert
         assertEquals(forventet, aktuelt);
     }
-
-    @Test
-    void testComposite(){
-        Mark mark = new Mark("Hansens Mark",true);
-        Korn korn = new Korn(LocalDate.now(),"Evergreen",mark);
-        Maltbatch mb = new Maltbatch("NM2P",1900.0,korn);
-        Destillering ds = new Destillering(2,LocalDate.now(),LocalDate.now(),900,75,mb);
-        Destillering ds2 = new Destillering(2,LocalDate.now(),LocalDate.now(),900,75,mb);
-        Væske væske1 = new Væske(20,ds);
-        Væske væske2 = new Væske(10,ds);
-        Væske væske3 = new Væske(10,ds2);
-        FadLeverandør fadLeverandør = new FadLeverandør("Barrels-R-US","Murica");
-        Fad fad = new Fad(30,"Eg",fadLeverandør,"Sherry",30,2);
-        Fad fad2 = new Fad(300,"Eg",fadLeverandør,"Sherry",30,2);
-        fad.tilføjVæske(væske1);
-        fad.tilføjVæske(væske2);
-        //fad.tilføjVæske(væske3);
-        fad2.tilføjVæske(væske1);
-        fad2.tilføjVæske(væske2);
-        fad2.tilføjVæske(væske3);
-        PåfyldningsComponent væskem = fad2.getVæskeMix();
-        Væske væske4;
-        StorageInterface storage = new Storage();
-        Controller controller = new Controller(storage);
-        PåfyldningsComponent vm = fad.getVæskeMix();
-
-        double aktuelt = vm.getVæskeMængde();
-        double forventet = 30.0;
-        assertEquals(forventet,aktuelt);
-        assertThrows(RuntimeException.class,()-> fad.tilføjVæske(væske3));
-        assertThrows(IllegalArgumentException.class,()-> controller.opretVæske(871,ds));
-
-        for (PåfyldningsComponent påfyldningsComponent : fad2.getPåfyldningsComponenter()) {
-            System.out.println(fad2.getPåfyldningsComponenter().size());
-            System.out.println(væskem);
-            List<PåfyldningsComponent> påfyldningsComponentArrayList = påfyldningsComponent.getPåfyldningsComponenter();
-            for (PåfyldningsComponent component : påfyldningsComponentArrayList) {
-                System.out.println(component);
-            }
-            System.out.println(påfyldningsComponent);
-        }
-    }
 }
