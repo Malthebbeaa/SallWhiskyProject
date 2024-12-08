@@ -65,6 +65,7 @@ public class WhiskyProduktOpretWindow extends BaseWindow {
         Button btnPåfyld = new Button("Opret Whiskyprodukt");
         btnPåfyld.setOnAction(e -> {
             handler.aftapFadAction(form);
+
             resetAction();
         });
         Button btnAfbryd = new Button("Afbryd");
