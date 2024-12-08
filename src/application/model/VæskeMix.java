@@ -171,27 +171,8 @@ public class VæskeMix extends PåfyldningsComponent {
         return påfyldningsComponenter;
     }
 
-    public List<Væske> hentAlleVæsker() {
-        List<Væske> væsker = new ArrayList<>();
-        for (PåfyldningsComponent component : påfyldningsComponenter) {
-            if (component instanceof Væske) {
-                væsker.add((Væske) component);
-            } else if (component instanceof VæskeMix) {
-                væsker.addAll(((VæskeMix) component).hentAlleVæsker()); // Rekursion
-            }
-        }
-        return væsker;
-    }
-
     public void setLiterPåfyldt(double literPåfyldt) {
         this.literPåfyldt = literPåfyldt;
-    }
-
-    public void tilføjOmhældningsDato(LocalDate dato) {
-        if (omhældningsDatoer == null) {
-            omhældningsDatoer = new ArrayList<>();
-        }
-        omhældningsDatoer.add(dato);
     }
 
     public List<LocalDate> getOmhældningsDatoer() {

@@ -29,7 +29,7 @@ public class PåfyldningHandler implements GuiSubject {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Du skal tilføje mængde af destillering(er) inden du fortsætter");
             alert.showAndWait();
         } else {
-            controller.påfyldFad(væskeMix, fad);
+            controller.påfyldFad(væskeMix, fad, form.getDatePickerPåfyldningsDato().getValue());
 
             notifyObservers();
             form.tommefade();

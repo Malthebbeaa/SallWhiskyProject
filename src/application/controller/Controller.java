@@ -84,9 +84,9 @@ public class Controller {
         return væskeMix;
     }
 
-    public void påfyldFad(VæskeMix væskeMix, Fad fad){
+    public void påfyldFad(VæskeMix væskeMix, Fad fad, LocalDate dato){
         try {
-            fad.tilføjVæske(væskeMix);
+            fad.tilføjVæske(dato, væskeMix);
         } catch (RuntimeException e){
             Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
             alert.showAndWait();

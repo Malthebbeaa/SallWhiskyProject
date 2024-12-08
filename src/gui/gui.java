@@ -150,9 +150,9 @@ public class gui extends Application {
         VæskeMix væskeMix3 = controller.opretVæskeMix(fad4, LocalDate.of(2020, 1,20));
         væskeMix3.add(new Væske(94, destillering1));
 
-        controller.påfyldFad(væskeMix1, fad1);
-        controller.påfyldFad(væskeMix2, fad2);
-        controller.påfyldFad(væskeMix3, fad4);
+        controller.påfyldFad(væskeMix1, fad1, væskeMix1.getPåfyldningsDato());
+        controller.påfyldFad(væskeMix2, fad2, væskeMix1.getPåfyldningsDato());
+        controller.påfyldFad(væskeMix3, fad4, væskeMix1.getPåfyldningsDato());
 
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(1), fad2);

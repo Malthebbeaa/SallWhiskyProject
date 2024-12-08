@@ -38,10 +38,10 @@ public class Fad {
         this.aftapninger = new ArrayList<>();
     }
 
-    public void tilføjVæske(PåfyldningsComponent påfyldningsComponent){
+    public void tilføjVæske(LocalDate dato, PåfyldningsComponent påfyldningsComponent){
         if(mængdeFyldtPåFad + påfyldningsComponent.getVæskeMængde() <= størrelse){
             if(påfyldningsComponenter.size() > 0){
-                opretVæskemix(LocalDate.now(), påfyldningsComponent);
+                opretVæskemix(dato, påfyldningsComponent);
             }
             else {
                 påfyldningsComponenter.add(påfyldningsComponent);
@@ -200,14 +200,10 @@ public class Fad {
                 flytDelAfVæskeMixTilFad(andetFad, originalMix, mængde, totalVæske);
             }
         }
-        andetFad.tilføjVæske(nytMix);
+        andetFad.tilføjVæske(valgtMix.getPåfyldningsDato(), nytMix);
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
         valgtMix.getFad().opdaterMængdeFyldtPåFad();
         andetFad.opdaterMængdeFyldtPåFad();
-    }
-
-    public void tilføjMængdeFyldtPåFad(double mængdeFyldtPåFad) {
-        mængdeFyldtPåFad += mængdeFyldtPåFad;
     }
 
     public void opdaterMængdeFyldtPåFad() {

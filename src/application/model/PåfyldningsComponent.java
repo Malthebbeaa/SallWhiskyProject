@@ -65,10 +65,6 @@ public abstract class PåfyldningsComponent {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 
-    public List<Væske> hentAlleVæsker(){
-        throw new UnsupportedOperationException("Operation ikke understøttet.");
-    }
-
     public void setMængde(double mængde){
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
@@ -77,9 +73,6 @@ public abstract class PåfyldningsComponent {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 
-    public void tilføjOmhældningsDato(LocalDate dato){
-        throw new UnsupportedOperationException("Operation ikke understøttet.");
-    }
     public List<LocalDate> getOmhældningsDatoer(){
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }

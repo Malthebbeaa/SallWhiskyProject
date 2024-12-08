@@ -175,9 +175,10 @@ public class WhiskyProduktOpretForm implements GuiObserver {
 
     @Override
     public void update(GuiSubject s) {
-        if (lvwMuligePåfyldninger.getItems() == null){
-            lvwMuligePåfyldninger.getItems().clear();
+        if (lvwMuligePåfyldninger == null){
+            lvwMuligePåfyldninger = new ListView<>();
         }
+        lvwMuligePåfyldninger.getItems().clear();
         lvwMuligePåfyldninger.getItems().addAll(getMuligePåfyldninger());
     }
 }
