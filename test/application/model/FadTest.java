@@ -53,7 +53,7 @@ class FadTest {
         //ACT
         fad1.tilføjVæske(LocalDate.now(), væske1);
         fad1.tilføjVæske(LocalDate.now(), væske2);
-        fad1.opretVæskemix(LocalDate.now(), væske3);
+        fad1.tilføjVæske(LocalDate.now(), væske3);
 
         PåfyldningsComponent valgtMix = fad1.getVæskeMix();
         fad1.flytDelAfVæskeMixTilFadHjælper(fad2, valgtMix, 50);

@@ -38,6 +38,12 @@ public class Fad {
         this.aftapninger = new ArrayList<>();
     }
 
+    /**
+     * Tjekker påfyldningscomponenter og hvis der ligger enten en væske eller væskemix i den opretter den et nyt væskemix
+     * med de parametre. Ellers tilføjer den væsken til listen og opdaterer mængdeFyldtPåFad.
+     * @param dato - Dato for tilføjelse af væske til fadet
+     * @param påfyldningsComponent - væske eller væskemix du ønsker at tilføje fadet.
+     */
     public void tilføjVæske(LocalDate dato, PåfyldningsComponent påfyldningsComponent){
         if(mængdeFyldtPåFad + påfyldningsComponent.getVæskeMængde() <= størrelse){
             if(påfyldningsComponenter.size() > 0){
@@ -53,6 +59,11 @@ public class Fad {
         }
     }
 
+    /**
+     * Tjekker om mængde du tilfører lagt til den mængde der findes i forvejen overskrider fadets størrelse
+     * @param mængde - Du tilfører til fadet.
+     * @return sandt eller falsk
+     */
     public boolean overskriderFadKapacitet(double mængde){
         if(mængde + mængdeFyldtPåFad > størrelse){
             return true;
@@ -60,7 +71,14 @@ public class Fad {
         return false;
     }
 
-    public void opretVæskemix(LocalDate dato, PåfyldningsComponent pc) {
+    /**
+     * Bruges af tilføjVæske metoden, kan ikke kaldes.
+     * tilføjer de væsker/væskemix der findes i påfyldningscomponenter og tilføjer dem til et nyoprettet væskemixs
+     * træstruktur. Derefter tømmer den listen og tilføjer det nye væskemix til listen og opdaterer mængdeFyldtPåFad
+     * @param dato
+     * @param pc
+     */
+    private void opretVæskemix(LocalDate dato, PåfyldningsComponent pc) {
         if (påfyldningsComponenter.isEmpty()) {
             throw new RuntimeException("Ingen væsker tilgængelige for at oprette væskemix.");
         }
@@ -166,11 +184,30 @@ public class Fad {
         return væskeMix;
     }
 
+    /**
+     * Bruges som hjælpe metode til flytDelAfVæskeMixTilFad, sørger for hele tiden at give korrekt mængde med til kald af metoden.
+     * Metoden er til at omhælde fad - fra et til et andet.
+     * @param andetFad - Fad det skal omhældes til
+     * @param valgtMix - Mix der skal omhældes.
+     * @param mængde - mængde der ønskes omhældt
+     */
     public void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde){
         double totalVæske = valgtMix.getVæskeMængde();
         flytDelAfVæskeMixTilFad(andetFad, valgtMix, mængde, totalVæske);
     }
 
+    /**
+     * Tjekker først for exceptions.
+     * Så opretter den et nyt væskeMix.
+     * Looper igennem valgte mix træstruktur og leder efter et væskecomponent.
+     * Hvis det ikke er et væskecomponent, så kalder den metoden igen rekursivt. Med det væskemix den har fat i.'
+     * Hvis den har fat i et væskecomponent, så laver den et nyt objekt med den mængde som er blevet udregnet i metoden med andel og flyttetmængde
+     * til sidst trækker den denne mængde fra originalt objekt og opdaterer begge fades mængder.
+     * @param andetFad - Fad du ønsker at flytte til.
+     * @param valgtMix - Det mix du ønsker at omhælde til andetFad
+     * @param mængde - mængde du ønsker at omhælde
+     * @param totalVæske - Total mængde af væske i fadet.
+     */
     public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske) {
         if (valgtMix == null) {
             throw new IllegalArgumentException("Ingen væskemix valgt.");
@@ -208,6 +245,14 @@ public class Fad {
     public void opdaterMængdeFyldtPåFad() {
         mængdeFyldtPåFad = beregnMængdeFraKomponenter(påfyldningsComponenter);
     }
+
+    /**
+     * Kaldes via opdaterMængdeFyldtPåFad.
+     * Går rekursivt igennem Påfyldningscomponenter som er tilføjet til fadet og finder de componenter som er væske
+     * og tilføjer dem til total mængde. Efter endt rekursion returneres totale mængde.
+     * @param komponenter
+     * @return - total mængde på fadet.
+     */
 
     private double beregnMængdeFraKomponenter(List<PåfyldningsComponent> komponenter) {
         double totalMængde = 0;
