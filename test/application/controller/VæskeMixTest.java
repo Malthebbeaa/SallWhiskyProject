@@ -53,8 +53,8 @@ public class VæskeMixTest {
         Væske væske = controller.opretVæske(200, destillering);
         Væske væske1 = controller.opretVæske(150, destillering2);
 
-        fad.tilføjVæske(væske);
-        fad.tilføjVæske(væske1);
+        fad.tilføjVæske(LocalDate.now(),væske);
+        fad.tilføjVæske(LocalDate.now(),væske1);
         PåfyldningsComponent væskeMix = fad.getVæskeMix();
 
         assertEquals(350, væskeMix.getLiterPåfyldt());
