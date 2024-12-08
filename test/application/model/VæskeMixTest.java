@@ -105,9 +105,9 @@ class VæskeMixTest {
     @Test
     void setFad() {
         //Arrange
-        væskeMix.setNuværendeFad(mockFad);
+        væskeMix.setFad(mockFad);
         boolean forventet = true;
-        boolean aktuelt = væskeMix.getNuværendeFad().equals(mockFad);
+        boolean aktuelt = væskeMix.getFad().equals(mockFad);
         //Assert
         assertEquals(forventet, aktuelt);
     }
