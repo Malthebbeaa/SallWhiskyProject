@@ -83,6 +83,7 @@ public class Fad {
         if(mængdeFyldtPåFad <= 0){
             TidligerepåfyldningsComponenter.addAll(påfyldningsComponenter);
             påfyldningsComponenter.clear();
+            aftapning.getPåfyldning().setFad(null);
         }
     }
 

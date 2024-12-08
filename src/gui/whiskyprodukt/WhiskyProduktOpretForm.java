@@ -2,6 +2,8 @@ package gui.whiskyprodukt;
 
 import application.controller.Controller;
 import application.model.*;
+import gui.GuiObserver;
+import gui.GuiSubject;
 import gui.PaneCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -14,7 +16,7 @@ import javafx.scene.layout.VBox;
 import java.time.LocalDate;
 import java.util.List;
 
-public class WhiskyProduktOpretForm {
+public class WhiskyProduktOpretForm implements GuiObserver {
     private Controller controller;
     private DatePicker datePickerOprettelsesdato;
     private GridPane opretWhiskyProduktPane, opretWhiskyProduktInfoPane, nextPane;
@@ -115,7 +117,7 @@ public class WhiskyProduktOpretForm {
     public ObservableList<VæskeMix> getMuligePåfyldninger(){
         ObservableList<VæskeMix> væskeMixMed3År = FXCollections.observableArrayList();
         for (VæskeMix pf : controller.getStorage().getPåfyldninger()) {
-            if (pf.klarTilAftapning(LocalDate.now()) && pf.getLiterPåfyldt() != 0){
+            if (pf.klarTilAftapning(LocalDate.now()) && pf.getVæskeMængde() != 0){
                 væskeMixMed3År.add(pf);
             }
         }
@@ -169,5 +171,11 @@ public class WhiskyProduktOpretForm {
             return Double.parseDouble(txfVand.getText());
         }
         return 0;
+    }
+
+    @Override
+    public void update(GuiSubject s) {
+        lvwMuligePåfyldninger.getItems().clear();
+        lvwMuligePåfyldninger.getItems().addAll(getMuligePåfyldninger());
     }
 }
