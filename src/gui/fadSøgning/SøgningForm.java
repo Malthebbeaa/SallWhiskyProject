@@ -38,7 +38,7 @@ public class SøgningForm implements GuiObserver {
 
     public void initForm(SøgningHandler handler) {
         søgningsInfoPane = new PaneCreator();
-        Label lblOverskrift = new Label("Søg fade");
+        Label lblOverskrift = new Label("Fad oversigt");
         søgningsPane.add(lblOverskrift, 0, 0);
         søgningsPane.add(søgningsInfoPane, 0, 1);
         søgningsPane.setHgap(10);
