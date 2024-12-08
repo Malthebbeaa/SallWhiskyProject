@@ -3,9 +3,14 @@ package gui.fad;
 import application.controller.Controller;
 import application.model.Fad;
 import application.model.FadLeverandør;
+import gui.GuiObserver;
+import gui.GuiSubject;
 
-public class FadHandler {
+import java.util.ArrayList;
+
+public class FadHandler implements GuiSubject {
     private Controller controller;
+    private ArrayList<GuiObserver> observers = new ArrayList<>();
 
     public FadHandler(Controller controller){
         this.controller = controller;
@@ -33,5 +38,26 @@ public class FadHandler {
         form.getComboboxMateriale().setValue(null);
         form.getComboboxStørrelse().setValue(null);
         form.getComboboxTidligereIndhold().setValue(null);
+    }
+
+    @Override
+    public void addObserver(GuiObserver o) {
+        if(!observers.contains(o)){
+            observers.add(o);
+        }
+    }
+
+    @Override
+    public void removeObserver(GuiObserver o) {
+        if(observers.contains(o)){
+            observers.remove(o);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (GuiObserver observer : observers) {
+            observer.update(this);
+        }
     }
 }

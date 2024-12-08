@@ -44,4 +44,8 @@ public class FadWindow extends BaseWindow {
 
         getPane().add(hBoxButtons, 0, 2);
     }
+
+    public FadHandler getHandler() {
+        return handler;
+    }
 }
