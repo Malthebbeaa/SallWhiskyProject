@@ -167,7 +167,12 @@ public class Fad {
         return væskeMix;
     }
 
-    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde) {
+    public void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde){
+        double totalVæske = valgtMix.getVæskeMængde();
+        flytDelAfVæskeMixTilFad(andetFad, valgtMix, mængde, totalVæske);
+    }
+
+    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske) {
         if (valgtMix == null) {
             throw new IllegalArgumentException("Ingen væskemix valgt.");
         }
@@ -181,7 +186,7 @@ public class Fad {
         }
         VæskeMix nytMix = new VæskeMix(LocalDate.now(), valgtMix.getPåfyldningsDato(), andetFad);
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
-            double andel = pc.getVæskeMængde() / valgtMix.getVæskeMængde();
+            double andel = pc.getVæskeMængde() / totalVæske;
             double flyttetMængde = andel * mængde;
 
             if (pc instanceof Væske) {
@@ -192,7 +197,7 @@ public class Fad {
 
             } else if (pc instanceof VæskeMix) {
                 VæskeMix originalMix = (VæskeMix) pc;
-                flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde);
+                flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde, totalVæske);
             }
         }
         andetFad.tilføjVæske(nytMix);

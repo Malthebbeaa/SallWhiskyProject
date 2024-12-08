@@ -119,7 +119,7 @@ public class Controller {
     }
 
     public void flytVæskeTilFad(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde){
-        fraFad.flytDelAfVæskeMixTilFad(destinationsFad,væske,mængde);
+        fraFad.flytDelAfVæskeMixTilFadHjælper(destinationsFad,væske,mængde);
     }
 
     public void flytVæske(Væske væske){
