@@ -94,6 +94,7 @@ public class gui extends Application {
         omhældFadWindow.getHandler().addObserver(omhældFadWindow.getForm());
         omhældFadWindow.getHandler().addObserver(flytFadWindow.getForm());
         omhældFadWindow.getHandler().addObserver(whiskyProduktOpretWindow.getForm());
+        omhældFadWindow.getHandler().addObserver(søgningWindow.getForm());
     }
 
     public void initStorage(){
