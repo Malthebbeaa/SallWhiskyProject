@@ -19,11 +19,9 @@ public class OmhældFadForm implements GuiObserver {
     private OmhældFadHandler handler;
     private ComboBox<Fad> cbFraFad;
     private ComboBox<Fad> cbTilFad;
-    private ListView<PåfyldningsComponent> lvMuligeVæsker;
     private Fad fraFad;
     private Fad destinationsFad;
     private PåfyldningsComponent væske;
-    private TextArea txFadInfo;
     private TextField txfMængde;
 
     public OmhældFadForm(Controller controller, OmhældFadHandler handler) {
@@ -38,9 +36,7 @@ public class OmhældFadForm implements GuiObserver {
         omhældFadPane.setVgap(10);
 
         Label lblVælgFlyt = new Label("Vælg Hvad der skal flyttes:");
-        Label lblLedigePladser = new Label("Vælg placering:");
         omhældFadPane.add(lblVælgFlyt, 0, 0);
-        omhældFadPane.add(lblLedigePladser,1,0);
 
         PaneCreator fadOgLagerPane = new PaneCreator();
         omhældFadPane.add(fadOgLagerPane, 0, 1);
@@ -63,21 +59,6 @@ public class OmhældFadForm implements GuiObserver {
         fadOgLagerPane.add(lblMængde,0,2);
         fadOgLagerPane.add(txfMængde,1,2);
 
-        PaneCreator pladsPane = new PaneCreator();
-        omhældFadPane.add(pladsPane, 1, 1);
-
-        Label lblVælgVæske = new Label("Vælg Væske:");
-        lvMuligeVæsker = new ListView<>();
-        lvMuligeVæsker.setStyle("-fx-control-inner-background: #F0F0F0");
-        pladsPane.add(lblVælgVæske, 0, 0);
-        pladsPane.add(lvMuligeVæsker, 0, 1);
-
-        txFadInfo = new TextArea();
-        txFadInfo.setEditable(false);
-        txFadInfo.setMaxWidth(300);
-        txFadInfo.setStyle("-fx-control-inner-background: lightblue; -fx-font-weight: bold;");
-        pladsPane.add(txFadInfo,3,1);
-
         ChangeListener<Fad> fadListener = (fad, OldFad, NewFad) -> selectedFadChanged();
         cbFraFad.getSelectionModel().selectedItemProperty().addListener(fadListener);
 
@@ -88,7 +69,6 @@ public class OmhældFadForm implements GuiObserver {
     public void clearAktion() {
         cbFraFad.setValue(null);
         cbTilFad.setValue(null);
-        lvMuligeVæsker.setItems(null);
     }
 
     public GridPane getOmhældFadPane() {
@@ -97,15 +77,14 @@ public class OmhældFadForm implements GuiObserver {
 
     public void selectedFadChanged() {
         fraFad = cbFraFad.getValue();
-        lvMuligeVæsker.getItems().clear();
-        if(fraFad != null) {
-            lvMuligeVæsker.getItems().addAll(fraFad.getPåfyldningsComponenter());
+        if(this.fraFad != null) {
+            væske = fraFad.getPåfyldningsComponenter().getFirst();
         }
     }
 
     public void selectedDestinationsFadChanged(){
         destinationsFad = cbTilFad.getValue();
-        væske = lvMuligeVæsker.getSelectionModel().getSelectedItem();
+
     }
 
 
