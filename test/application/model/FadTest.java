@@ -3,6 +3,7 @@ package application.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.text.html.FormView;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -49,16 +50,20 @@ class FadTest {
     }
     @Test
     public void testFlytDelAfVæskeMixTilFad() {
-        // Opret væskemix og flyt en del af den
+        //ACT
         fad1.tilføjVæske(væske1);
         fad1.tilføjVæske(væske2);
         fad1.opretVæskemix(LocalDate.now(), væske3);
 
         PåfyldningsComponent valgtMix = fad1.getVæskeMix();
         fad1.flytDelAfVæskeMixTilFadHjælper(fad2, valgtMix, 50);
-
-        assertEquals(50, fad2.getMængdeFyldtPåFad(), "Fad2 bør have flyttet væske.");
-        assertEquals(85, fad1.getMængdeFyldtPåFad(), "Fad1 bør have reduceret sin mængde korrekt.");
+        double forventetFad2 = 50.0;
+        double aktueltFad2 = fad2.getMængdeFyldtPåFad();
+        double forventetFad1 = 85.0;
+        double aktueltFad1 = fad1.getMængdeFyldtPåFad();
+        //ASSERT
+        assertEquals(forventetFad2, aktueltFad2);
+        assertEquals(forventetFad1, aktueltFad1);
     }
 
     @Test
