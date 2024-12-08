@@ -73,24 +73,6 @@ public class Fad {
         påfyldningsComponenter.add(væskeMix);
         mængdeFyldtPåFad = væskeMix.getVæskeMængde();
     }
-
-    public void omhældVæskeMix(LocalDate dato, PåfyldningsComponent pc, double omhældningsMængde){
-        væskeMix = new VæskeMix(dato, this);
-        //Opret nye væsker ud fra den anden væskemix
-        double totalVæskeMængde = pc.getVæskeMængde();
-
-        for (PåfyldningsComponent påfyldningsComponent : påfyldningsComponenter) {
-            if (påfyldningsComponent instanceof Væske){
-                double andelAfVæsken = påfyldningsComponent.getVæskeMængde() / totalVæskeMængde; //procent andelen
-                double mængdeTilNyVæske = andelAfVæsken * omhældningsMængde; //andelen der skal omhældes
-                Væske væske = new Væske(mængdeTilNyVæske, pc.getDestillering()); //ny væske
-                væskeMix.add(væske);
-                ((Væske) påfyldningsComponent).omhældVæske(mængdeTilNyVæske);
-            }
-        }
-
-        mængdeFyldtPåFad = væskeMix.getVæskeMængde();
-    }
     /***
      * bruges på Påfyldning klassen til at opdatere mængden på fadet
      * @param aftapning

@@ -153,9 +153,6 @@ public class gui extends Application {
         controller.påfyldFad(væskeMix2, fad2);
         controller.påfyldFad(væskeMix3, fad4);
 
-        System.out.println("Liter påfyldt i påfyldning3: " + væskeMix3.getLiterPåfyldt());
-        System.out.println("Liter påfyldt i fad4: " + fad4.getMængdeFyldtPåFad());
-
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(1), fad2);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(2), fad4);
