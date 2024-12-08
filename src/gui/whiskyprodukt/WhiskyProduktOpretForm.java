@@ -35,6 +35,7 @@ public class WhiskyProduktOpretForm implements GuiObserver {
     private VæskeMix væskeMix;
     private WhiskyProdukt whiskyProdukt;
     private TextField txfNavn, txfVand;
+    private Pane imagePane;
 
 
     public WhiskyProduktOpretForm(Controller controller, WhiskyProduktOpretHandler handler) {
@@ -67,12 +68,12 @@ public class WhiskyProduktOpretForm implements GuiObserver {
         opretWhiskyProduktInfoPane.add(pane, 0, 0, 1, 3);
 
 
-        Pane imagePane = labelImagePane(controller.getStorage().getWhiskyProdukt().getLast().lavHistorie(0.7));
+        imagePane = labelImagePane(controller.getStorage().getWhiskyProdukt().getLast().lavHistorie(0.7));
         opretWhiskyProduktPane.add(imagePane, 5, 0, 1, 3);
     }
 
 
-    private Pane labelImagePane(String dynamicText) {
+    public Pane labelImagePane(String dynamicText) {
         Image image = null;
         try {
             image = new Image(getClass().getResourceAsStream("/ressources/label.jpg"));
@@ -221,6 +222,9 @@ public class WhiskyProduktOpretForm implements GuiObserver {
 
     public TextField getTxfVand() {
         return txfVand;
+    }
+    public Pane getImagePane(){
+        return imagePane;
     }
 
     public double getVandMængde() {
