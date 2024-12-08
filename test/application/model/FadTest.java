@@ -51,8 +51,8 @@ class FadTest {
     @Test
     public void testFlytDelAfVæskeMixTilFad() {
         //ACT
-        fad1.tilføjVæske(væske1);
-        fad1.tilføjVæske(væske2);
+        fad1.tilføjVæske(LocalDate.now(), væske1);
+        fad1.tilføjVæske(LocalDate.now(), væske2);
         fad1.opretVæskemix(LocalDate.now(), væske3);
 
         PåfyldningsComponent valgtMix = fad1.getVæskeMix();
@@ -70,8 +70,8 @@ class FadTest {
     void getMængdeFyldtPåFad() {
         væskeMix1.add(væske1);
         væskeMix2.add(væske3);
-        fad.tilføjVæske(væskeMix1);
-        fad.tilføjVæske(væskeMix2);
+        fad.tilføjVæske(LocalDate.now(), væskeMix1);
+        fad.tilføjVæske(LocalDate.now(), væskeMix2);
 
         double forventet = 65;
         double aktuelt = fad.getMængdeFyldtPåFad();
