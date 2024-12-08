@@ -9,14 +9,17 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FadTest {
-    private Fad fad;
+    private Fad fad, fad1, fad2;
     private VæskeMix væskeMix1, væskeMix2;
     private Væske væske1, væske2, væske3;
     private Destillering destillering;
     @BeforeEach
     void setUp() {
+
         FadLeverandør fadLeverandør = new FadLeverandør("Alberto", "Spanien");
         fad = new Fad(65, "Eg", fadLeverandør,"Sherry", 10, 1);
+        fad1 = new Fad(200, "Eg", fadLeverandør, "Rødvin", 5, 2);
+        fad2 = new Fad(150, "Eg", fadLeverandør, "Sherry", 3, 1);
         væskeMix1 = new VæskeMix(LocalDate.now(), fad);
         væskeMix2 = new VæskeMix(LocalDate.now(), fad);
 
@@ -30,44 +33,44 @@ class FadTest {
     @Test
     void påFyldningOvergårGrænseMindreMængde() {
         //Arrange Act
-//        boolean forventet = false;
-//        boolean aktuelt = fad.påFyldningOvergårGrænse(væske1.getMængde());
-//
-//        assertEquals(forventet,aktuelt);
+        boolean forventet = false;
+        boolean aktuelt = fad.overskriderFadKapacitet(væske1.getVæskeMængde());
+
+        assertEquals(forventet,aktuelt);
     }
 
     @Test
     void påFyldningOvergårGrænseForStorMængde() {
-//        //Arrange Act
-//        boolean forventet = true;
-//        boolean aktuelt = fad.påFyldningOvergårGrænse(væske2.getMængde());
-//
-//        assertEquals(forventet,aktuelt);
+        //Arrange Act
+        boolean forventet = true;
+        boolean aktuelt = fad.overskriderFadKapacitet(væske2.getVæskeMængde());
+
+        assertEquals(forventet,aktuelt);
     }
     @Test
-    void tilføjPåfyldning() {
-//        //Arrange Act
-//        væskeMix1.tilføjVæske(væske1);
-//        væskeMix2.tilføjVæske(væske3);
-//        fad.tilføjPåfyldning(væskeMix1);
-//        fad.tilføjPåfyldning(væskeMix2);
-//
-//        boolean forventet = true;
-//        boolean aktuelt = fad.getPåfyldninger().containsAll(List.of(væskeMix1, væskeMix2));
+    public void testFlytDelAfVæskeMixTilFad() {
+        // Opret væskemix og flyt en del af den
+        fad1.tilføjVæske(væske1);
+        fad1.tilføjVæske(væske2);
+        fad1.opretVæskemix(LocalDate.now(), væske3);
 
-//        assertEquals(forventet, aktuelt);
+        PåfyldningsComponent valgtMix = fad1.getVæskeMix();
+        fad1.flytDelAfVæskeMixTilFadHjælper(fad2, valgtMix, 50);
+
+        assertEquals(50, fad2.getMængdeFyldtPåFad(), "Fad2 bør have flyttet væske.");
+        assertEquals(85, fad1.getMængdeFyldtPåFad(), "Fad1 bør have reduceret sin mængde korrekt.");
     }
 
     @Test
     void getMængdeFyldtPåFad() {
-//        væskeMix1.tilføjVæske(væske1);
-//        væskeMix2.tilføjVæske(væske3);
-//        fad.tilføjPåfyldning(væskeMix1);
-//        fad.tilføjPåfyldning(væskeMix2);
-//
-//        double forventet = 65;
-//        double aktuelt = fad.getMængdeFyldtPåFad();
-//
-//        assertEquals(forventet, aktuelt);
+        væskeMix1.add(væske1);
+        væskeMix2.add(væske3);
+        fad.tilføjVæske(væskeMix1);
+        fad.tilføjVæske(væskeMix2);
+
+        double forventet = 65;
+        double aktuelt = fad.getMængdeFyldtPåFad();
+
+        assertEquals(forventet, aktuelt);
     }
 }
