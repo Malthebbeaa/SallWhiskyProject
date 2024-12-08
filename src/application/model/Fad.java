@@ -73,7 +73,6 @@ public class Fad {
         påfyldningsComponenter.add(væskeMix);
         mængdeFyldtPåFad = væskeMix.getVæskeMængde();
     }
-
     /***
      * bruges på Påfyldning klassen til at opdatere mængden på fadet
      * @param aftapning
