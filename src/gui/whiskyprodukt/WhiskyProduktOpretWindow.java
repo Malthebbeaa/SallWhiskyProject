@@ -41,7 +41,7 @@ public class WhiskyProduktOpretWindow extends BaseWindow {
 
         HBox hBoxButtons = new HBox(10);
         hBoxButtons.getChildren().addAll(btnPåfyld, btnAfbryd);
-        hBoxButtons.setAlignment(Pos.CENTER);
+        hBoxButtons.setAlignment(Pos.BASELINE_LEFT);
 
         getPane().add(hBoxButtons, 0, 2);
     }

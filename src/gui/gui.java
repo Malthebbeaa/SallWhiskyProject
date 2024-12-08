@@ -72,8 +72,8 @@ public class gui extends Application {
         påfyldningWindow = new PåfyldningWindow(controller, flytFadWindow);
         søgningWindow = new SøgningWindow(controller);
         omhældFadWindow = new OmhældFadWindow(controller);
-        List<String> tabs = new ArrayList<>(List.of("Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Fad Oversigt", "Omhæld Fad"));
-        List<GridPane> gridPanes = new ArrayList<>(List.of(destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), søgningWindow.getPane(), omhældFadWindow.getPane()));
+        List<String> tabs = new ArrayList<>(List.of("Fad Oversigt", "Opret Destillering", "Opret Maltbatch", "Opret Fad", "Opret Lager", "Opret Whiskyprodukt", "Påfyld Fad", "Flyt Fad", "Omhæld Fad"));
+        List<GridPane> gridPanes = new ArrayList<>(List.of(søgningWindow.getPane(), destilleringWindow.getPane(), maltbatchWindow.getPane(), fadWindow.getPane(), opretLagerWindow.getPane(), whiskyProduktOpretWindow.getPane(), påfyldningWindow.getPane(), flytFadWindow.getFlytFadPane(), omhældFadWindow.getPane()));
 
         Image logo = new Image(getClass().getResource("/ressources/sall-whisky-transparent-logo-e1609503360305.png").toExternalForm());
 
@@ -166,6 +166,8 @@ public class gui extends Application {
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().getFirst(), fad1);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(1), fad2);
         controller.flytFad(lager.getReoler().getFirst().getHylder().getFirst().getPladser().get(2), fad4);
+        controller.flytFad(lager.getReoler().getFirst().getHylder().get(1).getPladser().get(3), fad3);
+        controller.flytFad(lager.getReoler().getFirst().getHylder().get(1).getPladser().get(1), fad5);
 
         WhiskyProdukt whiskyProdukt1 = controller.opretWhiskyProdukt("Jule Whisky", LocalDate.now());
         Aftapning aftapning1 = new Aftapning(94, 68);
