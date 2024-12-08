@@ -36,7 +36,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
         for (Aftapning aftapning : whiskyProdukt.getAftapninger()) {
             System.out.println(aftapning);
         }
-        System.out.println(whiskyProdukt.lavHistorie());
+        System.out.println(whiskyProdukt.lavHistorie(0.7));
         notifyObservers();
     }
 

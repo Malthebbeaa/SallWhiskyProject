@@ -51,19 +51,35 @@ public class VæskeMix extends PåfyldningsComponent {
 
     @Override
     public void aftap(double mængde) {
-        if (getVæskeMængde() < mængde){
+        if (getVæskeMængde() < mængde) {
             throw new RuntimeException("Der er ikke nok væske til aftapningen");
         }
 
-        for (PåfyldningsComponent component : påfyldningsComponenter){
-            double andel = component.getVæskeMængde() / getVæskeMængde();
-            double mængdeTilAftapning = andel * mængde;
+        double totalAftappet = 0;  // Holder styr på, hvor meget vi har aftappet
+        int i = 0;  // Tæller iterationer
+        int size = påfyldningsComponenter.size();  // Antal komponenter i mixet
 
+        for (PåfyldningsComponent component : påfyldningsComponenter) {
+            i++;
+            double mængdeTilAftapning;
+
+            if (i == size) {
+                // Sidste komponent får resten
+                mængdeTilAftapning = mængde - totalAftappet;
+            } else {
+                // Fordel mængden proportionelt for alle andre komponenter
+                double andel = component.getVæskeMængde() / getVæskeMængde();
+                mængdeTilAftapning = andel * mængde;
+                totalAftappet += mængdeTilAftapning;  // Opdater total aftappet
+            }
+
+            // Aftap den beregnede mængde fra komponenten
             component.aftap(mængdeTilAftapning);
         }
 
         this.setMængde(getVæskeMængde() - mængde);
     }
+
 
     public boolean mængdenOverskriderFadKapacitet(double mængde){
         return fad.overskriderFadKapacitet(mængde);
