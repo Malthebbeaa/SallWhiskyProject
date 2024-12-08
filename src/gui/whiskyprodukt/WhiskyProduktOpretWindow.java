@@ -102,4 +102,8 @@ public class WhiskyProduktOpretWindow extends BaseWindow {
     public WhiskyProduktOpretHandler getHandler() {
         return handler;
     }
+
+    public WhiskyProduktOpretForm getForm() {
+        return form;
+    }
 }

@@ -82,6 +82,7 @@ public class Fad {
         if(mængdeFyldtPåFad <= 0){
             TidligerepåfyldningsComponenter.addAll(påfyldningsComponenter);
             påfyldningsComponenter.clear();
+            aftapning.getPåfyldning().setFad(null);
         }
     }
 
@@ -166,7 +167,12 @@ public class Fad {
         return væskeMix;
     }
 
-    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde) {
+    public void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde){
+        double totalVæske = valgtMix.getVæskeMængde();
+        flytDelAfVæskeMixTilFad(andetFad, valgtMix, mængde, totalVæske);
+    }
+
+    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske) {
         if (valgtMix == null) {
             throw new IllegalArgumentException("Ingen væskemix valgt.");
         }
@@ -180,27 +186,45 @@ public class Fad {
         }
         VæskeMix nytMix = new VæskeMix(LocalDate.now(), valgtMix.getPåfyldningsDato(), andetFad);
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
-            double andel = pc.getVæskeMængde() / valgtMix.getVæskeMængde();
+            double andel = pc.getVæskeMængde() / totalVæske;
             double flyttetMængde = andel * mængde;
 
             if (pc instanceof Væske) {
                 Væske originalVæske = (Væske) pc;
-                Væske nyVæske = new Væske(flyttetMængde, originalVæske.getDestillering());
+                Væske nyVæske = new Væske(originalVæske.getDestillering(), flyttetMængde);
                 nytMix.add(nyVæske);
                 originalVæske.setMængde(originalVæske.getVæskeMængde() - flyttetMængde);
 
             } else if (pc instanceof VæskeMix) {
                 VæskeMix originalMix = (VæskeMix) pc;
-                flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde);
+                flytDelAfVæskeMixTilFad(andetFad, originalMix, flyttetMængde, totalVæske);
             }
         }
         andetFad.tilføjVæske(nytMix);
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
-        mængdeFyldtPåFad -= mængde;
-        andetFad.tilføjMængdeFyldtPåFad(mængde);
+        valgtMix.getFad().opdaterMængdeFyldtPåFad();
+        andetFad.opdaterMængdeFyldtPåFad();
     }
 
     public void tilføjMængdeFyldtPåFad(double mængdeFyldtPåFad) {
         mængdeFyldtPåFad += mængdeFyldtPåFad;
+    }
+
+    public void opdaterMængdeFyldtPåFad() {
+        mængdeFyldtPåFad = beregnMængdeFraKomponenter(påfyldningsComponenter);
+    }
+
+    private double beregnMængdeFraKomponenter(List<PåfyldningsComponent> komponenter) {
+        double totalMængde = 0;
+
+        for (PåfyldningsComponent component : komponenter) {
+            if (component instanceof Væske) {
+                totalMængde += component.getVæskeMængde();
+            } else if (component instanceof VæskeMix) {
+                totalMængde += beregnMængdeFraKomponenter(((VæskeMix) component).getPåfyldningsComponenter());
+            }
+        }
+
+        return totalMængde;
     }
 }

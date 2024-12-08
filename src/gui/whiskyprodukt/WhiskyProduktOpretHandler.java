@@ -29,13 +29,14 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Du skal tilføje aftapninger fra fade inden du fortsætter");
             alert.showAndWait();
         }
-
         controller.lavAftapninger(aftapninger, whiskyProdukt);
-
         if (form.getVandMængde() > 0){
             whiskyProdukt.tilføjVand(form.getVandMængde());
         }
-
+        for (Aftapning aftapning : whiskyProdukt.getAftapninger()) {
+            System.out.println(aftapning);
+        }
+        System.out.println(whiskyProdukt.lavHistorie());
         notifyObservers();
     }
 

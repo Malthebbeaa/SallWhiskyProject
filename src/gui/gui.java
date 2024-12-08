@@ -93,6 +93,7 @@ public class gui extends Application {
         whiskyProduktOpretWindow.getHandler().addObserver(søgningWindow.getForm());
         omhældFadWindow.getHandler().addObserver(omhældFadWindow.getForm());
         omhældFadWindow.getHandler().addObserver(flytFadWindow.getForm());
+        omhældFadWindow.getHandler().addObserver(whiskyProduktOpretWindow.getForm());
     }
 
     public void initStorage(){
@@ -141,7 +142,7 @@ public class gui extends Application {
         Fad fad11 = controller.opretFad(94, "Eg", fadLeverandør1,
                 "Bourbon", 29, 0);
 
-        VæskeMix væskeMix1 = controller.opretVæskeMix(fad1, LocalDate.of(2022,02,28));
+        VæskeMix væskeMix1 = controller.opretVæskeMix(fad1, LocalDate.of(2021,02,28));
         væskeMix1.add(new Væske(50, destillering1));
         væskeMix1.add(new Væske(44, destillering2));
         VæskeMix væskeMix2 = controller.opretVæskeMix(fad2, LocalDate.of(2021, 12,2));

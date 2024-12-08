@@ -28,6 +28,7 @@ public class VæskeMix extends PåfyldningsComponent {
         this.omhældningsDatoer.add(omhældningsDato);
         this.påfyldningsDato = påfyldningsDato;
         this.fad = fad;
+        getVæskeMængde();
     }
 
     /**
@@ -114,7 +115,7 @@ public class VæskeMix extends PåfyldningsComponent {
 
     @Override
     public String toString() {
-        return "FadId" +fad.getFadId() + ", " + literPåfyldt + " L, evt år lagret";
+        return "FadId" +fad.getFadId() + ", " + getVæskeMængde() + " L";
     }
 
     @Override
@@ -173,6 +174,9 @@ public class VæskeMix extends PåfyldningsComponent {
     }
 
     public List<LocalDate> getOmhældningsDatoer() {
+        if(omhældningsDatoer == null){
+            omhældningsDatoer = new ArrayList<>();
+        }
         return new ArrayList<>(omhældningsDatoer);
     }
 }

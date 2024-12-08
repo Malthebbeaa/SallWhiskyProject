@@ -5,7 +5,6 @@ import java.time.Period;
 import java.util.List;
 
 public abstract class PåfyldningsComponent {
-    private double mængde;
     public void add(PåfyldningsComponent påfyldningsComponent) {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
@@ -31,6 +30,10 @@ public abstract class PåfyldningsComponent {
     }
 
     public Fad getFad(){
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
+    }
+
+    public void setFad(Fad fad){
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 
@@ -66,10 +69,7 @@ public abstract class PåfyldningsComponent {
     }
 
     public void setMængde(double mængde){
-        if (mængde < 0) {
-            throw new IllegalArgumentException("Mængde kan ikke være negativ.");
-        }
-        this.mængde = mængde;
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 
     public void setLiterPåfyldt(double literPåfyldt){
