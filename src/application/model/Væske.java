@@ -16,6 +16,11 @@ public class Væske extends PåfyldningsComponent {
         destillering.givVæske(this);
     }
 
+    public Væske(Destillering destillering, double mængde){
+        this.mængde = mængde;
+        this.destillering = destillering;
+    }
+
     public double getVæskeMængde() {
         return mængde;
     }

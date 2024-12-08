@@ -173,6 +173,9 @@ public class VæskeMix extends PåfyldningsComponent {
     }
 
     public List<LocalDate> getOmhældningsDatoer() {
+        if(omhældningsDatoer == null){
+            omhældningsDatoer = new ArrayList<>();
+        }
         return new ArrayList<>(omhældningsDatoer);
     }
 }

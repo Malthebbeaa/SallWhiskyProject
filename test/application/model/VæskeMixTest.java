@@ -8,7 +8,6 @@ import storage.StorageInterface;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -106,9 +105,9 @@ class VæskeMixTest {
     @Test
     void setFad() {
         //Arrange
-        væskeMix.setFad(mockFad);
+        væskeMix.setNuværendeFad(mockFad);
         boolean forventet = true;
-        boolean aktuelt = væskeMix.getFad().equals(mockFad);
+        boolean aktuelt = væskeMix.getNuværendeFad().equals(mockFad);
         //Assert
         assertEquals(forventet, aktuelt);
     }

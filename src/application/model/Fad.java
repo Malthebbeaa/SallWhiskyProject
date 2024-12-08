@@ -186,7 +186,7 @@ public class Fad {
 
             if (pc instanceof Væske) {
                 Væske originalVæske = (Væske) pc;
-                Væske nyVæske = new Væske(flyttetMængde, originalVæske.getDestillering());
+                Væske nyVæske = new Væske(originalVæske.getDestillering(), flyttetMængde);
                 nytMix.add(nyVæske);
                 originalVæske.setMængde(originalVæske.getVæskeMængde() - flyttetMængde);
 
@@ -197,11 +197,29 @@ public class Fad {
         }
         andetFad.tilføjVæske(nytMix);
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
-        mængdeFyldtPåFad -= mængde;
-        andetFad.tilføjMængdeFyldtPåFad(mængde);
+        valgtMix.getFad().opdaterMængdeFyldtPåFad();
+        andetFad.opdaterMængdeFyldtPåFad();
     }
 
     public void tilføjMængdeFyldtPåFad(double mængdeFyldtPåFad) {
         mængdeFyldtPåFad += mængdeFyldtPåFad;
+    }
+
+    public void opdaterMængdeFyldtPåFad() {
+        mængdeFyldtPåFad = beregnMængdeFraKomponenter(påfyldningsComponenter);
+    }
+
+    private double beregnMængdeFraKomponenter(List<PåfyldningsComponent> komponenter) {
+        double totalMængde = 0;
+
+        for (PåfyldningsComponent component : komponenter) {
+            if (component instanceof Væske) {
+                totalMængde += component.getVæskeMængde();
+            } else if (component instanceof VæskeMix) {
+                totalMængde += beregnMængdeFraKomponenter(((VæskeMix) component).getPåfyldningsComponenter());
+            }
+        }
+
+        return totalMængde;
     }
 }
