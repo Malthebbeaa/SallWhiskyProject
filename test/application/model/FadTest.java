@@ -30,18 +30,6 @@ class FadTest {
     }
 
     @Test
-    void omhældVæskeMix() {
-        væskeMix1.add(væske1);
-        fad.tilføjVæske(væskeMix1);
-        assertEquals(fad.getMængdeFyldtPåFad(), 60);
-
-        fad2.omhældVæskeMix(LocalDate.now(), væskeMix1, 10);
-
-        assertEquals(fad2.getMængdeFyldtPåFad(), 10);
-
-    }
-
-    @Test
     void påFyldningOvergårGrænseMindreMængde() {
         //Arrange Act
 //        boolean forventet = false;

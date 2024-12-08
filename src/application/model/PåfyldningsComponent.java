@@ -25,6 +25,7 @@ public abstract class PåfyldningsComponent {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 
+    public abstract void aftap(double mængde);
     public double getLiterPåfyldt(){
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }

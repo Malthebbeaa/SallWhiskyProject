@@ -49,6 +49,22 @@ public class VæskeMix extends PåfyldningsComponent {
         }
     }
 
+    @Override
+    public void aftap(double mængde) {
+        if (getVæskeMængde() < mængde){
+            throw new RuntimeException("Der er ikke nok væske til aftapningen");
+        }
+
+        for (PåfyldningsComponent component : påfyldningsComponenter){
+            double andel = component.getVæskeMængde() / getVæskeMængde();
+            double mængdeTilAftapning = andel * mængde;
+
+            component.aftap(mængdeTilAftapning);
+        }
+
+        this.setMængde(getVæskeMængde() - mængde);
+    }
+
     public boolean mængdenOverskriderFadKapacitet(double mængde){
         return fad.overskriderFadKapacitet(mængde);
     }
@@ -144,6 +160,11 @@ public class VæskeMix extends PåfyldningsComponent {
         }
         literPåfyldt = total;
         return total;
+    }
+
+    @Override
+    public void setMængde(double mængde){
+        literPåfyldt = mængde;
     }
 
     public List<PåfyldningsComponent> getPåfyldningsComponenter() {

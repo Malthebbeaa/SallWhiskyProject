@@ -95,7 +95,7 @@ public class Controller {
     public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
         for (Aftapning aftapning : aftapninger){
             whiskyProdukt.tilføjAftapning(aftapning);
-            aftapning.getPåfyldning().aftapVæske(aftapning);
+            aftapning.getPåfyldning().aftap(aftapning.getLiterAftappet());
         }
     }
 
