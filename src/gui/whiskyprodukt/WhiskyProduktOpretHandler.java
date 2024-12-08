@@ -5,6 +5,7 @@ import application.model.*;
 import gui.GuiObserver;
 import gui.GuiSubject;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Pane;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,7 +37,10 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
         for (Aftapning aftapning : whiskyProdukt.getAftapninger()) {
             System.out.println(aftapning);
         }
-        System.out.println(whiskyProdukt.lavHistorie(0.7));
+
+        Pane imagePane = form.labelImagePane(whiskyProdukt.lavHistorie(0.7));
+        form.getOpretWhiskyProduktPane().getChildren().remove(form.getImagePane());
+        form.getOpretWhiskyProduktPane().add(imagePane, 5, 0, 1,3);
         aftapninger.clear();
         notifyObservers();
     }
