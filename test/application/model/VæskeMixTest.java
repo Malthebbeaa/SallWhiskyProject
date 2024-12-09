@@ -173,4 +173,10 @@ class VæskeMixTest {
         //Assert
         assertEquals(forventet, aktuelt);
     }
+
+    @Test
+    void test_aftap_(){
+        //Arrange
+        VæskeMix væskeMix1 = mock(VæskeMix.class);
+    }
 }
