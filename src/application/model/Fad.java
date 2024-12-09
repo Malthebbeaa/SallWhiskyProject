@@ -49,7 +49,9 @@ public class Fad {
                 væskeMix.add(this.påfyldningsComponent);
                 this.påfyldningsComponent = væskeMix;
             } else {
-                this.påfyldningsComponent = påfyldningsComponent;
+                væskeMix = new VæskeMix(dato, this);
+                væskeMix.add(påfyldningsComponent);
+                this.påfyldningsComponent = væskeMix;
             }
         } else {
             throw new RuntimeException("Kan ikke påfyldes, Overskrider fadets kapacitet");
@@ -175,7 +177,14 @@ public class Fad {
      */
     public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, LocalDate omhældningsDato) {
         double totalVæske = valgtMix.getVæskeMængde();
-        flytDelAfVæskeMixTilFadHjælper(andetFad, valgtMix, mængde, totalVæske, omhældningsDato);
+        if (andetFad.overskriderFadKapacitet(mængde)) {
+            throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
+        } else {
+            flytDelAfVæskeMixTilFadHjælper(andetFad, valgtMix, mængde, totalVæske, omhældningsDato);
+        }
+        PåfyldningsComponent kopiAfVæskeMix = lavKopi(valgtMix);
+        PåfyldningsComponent nytVæskeMix = andetFad.getPåfyldningsComponent();
+        bibeholdHistorie(kopiAfVæskeMix, nytVæskeMix);
     }
 
     /**
@@ -195,34 +204,23 @@ public class Fad {
         if (mængde <= 0 || mængde > totalVæske) {
             throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige væskemixets mængde.");
         }
-        if (andetFad.overskriderFadKapacitet(mængde)) {
-            throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
-        }
-        PåfyldningsComponent kopiAfMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), valgtMix.getFad());
-        PåfyldningsComponent kopiAfMixAlternativ = lavKopi(valgtMix);
-
-        VæskeMix nytMix = null;
-        if (andetFad.getPåfyldningsComponent() != null && andetFad.getPåfyldningsComponent().getPåfyldningsDato().isBefore(valgtMix.getPåfyldningsDato())) {
-            nytMix = new VæskeMix(omhældningsDato, andetFad.getPåfyldningsComponent().getPåfyldningsDato(), andetFad);
-            nytMix.add(kopiAfMix);
-        } else {
+        PåfyldningsComponent nytMix = null;
+        if (andetFad.getPåfyldningsComponent() != null && valgtMix.getPåfyldningsDato().isBefore(andetFad.getPåfyldningsComponent().getPåfyldningsDato())) {
             nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
-            nytMix.add(kopiAfMix);
+        } else {
+            nytMix = new VæskeMix(omhældningsDato, andetFad.getPåfyldningsComponent().getPåfyldningsDato(), andetFad);
         }
-
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
             double andel = pc.getVæskeMængde() / totalVæske;
             double flyttetMængde = andel * mængde;
 
             if (pc instanceof Væske) {
-                Væske originalVæske = (Væske) pc;
-                Væske nyVæske = new Væske(originalVæske.getDestillering(), flyttetMængde);
+                Væske nyVæske = new Væske(pc.getDestillering(), flyttetMængde);
                 nytMix.add(nyVæske);
-                originalVæske.setMængde(originalVæske.getVæskeMængde() - flyttetMængde);
-
+                //andetFad.tilføjVæske(dato, nyVæske);
+                pc.setMængde(pc.getVæskeMængde() - flyttetMængde);
             } else if (pc instanceof VæskeMix) {
-                VæskeMix originalMix = (VæskeMix) pc;
-                flytDelAfVæskeMixTilFadHjælper(andetFad, originalMix, mængde, totalVæske, omhældningsDato);
+                flytDelAfVæskeMixTilFadHjælper(andetFad, pc, mængde, totalVæske, omhældningsDato);
             }
         }
         andetFad.tilføjVæske(nytMix.getPåfyldningsDato(), nytMix);
@@ -231,27 +229,27 @@ public class Fad {
 
     private PåfyldningsComponent lavKopi(PåfyldningsComponent original) {
         if (original instanceof Væske) {
-            Væske væske = (Væske) original;
-            return new Væske(væske.getDestillering(), 0);
-        } else if (original instanceof VæskeMix) {
-            VæskeMix mix = (VæskeMix) original;
-            VæskeMix nyMix = new VæskeMix(mix.getPåfyldningsDato(), mix.getOmhældningsDato(), mix.getFad());
-            for (PåfyldningsComponent child : mix.getPåfyldningsComponenter()) {
-                nyMix.add(lavKopi(child));
+            return new Væske(original.getDestillering(), 0);
+        } else {
+            VæskeMix mix = new VæskeMix(original.getPåfyldningsDato(), original.getOmhældningsDato(), original.getFad());
+            for (PåfyldningsComponent væskeMix : original.getPåfyldningsComponenter()) {
+                mix.add(lavKopi(væskeMix));
             }
-            return nyMix;
+            return mix;
         }
-        throw new IllegalArgumentException("Ukendt PåfyldningsComponent-type");
+    }
+
+    private void bibeholdHistorie(PåfyldningsComponent kopiAfVæskeMix, PåfyldningsComponent nytVæskeMix) {
+        nytVæskeMix.add(kopiAfVæskeMix);
     }
 
     public void traverseTree(PåfyldningsComponent node, List<String> information) {
-        if (node == null) {
+        if(node == null){
             return;
         }
         information.add(node.toString());
-        if(node instanceof VæskeMix){
-        List<PåfyldningsComponent> children = node.getPåfyldningsComponenter();
-            for (PåfyldningsComponent child : children) {
+        if (node instanceof VæskeMix) {
+            for (PåfyldningsComponent child : node.getPåfyldningsComponenter()) {
                 traverseTree(child, information);
             }
         }

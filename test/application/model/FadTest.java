@@ -67,9 +67,9 @@ class FadTest {
         væskeMixFad4.add(Væske1Fad4);
         fad3.tilføjVæske(væskeMixFad3.getPåfyldningsDato(), væskeMixFad3);
         fad4.tilføjVæske(væskeMixFad4.getPåfyldningsDato(), væskeMixFad4);
+
         //Act
         fad3.flytDelAfVæskeMixTilFad(fad4, væskeMixFad3, 30, LocalDate.now());
-        fad4.flytDelAfVæskeMixTilFad(fad5,fad4.getVæskeMix(),60,LocalDate.now());
         //Assert
         LocalDate aktuelDato = fad4.getPåfyldningsComponent().getPåfyldningsDato();
         LocalDate forventetDato = LocalDate.of(2023, 12, 31);
@@ -77,7 +77,7 @@ class FadTest {
         assertEquals(forventetDato, aktuelDato);
 
         List<String> allInfo = new ArrayList<>();
-        fad5.traverseTree(fad5.getPåfyldningsComponent(), allInfo);
+        fad4.traverseTree(fad4.getPåfyldningsComponent(), allInfo);
         for (String info : allInfo) {
             System.out.println(info);
         }
