@@ -158,31 +158,12 @@ public class FlytfadForm implements GuiObserver {
 
     public void selectedPladsChanged() {
         plads = lvPlads.getSelectionModel().getSelectedItem();
-        txFadInfo.setText("");
-
-        if (plads != null && plads.getFad() != null) {
-            String påfyldningsMix = "";
-            String påfyldning = "";
-            if (plads.getFad().getPåfyldningsComponent() != null) {
-                PåfyldningsComponent påfyldninger = plads.getFad().getPåfyldningsComponent();
-                List<PåfyldningsComponent> mængder = new ArrayList<>();
-                for (PåfyldningsComponent påfyldningsComponent : påfyldninger.getPåfyldningsComponenter()) {
-                    if (påfyldningsComponent instanceof VæskeMix) {
-                        påfyldningsMix += "Påfyldningsdato: " + påfyldningsComponent.getPåfyldningsDato() +
-                                "\nTid på fad: " +
-                                "\nÅr: " + påfyldningsComponent.antalÅrPåFad(LocalDate.now()).getYears() +
-                                "\nMåneder: " + påfyldningsComponent.antalÅrPåFad(LocalDate.now()).getMonths() +
-                                "\nDage: " + påfyldningsComponent.antalÅrPåFad(LocalDate.now()).getDays() +
-                                "\nklar til aftapning: " + (påfyldningsComponent.klarTilAftapning(LocalDate.now()) ? "Ja\n" : "Nej\n" +
-                                "omhældningsdato: " + påfyldningsComponent.getOmhældningsDato() + "\n");
-                    }
-                    if (påfyldningsComponent instanceof Væske) {
-                        påfyldning += "batchnummer: " + påfyldningsComponent.getDestillering().getBatchNummer() + "\nAlkohol: " + påfyldningsComponent.getDestillering().getAlkoholProcent() + " %\nantal liter i fad: " + påfyldningsComponent.getVæskeMængde() + " L\n";
-                    }
-                }
-            }
+        if(plads != null && plads.getFad() != null) {
+            txFadInfo.setText("");
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +
-                    "Fadstørrelse: " + plads.getFad().getStørrelse() + " L\n" + påfyldningsMix + påfyldning + "Fadtype: " + plads.getFad().getTidligereIndhold());
+                              "Fadstørrelse: " + plads.getFad().getStørrelse() + "L\n" +
+                              "Væskemængde: " + plads.getFad().getMængdeFyldtPåFad() + "L\n" +
+                              "Fadtype: " + plads.getFad().getTidligereIndhold());
         }
     }
 
