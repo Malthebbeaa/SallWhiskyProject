@@ -49,23 +49,12 @@ public class VæskeMix extends PåfyldningsComponent {
             throw new RuntimeException("Mængden skal være positiv");
         }
 
-        double totalAftappet = 0;  // Holder styr på, hvor meget vi har aftappet
-        int i = 0;  // Tæller iterationer
-        int size = påfyldningsComponenter.size();  // Antal komponenter i mixet
+        double totalMængde = getVæskeMængde();
 
         for (PåfyldningsComponent component : påfyldningsComponenter) {
-            i++;
             double mængdeTilAftapning;
-
-            if (i == size) {
-                // Sidste komponent får resten
-                mængdeTilAftapning = mængde - totalAftappet;
-            } else {
-                // Fordel mængden proportionelt for alle andre komponenter
-                double andel = component.getVæskeMængde() / getVæskeMængde();
-                mængdeTilAftapning = andel * mængde;
-                totalAftappet += mængdeTilAftapning;  // Opdater total aftappet
-            }
+            double andel = component.getVæskeMængde() / totalMængde;
+            mængdeTilAftapning = Math.round(andel * mængde);
 
             // Aftap den beregnede mængde fra komponenten
             component.aftap(mængdeTilAftapning);
