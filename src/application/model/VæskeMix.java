@@ -147,7 +147,15 @@ public class VæskeMix extends PåfyldningsComponent {
 
     @Override
     public String toString() {
-        return "FadId" +fad.getFadId() + ", " + getVæskeMængde() + " L";
+        double alkoholProcent = 0;
+        int counter = 0;
+        for (PåfyldningsComponent påfyldningsComponent : påfyldningsComponenter) {
+            if (påfyldningsComponent instanceof Væske){
+                alkoholProcent += påfyldningsComponent.getDestillering().getAlkoholProcent();
+                counter++;
+            }
+        }
+        return "FadId" +fad.getFadId() + ", " + getVæskeMængde() + " L, " + alkoholProcent / counter + " %";
     }
 
     @Override
