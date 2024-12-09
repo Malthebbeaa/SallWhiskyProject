@@ -17,10 +17,10 @@ import static org.mockito.Mockito.when;
 
 
 class VæskeMixTest {
-    private Fad mockFad;
-    private Destillering mockDestillering;
-    private VæskeMix væskeMix;
-    private Væske mockVæske1, mockVæske2;
+    private Fad mockFad, mockFad2;
+    private Destillering mockDestillering, destillering;
+    private VæskeMix væskeMix, væskeMix2;
+    private Væske mockVæske1, mockVæske2, mockVæske3, mockVæske4;
     private Aftapning mockAftapning;
 
     @BeforeEach
@@ -38,6 +38,17 @@ class VæskeMixTest {
         væskeMix = new VæskeMix(LocalDate.of(2023,01,01), mockFad);
         mockAftapning = mock(Aftapning.class);
         when(mockAftapning.getLiterAftappet()).thenReturn(60.1);
+
+        destillering = new Destillering(2, LocalDate.now(), LocalDate.now(), 100, 70, mockBatch);
+        mockFad2 = mock(Fad.class);
+        when(mockFad2.getStørrelse()).thenReturn(94);
+        mockVæske3 = new Væske(48, destillering);
+        mockVæske4 = new Væske(44, destillering);
+        Væske væske = new Væske(2, destillering);
+        væskeMix2 = new VæskeMix(LocalDate.now(), mockFad2);
+        væskeMix2.add(mockVæske3);
+        væskeMix2.add(mockVæske4);
+        væskeMix2.add(væske);
     }
 
 
@@ -148,8 +159,77 @@ class VæskeMixTest {
     }
 
     @Test
-    void test_aftap_(){
+    void test_aftap_NegativMængde(){
         //Arrange
-        VæskeMix væskeMix1 = mock(VæskeMix.class);
+        double mængde = -2;
+
+        // Act
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            væskeMix2.aftap(mængde);
+        });
+
+        String forventet = "Mængden skal være positiv";
+        String aktuelt = exception.getMessage();
+
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void test_aftap_NedreGrænseVærdiException(){
+        //Arrange
+        double mængde = 0;
+
+        // Act
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            væskeMix2.aftap(mængde);
+        });
+
+        String forventet = "Mængden skal være positiv";
+        String aktuelt = exception.getMessage();
+
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void test_aftap_AftapningOk(){
+        //Arrange
+        double mængde = 60;
+
+        //Act
+        væskeMix2.aftap(mængde);
+        double forventet = 34;
+        double aktuelt = væskeMix2.getVæskeMængde();
+
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void test_aftap_AftapningØvreGrænse(){
+        //Arrange
+        double mængde = 94;
+
+        //Act
+        væskeMix2.aftap(mængde);
+        System.out.println(væskeMix2.getVæskeMængde());
+        double forventet = 0;
+        double aktuelt = væskeMix2.getVæskeMængde();
+
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void test_aftap_OverskriderGrænse(){
+        //Arrange
+        double mængde = 96;
+
+        // Act
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            væskeMix2.aftap(mængde);
+        });
+
+        String forventet = "Der er ikke nok væske til aftapningen";
+        String aktuelt = exception.getMessage();
+
+        assertEquals(forventet, aktuelt);
     }
 }
