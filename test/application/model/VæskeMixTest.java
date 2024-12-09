@@ -42,19 +42,36 @@ class VæskeMixTest {
 
 
     @Test
-    void tilføjMængde() {
+    void getVæskeMængde_1_VæskeMix() {
         //Arrange
-        Væske mockVæske6 = mock(Væske.class);
-        when(mockVæske6.getVæskeMængde()).thenReturn(59.9);
-        Væske mockVæske5 = mock(Væske.class);
-        when(mockVæske5.getVæskeMængde()).thenReturn(0.1);
+        VæskeMix væskeMix1 = new VæskeMix(LocalDate.of(2023,01,01), mockFad);
+        Væske væske1 = new Væske(mockDestillering, 60);
         //Act
-        væskeMix.add(mockVæske6);
-        væskeMix.add(mockVæske5);
-        double forventetLiter = 60;
-        double aktuelLiter = væskeMix.getLiterPåfyldt();
+        væskeMix1.add(væske1);
+        double aktuelMængde = væskeMix1.getVæskeMængde();
+        double forventetMængde = 60;
         //Assert
-        assertEquals(forventetLiter,aktuelLiter);
+        assertEquals(forventetMængde,aktuelMængde);
+    }
+
+    @Test
+    void getVæskeMængde_2_VæskeMix() {
+        //Arrange
+        VæskeMix væskeMix1 = new VæskeMix(LocalDate.of(2023,01,01), mockFad);
+        VæskeMix væskeMix2 = new VæskeMix(LocalDate.of(2024,12,01),mockFad);
+        Væske væske1 = new Væske(mockDestillering, 60);
+        Væske væske2 = new Væske(mockDestillering, 30);
+        Væske væske3 = new Væske(mockDestillering, 15);
+        //Act
+        væskeMix1.add(væske1);
+        væskeMix1.add(væske2);
+        væskeMix2.add(væskeMix1);
+        væskeMix2.add(væske3);
+
+        double aktuelMængde = væskeMix2.getVæskeMængde();
+        double forventetMængde = 105;
+        //Assert
+        assertEquals(forventetMængde,aktuelMængde);
     }
 
 
