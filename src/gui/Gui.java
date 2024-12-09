@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class gui extends Application {
+public class Gui extends Application {
     private Scene scene;
     private GridPane startPane;
     private TabPane startTabPane;
