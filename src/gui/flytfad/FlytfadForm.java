@@ -161,24 +161,28 @@ public class FlytfadForm implements GuiObserver {
         txFadInfo.setText("");
 
         if (plads != null && plads.getFad() != null) {
+            String påfyldningsMix = "";
             String påfyldning = "";
-            List<PåfyldningsComponent> påfyldninger = plads.getFad().getPåfyldningsComponent().getPåfyldningsComponenter();
-            List<PåfyldningsComponent> mængder = new ArrayList<>();
-            for (int i = 0; i < påfyldninger.size(); i++) {
-                påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
-                        "\nTid på fad: " +
-                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getYears() +
-                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths() +
-                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays() +
-                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now()) ? "Ja\n" : "Nej\n" +
-                        "omhældningsdato: ");
-                        if(påfyldninger.get(i) instanceof VæskeMix) påfyldning += ((VæskeMix) påfyldninger.get(i)).getOmhældningsDatoer() +"\n";
-                        if (påfyldninger.get(i) instanceof Væske) {
-                        påfyldning += "batchnummer: " + påfyldninger.get(i).getDestillering().getBatchNummer() + "\nAlkohol: " + påfyldninger.get(i).getDestillering().getAlkoholProcent() + " %\nantal liter i fad: " + påfyldninger.get(i).getVæskeMængde() + " L\n";
+            if (plads.getFad().getPåfyldningsComponent() != null) {
+                PåfyldningsComponent påfyldninger = plads.getFad().getPåfyldningsComponent();
+                List<PåfyldningsComponent> mængder = new ArrayList<>();
+                for (PåfyldningsComponent påfyldningsComponent : påfyldninger.getPåfyldningsComponenter()) {
+                    if (påfyldningsComponent instanceof VæskeMix) {
+                        påfyldningsMix += "Påfyldningsdato: " + påfyldningsComponent.getPåfyldningsDato() +
+                                "\nTid på fad: " +
+                                "\nÅr: " + påfyldningsComponent.antalÅrPåFad(LocalDate.now()).getYears() +
+                                "\nMåneder: " + påfyldningsComponent.antalÅrPåFad(LocalDate.now()).getMonths() +
+                                "\nDage: " + påfyldningsComponent.antalÅrPåFad(LocalDate.now()).getDays() +
+                                "\nklar til aftapning: " + (påfyldningsComponent.klarTilAftapning(LocalDate.now()) ? "Ja\n" : "Nej\n" +
+                                "omhældningsdato: " + påfyldningsComponent.getOmhældningsDato() + "\n");
+                    }
+                    if (påfyldningsComponent instanceof Væske) {
+                        påfyldning += "batchnummer: " + påfyldningsComponent.getDestillering().getBatchNummer() + "\nAlkohol: " + påfyldningsComponent.getDestillering().getAlkoholProcent() + " %\nantal liter i fad: " + påfyldningsComponent.getVæskeMængde() + " L\n";
                     }
                 }
+            }
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +
-                    "Mængde på Fadet: " + plads.getFad().getMængdeFyldtPåFad() + " L\n" + påfyldning + "Fadtype: " + plads.getFad().getTidligereIndhold());
+                    "Fadstørrelse: " + plads.getFad().getStørrelse() + " L\n" + påfyldningsMix + påfyldning + "Fadtype: " + plads.getFad().getTidligereIndhold());
         }
     }
 
