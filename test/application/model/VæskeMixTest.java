@@ -49,7 +49,6 @@ class VæskeMixTest {
         væskeMix2.add(mockVæske3);
         væskeMix2.add(mockVæske4);
         væskeMix2.add(væske);
-
     }
 
 
