@@ -49,7 +49,7 @@ public class PåfyldningHandler implements GuiSubject {
                 if (selected != null) {
                     form.getLveValgtDestilleringer().getItems().add(selected);
                     form.getLvwMuligeDestilleringer().getItems().remove(selected);
-                    Væske væske = new Væske(popUpWindow.getMængde(), selected);
+                    Væske væske = controller.opretVæske(popUpWindow.getMængde(), selected);
                     this.væskeMix.add(væske);
                 }
                 System.out.println("Mængde tilføjet til " + væskeMix.getFad().getFadId() + " fra batchnr " + selected.getBatchNummer() + ": " + væskeMix.getPåfyldningsComponenter().getLast().getVæskeMængde());

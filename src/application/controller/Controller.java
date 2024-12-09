@@ -116,6 +116,7 @@ public class Controller {
             fad.setPlads(plads);
         }
         else{
+            throw new RuntimeException("Plads er optaget");
         }
     }
 

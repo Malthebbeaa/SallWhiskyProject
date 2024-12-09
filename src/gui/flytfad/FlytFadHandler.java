@@ -21,8 +21,14 @@ public class FlytFadHandler implements GuiSubject {
     }
 
     public void flytFadAktion(Plads plads, Fad fad, FlytfadForm form){
-        controller.flytFad(plads, fad);
-        form.selectedHyldeChanged();
+        try {
+            controller.flytFad(plads, fad);
+            form.selectedHyldeChanged();
+        }
+        catch(RuntimeException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+            alert.showAndWait();
+        }
         notifyObservers();
     }
 
