@@ -191,19 +191,25 @@ public class Fad {
      * @param mængde     - mængde du ønsker at omhælde
      * @param totalVæske - Total mængde af væske i fadet.
      */
-    public void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate omhældningsDato) {
-        if (valgtMix == null) {
-            throw new IllegalArgumentException("Ingen væskemix valgt.");
-        }
-
-        if (mængde <= 0 || mængde > valgtMix.getVæskeMængde()) {
+    private void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate omhældningsDato) {
+        if (mængde <= 0 || mængde > totalVæske) {
             throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige væskemixets mængde.");
         }
-
         if (andetFad.overskriderFadKapacitet(mængde)) {
             throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
         }
-        VæskeMix nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
+        PåfyldningsComponent kopiAfMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), valgtMix.getFad());
+        PåfyldningsComponent kopiAfMixAlternativ = lavKopi(valgtMix);
+
+        VæskeMix nytMix = null;
+        if (andetFad.getPåfyldningsComponent() != null && andetFad.getPåfyldningsComponent().getPåfyldningsDato().isBefore(valgtMix.getPåfyldningsDato())) {
+            nytMix = new VæskeMix(omhældningsDato, andetFad.getPåfyldningsComponent().getPåfyldningsDato(), andetFad);
+            nytMix.add(kopiAfMix);
+        } else {
+            nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
+            nytMix.add(kopiAfMix);
+        }
+
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
             double andel = pc.getVæskeMængde() / totalVæske;
             double flyttetMængde = andel * mængde;
@@ -219,7 +225,35 @@ public class Fad {
                 flytDelAfVæskeMixTilFadHjælper(andetFad, originalMix, mængde, totalVæske, omhældningsDato);
             }
         }
-        andetFad.tilføjVæske(valgtMix.getPåfyldningsDato(), nytMix);
+        andetFad.tilføjVæske(nytMix.getPåfyldningsDato(), nytMix);
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
+    }
+
+    private PåfyldningsComponent lavKopi(PåfyldningsComponent original) {
+        if (original instanceof Væske) {
+            Væske væske = (Væske) original;
+            return new Væske(væske.getDestillering(), 0);
+        } else if (original instanceof VæskeMix) {
+            VæskeMix mix = (VæskeMix) original;
+            VæskeMix nyMix = new VæskeMix(mix.getPåfyldningsDato(), mix.getOmhældningsDato(), mix.getFad());
+            for (PåfyldningsComponent child : mix.getPåfyldningsComponenter()) {
+                nyMix.add(lavKopi(child));
+            }
+            return nyMix;
+        }
+        throw new IllegalArgumentException("Ukendt PåfyldningsComponent-type");
+    }
+
+    public void traverseTree(PåfyldningsComponent node, List<String> information) {
+        if (node == null) {
+            return;
+        }
+        information.add(node.toString());
+        if(node instanceof VæskeMix){
+        List<PåfyldningsComponent> children = node.getPåfyldningsComponenter();
+            for (PåfyldningsComponent child : children) {
+                traverseTree(child, information);
+            }
+        }
     }
 }

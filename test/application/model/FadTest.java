@@ -4,8 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class FadTest {
     private Fad fad, fad1, fad2;
@@ -47,6 +50,44 @@ class FadTest {
 
         assertEquals(forventet,aktuelt);
     }
+    @Test
+    public void FlytDelAfVæskeMixTilFad_1VæskemixOmhældning_GiverÆldsteDatoMed() {
+        //Arrange
+        Destillering mockDestillering = mock(Destillering.class);
+        Fad fad3 = new Fad(200, "Eg", fadLeverandør, "Rødvin", 5, 2);
+        Fad fad4 = new Fad(150, "Mahogny", fadLeverandør, "Sherry", 3, 1);
+        Fad fad5 = new Fad(120, "Linoleum", fadLeverandør, "Bourbon", 3, 1);
+        Væske væske1Fad3 = new Væske(mockDestillering, 50);
+        Væske væske2Fad3 = new Væske(mockDestillering, 20);
+        VæskeMix væskeMixFad3 = new VæskeMix(LocalDate.of(2024, 01, 01), fad3);
+        væskeMixFad3.add(væske1Fad3);
+        væskeMixFad3.add(væske2Fad3);
+        Væske Væske1Fad4 = new Væske(mockDestillering, 45);
+        VæskeMix væskeMixFad4 = new VæskeMix(LocalDate.of(2023, 12, 31), fad4);
+        væskeMixFad4.add(Væske1Fad4);
+        fad3.tilføjVæske(væskeMixFad3.getPåfyldningsDato(), væskeMixFad3);
+        fad4.tilføjVæske(væskeMixFad4.getPåfyldningsDato(), væskeMixFad4);
+        //Act
+        fad3.flytDelAfVæskeMixTilFad(fad4, væskeMixFad3, 30, LocalDate.now());
+        fad4.flytDelAfVæskeMixTilFad(fad5,fad4.getVæskeMix(),60,LocalDate.now());
+        //Assert
+        LocalDate aktuelDato = fad4.getPåfyldningsComponent().getPåfyldningsDato();
+        LocalDate forventetDato = LocalDate.of(2023, 12, 31);
+
+        assertEquals(forventetDato, aktuelDato);
+
+        List<String> allInfo = new ArrayList<>();
+        fad5.traverseTree(fad5.getPåfyldningsComponent(), allInfo);
+        for (String info : allInfo) {
+            System.out.println(info);
+        }
+    }
+
+    @Test
+    public void FlytDelAfVæskeMixTilFad_1VæskemixOmhældning_GiverFadHistorik(){
+
+    }
+
     @Test
     public void testFlytDelAfVæskeMixTilFad() {
         //ACT
