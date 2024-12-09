@@ -86,7 +86,7 @@ public class PåfyldningForm implements GuiObserver {
         Label lblDestillering = new Label("Vælg destillering(er):");
         //nextPane.add(lblDestillering, 1,0);
         lblFadInfo = new Label("Antal liter på fad: " + cboxFad.getSelectionModel().getSelectedItem().getMængdeFyldtPåFad() +
-                 " ud af " + cboxFad.getSelectionModel().getSelectedItem().getStørrelse() + " L");
+                 " ud af " + cboxFad.getSelectionModel().getSelectedItem().getStørrelse() + " liter");
         lblFadInfo.setFont(new Font(16));
         HBox hBoxØvreInfo = new HBox(25);
         hBoxØvreInfo.getChildren().addAll(lblDestillering, lblFadInfo);

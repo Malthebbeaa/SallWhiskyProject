@@ -1,6 +1,7 @@
 package gui.påfyldning;
 
 import application.model.Destillering;
+import application.model.Fad;
 import application.model.VæskeMix;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,7 +26,7 @@ public class MængdePopUpWindow extends Stage {
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
 
-        destillering = selected;
+        this.destillering = selected;
         this.væskeMix = væskeMix;
 
         setTitle(title);
