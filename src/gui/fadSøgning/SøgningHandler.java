@@ -75,15 +75,15 @@ public class SøgningHandler {
         ObservableList<Fad> alleFade = controller.getStorage().getFade();
 
         FilteredList<Fad> filtreredeFade = new FilteredList<>(alleFade, fad -> {
-            List<PåfyldningsComponent> påfyldninger = fad.getPåfyldningsComponenter();
+            PåfyldningsComponent påfyldninger = fad.getPåfyldningsComponent();
 
             // listen af påfyldninger må ikke være tom
-            if (påfyldninger.isEmpty()) {
+            if (påfyldninger == null) {
                 return false;
             }
 
             // Find sidste påfyldning
-            PåfyldningsComponent sidsteVæskeMix = påfyldninger.get(påfyldninger.size() - 1);
+            PåfyldningsComponent sidsteVæskeMix = fad.getPåfyldningsComponent();
 
             // Tjek om sidste påfyldning ikke er tom og klar til aftapning
             if(sidsteVæskeMix instanceof VæskeMix) {

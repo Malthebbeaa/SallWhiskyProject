@@ -162,7 +162,7 @@ public class FlytfadForm implements GuiObserver {
 
         if (plads != null && plads.getFad() != null) {
             String påfyldning = "";
-            List<PåfyldningsComponent> påfyldninger = plads.getFad().getPåfyldningsComponenter();
+            List<PåfyldningsComponent> påfyldninger = plads.getFad().getPåfyldningsComponent().getPåfyldningsComponenter();
             List<PåfyldningsComponent> mængder = new ArrayList<>();
             for (int i = 0; i < påfyldninger.size(); i++) {
                 påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +

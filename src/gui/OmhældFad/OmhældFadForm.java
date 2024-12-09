@@ -10,9 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class OmhældFadForm implements GuiObserver {
     private GridPane omhældFadPane;
@@ -86,7 +83,7 @@ public class OmhældFadForm implements GuiObserver {
     public void selectedFadChanged() {
         fraFad = cbFraFad.getValue();
         if(this.fraFad != null) {
-            væske = fraFad.getPåfyldningsComponenter().getFirst();
+            væske = fraFad.getPåfyldningsComponent();
         }
     }
 
