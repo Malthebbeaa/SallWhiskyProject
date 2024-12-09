@@ -15,7 +15,7 @@ public class Fad {
     private int antalGangeBrugt;
     private double mængdeFyldtPåFad;
     private List<PåfyldningsComponent> påfyldningsComponenter;
-    private List<PåfyldningsComponent> TidligerepåfyldningsComponenter;
+    private List<PåfyldningsComponent> tidligerePåfyldningsComponenter;
     private List<Aftapning> aftapninger;
     private Plads plads;
     private int lagringstid;
@@ -32,7 +32,7 @@ public class Fad {
         this.mængdeFyldtPåFad = 0;
         this.lagringstid = 0;
         this.påfyldningsComponenter = new ArrayList<>();
-        this.TidligerepåfyldningsComponenter = new ArrayList<>();
+        this.tidligerePåfyldningsComponenter = new ArrayList<>();
         this.aftapninger = new ArrayList<>();
     }
 
@@ -96,7 +96,7 @@ public class Fad {
     public void aftapVæskePåFad(Aftapning aftapning){
         mængdeFyldtPåFad -= aftapning.getLiterAftappet();
         if(mængdeFyldtPåFad <= 0){
-            TidligerepåfyldningsComponenter.addAll(påfyldningsComponenter);
+            tidligerePåfyldningsComponenter.addAll(påfyldningsComponenter);
             påfyldningsComponenter.clear();
         }
     }
