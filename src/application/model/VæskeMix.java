@@ -199,7 +199,7 @@ public class VæskeMix extends PåfyldningsComponent {
         this.literPåfyldt = literPåfyldt;
     }
 
-    public LocalDate getOmhældningsDato() {
+    public LocalDate getOmhældningsDatoer() {
         return omhældningsDatoer;
     }
 }

@@ -164,25 +164,19 @@ public class FlytfadForm implements GuiObserver {
             String påfyldning = "";
             List<PåfyldningsComponent> påfyldninger = plads.getFad().getPåfyldningsComponenter();
             List<PåfyldningsComponent> mængder = new ArrayList<>();
-            List<LocalDate> omhældningsdatoer = new ArrayList<>();
             for (int i = 0; i < påfyldninger.size(); i++) {
-                omhældningsdatoer = påfyldninger.get(i).getOmhældningsDatoer();
                 påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
                         "\nTid på fad: " +
                         "\nÅr: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getYears() +
                         "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths() +
                         "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays() +
-                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now()) ? "Ja\n" : "Nej\n");
-                for (int j = 0; j < påfyldninger.get(i).getOmhældningsDatoer().size(); j++) {
-                    påfyldning += "omhældningsdato: " + omhældningsdatoer +"\n";
-                }
-                mængder = påfyldninger.get(i).getPåfyldningsComponenter();
-                for (PåfyldningsComponent væske : mængder) {
-                    if (væske instanceof Væske) {
-                        påfyldning += "batchnummer: " + væske.getDestillering().getBatchNummer() + "\nAlkohol: " + væske.getDestillering().getAlkoholProcent() + " %\nantal liter i fad: " + væske.getVæskeMængde() + " L\n";
+                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now()) ? "Ja\n" : "Nej\n" +
+                        "omhældningsdato: ");
+                        if(påfyldninger.get(i) instanceof VæskeMix) påfyldning += ((VæskeMix) påfyldninger.get(i)).getOmhældningsDatoer() +"\n";
+                        if (påfyldninger.get(i) instanceof Væske) {
+                        påfyldning += "batchnummer: " + påfyldninger.get(i).getDestillering().getBatchNummer() + "\nAlkohol: " + påfyldninger.get(i).getDestillering().getAlkoholProcent() + " %\nantal liter i fad: " + påfyldninger.get(i).getVæskeMængde() + " L\n";
                     }
                 }
-            }
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +
                     "Mængde på Fadet: " + plads.getFad().getMængdeFyldtPåFad() + " L\n" + påfyldning + "Fadtype: " + plads.getFad().getTidligereIndhold());
         }

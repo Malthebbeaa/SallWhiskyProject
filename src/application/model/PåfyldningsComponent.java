@@ -26,6 +26,7 @@ public abstract class PåfyldningsComponent {
     }
 
     public abstract void aftap(double mængde);
+
     public double getLiterPåfyldt(){
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
@@ -73,7 +74,7 @@ public abstract class PåfyldningsComponent {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 
-    public List<LocalDate> getOmhældningsDatoer(){
+    public LocalDate getOmhældningsDatoer(){
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 }
