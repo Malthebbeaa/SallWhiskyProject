@@ -28,7 +28,7 @@ public class Væske extends PåfyldningsComponent {
     @Override
     public void aftap(double mængde) {
         if (this.mængde < mængde){
-            throw new RuntimeException("Der er ikke nok væske til aftapning");
+            throw new RuntimeException("Der er ikke nok væske til aftapning, der er " + this.mængde + " på væske og vi forsøger at aftappe " + mængde);
         }
 
         this.mængde -= mængde;
