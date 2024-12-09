@@ -123,8 +123,4 @@ public class Controller {
     public void flytVæskeTilFad(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, LocalDate omhældningsDato){
         fraFad.flytDelAfVæskeMixTilFad(destinationsFad,væske,mængde, omhældningsDato);
     }
-
-    public void flytVæske(Væske væske){
-
-    }
 }
