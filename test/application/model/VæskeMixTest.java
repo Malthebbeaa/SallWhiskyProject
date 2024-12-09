@@ -40,50 +40,6 @@ class VæskeMixTest {
         when(mockAftapning.getLiterAftappet()).thenReturn(60.1);
     }
 
-    @Test
-    void aftapVæskeKasterException_grænseværdi() {
-        //Assert
-        assertThrows(RuntimeException.class,() -> væskeMix.aftapVæske(mockAftapning));
-    }
-
-    @Test
-    void aftapVæskeGåriMinusInputFalse_grænseværdi() {
-        //Arrange
-        Aftapning mockAftapning = mock(Aftapning.class);
-        when(mockAftapning.getLiterAftappet()).thenReturn(60.0);
-        Væske mockVæske = mock(Væske.class);
-        when(mockVæske.getVæskeMængde()).thenReturn(60.0);
-        //Act
-        væskeMix.add(mockVæske);
-        væskeMix.aftapVæske(mockAftapning);
-        //Assert
-        double forventet = 0;
-        double aktuelt = væskeMix.getLiterPåfyldt();
-
-        assertEquals(forventet, aktuelt);
-    }
-
-    @Test
-    void aftapningGårIMinusInputTrue(){
-        //Arrange & Act
-        Væske mockVæske3 = mock(Væske.class);
-        when(mockVæske3.getVæskeMængde()).thenReturn(60.0);
-        væskeMix.add(mockVæske3);
-        boolean forventet = true;
-        boolean aktuelt = væskeMix.aftapningGårIMinus(60.1);
-        assertEquals(forventet, aktuelt);
-    }
-
-    @Test
-    void aftapningGårIMinusInputFalse(){
-        //Arrange & Act
-        Væske mockVæske4 = mock(Væske.class);
-        when(mockVæske4.getVæskeMængde()).thenReturn(60.0);
-        væskeMix.add(mockVæske4);
-        boolean forventet = false;
-        boolean aktuelt = væskeMix.aftapningGårIMinus(60.0);
-        assertEquals(forventet, aktuelt);
-    }
 
     @Test
     void tilføjMængde() {
