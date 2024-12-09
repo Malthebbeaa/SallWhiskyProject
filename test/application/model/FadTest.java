@@ -3,9 +3,7 @@ package application.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.text.html.FormView;
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,7 +54,7 @@ class FadTest {
         fad1.tilføjVæske(LocalDate.now(), væske3);
 
         PåfyldningsComponent valgtMix = fad1.getVæskeMix();
-        fad1.flytDelAfVæskeMixTilFadHjælper(fad2, valgtMix, 50);
+        fad1.flytDelAfVæskeMixTilFad(fad2, valgtMix, 50, LocalDate.now());
         double forventetFad2 = 50.0;
         double aktueltFad2 = fad2.getMængdeFyldtPåFad();
         double forventetFad1 = 85.0;

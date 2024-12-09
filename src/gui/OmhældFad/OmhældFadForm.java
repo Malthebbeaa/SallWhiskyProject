@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OmhældFadForm implements GuiObserver {
@@ -23,6 +24,7 @@ public class OmhældFadForm implements GuiObserver {
     private Fad destinationsFad;
     private PåfyldningsComponent væske;
     private TextField txfMængde;
+    private DatePicker datePickerOmhældningsdato;
 
     public OmhældFadForm(Controller controller, OmhældFadHandler handler) {
         this.controller = controller;
@@ -59,6 +61,11 @@ public class OmhældFadForm implements GuiObserver {
         txfMængde = new TextField();
         fadOgLagerPane.add(lblMængde,0,2);
         fadOgLagerPane.add(txfMængde,1,2);
+
+        Label lblOmhældningsdato = new Label("Omhældningsdato: ");
+        datePickerOmhældningsdato = new DatePicker(LocalDate.now());
+        fadOgLagerPane.add(lblOmhældningsdato, 0,3);
+        fadOgLagerPane.add(datePickerOmhældningsdato, 1,3);
 
         ChangeListener<Fad> fadListener = (fad, OldFad, NewFad) -> selectedFadChanged();
         cbFraFad.getSelectionModel().selectedItemProperty().addListener(fadListener);
@@ -116,5 +123,8 @@ public class OmhældFadForm implements GuiObserver {
 
     public PåfyldningsComponent getVæske() {
         return væske;
+    }
+    public LocalDate getOmhældningsDato(){
+        return datePickerOmhældningsdato.getValue();
     }
 }

@@ -1,7 +1,5 @@
 package application.model;
 
-import application.controller.Controller;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -191,9 +189,9 @@ public class Fad {
      * @param valgtMix - Mix der skal omhældes.
      * @param mængde - mængde der ønskes omhældt
      */
-    public void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde){
+    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, LocalDate omhældningsDato){
         double totalVæske = valgtMix.getVæskeMængde();
-        flytDelAfVæskeMixTilFad(andetFad, valgtMix, mængde, totalVæske);
+        flytDelAfVæskeMixTilFadHjælper(andetFad, valgtMix, mængde, totalVæske, omhældningsDato);
     }
 
     /**
@@ -208,7 +206,7 @@ public class Fad {
      * @param mængde - mængde du ønsker at omhælde
      * @param totalVæske - Total mængde af væske i fadet.
      */
-    public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske) {
+    public void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate omhældningsDato) {
         if (valgtMix == null) {
             throw new IllegalArgumentException("Ingen væskemix valgt.");
         }
@@ -220,7 +218,7 @@ public class Fad {
         if (andetFad.overskriderFadKapacitet(mængde)) {
             throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
         }
-        VæskeMix nytMix = new VæskeMix(LocalDate.now(), valgtMix.getPåfyldningsDato(), andetFad);
+        VæskeMix nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
             double andel = pc.getVæskeMængde() / totalVæske;
             double flyttetMængde = andel * mængde;
@@ -233,7 +231,7 @@ public class Fad {
 
             } else if (pc instanceof VæskeMix) {
                 VæskeMix originalMix = (VæskeMix) pc;
-                flytDelAfVæskeMixTilFad(andetFad, originalMix, mængde, totalVæske);
+                flytDelAfVæskeMixTilFadHjælper(andetFad, originalMix, mængde, totalVæske, omhældningsDato);
             }
         }
         andetFad.tilføjVæske(valgtMix.getPåfyldningsDato(), nytMix);
