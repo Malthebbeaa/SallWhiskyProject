@@ -13,7 +13,6 @@ public class Fad {
     private String tidligereIndhold;
     private int alder;
     private int antalGangeBrugt;
-    private double mængdeFyldtPåFad;
     private List<PåfyldningsComponent> påfyldningsComponenter;
     private List<PåfyldningsComponent> tidligerePåfyldningsComponenter;
     private List<Aftapning> aftapninger;
@@ -29,7 +28,6 @@ public class Fad {
         this.tidligereIndhold = tidligereIndhold;
         this.alder = alder;
         this.antalGangeBrugt = antalGangeBrugt;
-        this.mængdeFyldtPåFad = 0;
         this.lagringstid = 0;
         this.påfyldningsComponenter = new ArrayList<>();
         this.tidligerePåfyldningsComponenter = new ArrayList<>();
@@ -43,13 +41,12 @@ public class Fad {
      * @param påfyldningsComponent - væske eller væskemix du ønsker at tilføje fadet.
      */
     public void tilføjVæske(LocalDate dato, PåfyldningsComponent påfyldningsComponent){
-        if(mængdeFyldtPåFad + påfyldningsComponent.getVæskeMængde() <= størrelse){
+        if(getMængdeFyldtPåFad() + påfyldningsComponent.getVæskeMængde() <= størrelse){
             if(påfyldningsComponenter.size() > 0){
                 opretVæskemix(dato, påfyldningsComponent);
             }
             else {
                 påfyldningsComponenter.add(påfyldningsComponent);
-                mængdeFyldtPåFad += påfyldningsComponent.getVæskeMængde();
             }
         }
         else{
@@ -63,7 +60,7 @@ public class Fad {
      * @return sandt eller falsk
      */
     public boolean overskriderFadKapacitet(double mængde){
-        if(mængde + mængdeFyldtPåFad > størrelse){
+        if(mængde + getMængdeFyldtPåFad() > størrelse){
             return true;
         }
         return false;
@@ -81,28 +78,27 @@ public class Fad {
             throw new RuntimeException("Ingen væsker tilgængelige for at oprette væskemix.");
         }
         væskeMix = new VæskeMix(dato, this);
-        for (PåfyldningsComponent påfyldningsComponent : påfyldningsComponenter) {
-            væskeMix.add(påfyldningsComponent);
-        }
         væskeMix.add(pc);
         påfyldningsComponenter.clear();
         påfyldningsComponenter.add(væskeMix);
-        mængdeFyldtPåFad = væskeMix.getVæskeMængde();
     }
     /***
      * bruges på Påfyldning klassen til at opdatere mængden på fadet
      * @param aftapning
      */
-    public void aftapVæskePåFad(Aftapning aftapning){
-        mængdeFyldtPåFad -= aftapning.getLiterAftappet();
-        if(mængdeFyldtPåFad <= 0){
+    public void erFadTømt(){
+        if(getMængdeFyldtPåFad() <= 0){
             tidligerePåfyldningsComponenter.addAll(påfyldningsComponenter);
             påfyldningsComponenter.clear();
         }
     }
 
     public double getMængdeFyldtPåFad() {
-        return mængdeFyldtPåFad;
+        double mængde = 0;
+        for (PåfyldningsComponent påfyldningsComponent : påfyldningsComponenter) {
+            mængde += påfyldningsComponent.getVæskeMængde();
+        }
+        return mængde;
     }
 
     public void setFadLeverandør(FadLeverandør fadLeverandør) {
@@ -138,7 +134,7 @@ public class Fad {
                 "\nTidligere indhold: " + tidligereIndhold +
                 "\nAlder: " + alder +
                 "\nBrugt " + antalGangeBrugt + (antalGangeBrugt==1? " gang" : " gange") +
-                "\nLiter i fad: " + mængdeFyldtPåFad;
+                "\nLiter i fad: " + getMængdeFyldtPåFad();
     }
 
     public Plads getPlads() {
@@ -236,33 +232,5 @@ public class Fad {
         }
         andetFad.tilføjVæske(valgtMix.getPåfyldningsDato(), nytMix);
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
-        valgtMix.getFad().opdaterMængdeFyldtPåFad();
-        andetFad.opdaterMængdeFyldtPåFad();
-    }
-
-    public void opdaterMængdeFyldtPåFad() {
-        mængdeFyldtPåFad = beregnMængdeFraKomponenter(påfyldningsComponenter);
-    }
-
-    /**
-     * Kaldes via opdaterMængdeFyldtPåFad.
-     * Går rekursivt igennem Påfyldningscomponenter som er tilføjet til fadet og finder de componenter som er væske
-     * og tilføjer dem til total mængde. Efter endt rekursion returneres totale mængde.
-     * @param komponenter
-     * @return - total mængde på fadet.
-     */
-
-    private double beregnMængdeFraKomponenter(List<PåfyldningsComponent> komponenter) {
-        double totalMængde = 0;
-
-        for (PåfyldningsComponent component : komponenter) {
-            if (component instanceof Væske) {
-                totalMængde += component.getVæskeMængde();
-            } else if (component instanceof VæskeMix) {
-                totalMængde += beregnMængdeFraKomponenter(((VæskeMix) component).getPåfyldningsComponenter());
-            }
-        }
-
-        return totalMængde;
     }
 }

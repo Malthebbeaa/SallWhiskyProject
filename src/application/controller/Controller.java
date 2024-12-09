@@ -96,7 +96,7 @@ public class Controller {
         for (Aftapning aftapning : aftapninger){
             whiskyProdukt.tilføjAftapning(aftapning);
             aftapning.getPåfyldning().aftap(aftapning.getLiterAftappet());
-            aftapning.getPåfyldning().getFad().aftapVæskePåFad(aftapning);
+            aftapning.getPåfyldning().getFad().erFadTømt();
         }
     }
 

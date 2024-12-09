@@ -12,10 +12,11 @@ class FadTest {
     private VæskeMix væskeMix1, væskeMix2;
     private Væske væske1, væske2, væske3;
     private Destillering destillering;
+    private FadLeverandør fadLeverandør;
     @BeforeEach
     void setUp() {
 
-        FadLeverandør fadLeverandør = new FadLeverandør("Alberto", "Spanien");
+        fadLeverandør = new FadLeverandør("Alberto", "Spanien");
         fad = new Fad(65, "Eg", fadLeverandør,"Sherry", 10, 1);
         fad1 = new Fad(200, "Eg", fadLeverandør, "Rødvin", 5, 2);
         fad2 = new Fad(150, "Eg", fadLeverandør, "Sherry", 3, 1);
