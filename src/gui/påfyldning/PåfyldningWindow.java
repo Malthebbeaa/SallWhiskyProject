@@ -84,7 +84,7 @@ public class PåfyldningWindow extends BaseWindow {
                         alert.setHeaderText("Fad nummer " + fad.getFadId() + " er påfydlt");
                         alert.showAndWait();
                         if (alert.getResult().getButtonData().isDefaultButton()){
-                            tabPane.getSelectionModel().select(6);
+                            tabPane.getSelectionModel().select(7);
                             flytFadWindow.getForm().getCbFade().setValue(fad);
                         }
                     } else {
@@ -92,7 +92,7 @@ public class PåfyldningWindow extends BaseWindow {
                         alert.setHeaderText("Fad nummer " + fad.getFadId() + " er påfyldt");
                         alert.showAndWait();
                         if (alert.getResult().getButtonData().isDefaultButton()){
-                            tabPane.getSelectionModel().select(6);
+                            tabPane.getSelectionModel().select(7);
                             flytFadWindow.getForm().getCbFade().setValue(fad);
                         }
                     }
