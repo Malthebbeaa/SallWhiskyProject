@@ -31,28 +31,22 @@ public class VæskeMix extends PåfyldningsComponent {
         System.out.println(this.omhældningsDatoer);
     }
 
-    /**
-     * metode tjekker om aftapningen er mulig på mængden i fadet (påfyldning)
-     * så trækker den væsken fra på påfyldningen
-     * skaber forbindelsen mellem Påfyldning og Aftapning
-     * til sidst aftapper den væsken som er væsken på påfyldningen
-     * @param aftapning
-     */
-    public void aftapVæske(Aftapning aftapning){
-        if (!aftapningGårIMinus(aftapning.getLiterAftappet())){
-            literPåfyldt -= aftapning.getLiterAftappet();
-            tilføjAftapning(aftapning);
-            aftapning.setPåfyldning(this);
-            fad.aftapVæskePåFad(aftapning);
-        } else {
-            throw new RuntimeException("Du aftapper for meget fra fadet");
-        }
-    }
 
+    /***
+     * Kalder rekursivt gennem Påfyldningskomponenterne på VæskeMix
+     * der beregnes for hvert væskemix hvor stor en andel den udgør af hele aftapningen
+     * sender andelen videre indtil vi rammer en Leaf (Væske) og her aftappes væsken
+     * sidste komponent tager den resterende mængde væske så vi undgår afrundningsfejl
+     * @param mængde
+     */
     @Override
     public void aftap(double mængde) {
         if (getVæskeMængde() < mængde) {
             throw new RuntimeException("Der er ikke nok væske til aftapningen");
+        }
+
+        if (mængde < 1){
+            throw new RuntimeException("Mængden skal være positiv");
         }
 
         double totalAftappet = 0;  // Holder styr på, hvor meget vi har aftappet
