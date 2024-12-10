@@ -19,11 +19,12 @@ public class SøgningHandler {
 
     public void søgningFadIdAction(SøgningForm form, int søgId){
         int low = 0;
-        int high = form.getTableViewFade().getItems().size() - 1;
+        int high = controller.getStorage().getFade().size() - 1;
+
 
         while (high >= low){
             int mid = low + (high - low) / 2;
-            int fadId = form.getTableViewFade().getItems().get(mid).getFadId();
+            int fadId = controller.getStorage().getFade().get(mid).getFadId();
 
             if (fadId == søgId){
                 form.getTableViewFade().getSelectionModel().select(fadId - 1);
@@ -59,16 +60,6 @@ public class SøgningHandler {
             }
         }
         form.getTableViewFade().setItems(fadeMedTidligereIndhold);
-    }
-
-    public void søgningAction(SøgningForm form, int søgId){
-        form.getTableViewFade().getItems().stream()
-                .filter(item -> item.getFadId() == søgId)
-                .findAny()
-                .ifPresent(item -> {
-                    form.getTableViewFade().getSelectionModel().select(item);
-                    form.getTableViewFade().scrollTo(item);
-                });
     }
 
     public void findKlareFade(SøgningForm form){
