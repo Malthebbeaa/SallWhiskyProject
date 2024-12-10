@@ -70,8 +70,10 @@ class FadTest {
 
         //Act
         fad3.flytDelAfVæskeMixTilFad(fad4, væskeMixFad3, 30, LocalDate.now());
+        fad4.flytDelAfVæskeMixTilFad(fad5,fad4.getPåfyldningsComponent(),60,LocalDate.now());
+
         //Assert
-        LocalDate aktuelDato = fad4.getPåfyldningsComponent().getPåfyldningsDato();
+        LocalDate aktuelDato = fad5.getPåfyldningsComponent().getPåfyldningsDato();
         LocalDate forventetDato = LocalDate.of(2023, 12, 31);
 
         assertEquals(forventetDato, aktuelDato);
