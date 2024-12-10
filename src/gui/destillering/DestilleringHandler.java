@@ -38,7 +38,7 @@ public class DestilleringHandler {
     public void clearAction(DestilleringForm form){
         form.getDatepickerstartDato().setValue(LocalDate.now());
         form.getDatepickerSlutDato().setValue(LocalDate.now());
-        form.getTxfAlkoholProcent().clear();
+        form.getTxfVæskeMængde().clear();
         form.getTxfAlkoholProcent().clear();
         form.getTxfAntalDestilleringer().clear();
         form.getTxfKommentar().clear();
