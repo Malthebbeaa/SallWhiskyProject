@@ -49,7 +49,9 @@ public class Fad {
                 væskeMix.add(this.påfyldningsComponent);
                 this.påfyldningsComponent = væskeMix;
             } else {
-                this.påfyldningsComponent = påfyldningsComponent;
+                væskeMix = new VæskeMix(dato, this);
+                væskeMix.add(påfyldningsComponent);
+                this.påfyldningsComponent = væskeMix;
             }
         } else {
             throw new RuntimeException("Kan ikke påfyldes, Overskrider fadets kapacitet");
@@ -175,7 +177,15 @@ public class Fad {
      */
     public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, LocalDate omhældningsDato) {
         double totalVæske = valgtMix.getVæskeMængde();
-        flytDelAfVæskeMixTilFadHjælper(andetFad, valgtMix, mængde, totalVæske, omhældningsDato);
+        if (andetFad.overskriderFadKapacitet(mængde)) {
+            throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
+        } else {
+            flytDelAfVæskeMixTilFadHjælper(andetFad, valgtMix, mængde, totalVæske, omhældningsDato);
+        }
+        PåfyldningsComponent kopiAfVæskeMix = lavKopi(valgtMix);
+        PåfyldningsComponent nytVæskeMix = andetFad.getPåfyldningsComponent();
+        nytVæskeMix.add(kopiAfVæskeMix);
+        erFadTømt();
     }
 
     /**
@@ -191,35 +201,59 @@ public class Fad {
      * @param mængde     - mængde du ønsker at omhælde
      * @param totalVæske - Total mængde af væske i fadet.
      */
-    public void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate omhældningsDato) {
-        if (valgtMix == null) {
-            throw new IllegalArgumentException("Ingen væskemix valgt.");
-        }
-
-        if (mængde <= 0 || mængde > valgtMix.getVæskeMængde()) {
+    private void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate omhældningsDato) {
+        if (mængde <= 0 || mængde > totalVæske) {
             throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige væskemixets mængde.");
         }
-
-        if (andetFad.overskriderFadKapacitet(mængde)) {
-            throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
+        LocalDate dato = LocalDate.now();
+        //PåfyldningsComponent nytMix = null;
+        if(andetFad.getPåfyldningsComponent() == null || valgtMix.getPåfyldningsDato().isBefore(andetFad.getPåfyldningsComponent().getPåfyldningsDato())){
+            //nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
+            dato = valgtMix.getPåfyldningsDato();
         }
-        VæskeMix nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
+        else {
+            //nytMix = new VæskeMix(omhældningsDato, andetFad.getPåfyldningsComponent().getPåfyldningsDato(), andetFad);
+            dato = andetFad.getPåfyldningsComponent().getPåfyldningsDato();
+        }
+
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
             double andel = pc.getVæskeMængde() / totalVæske;
             double flyttetMængde = andel * mængde;
 
             if (pc instanceof Væske) {
-                Væske originalVæske = (Væske) pc;
-                Væske nyVæske = new Væske(originalVæske.getDestillering(), flyttetMængde);
-                nytMix.add(nyVæske);
-                originalVæske.setMængde(originalVæske.getVæskeMængde() - flyttetMængde);
-
+                Væske nyVæske = new Væske(pc.getDestillering(), flyttetMængde);
+                //nytMix.add(nyVæske);
+                andetFad.tilføjVæske(dato, nyVæske);
+                pc.setMængde(pc.getVæskeMængde() - flyttetMængde);
             } else if (pc instanceof VæskeMix) {
-                VæskeMix originalMix = (VæskeMix) pc;
-                flytDelAfVæskeMixTilFadHjælper(andetFad, originalMix, mængde, totalVæske, omhældningsDato);
+                flytDelAfVæskeMixTilFadHjælper(andetFad, pc, mængde, totalVæske, omhældningsDato);
             }
         }
-        andetFad.tilføjVæske(valgtMix.getPåfyldningsDato(), nytMix);
+        //andetFad.tilføjVæske(nytMix.getPåfyldningsDato(), nytMix);
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
+    }
+
+    private PåfyldningsComponent lavKopi(PåfyldningsComponent original) {
+        if (original instanceof Væske) {
+            return new Væske(original.getDestillering(), 0);
+        } else {
+            VæskeMix mix = new VæskeMix(original.getPåfyldningsDato(), original.getOmhældningsDato(), original.getFad());
+            for (PåfyldningsComponent væskeMix : original.getPåfyldningsComponenter()) {
+                mix.add(lavKopi(væskeMix));
+            }
+            return mix;
+        }
+    }
+
+    public void traverseTree(PåfyldningsComponent node, List<String> information) {
+        if(node == null){
+            return;
+        }
+        information.add(node.toString());
+        if (node instanceof VæskeMix) {
+            for (PåfyldningsComponent child : node.getPåfyldningsComponenter()) {
+                traverseTree(child, information);
+            }
+        }
     }
 }
