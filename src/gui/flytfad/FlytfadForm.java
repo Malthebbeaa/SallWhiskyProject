@@ -168,19 +168,17 @@ public class FlytfadForm implements GuiObserver {
             }
             for (Double v : mængder) {
                 if (v != 0.0) {
-                    if (!info.contains(v + "")) {
-                        info += "væskemængde: " + v + "\n";
-                    }
+                        info += "Væskemængde: " + v + "\n";
                 }
             }
             for (Fad fad1 : fade) {
                 if (!info.contains("fad" + fad1.getFadId())) {
-                    info += "Fade lagret på: fad" + fad1.getFadId() + "\n";
+                    info += "Fade lagret på: fad" + fad1.getFadId() + " " + fad1.getTidligereIndhold() + "\n";
                 }
             }
             for (LocalDate localDate : datoer) {
                 if (!info.contains(localDate + "")) {
-                    info += "datoer på lagringer: " + localDate + "\n";
+                    info += "Datoer på lagringer: " + localDate + "\n";
                 }
             }
 
