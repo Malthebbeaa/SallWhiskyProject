@@ -11,7 +11,7 @@ public class VæskeMix extends PåfyldningsComponent {
     private Fad fad;
     private List<Aftapning> aftapninger;
     private List<PåfyldningsComponent> påfyldningsComponenter;
-    private LocalDate omhældningsDato;
+    private LocalDate slutDato;
 
     public VæskeMix(LocalDate påfyldningsDato, Fad fad) {
         this.påfyldningsDato = påfyldningsDato;
@@ -20,16 +20,6 @@ public class VæskeMix extends PåfyldningsComponent {
         aftapninger = new ArrayList<>();
         påfyldningsComponenter = new ArrayList<>();
     }
-
-    public VæskeMix(LocalDate omhældningsDato, LocalDate påfyldningsDato, Fad fad){
-        this.påfyldningsComponenter = new ArrayList<>();
-        this.literPåfyldt = 0;
-        this.omhældningsDato = omhældningsDato;
-        this.påfyldningsDato = påfyldningsDato;
-        this.fad = fad;
-        getVæskeMængde();
-    }
-
 
     /***
      * Kalder rekursivt gennem Påfyldningskomponenterne på VæskeMix
@@ -181,8 +171,12 @@ public class VæskeMix extends PåfyldningsComponent {
         this.literPåfyldt = literPåfyldt;
     }
 
-    public LocalDate getOmhældningsDato() {
-        return omhældningsDato;
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public void setSlutDato(LocalDate slutDato) {
+        this.slutDato = slutDato;
     }
 }
 

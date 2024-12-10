@@ -183,6 +183,7 @@ public class Fad {
             flytDelAfVæskeMixTilFadHjælper(andetFad, valgtMix, mængde, totalVæske, omhældningsDato);
         }
         PåfyldningsComponent kopiAfVæskeMix = lavKopi(valgtMix);
+        kopiAfVæskeMix.setSlutDato(omhældningsDato);
         PåfyldningsComponent nytVæskeMix = andetFad.getPåfyldningsComponent();
         nytVæskeMix.add(kopiAfVæskeMix);
         erFadTømt();
@@ -200,36 +201,24 @@ public class Fad {
      * @param valgtMix   - Det mix du ønsker at omhælde til andetFad
      * @param mængde     - mængde du ønsker at omhælde
      * @param totalVæske - Total mængde af væske i fadet.
+     * @param nyStartDato - Startdato for omhældningen.
      */
-    private void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate omhældningsDato) {
+    private void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate nyStartDato) {
         if (mængde <= 0 || mængde > totalVæske) {
             throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige væskemixets mængde.");
         }
-        LocalDate dato = LocalDate.now();
-        //PåfyldningsComponent nytMix = null;
-        if(andetFad.getPåfyldningsComponent() == null /*|| valgtMix.getPåfyldningsDato().isBefore(andetFad.getPåfyldningsComponent().getPåfyldningsDato())*/){
-            //nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
-            dato = valgtMix.getPåfyldningsDato();
-        }
-        else {
-            //nytMix = new VæskeMix(omhældningsDato, andetFad.getPåfyldningsComponent().getPåfyldningsDato(), andetFad);
-            dato = andetFad.getPåfyldningsComponent().getPåfyldningsDato();
-        }
-
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
             double andel = pc.getVæskeMængde() / totalVæske;
             double flyttetMængde = andel * mængde;
 
             if (pc instanceof Væske) {
                 Væske nyVæske = new Væske(pc.getDestillering(), flyttetMængde);
-                //nytMix.add(nyVæske);
-                andetFad.tilføjVæske(dato, nyVæske);
+                andetFad.tilføjVæske(nyStartDato, nyVæske);
                 pc.setMængde(pc.getVæskeMængde() - flyttetMængde);
             } else if (pc instanceof VæskeMix) {
-                flytDelAfVæskeMixTilFadHjælper(andetFad, pc, mængde, totalVæske, omhældningsDato);
+                flytDelAfVæskeMixTilFadHjælper(andetFad, pc, mængde, totalVæske, nyStartDato);
             }
         }
-        //andetFad.tilføjVæske(nytMix.getPåfyldningsDato(), nytMix);
         valgtMix.setLiterPåfyldt(valgtMix.getLiterPåfyldt() - mængde);
     }
 
@@ -237,7 +226,7 @@ public class Fad {
         if (original instanceof Væske) {
             return new Væske(original.getDestillering(), 0);
         } else {
-            VæskeMix mix = new VæskeMix(original.getPåfyldningsDato(), original.getOmhældningsDato(), original.getFad());
+            VæskeMix mix = new VæskeMix(original.getPåfyldningsDato(), original.getFad());
             for (PåfyldningsComponent væskeMix : original.getPåfyldningsComponenter()) {
                 mix.add(lavKopi(væskeMix));
             }
@@ -245,15 +234,30 @@ public class Fad {
         }
     }
 
-    public void traverseTree(PåfyldningsComponent node, List<String> information) {
+    /**
+     * Hjælpemetode til at teste træstrukturen i vores påfyldningscomponenter. Bruges ikke i programmet.
+     * @param node
+     * @param datoInformation
+     * @param fadInformation
+     * @param mængdeInformation
+     */
+    public void traverseTree(PåfyldningsComponent node, List<LocalDate> datoInformation, List<Fad> fadInformation, List<Double> mængdeInformation) {
         if(node == null){
             return;
         }
-        information.add(node.toString());
+        if(node instanceof Væske){
+            mængdeInformation.add(node.getVæskeMængde());
+        }
         if (node instanceof VæskeMix) {
+            datoInformation.add(node.getPåfyldningsDato());
+            fadInformation.add(node.getFad());
             for (PåfyldningsComponent child : node.getPåfyldningsComponenter()) {
-                traverseTree(child, information);
+                traverseTree(child, datoInformation, fadInformation, mængdeInformation);
             }
         }
+    }
+
+    public List<PåfyldningsComponent> getTidligerePåfyldningsComponenter() {
+        return tidligerePåfyldningsComponenter;
     }
 }
