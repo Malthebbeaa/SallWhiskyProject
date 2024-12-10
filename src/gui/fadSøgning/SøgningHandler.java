@@ -18,6 +18,7 @@ public class SøgningHandler {
     }
 
     public void søgningFadIdAction(SøgningForm form, int søgId){
+        ObservableList<Fad> fadMedId = FXCollections.observableArrayList();
         int low = 0;
         int high = controller.getStorage().getFade().size() - 1;
 
@@ -27,8 +28,8 @@ public class SøgningHandler {
             int fadId = controller.getStorage().getFade().get(mid).getFadId();
 
             if (fadId == søgId){
-                form.getTableViewFade().getSelectionModel().select(fadId - 1);
-                form.getTableViewFade().scrollTo(fadId - 1);
+                fadMedId.add(controller.getStorage().getFade().get(fadId - 1));
+                form.getTableViewFade().setItems(fadMedId);
                 break;
             }
 
