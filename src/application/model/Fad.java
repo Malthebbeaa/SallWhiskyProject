@@ -207,7 +207,7 @@ public class Fad {
         }
         LocalDate dato = LocalDate.now();
         //PåfyldningsComponent nytMix = null;
-        if(andetFad.getPåfyldningsComponent() == null || valgtMix.getPåfyldningsDato().isBefore(andetFad.getPåfyldningsComponent().getPåfyldningsDato())){
+        if(andetFad.getPåfyldningsComponent() == null /*|| valgtMix.getPåfyldningsDato().isBefore(andetFad.getPåfyldningsComponent().getPåfyldningsDato())*/){
             //nytMix = new VæskeMix(omhældningsDato, valgtMix.getPåfyldningsDato(), andetFad);
             dato = valgtMix.getPåfyldningsDato();
         }

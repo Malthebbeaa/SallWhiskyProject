@@ -67,6 +67,8 @@ class FadTest {
         væskeMixFad4.add(Væske1Fad4);
         fad3.tilføjVæske(væskeMixFad3.getPåfyldningsDato(), væskeMixFad3);
         fad4.tilføjVæske(væskeMixFad4.getPåfyldningsDato(), væskeMixFad4);
+        System.out.println(fad4.getPåfyldningsComponent().getPåfyldningsDato());
+        System.out.println(fad5.getPåfyldningsComponent());
 
         //Act
         fad3.flytDelAfVæskeMixTilFad(fad4, væskeMixFad3, 30, LocalDate.now());

@@ -58,12 +58,13 @@ public class WhiskyProdukt {
 
     /***
      * beregner samlede alkoholprocent med vand tilføjet
+     * beregner mængden af alkohol ved at fjerne vandet
      * tager mængden af alkohol divideret med samlet volume og ganger med 100
      * @return alkoholprocent med vand
      */
     public double beregnSamledeAlkoholProcentMedVand() {
-        double alkoholMængde = totalWhiskyMængde * (beregnAlkoholProcentUdenVand() / 100);
-        double samletVolumen = totalWhiskyMængde + vandMængde;
+        double alkoholMængde = (totalWhiskyMængde - vandMængde) * (beregnAlkoholProcentUdenVand() / 100);
+        double samletVolumen = totalWhiskyMængde;
         return (alkoholMængde / samletVolumen) * 100;
     }
 
