@@ -38,26 +38,85 @@ class WhiskyProduktTest {
     }
 
     @Test
-    void beregnAlkoholProcentUdenVand() {
+    void TC1_beregnAlkoholProcent0LiterTilføjet() {
+        //Arrange
+        double vand = 0;
+
         //Act
-        double aktuelt = whiskyProdukt.beregnAlkoholProcentUdenVand();
+        whiskyProdukt.tilføjVand(0);
+        double aktuelt = whiskyProdukt.beregnAlkoholProcent();
         double forventet = ((30.0 * 70.0) + (20.0 * 68.0)) / (30.0 + 20.0);
 
         assertEquals(forventet, aktuelt);
     }
 
     @Test
-    void beregnSamledeAlkoholProcentMedVand() {
+    void TC2_beregnAlkoholProcent1LiterTilføjet() {
+        //Arrange
+        double vand = 1;
+
+        //Act
+        whiskyProdukt.tilføjVand(vand);
+        double aktuelt = whiskyProdukt.beregnAlkoholProcent();
+        double alkoholMængde = 50.0 * (((30.0 * 70.0) + (20.0 * 68.0)) / (30.0 + 20.0)/ 100);
+        double samletVolumen = 50.0 + 1.0;
+        double forventet = (alkoholMængde / samletVolumen) * 100;
+
+
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void TC3_beregnAlkoholProcent10LiterTilføjet() {
         //Arrange
         double vand = 10;
 
         //Act
         whiskyProdukt.tilføjVand(vand);
 
-        double aktuelt = whiskyProdukt.beregnSamledeAlkoholProcentMedVand();
-        double alkoholMængde = 50.0 * (whiskyProdukt.beregnAlkoholProcentUdenVand() / 100);
+        double aktuelt = whiskyProdukt.beregnAlkoholProcent();
+        double alkoholMængde = 50.0 * (((30.0 * 70.0) + (20.0 * 68.0)) / (30.0 + 20.0)/ 100);
         double samletVolumen = 50.0 + 10.0;
         double forventet = (alkoholMængde / samletVolumen) * 100;
+
+
+        //Assert
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void TC4_beregnAlkoholProcent50LiterTilføjet() {
+        //Arrange
+        double vand = 50;
+
+        //Act
+        whiskyProdukt.tilføjVand(vand);
+
+        double aktuelt = whiskyProdukt.beregnAlkoholProcent();
+        double alkoholMængde = 50.0 * (((30.0 * 70.0) + (20.0 * 68.0)) / (30.0 + 20.0)/ 100);
+        double samletVolumen = 50.0 + 50.0;
+        double forventet = (alkoholMængde / samletVolumen) * 100;
+
+
+        //Assert
+        assertEquals(forventet, aktuelt);
+
+    }
+
+    @Test
+    void TC5_beregnAlkoholProcent55LiterTilføjet() {
+        //Arrange
+        double vand = 55;
+
+        //Act
+        whiskyProdukt.tilføjVand(vand);
+
+        double aktuelt = whiskyProdukt.beregnAlkoholProcent();
+        double alkoholMængde = 50.0 * (((30.0 * 70.0) + (20.0 * 68.0)) / (30.0 + 20.0)/ 100);
+        double samletVolumen = 50.0 + 55.0;
+        double forventet = (alkoholMængde / samletVolumen) * 100;
+
+        System.out.println(aktuelt);
 
 
         //Assert

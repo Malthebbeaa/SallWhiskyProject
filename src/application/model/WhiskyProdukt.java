@@ -38,11 +38,19 @@ public class WhiskyProdukt {
         this.vandMængde = vandMængde;
     }
 
+    public double beregnAlkoholProcent(){
+        if (this.vandMængde > 0){
+            return beregnSamledeAlkoholProcentMedVand();
+        } else {
+            return beregnAlkoholProcentUdenVand();
+        }
+    }
+
     /***
      * beregner den samlede alkoholprocent uden tilføjet vand
      * @return alkoholprocent uden vand
      */
-    public double beregnAlkoholProcentUdenVand() {
+    private double beregnAlkoholProcentUdenVand() {
         double volumeGangeAlkoholprocent = 0;
         double samledeVolume = 0;
 
@@ -62,7 +70,7 @@ public class WhiskyProdukt {
      * tager mængden af alkohol divideret med samlet volume og ganger med 100
      * @return alkoholprocent med vand
      */
-    public double beregnSamledeAlkoholProcentMedVand() {
+    private double beregnSamledeAlkoholProcentMedVand() {
         double alkoholMængde = (totalWhiskyMængde - vandMængde) * (beregnAlkoholProcentUdenVand() / 100);
         double samletVolumen = totalWhiskyMængde;
         return (alkoholMængde / samletVolumen) * 100;
@@ -157,11 +165,7 @@ public class WhiskyProdukt {
             }
 
             // Alkoholprocent beregninger
-            if (vandMængde > 0) {
-                alkoholprocent = beregnSamledeAlkoholProcentMedVand();
-            } else {
-                alkoholprocent = beregnAlkoholProcentUdenVand();
-            }
+            alkoholprocent = beregnAlkoholProcent();
         }
 
         String stringAlkoholProcent = String.format("%.2f", alkoholprocent);
