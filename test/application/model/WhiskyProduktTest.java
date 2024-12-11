@@ -47,6 +47,7 @@ class WhiskyProduktTest {
         double aktuelt = whiskyProdukt.beregnAlkoholProcent();
         double forventet = ((30.0 * 70.0) + (20.0 * 68.0)) / (30.0 + 20.0);
 
+        //Assert
         assertEquals(forventet, aktuelt);
     }
 
@@ -62,7 +63,7 @@ class WhiskyProduktTest {
         double samletVolumen = 50.0 + 1.0;
         double forventet = (alkoholMængde / samletVolumen) * 100;
 
-
+        //Assert
         assertEquals(forventet, aktuelt);
     }
 
@@ -115,9 +116,6 @@ class WhiskyProduktTest {
         double alkoholMængde = 50.0 * (((30.0 * 70.0) + (20.0 * 68.0)) / (30.0 + 20.0)/ 100);
         double samletVolumen = 50.0 + 55.0;
         double forventet = (alkoholMængde / samletVolumen) * 100;
-
-        System.out.println(aktuelt);
-
 
         //Assert
         assertEquals(forventet, aktuelt);
