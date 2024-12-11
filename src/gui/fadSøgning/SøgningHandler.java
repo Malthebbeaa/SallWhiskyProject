@@ -57,7 +57,7 @@ public class SøgningHandler {
         ObservableList<Fad> fadeMedTidligereIndhold = FXCollections.observableArrayList();
         for (int i = 0; i < controller.getStorage().getFade().size(); i++) {
             if (controller.getStorage().getFade().get(i).getTidligereIndhold().toLowerCase().contains(søgId.toLowerCase())) {
-                fadeMedTidligereIndhold.add(form.getTableViewFade().getItems().get(i));
+                fadeMedTidligereIndhold.add(controller.getStorage().getFade().get(i));
             }
         }
         form.getTableViewFade().setItems(fadeMedTidligereIndhold);
