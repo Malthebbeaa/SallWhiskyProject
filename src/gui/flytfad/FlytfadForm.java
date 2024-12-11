@@ -158,27 +158,35 @@ public class FlytfadForm implements GuiObserver {
 
     public void selectedPladsChanged() {
         plads = lvPlads.getSelectionModel().getSelectedItem();
-        txFadInfo.setText("");
-
+        ArrayList<Fad> fade = new ArrayList<>();
+        ArrayList<LocalDate> datoer = new ArrayList<>();
+        ArrayList<Double> mængder = new ArrayList<>();
+        String info = "";
         if (plads != null && plads.getFad() != null) {
-            String påfyldning = "";
-            List<PåfyldningsComponent> påfyldninger = plads.getFad().getPåfyldningsComponenter();
-            List<PåfyldningsComponent> mængder = new ArrayList<>();
-            for (int i = 0; i < påfyldninger.size(); i++) {
-                påfyldning += "Påfyldningsdato: " + påfyldninger.get(i).getPåfyldningsDato() +
-                        "\nTid på fad: " +
-                        "\nÅr: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getYears() +
-                        "\nMåneder: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getMonths() +
-                        "\nDage: " + påfyldninger.get(i).antalÅrPåFad(LocalDate.now()).getDays() +
-                        "\nklar til aftapning: " + (påfyldninger.get(i).klarTilAftapning(LocalDate.now()) ? "Ja\n" : "Nej\n" +
-                        "omhældningsdato: ");
-                        if(påfyldninger.get(i) instanceof VæskeMix) påfyldning += ((VæskeMix) påfyldninger.get(i)).getOmhældningsDatoer() +"\n";
-                        if (påfyldninger.get(i) instanceof Væske) {
-                        påfyldning += "batchnummer: " + påfyldninger.get(i).getDestillering().getBatchNummer() + "\nAlkohol: " + påfyldninger.get(i).getDestillering().getAlkoholProcent() + " %\nantal liter i fad: " + påfyldninger.get(i).getVæskeMængde() + " L\n";
-                    }
+            if (plads.getFad().getPåfyldningsComponent() != null) {
+                plads.getFad().traverseTree(plads.getFad().getPåfyldningsComponent(), datoer, fade, mængder);
+            }
+            for (Double v : mængder) {
+                if (v != 0.0) {
+                        info += "Væskemængde: " + v + "\n";
                 }
+            }
+            for (Fad fad1 : fade) {
+                if (!info.contains("fad" + fad1.getFadId())) {
+                    info += "Fade lagret på: fad" + fad1.getFadId() + " " + fad1.getTidligereIndhold() + "\n";
+                }
+            }
+            for (LocalDate localDate : datoer) {
+                if (!info.contains(localDate + "")) {
+                    info += "Datoer på lagringer: " + localDate + "\n";
+                }
+            }
+
+            txFadInfo.setText("");
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +
-                    "Mængde på Fadet: " + plads.getFad().getMængdeFyldtPåFad() + " L\n" + påfyldning + "Fadtype: " + plads.getFad().getTidligereIndhold());
+                    "Fadstørrelse: " + plads.getFad().getStørrelse() + "L\n" +
+                    "Væskemængde: " + plads.getFad().getMængdeFyldtPåFad() + "L\n" +
+                    "Fadtype: " + plads.getFad().getTidligereIndhold() + "\n" + info);
         }
     }
 

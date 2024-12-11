@@ -18,16 +18,18 @@ public class SøgningHandler {
     }
 
     public void søgningFadIdAction(SøgningForm form, int søgId){
+        ObservableList<Fad> fadMedId = FXCollections.observableArrayList();
         int low = 0;
-        int high = form.getTableViewFade().getItems().size() - 1;
+        int high = controller.getStorage().getFade().size() - 1;
+
 
         while (high >= low){
             int mid = low + (high - low) / 2;
-            int fadId = form.getTableViewFade().getItems().get(mid).getFadId();
+            int fadId = controller.getStorage().getFade().get(mid).getFadId();
 
             if (fadId == søgId){
-                form.getTableViewFade().getSelectionModel().select(fadId - 1);
-                form.getTableViewFade().scrollTo(fadId - 1);
+                fadMedId.add(controller.getStorage().getFade().get(fadId - 1));
+                form.getTableViewFade().setItems(fadMedId);
                 break;
             }
 
@@ -61,29 +63,19 @@ public class SøgningHandler {
         form.getTableViewFade().setItems(fadeMedTidligereIndhold);
     }
 
-    public void søgningAction(SøgningForm form, int søgId){
-        form.getTableViewFade().getItems().stream()
-                .filter(item -> item.getFadId() == søgId)
-                .findAny()
-                .ifPresent(item -> {
-                    form.getTableViewFade().getSelectionModel().select(item);
-                    form.getTableViewFade().scrollTo(item);
-                });
-    }
-
     public void findKlareFade(SøgningForm form){
         ObservableList<Fad> alleFade = controller.getStorage().getFade();
 
         FilteredList<Fad> filtreredeFade = new FilteredList<>(alleFade, fad -> {
-            List<PåfyldningsComponent> påfyldninger = fad.getPåfyldningsComponenter();
+            PåfyldningsComponent påfyldninger = fad.getPåfyldningsComponent();
 
             // listen af påfyldninger må ikke være tom
-            if (påfyldninger.isEmpty()) {
+            if (påfyldninger == null) {
                 return false;
             }
 
             // Find sidste påfyldning
-            PåfyldningsComponent sidsteVæskeMix = påfyldninger.get(påfyldninger.size() - 1);
+            PåfyldningsComponent sidsteVæskeMix = fad.getPåfyldningsComponent();
 
             // Tjek om sidste påfyldning ikke er tom og klar til aftapning
             if(sidsteVæskeMix instanceof VæskeMix) {

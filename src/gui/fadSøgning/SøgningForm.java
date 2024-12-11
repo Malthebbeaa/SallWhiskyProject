@@ -4,7 +4,6 @@ import application.controller.Controller;
 import application.model.Fad;
 import application.model.Plads;
 import application.model.PåfyldningsComponent;
-import application.model.VæskeMix;
 import gui.GuiObserver;
 import gui.GuiSubject;
 import gui.PaneCreator;
@@ -89,12 +88,11 @@ public class SøgningForm implements GuiObserver {
         tcLagringstid.setCellValueFactory(cellData -> {
             Fad fad = cellData.getValue();
             // Hent den nyeste påfyldning
-            List<PåfyldningsComponent> påfyldninger = fad.getPåfyldningsComponenter();
-            if (påfyldninger.isEmpty() || påfyldninger.getLast().getLiterPåfyldt() == 0) {
+            PåfyldningsComponent påfyldninger = fad.getPåfyldningsComponent();
+            if (påfyldninger == null) {
                 return new SimpleStringProperty("Ingen påfyldninger");
             } else {
-                PåfyldningsComponent senesteVæskeMix = påfyldninger.getLast();
-                return new SimpleStringProperty(senesteVæskeMix.getAntalÅrMånederDage());
+                return new SimpleStringProperty(påfyldninger.getAntalÅrMånederDage());
             }
         });
         TableColumn<Fad, String> tcTidligereIndhold = new TableColumn<>("Tidligere indhold");

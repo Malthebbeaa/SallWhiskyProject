@@ -11,7 +11,7 @@ public class VæskeMix extends PåfyldningsComponent {
     private Fad fad;
     private List<Aftapning> aftapninger;
     private List<PåfyldningsComponent> påfyldningsComponenter;
-    private LocalDate omhældningsDatoer;
+    private LocalDate slutDato;
 
     public VæskeMix(LocalDate påfyldningsDato, Fad fad) {
         this.påfyldningsDato = påfyldningsDato;
@@ -20,17 +20,6 @@ public class VæskeMix extends PåfyldningsComponent {
         aftapninger = new ArrayList<>();
         påfyldningsComponenter = new ArrayList<>();
     }
-
-    public VæskeMix(LocalDate omhældningsDato, LocalDate påfyldningsDato, Fad fad){
-        this.påfyldningsComponenter = new ArrayList<>();
-        this.literPåfyldt = 0;
-        this.omhældningsDatoer = omhældningsDato;
-        this.påfyldningsDato = påfyldningsDato;
-        this.fad = fad;
-        getVæskeMængde();
-        System.out.println(this.omhældningsDatoer);
-    }
-
 
     /***
      * Kalder rekursivt gennem Påfyldningskomponenterne på VæskeMix
@@ -49,23 +38,12 @@ public class VæskeMix extends PåfyldningsComponent {
             throw new RuntimeException("Mængden skal være positiv");
         }
 
-        double totalAftappet = 0;  // Holder styr på, hvor meget vi har aftappet
-        int i = 0;  // Tæller iterationer
-        int size = påfyldningsComponenter.size();  // Antal komponenter i mixet
+        double totalMængde = getVæskeMængde();
 
         for (PåfyldningsComponent component : påfyldningsComponenter) {
-            i++;
             double mængdeTilAftapning;
-
-            if (i == size) {
-                // Sidste komponent får resten
-                mængdeTilAftapning = mængde - totalAftappet;
-            } else {
-                // Fordel mængden proportionelt for alle andre komponenter
-                double andel = component.getVæskeMængde() / getVæskeMængde();
-                mængdeTilAftapning = andel * mængde;
-                totalAftappet += mængdeTilAftapning;  // Opdater total aftappet
-            }
+            double andel = component.getVæskeMængde() / totalMængde;
+            mængdeTilAftapning = Math.round(andel * mængde);
 
             // Aftap den beregnede mængde fra komponenten
             component.aftap(mængdeTilAftapning);
@@ -193,8 +171,12 @@ public class VæskeMix extends PåfyldningsComponent {
         this.literPåfyldt = literPåfyldt;
     }
 
-    public LocalDate getOmhældningsDatoer() {
-        return omhældningsDatoer;
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public void setSlutDato(LocalDate slutDato) {
+        this.slutDato = slutDato;
     }
 }
 

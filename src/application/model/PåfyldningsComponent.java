@@ -70,7 +70,10 @@ public abstract class PåfyldningsComponent {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 
-    public LocalDate getOmhældningsDatoer(){
+    public LocalDate getSlutDato(){
+        throw new UnsupportedOperationException("Operation ikke understøttet.");
+    }
+    public void setSlutDato(LocalDate slutDato) {
         throw new UnsupportedOperationException("Operation ikke understøttet.");
     }
 }

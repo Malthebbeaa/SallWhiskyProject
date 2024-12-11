@@ -12,7 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class PåfyldningForm implements GuiObserver {
     private ListView<Destillering> lvwMuligeDestilleringer;
     private ListView<Destillering> lveValgtDestilleringer;
     private List<Væske> mængder;
-    private Label lblOverskrift;
+    private Label lblOverskrift, lblFadInfo;
     private VæskeMix væskeMix;
 
 
@@ -82,7 +84,14 @@ public class PåfyldningForm implements GuiObserver {
         påfyldningsPane.add(nextPane, 0,1);
 
         Label lblDestillering = new Label("Vælg destillering(er):");
-        nextPane.add(lblDestillering, 1,0);
+        //nextPane.add(lblDestillering, 1,0);
+        lblFadInfo = new Label("Antal liter på fad: " + cboxFad.getSelectionModel().getSelectedItem().getMængdeFyldtPåFad() +
+                 " ud af " + cboxFad.getSelectionModel().getSelectedItem().getStørrelse() + " liter");
+        lblFadInfo.setFont(new Font(16));
+        HBox hBoxØvreInfo = new HBox(25);
+        hBoxØvreInfo.getChildren().addAll(lblDestillering, lblFadInfo);
+        nextPane.add(hBoxØvreInfo, 1,0);
+
         lvwMuligeDestilleringer = new ListView<>();
         lveValgtDestilleringer = new ListView<>();
 
@@ -137,6 +146,7 @@ public class PåfyldningForm implements GuiObserver {
     public Label getLblOverskrift() {
         return lblOverskrift;
     }
+    public Label getLblFadInfo(){return lblFadInfo;}
     public void tommefade(){
         cboxFad.getItems().clear();
 

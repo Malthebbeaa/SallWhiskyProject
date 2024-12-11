@@ -22,12 +22,19 @@ public class OmhældFadHandler implements GuiSubject{
 
     public void omhældFadAktion(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, OmhældFadForm form){
         LocalDate omhældningsDato = form.getOmhældningsDato();
-        controller.flytVæskeTilFad(form.getfraFad(), form.getDestinationsFad(), form.getVæske(), Double.parseDouble(form.getTxfMængde().getText()), omhældningsDato);
-        form.clearAktion();
-        notifyObservers();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,  "Fad " + destinationsFad.getFadId() + " har fået " + mængde + " L "  + " omhældt");
-        alert.setHeaderText(null);
-        alert.showAndWait();
+        try {
+            controller.flytVæskeTilFad(form.getfraFad(), form.getDestinationsFad(), form.getVæske(), Double.parseDouble(form.getTxfMængde().getText()), omhældningsDato);
+            form.clearAktion();
+            notifyObservers();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,  "Fad " + destinationsFad.getFadId() + " har fået " + mængde + " L "  + " omhældt");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        }
+        catch(RuntimeException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING,  e.getMessage());
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        }
     }
 
     @Override

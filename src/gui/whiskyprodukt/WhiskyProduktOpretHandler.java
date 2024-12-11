@@ -34,9 +34,7 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
         if (form.getVandMængde() > 0){
             whiskyProdukt.tilføjVand(form.getVandMængde());
         }
-        for (Aftapning aftapning : whiskyProdukt.getAftapninger()) {
-            System.out.println(aftapning);
-        }
+
 
         Pane imagePane = form.labelImagePane(whiskyProdukt.lavHistorie(0.7));
         form.getOpretWhiskyProduktPane().getChildren().remove(form.getImagePane());
@@ -92,7 +90,6 @@ public class WhiskyProduktOpretHandler implements GuiSubject {
     public double beregnSamledeAlkoholProcent(WhiskyProduktOpretForm form) {
         double volumeGangeAlkoholprocent = 0;
         double samledeVolume = 0;
-
 
         for (Aftapning aftapning : form.getAftapninger()) {
             volumeGangeAlkoholprocent += aftapning.getAlkoholProcent() * aftapning.getLiterAftappet();
