@@ -45,9 +45,9 @@ public class SøgningHandler {
 
     public void søgningMaterialeAction(SøgningForm form, String søgId){
         ObservableList<Fad> fadeMedMateriale = FXCollections.observableArrayList();
-        for (int i = 0; i < form.getTableViewFade().getItems().size(); i++) {
-            if(form.getTableViewFade().getItems().get(i).getMateriale().toLowerCase().contains(søgId.toLowerCase())){
-                fadeMedMateriale.add(form.getTableViewFade().getItems().get(i));
+        for (int i = 0; i < controller.getStorage().getFade().size(); i++) {
+            if(controller.getStorage().getFade().get(i).getMateriale().toLowerCase().contains(søgId.toLowerCase())){
+                fadeMedMateriale.add(controller.getStorage().getFade().get(i));
             }
         }
         form.getTableViewFade().setItems(fadeMedMateriale);
@@ -55,8 +55,8 @@ public class SøgningHandler {
 
     public void søgningTidligereIndholdAction(SøgningForm form, String søgId) {
         ObservableList<Fad> fadeMedTidligereIndhold = FXCollections.observableArrayList();
-        for (int i = 0; i < form.getTableViewFade().getItems().size(); i++) {
-            if (form.getTableViewFade().getItems().get(i).getTidligereIndhold().toLowerCase().contains(søgId.toLowerCase())) {
+        for (int i = 0; i < controller.getStorage().getFade().size(); i++) {
+            if (controller.getStorage().getFade().get(i).getTidligereIndhold().toLowerCase().contains(søgId.toLowerCase())) {
                 fadeMedTidligereIndhold.add(form.getTableViewFade().getItems().get(i));
             }
         }
