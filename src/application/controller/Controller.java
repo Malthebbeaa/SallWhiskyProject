@@ -123,6 +123,14 @@ public class Controller {
     }
 
     public void flytVæskeTilFad(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, LocalDate omhældningsDato) {
-        fraFad.flytDelAfVæskeMixTilFad(destinationsFad, væske, mængde, omhældningsDato);
+        if(fraFad == null){
+            throw new RuntimeException("Du skal vælge et fad at hælde fra");
+        }
+        else if(destinationsFad == null){
+            throw new RuntimeException("Du skal vælge et fad at hælde til");
+        }
+        else {
+            fraFad.flytDelAfVæskeMixTilFad(destinationsFad, væske, mængde, omhældningsDato);
+        }
     }
 }
