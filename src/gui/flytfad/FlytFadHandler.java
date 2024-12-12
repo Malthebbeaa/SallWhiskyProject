@@ -27,6 +27,7 @@ public class FlytFadHandler implements GuiSubject {
         }
         catch(RuntimeException e){
             Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+            alert.setHeaderText(null);
             alert.showAndWait();
         }
         notifyObservers();

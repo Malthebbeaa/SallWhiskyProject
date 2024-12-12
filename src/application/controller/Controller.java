@@ -84,16 +84,17 @@ public class Controller {
         return væskeMix;
     }
 
-    public void påfyldFad(VæskeMix væskeMix, Fad fad, LocalDate dato){
+    public void påfyldFad(VæskeMix væskeMix, Fad fad, LocalDate dato) {
         try {
             fad.tilføjVæske(dato, væskeMix);
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
             alert.showAndWait();
         }
     }
-    public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt){
-        for (Aftapning aftapning : aftapninger){
+
+    public void lavAftapninger(List<Aftapning> aftapninger, WhiskyProdukt whiskyProdukt) {
+        for (Aftapning aftapning : aftapninger) {
             whiskyProdukt.tilføjAftapning(aftapning);
             aftapning.getPåfyldning().aftap(aftapning.getLiterAftappet());
             aftapning.getPåfyldning().getFad().erFadTømt();
@@ -111,16 +112,17 @@ public class Controller {
         return fadLeverandør;
     }
 
-    public void flytFad(Plads plads, Fad fad){
-        if(plads.isLedig() && fad != null){
+    public void flytFad(Plads plads, Fad fad) {
+        if (plads.isLedig() && fad != null) {
             fad.setPlads(plads);
-        }
-        else{
+        } else if (plads.isLedig() && fad == null) {
+            throw new RuntimeException("Vælg et fad");
+        } else {
             throw new RuntimeException("Plads er optaget");
         }
     }
 
-    public void flytVæskeTilFad(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, LocalDate omhældningsDato){
-        fraFad.flytDelAfVæskeMixTilFad(destinationsFad,væske,mængde, omhældningsDato);
+    public void flytVæskeTilFad(Fad fraFad, Fad destinationsFad, PåfyldningsComponent væske, double mængde, LocalDate omhældningsDato) {
+        fraFad.flytDelAfVæskeMixTilFad(destinationsFad, væske, mængde, omhældningsDato);
     }
 }

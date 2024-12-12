@@ -2,8 +2,10 @@ package gui.destillering;
 
 import application.controller.Controller;
 import application.model.Destillering;
+import application.model.Lager;
 import application.model.Maltbatch;
 import gui.destillering.DestilleringForm;
+import javafx.scene.control.Alert;
 
 import java.time.LocalDate;
 
@@ -19,19 +21,30 @@ public class DestilleringHandler {
             int antalDestilleringer = form.getAntalDestilleringer();
             LocalDate startDato = form.getStartDato();
             LocalDate slutDato = form.getSlutDato();
+            Maltbatch maltbatch = form.getMaltbatch();
             double alkoholProcent = form.getAlkoholProcent();
             double væskeMængde = form.getVæskeMængde();
-            Maltbatch maltbatch = form.getMaltbatch();
 
-            Destillering destillering = controller.opretDestillering(antalDestilleringer, startDato, slutDato, væskeMængde, alkoholProcent, maltbatch);
+            if (form.getMaltbatch() == null){
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Vælg et maltbatch");
+                alert.showAndWait();
+            } else if (startDato.isAfter(slutDato)){
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Startdato skal være før slutdatoen");
+                alert.showAndWait();
+            } else {
+                Destillering destillering = controller.opretDestillering(antalDestilleringer, startDato, slutDato, væskeMængde, alkoholProcent, maltbatch);
 
-            if (form.getKommentar() != null) {
-                controller.tilføjKommentarTilDestillering(form.getKommentar(), destillering);
+                if (form.getKommentar() != null) {
+                    controller.tilføjKommentarTilDestillering(form.getKommentar(), destillering);
+                }
+
+                clearAction(form);
             }
-
-            clearAction(form);
         } catch (Exception e){
-            e.printStackTrace();
+            if (e.getMessage().contains("For input string"));{
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Ufyld venligst alle felter");
+                alert.showAndWait();
+            }
         }
     }
 
