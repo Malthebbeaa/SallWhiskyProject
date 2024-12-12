@@ -89,6 +89,7 @@ public class Gui extends Application {
         tabPaneGenerator.generateTabPane(tabs, gridPanes);
         påfyldningWindow.getHandler().addObserver(flytFadWindow.getForm());
         påfyldningWindow.getHandler().addObserver(omhældFadWindow.getForm());
+        påfyldningWindow.getHandler().addObserver(søgningWindow.getForm());
         flytFadWindow.getHandler().addObserver(søgningWindow.getForm());
         whiskyProduktOpretWindow.getHandler().addObserver(påfyldningWindow.getForm());
         whiskyProduktOpretWindow.getHandler().addObserver(søgningWindow.getForm());

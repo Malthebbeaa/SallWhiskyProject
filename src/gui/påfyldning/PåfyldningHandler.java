@@ -52,8 +52,9 @@ public class PåfyldningHandler implements GuiSubject {
                     Væske væske = controller.opretVæske(popUpWindow.getMængde(), selected);
                     this.væskeMix.add(væske);
                 }
-                System.out.println("Mængde tilføjet til " + væskeMix.getFad().getFadId() + " fra batchnr " + selected.getBatchNummer() + ": " + væskeMix.getPåfyldningsComponenter().getLast().getVæskeMængde());
             }
+            form.getLblFadInfo().setText("Antal liter på fad: " + (form.getCboxFad().getSelectionModel().getSelectedItem().getMængdeFyldtPåFad() +
+                    væskeMix.getVæskeMængde()) + " ud af " + form.getCboxFad().getSelectionModel().getSelectedItem().getStørrelse() + " liter");
         } catch (RuntimeException e){
             Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
             alert.showAndWait();

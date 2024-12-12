@@ -81,7 +81,7 @@ public class PåfyldningWindow extends BaseWindow {
                         String lager = String.valueOf(fad.getPlads().getHylde().getReol().getLager().getNavn());
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Fadet er på " + lager + " på reol " + reol +
                                 " hylde " + hylde + " på pladsnummer " + plads + ". Vil du give fadet en ny plads?");
-                        alert.setHeaderText("Fad nummer " + fad.getFadId() + " er påfydlt");
+                        alert.setHeaderText("Fad nummer " + fad.getFadId() + " er påfyldt");
                         alert.showAndWait();
                         if (alert.getResult().getButtonData().isDefaultButton()){
                             tabPane.getSelectionModel().select(7);

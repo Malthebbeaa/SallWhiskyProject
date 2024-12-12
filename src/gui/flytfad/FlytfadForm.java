@@ -158,12 +158,35 @@ public class FlytfadForm implements GuiObserver {
 
     public void selectedPladsChanged() {
         plads = lvPlads.getSelectionModel().getSelectedItem();
-        if(plads != null && plads.getFad() != null) {
+        ArrayList<Fad> fade = new ArrayList<>();
+        ArrayList<LocalDate> datoer = new ArrayList<>();
+        ArrayList<Double> mængder = new ArrayList<>();
+        String info = "";
+        if (plads != null && plads.getFad() != null) {
+            if (plads.getFad().getPåfyldningsComponent() != null) {
+                plads.getFad().traverseTree(plads.getFad().getPåfyldningsComponent(), datoer, fade, mængder);
+            }
+            for (Double v : mængder) {
+                if (v != 0.0) {
+                        info += "Væskemængde: " + v + "\n";
+                }
+            }
+            for (Fad fad1 : fade) {
+                if (!info.contains("fad" + fad1.getFadId())) {
+                    info += "Fade lagret på: fad" + fad1.getFadId() + " " + fad1.getTidligereIndhold() + "\n";
+                }
+            }
+            for (LocalDate localDate : datoer) {
+                if (!info.contains(localDate + "")) {
+                    info += "Datoer på lagringer: " + localDate + "\n";
+                }
+            }
+
             txFadInfo.setText("");
             txFadInfo.setText("FadID: " + plads.getFad().getFadId() + "\n" +
-                              "Fadstørrelse: " + plads.getFad().getStørrelse() + "L\n" +
-                              "Væskemængde: " + plads.getFad().getMængdeFyldtPåFad() + "L\n" +
-                              "Fadtype: " + plads.getFad().getTidligereIndhold());
+                    "Fadstørrelse: " + plads.getFad().getStørrelse() + "L\n" +
+                    "Væskemængde: " + plads.getFad().getMængdeFyldtPåFad() + "L\n" +
+                    "Fadtype: " + plads.getFad().getTidligereIndhold() + "\n" + info);
         }
     }
 

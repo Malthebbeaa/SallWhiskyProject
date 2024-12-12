@@ -201,6 +201,7 @@ public class Fad {
      * @param valgtMix   - Det mix du ønsker at omhælde til andetFad
      * @param mængde     - mængde du ønsker at omhælde
      * @param totalVæske - Total mængde af væske i fadet.
+     * @param nyStartDato - Startdato for omhældningen.
      */
     private void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate nyStartDato) {
         if (mængde <= 0 || mængde > totalVæske) {

@@ -3,12 +3,16 @@ package application.controller;
 import application.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import storage.Storage;
 import storage.StorageInterface;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.booleanThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ControllerTest {
     private StorageInterface storage = new Storage();
@@ -149,5 +153,53 @@ class ControllerTest {
         assertEquals(forventet,aktuelt);
     }
 
+    @Test
+    void opretWhiskyProdukt(){
+        //Arrange
+        String navn = "Jule Whisky";
+        LocalDate dato = LocalDate.now();
+
+        //Act
+        WhiskyProdukt whiskyProdukt = controller.opretWhiskyProdukt(navn,dato);
+        boolean forventet = true;
+        boolean aktuelt = controller.getStorage().getWhiskyProdukt().contains(whiskyProdukt);
+
+        //Assert
+        assertEquals(forventet,aktuelt);
+    }
+
+    @Test
+    void opretVæskeMix(){
+        //Arrange
+        Fad fad = mock(Fad.class);
+        LocalDate påfyldningsdato = LocalDate.now();
+
+        //Act
+        VæskeMix væskeMix = controller.opretVæskeMix(fad, påfyldningsdato);
+        boolean forventet = true;
+        boolean aktuelt = controller.getStorage().getPåfyldninger().contains(væskeMix);
+
+        //Assert
+        assertEquals(forventet, aktuelt);
+    }
+
+    @Test
+    void påfyldFad(){
+        //Arrange
+        Væske væske = mock(Væske.class);
+        when(væske.getVæskeMængde()).thenReturn(30.0);
+        Fad fad = new Fad(60, "Eg", new FadLeverandør("Allan", "Danmark"), "Sherry", 30, 2);
+
+        VæskeMix væskeMix = controller.opretVæskeMix(fad, LocalDate.now());
+        væskeMix.add(væske);
+
+        //Act
+        controller.påfyldFad(væskeMix, fad, LocalDate.now());
+        double forventet = 30;
+        double aktuelt = fad.getMængdeFyldtPåFad();
+
+        //Assert
+        assertEquals(forventet, aktuelt);
+    }
 
 }
