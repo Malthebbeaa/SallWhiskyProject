@@ -18,7 +18,7 @@ public class FadForm {
     private ComboBox comboboxLeverandører, comboboxStørrelse, comboboxMateriale, comboboxTidligereIndhold;
 
 
-    public FadForm(Controller controller){
+    public FadForm(Controller controller) {
         this.controller = controller;
         this.fadPane = new GridPane();
 
@@ -29,8 +29,8 @@ public class FadForm {
         fadInfoPane = new PaneCreator();
 
         Label lblOpret = new Label("Opret Fad:");
-        fadPane.add(lblOpret,0,0);
-        fadPane.add(fadInfoPane, 0,1);
+        fadPane.add(lblOpret, 0, 0);
+        fadPane.add(fadInfoPane, 0, 1);
         fadPane.setHgap(10);
         fadPane.setVgap(10);
 
@@ -43,53 +43,91 @@ public class FadForm {
                 new FadLeverandør("Le Ivre et Belle", "Frankrig"));
         comboboxLeverandører.setPrefHeight(20);
         comboboxLeverandører.setPrefWidth(200);
-        fadInfoPane.add(lblLeverandør, 0,0);
-        fadInfoPane.add(comboboxLeverandører, 0,1);
+        fadInfoPane.add(lblLeverandør, 0, 0);
+        fadInfoPane.add(comboboxLeverandører, 0, 1);
 
         Label lblStørrelse = new Label("Størrelse: ");
         comboboxStørrelse = new ComboBox<Double>();
         comboboxStørrelse.getItems().addAll(32, 94, 130);
         comboboxStørrelse.setPrefHeight(20);
         comboboxStørrelse.setPrefWidth(200);
-        fadInfoPane.add(lblStørrelse, 1,0);
-        fadInfoPane.add(comboboxStørrelse, 1,1);
+        fadInfoPane.add(lblStørrelse, 1, 0);
+        fadInfoPane.add(comboboxStørrelse, 1, 1);
 
         Label lblMateriale = new Label("Materiale: ");
         comboboxMateriale = new ComboBox();
         comboboxMateriale.getItems().addAll("Eg", "Kirsebærtræ", "Bøgetræ");
         comboboxMateriale.setPrefHeight(20);
         comboboxMateriale.setPrefWidth(200);
-        fadInfoPane.add(lblMateriale, 2,0);
-        fadInfoPane.add(comboboxMateriale, 2,1);
+        fadInfoPane.add(lblMateriale, 2, 0);
+        fadInfoPane.add(comboboxMateriale, 2, 1);
 
         Label lblTidligereIndhold = new Label("Tidligere indhold: ");
         comboboxTidligereIndhold = new ComboBox();
         comboboxTidligereIndhold.getItems().addAll("Sherry", "Bourbon", "Rødvin");
         comboboxTidligereIndhold.setPrefHeight(20);
         comboboxTidligereIndhold.setPrefWidth(200);
-        fadInfoPane.add(lblTidligereIndhold, 0,2);
-        fadInfoPane.add(comboboxTidligereIndhold, 0,3);
+        fadInfoPane.add(lblTidligereIndhold, 0, 2);
+        fadInfoPane.add(comboboxTidligereIndhold, 0, 3);
 
         Label lblAlder = new Label("Tøndens alder: ");
         txfAlder = new TextField();
         txfAlder.setPrefWidth(30);
-        fadInfoPane.add(lblAlder, 1,2);
-        fadInfoPane.add(txfAlder, 1,3);
+        fadInfoPane.add(lblAlder, 1, 2);
+        fadInfoPane.add(txfAlder, 1, 3);
 
         Label lblAntalGangeBrugt = new Label("Antal gange den har været brugt: ");
         txfAntalGangeBrugt = new TextField();
         txfAntalGangeBrugt.setPrefWidth(30);
-        fadInfoPane.add(lblAntalGangeBrugt, 2,2);
-        fadInfoPane.add(txfAntalGangeBrugt, 2,3);
+        fadInfoPane.add(lblAntalGangeBrugt, 2, 2);
+        fadInfoPane.add(txfAntalGangeBrugt, 2, 3);
     }
 
-    public int getTøndensAlder(){return Integer.parseInt(txfAlder.getText());}
-    public int getTøndensStørrelse(){return (int) comboboxStørrelse.getValue();}
-    public int getAntalGangeBrugt(){return Integer.parseInt(txfAntalGangeBrugt.getText());}
-    public FadLeverandør getFadLeverandør(){return (FadLeverandør) comboboxLeverandører.getValue();}
-    public String getTidligerIndhold(){return (String) comboboxTidligereIndhold.getValue();}
-    public String getMateriale(){return (String) comboboxMateriale.getValue();}
-    public GridPane getFadPane(){return fadPane;}
+    public int getTøndensAlder() {
+        if (txfAlder.getText().isEmpty()) {
+            throw new RuntimeException("Du skal angive tøndens alder");
+        }
+        return Integer.parseInt(txfAlder.getText());
+    }
+
+    public int getTøndensStørrelse() {
+        if (comboboxStørrelse.getValue() == null) {
+            throw new RuntimeException("Du skal vælge en størrelse");
+        }
+        return (int) comboboxStørrelse.getValue();
+    }
+
+    public int getAntalGangeBrugt() {
+        if (txfAntalGangeBrugt.getText().isEmpty()) {
+            throw new RuntimeException("Du skal angive antal gange fadet er brugt");
+        }
+        return Integer.parseInt(txfAntalGangeBrugt.getText());
+    }
+
+    public FadLeverandør getFadLeverandør() {
+        if (comboboxLeverandører.getValue() == null) {
+            throw new RuntimeException("Du skal vælge en fad leverandør");
+        }
+        return (FadLeverandør) comboboxLeverandører.getValue();
+    }
+
+    public String getTidligerIndhold() {
+        if (comboboxTidligereIndhold.getValue() == null) {
+            throw new RuntimeException("Du skal det tidligere indhold");
+        }
+        return (String) comboboxTidligereIndhold.getValue();
+    }
+
+    public String getMateriale() {
+        if (comboboxMateriale.getValue() == null) {
+            throw new RuntimeException("Du skal vælge et materiale");
+        }
+        return (String) comboboxMateriale.getValue();
+    }
+
+    public GridPane getFadPane() {
+        return fadPane;
+    }
 
     public TextField getTxfAlder() {
         return txfAlder;
