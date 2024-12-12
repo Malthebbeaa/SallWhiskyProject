@@ -178,7 +178,7 @@ public class Fad {
     public void flytDelAfVæskeMixTilFad(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, LocalDate omhældningsDato) {
         double totalVæske = valgtMix.getVæskeMængde();
         if (andetFad.overskriderFadKapacitet(mængde)) {
-            throw new RuntimeException("Kan ikke flytte væskemix, da det overskrider kapaciteten af det nye fad.");
+            throw new RuntimeException("Kan ikke flytte væsken, da det overskrider kapaciteten af det nye fad.");
         } else {
             flytDelAfVæskeMixTilFadHjælper(andetFad, valgtMix, mængde, totalVæske, omhældningsDato);
         }
@@ -205,7 +205,7 @@ public class Fad {
      */
     private void flytDelAfVæskeMixTilFadHjælper(Fad andetFad, PåfyldningsComponent valgtMix, double mængde, double totalVæske, LocalDate nyStartDato) {
         if (mængde <= 0 || mængde > totalVæske) {
-            throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige væskemixets mængde.");
+            throw new IllegalArgumentException("Mængden skal være positiv og ikke overstige fadets mængde.");
         }
         for (PåfyldningsComponent pc : valgtMix.getPåfyldningsComponenter()) {
             double andel = pc.getVæskeMængde() / totalVæske;

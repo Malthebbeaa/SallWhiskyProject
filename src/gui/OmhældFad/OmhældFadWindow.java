@@ -11,6 +11,7 @@ public class OmhældFadWindow extends BaseWindow {
     private OmhældFadForm form;
     private OmhældFadHandler handler;
     private GridPane omhældFadPane;
+    double mængde;
 
     public OmhældFadWindow(Controller controller) {
         handler = new OmhældFadHandler(controller);
@@ -23,7 +24,7 @@ public class OmhældFadWindow extends BaseWindow {
         getPane().add(form.getOmhældFadPane(), 0,1);
 
         Button btnFlytFad = new Button("Omhæld Fad");
-        btnFlytFad.setOnAction(e -> handler.omhældFadAktion(form.getfraFad(),form.getDestinationsFad(), form.getVæske(), Double.parseDouble(form.getTxfMængde().getText()),form));
+        btnFlytFad.setOnAction(e -> handler.omhældFadAktion(form.getfraFad(),form.getDestinationsFad(), form.getVæske(), form.getTxfMængde().getText() ,form));
 
         Button btnAfbrydAktion = new Button("Afbryd");
         btnAfbrydAktion.setOnAction(e -> form.clearAktion());
