@@ -44,7 +44,7 @@ public class DestilleringForm {
 
         Label lblAntalDestilleringer = new Label("Antal destilleringer: ");
         txfAntalDestilleringer = new TextField();
-        txfAntalDestilleringer.setPromptText("F.eks. 2");
+        txfAntalDestilleringer.setPromptText("Eks. 2");
         txfAntalDestilleringer.setPrefWidth(30);
         destilleringInfoPane.add(lblAntalDestilleringer, 2,0);
         destilleringInfoPane.add(txfAntalDestilleringer, 3,0);
@@ -61,16 +61,19 @@ public class DestilleringForm {
         Label lblVæskeMængde = new Label("Væskemængde (L): ");
         destilleringInfoPane.add(lblVæskeMængde, 0,2);
         txfVæskeMængde = new TextField();
+        txfVæskeMængde.setPromptText("Eks. 200");
         destilleringInfoPane.add(txfVæskeMængde, 1,2);
 
         Label lblAlkoholProcent = new Label("Alkoholprocent: ");
         destilleringInfoPane.add(lblAlkoholProcent, 2,2);
         txfAlkoholProcent = new TextField();
+        txfAlkoholProcent.setPromptText("Eks. 70");
         destilleringInfoPane.add(txfAlkoholProcent, 3,2);
 
         Label lblKommentar = new Label("Evt. kommentar: ");
         destilleringInfoPane.add(lblKommentar, 0,3);
         txfKommentar = new TextField();
+        txfKommentar.setPromptText("Eks. Lavet af praktikant");
         destilleringInfoPane.add(txfKommentar, 1,3, 3,1);
     }
     public LocalDate getStartDato(){return datepickerstartDato.getValue();}
