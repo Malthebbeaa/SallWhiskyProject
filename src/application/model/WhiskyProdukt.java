@@ -178,8 +178,8 @@ public class WhiskyProdukt {
                 + "\nog hældt på flaske den " + opretDato + ". "
                 + "\nWhiskyen er opblandet med " + vandMængde + " liter vand. "
                 + "\nDet er en " + getWhiskytype() + " whisky, der er endt på " + stringAlkoholProcent + "% ABV. "
-                + "\nDer er blevet tappet " + antalFlasker(flaskeStørrelse) + " flasker"
-                + "\n\n\n\n"+ flaskeStørrelse+" L                            " +
+                + "\n\n\nFlaske nummer                                ud af " + antalFlasker(flaskeStørrelse)
+                + "\n\n\n"+ flaskeStørrelse+" L                            " +
                 "                                            " + stringAlkoholProcent + "% ABV";
 
         return historie;

@@ -26,6 +26,7 @@ public class WhiskyProduktOpretWindow extends BaseWindow {
 
         initContent();
     }
+
     @Override
     public void initContent() {
         getPane().add(form.getOpretWhiskyProduktPane(), 0, 1);
@@ -46,21 +47,21 @@ public class WhiskyProduktOpretWindow extends BaseWindow {
         getPane().add(hBoxButtons, 0, 2);
     }
 
-    public void begyndtOprettelseAction(){
+    public void begyndtOprettelseAction() {
         String navn = form.getTxfNavn().getText();
         LocalDate oprettelsesDato = form.getDatePickerOprettelsesdato().getValue();
 
-        if (navn == null || oprettelsesDato == null){
+        if (form.getTxfNavn().getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Vælg både navn og oprettelsesdato før du fortsætter");
             alert.showAndWait();
             return;
+        } else {
+            WhiskyProdukt whiskyProdukt = new WhiskyProdukt(navn, oprettelsesDato);
+
+            form.initNextForm(handler, whiskyProdukt);
+            getPane().getChildren().setAll(form.getNextPane());
+            setØverste();
         }
-
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(navn, oprettelsesDato);
-
-        form.initNextForm(handler, whiskyProdukt);
-        getPane().getChildren().setAll(form.getNextPane());
-        setØverste();
 
         Button btnPåfyld = new Button("Opret Whiskyprodukt");
         btnPåfyld.setOnAction(e -> {
@@ -79,7 +80,7 @@ public class WhiskyProduktOpretWindow extends BaseWindow {
         getPane().add(hBoxButtons, 0, 2);
     }
 
-    public void resetAction(){
+    public void resetAction() {
         getPane().getChildren().clear();
         initContent();
         form.getLblOverskrift().setText("Påfyld fad");
