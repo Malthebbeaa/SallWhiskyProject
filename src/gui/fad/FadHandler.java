@@ -32,6 +32,7 @@ public class FadHandler implements GuiSubject {
             alert.setHeaderText(null);
             alert.showAndWait();
         }
+        notifyObservers();
         clearAction(form);
     }
 

@@ -152,13 +152,11 @@ public class PåfyldningForm implements GuiObserver {
 
         ObservableList<Fad> tommeFade = FXCollections.observableArrayList();
         for (Fad fad : controller.getStorage().getFade()) {
-            if (fad.getMængdeFyldtPåFad() != fad.getStørrelse()){
+            if (fad.getMængdeFyldtPåFad() <= fad.getStørrelse()){
                 tommeFade.add(fad);
             }
         }
-
         cboxFad.setItems(tommeFade);
-
     }
 
     @Override
